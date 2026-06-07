@@ -15,7 +15,7 @@
   <key>ProgramArguments</key>
   <array>
     <string>/bin/bash</string>
-    <string>/Users/zazunyche/family-board/scripts/midnight-commit.sh</string>
+    <string>/Users/zazunyche/Documents/src/family-board/scripts/midnight-commit.sh</string>
   </array>
 
   <key>StartCalendarInterval</key>

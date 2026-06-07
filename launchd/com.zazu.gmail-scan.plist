@@ -17,7 +17,7 @@
   <key>ProgramArguments</key>
   <array>
     <string>/bin/bash</string>
-    <string>/Users/zazunyche/family-board/scripts/gmail-scan.sh</string>
+    <string>/Users/zazunyche/Documents/src/family-board/scripts/gmail-scan.sh</string>
   </array>
 
   <!-- Fire at the top of every 2nd hour, 7am–9pm -->

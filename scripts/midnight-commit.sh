@@ -7,7 +7,7 @@
 
 set -euo pipefail
 
-BOARD_DIR="/Users/zazunyche/family-board"
+BOARD_DIR="/Users/zazunyche/Documents/src/family-board"
 LOG_DIR="$BOARD_DIR/logs"
 mkdir -p "$LOG_DIR"
 

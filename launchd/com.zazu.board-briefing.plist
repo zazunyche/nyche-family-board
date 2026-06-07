@@ -17,7 +17,7 @@
   <key>ProgramArguments</key>
   <array>
     <string>/bin/bash</string>
-    <string>/Users/zazunyche/family-board/scripts/board-briefing.sh</string>
+    <string>/Users/zazunyche/Documents/src/family-board/scripts/board-briefing.sh</string>
   </array>
 
   <key>StartCalendarInterval</key>
