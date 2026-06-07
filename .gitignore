@@ -1,0 +1,6 @@
+node_modules/
+logs/
+snapshots/
+board-data.json.tmp
+.DS_Store
+*.log

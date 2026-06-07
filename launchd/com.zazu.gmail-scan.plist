@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  com.zazu.gmail-scan.plist
+  Fires every 2 hours between 7am and 9pm.
+  Uses Zazu's existing mcp__claude_ai_Gmail__* tools — no OAuth needed.
+  Install: cp launchd/com.zazu.gmail-scan.plist ~/Library/LaunchAgents/
+           launchctl load ~/Library/LaunchAgents/com.zazu.gmail-scan.plist
+  Test:    launchctl start com.zazu.gmail-scan
+  Logs:    /tmp/zazu-gmail-scan.stdout.log
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.zazu.gmail-scan</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/zazunyche/family-board/scripts/gmail-scan.sh</string>
+  </array>
+
+  <!-- Fire at the top of every 2nd hour, 7am–9pm -->
+  <key>StartCalendarInterval</key>
+  <array>
+    <dict><key>Hour</key><integer>7</integer><key>Minute</key><integer>30</integer></dict>
+    <dict><key>Hour</key><integer>9</integer><key>Minute</key><integer>30</integer></dict>
+    <dict><key>Hour</key><integer>11</integer><key>Minute</key><integer>30</integer></dict>
+    <dict><key>Hour</key><integer>13</integer><key>Minute</key><integer>30</integer></dict>
+    <dict><key>Hour</key><integer>15</integer><key>Minute</key><integer>30</integer></dict>
+    <dict><key>Hour</key><integer>17</integer><key>Minute</key><integer>30</integer></dict>
+    <dict><key>Hour</key><integer>19</integer><key>Minute</key><integer>30</integer></dict>
+    <dict><key>Hour</key><integer>21</integer><key>Minute</key><integer>0</integer></dict>
+  </array>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/zazu-gmail-scan.stdout.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/tmp/zazu-gmail-scan.stderr.log</string>
+
+  <key>RunAtLoad</key>
+  <false/>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>HOME</key>
+    <string>/Users/zazunyche</string>
+    <key>PATH</key>
+    <string>/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin</string>
+  </dict>
+</dict>
+</plist>

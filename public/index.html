@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nyche Family Board</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg:        #F0EDE8;
+    --surface:   #FAFAF8;
+    --white:     #FFFFFF;
+    --ink:       #1A1714;
+    --muted:     #7A7468;
+    --border:    rgba(26,23,20,.1);
+    --shadow:    0 2px 12px rgba(26,23,20,.06);
+
+    --stage-idea:     #EBF3FF; --stage-idea-text:     #1A4FCC;
+    --stage-research: #FFF8E6; --stage-research-text: #92570D;
+    --stage-active:   #FFF0F0; --stage-active-text:   #B91C1C;
+    --stage-assigned: #EDFCF5; --stage-assigned-text: #0D7A52;
+    --stage-done:     #F5F5F4; --stage-done-text:     #6B6860;
+
+    --cat-home:     #2563EB; --cat-home-bg:     #EFF6FF;
+    --cat-vehicles: #D97706; --cat-vehicles-bg: #FFFBEB;
+    --cat-family:   #059669; --cat-family-bg:   #ECFDF5;
+    --cat-admin:    #DC2626; --cat-admin-bg:    #FEF2F2;
+    --cat-yard:     #16A34A; --cat-yard-bg:     #F0FDF4;
+    --cat-goals:    #7C3AED; --cat-goals-bg:    #F5F3FF;
+
+    --owner-dad:  #1A4FFF;
+    --owner-mom:  #0B9E8E;
+    --owner-both: #7C3AED;
+    --owner-zazu: #B45309;
+
+    --red:    #DC2626;
+    --amber:  #D97706;
+    --green:  #059669;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--ink);
+    color: #fff;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    padding: 0 22px;
+    gap: 14px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-logo { font-family: 'Instrument Serif', serif; font-size: 17px; display:flex; align-items:center; gap:8px; }
+  .nav-divider { width:1px; height:18px; background:rgba(255,255,255,.15); }
+  .nav-meta { font-size: 11px; color: rgba(255,255,255,.4); }
+  .nav-pills { display:flex; gap:6px; margin-left:auto; }
+  .pill {
+    padding: 4px 11px; border-radius: 20px; font-size: 11.5px; font-weight: 600;
+    border: 1px solid; cursor:pointer; transition: opacity .15s;
+  }
+  .pill-urgent { background:rgba(220,38,38,.2); color:#FCA5A5; border-color:rgba(220,38,38,.3); }
+  .pill-stale  { background:rgba(217,119,6,.2); color:#FCD34D; border-color:rgba(217,119,6,.3); }
+  .pill-open   { background:rgba(255,255,255,.08); color:rgba(255,255,255,.55); border-color:rgba(255,255,255,.1); }
+  .nav-actions { display:flex; gap:8px; margin-left:12px; }
+  .btn {
+    padding:6px 14px; border-radius:8px; border:none; font-size:12px;
+    font-weight:600; cursor:pointer; transition:opacity .15s; font-family:inherit;
+  }
+  .btn:hover { opacity:.85; }
+  .btn-ghost { background:rgba(255,255,255,.1); color:#fff; border:1px solid rgba(255,255,255,.18); }
+  .btn-primary { background:#1A4FFF; color:#fff; }
+
+  /* ── FILTER BAR ── */
+  .filter-bar {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 22px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .filter-bar input {
+    padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border);
+    font-size: 13px; width: 180px; background: var(--bg); color: var(--ink);
+    font-family: inherit;
+  }
+  .filter-bar input:focus { outline: 2px solid #1A4FFF; }
+  .filter-group { display:flex; gap:5px; flex-wrap:wrap; }
+  .ftag {
+    padding: 4px 11px; border-radius: 20px; font-size: 11px; font-weight: 600;
+    border: 1.5px solid var(--border); background: #fff; cursor:pointer; color: var(--muted);
+    transition: all .12s;
+  }
+  .ftag.active { border-color: currentColor; }
+  .sep { width:1px; height:20px; background:var(--border); }
+
+  /* ── BOARD ── */
+  .board-wrap { padding: 18px 22px; overflow-x: auto; }
+  .board { display:flex; gap:14px; min-width: fit-content; }
+
+  /* ── COLUMN ── */
+  .col { width: 224px; flex-shrink:0; display:flex; flex-direction:column; }
+  .col-head {
+    display: flex; align-items:center; justify-content:space-between;
+    padding: 8px 11px; border-radius: 9px 9px 0 0;
+    font-size: 11.5px; font-weight: 700; letter-spacing:.04em;
+    margin-bottom: 8px;
+  }
+  .col-count {
+    font-size: 11px; font-weight: 700;
+    border-radius: 20px; padding: 1px 8px;
+    background: rgba(0,0,0,.07);
+  }
+  .cards { flex:1; min-height: 80px; }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 3px solid transparent;
+    border-radius: 10px;
+    padding: 11px 13px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: box-shadow .15s, transform .1s;
+  }
+  .card:hover { box-shadow: var(--shadow); transform: translateY(-1px); }
+  .card.overdue   { border-left-color: var(--red); }
+  .card.stale     { border-left-color: var(--amber); }
+  .card-title {
+    font-weight: 600; font-size: 12.5px; line-height: 1.4; margin-bottom: 7px;
+    display:flex; align-items:flex-start; gap:6px;
+  }
+  .priority-dot {
+    width: 7px; height: 7px; border-radius: 50%; flex-shrink:0; margin-top:4px;
+  }
+  .cat-tag {
+    display: inline-block; padding: 2px 7px; border-radius: 20px;
+    font-size: 10px; font-weight: 600; margin-bottom: 6px;
+  }
+  .card-meta { display:flex; align-items:center; gap:6px; font-size:11px; color:var(--muted); }
+  .avatar {
+    width:17px; height:17px; border-radius:50%;
+    display:inline-flex; align-items:center; justify-content:center;
+    font-size:8px; font-weight:700; color:#fff; flex-shrink:0;
+  }
+  .overdue-label { color:var(--red); font-weight:700; }
+  .stale-label   { color:var(--amber); font-weight:600; margin-left:auto; }
+  .due-soon      { color:var(--amber); font-weight:600; }
+
+  /* card actions */
+  .card-actions { display:flex; gap:4px; margin-top:8px; }
+  .card-move {
+    padding: 2px 8px; border-radius: 6px; border: 1px solid var(--border);
+    font-size: 10px; font-weight: 600; cursor:pointer; background:var(--bg);
+    color: var(--muted); font-family:inherit;
+  }
+  .card-move.fwd { background: #EFF6FF; color: #1A4FFF; border-color: rgba(26,79,255,.2); }
+  .card-del { margin-left:auto; padding:2px 8px; border-radius:6px; border:1px solid rgba(220,38,38,.2); font-size:10px; cursor:pointer; background:#FEF2F2; color:var(--red); font-family:inherit; }
+
+  .col-add {
+    margin-top:8px; padding:8px; width:100%; border-radius:8px;
+    border: 1.5px dashed var(--border); background:transparent; cursor:pointer;
+    font-size:12px; color:var(--muted); font-family:inherit;
+  }
+  .col-add:hover { background:rgba(26,79,255,.04); color:#1A4FFF; }
+
+  /* ── MODAL ── */
+  .overlay {
+    position:fixed; inset:0; background:rgba(26,23,20,.5); backdrop-filter:blur(3px);
+    z-index:200; display:flex; align-items:center; justify-content:center; padding:20px;
+  }
+  .modal {
+    background:#fff; border-radius:18px; padding:28px;
+    width:100%; max-width:510px; box-shadow:0 24px 80px rgba(26,23,20,.2);
+    max-height:90vh; overflow-y:auto;
+  }
+  .modal-head { display:flex; align-items:center; margin-bottom:22px; }
+  .modal-head h3 { font-family:'Instrument Serif', serif; font-size:20px; }
+  .modal-close { margin-left:auto; background:none; border:none; font-size:20px; cursor:pointer; color:var(--muted); }
+  .form-grid { display:grid; gap:14px; }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  label { font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; display:block; margin-bottom:4px; }
+  input[type=text], input[type=date], select, textarea {
+    width:100%; padding:8px 10px; border-radius:8px;
+    border:1px solid var(--border); font-size:13px;
+    font-family:inherit; color:var(--ink); background:#fff;
+  }
+  input:focus, select:focus, textarea:focus { outline:2px solid #1A4FFF; }
+  textarea { min-height:76px; resize:vertical; }
+  .modal-actions { display:flex; gap:10px; margin-top:20px; }
+  .modal-cancel { flex:1; padding:10px; border-radius:10px; border:1px solid var(--border); background:var(--bg); cursor:pointer; font-size:13px; font-weight:600; font-family:inherit; }
+  .modal-save   { flex:2; padding:10px; border-radius:10px; border:none; background:#1A4FFF; color:#fff; cursor:pointer; font-size:13px; font-weight:700; font-family:inherit; }
+
+  /* ── BRIEFING PANEL ── */
+  .brief-overlay { position:fixed; inset:0; background:rgba(26,23,20,.6); backdrop-filter:blur(4px); z-index:200; display:flex; align-items:center; justify-content:center; padding:20px; }
+  .brief-panel {
+    background:#0F172A; border-radius:20px; padding:32px;
+    width:100%; max-width:540px; max-height:88vh; overflow-y:auto;
+    box-shadow: 0 32px 100px rgba(0,0,0,.5);
+  }
+  .brief-head { display:flex; align-items:center; margin-bottom:22px; }
+  .brief-badge { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; background:#1A4FFF; color:#fff; padding:3px 10px; border-radius:20px; }
+  .brief-time { margin-left:auto; font-size:11px; color:rgba(255,255,255,.35); }
+  .brief-title { font-family:'Instrument Serif', serif; font-size:24px; color:#fff; margin-bottom:16px; }
+  .brief-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:20px; }
+  .stat-box { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:10px; padding:12px; text-align:center; }
+  .stat-num { font-size:26px; font-weight:700; }
+  .stat-lbl { font-size:10px; color:rgba(255,255,255,.4); margin-top:2px; }
+  .brief-section { margin-bottom:18px; }
+  .brief-section-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; margin-bottom:10px; }
+  .brief-item { border-radius:10px; padding:12px 14px; margin-bottom:7px; }
+  .brief-item-title { font-weight:600; color:#fff; font-size:13px; margin-bottom:4px; }
+  .brief-item-sub { font-size:12px; }
+  .brief-close { margin-left:auto; background:rgba(255,255,255,.1); border:none; border-radius:8px; width:32px; height:32px; cursor:pointer; color:#fff; font-size:16px; }
+  .brief-footer { border-top:1px solid rgba(255,255,255,.08); padding-top:14px; margin-top:4px; font-size:11px; color:rgba(255,255,255,.25); text-align:center; }
+
+  /* ── TOAST ── */
+  .toast {
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+    background:var(--ink); color:#fff; padding:9px 20px; border-radius:30px;
+    font-size:13px; font-weight:500; z-index:300; white-space:nowrap;
+    box-shadow:0 8px 24px rgba(0,0,0,.3); pointer-events:none;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background:var(--white); border-top:1px solid var(--border);
+    padding:7px 22px; font-size:11px; color:var(--muted);
+    display:flex; align-items:center; gap:10px;
+  }
+  footer span.dot { color:var(--border); }
+
+  .loading {
+    display:flex; align-items:center; justify-content:center;
+    height:60vh; font-family:'Instrument Serif', serif;
+    font-size:18px; color:var(--muted);
+  }
+  .error-banner {
+    background:#FEF2F2; border:1px solid rgba(220,38,38,.2);
+    border-radius:10px; padding:16px 20px; margin:20px 22px;
+    color:var(--red); font-size:14px;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">🏠 <span>Nyche Family</span></div>
+  <div class="nav-divider"></div>
+  <span class="nav-meta">Family Command Center</span>
+  <div class="nav-pills" id="navPills"></div>
+  <div class="nav-actions">
+    <button class="btn btn-ghost" onclick="openBriefing()">☀️ Briefing</button>
+    <button class="btn btn-primary" onclick="openAdd()">+ Add Task</button>
+  </div>
+</nav>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <input type="text" id="searchInput" placeholder="Search tasks…" oninput="renderBoard()">
+  <div class="filter-group" id="ownerFilters"></div>
+  <div class="sep"></div>
+  <div class="filter-group" id="catFilters"></div>
+</div>
+
+<!-- BOARD -->
+<div class="board-wrap" id="boardWrap">
+  <div class="loading">Loading your household board…</div>
+</div>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <span>🏠 Nyche Family Board</span>
+  <span class="dot">·</span>
+  <span id="footerMeta">—</span>
+  <span class="dot">·</span>
+  <span>Stale after 7 days</span>
+  <span style="margin-left:auto" id="footerTime">—</span>
+</footer>
+
+<!-- BRIEFING OVERLAY -->
+<div class="brief-overlay" id="briefingOverlay" style="display:none" onclick="if(event.target===this)closeBriefing()">
+  <div class="brief-panel" id="briefingPanel"></div>
+</div>
+
+<!-- TASK MODAL -->
+<div class="overlay" id="modalOverlay" style="display:none" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="modalTitle">Add Task</h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="form-grid">
+      <div>
+        <label>Title</label>
+        <input type="text" id="fTitle" placeholder="What needs to get done?">
+      </div>
+      <div class="form-row">
+        <div>
+          <label>Stage</label>
+          <select id="fStage">
+            <option value="IDEA">💡 Idea</option>
+            <option value="RESEARCH">🔍 Research</option>
+            <option value="ACTIVE">⚡ Active</option>
+            <option value="ASSIGNED">📋 Assigned</option>
+            <option value="DONE">✅ Done</option>
+          </select>
+        </div>
+        <div>
+          <label>Priority</label>
+          <select id="fPriority">
+            <option value="HIGH">High</option>
+            <option value="MEDIUM" selected>Medium</option>
+            <option value="LOW">Low</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label>Category</label>
+          <select id="fCategory">
+            <option value="HOME">Home Maintenance</option>
+            <option value="VEHICLES">Vehicles</option>
+            <option value="FAMILY">Family / Kids</option>
+            <option value="ADMIN">Admin / Deadlines</option>
+            <option value="YARD">Yard / Outdoor</option>
+            <option value="GOALS">Goals</option>
+          </select>
+        </div>
+        <div>
+          <label>Owner</label>
+          <select id="fOwner">
+            <option value="DAD">Dad</option>
+            <option value="MOM">Mom</option>
+            <option value="BOTH">Both</option>
+            <option value="ZAZU">Zazu</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label>Due Date (optional)</label>
+        <input type="date" id="fDue">
+      </div>
+      <div>
+        <label>Notes</label>
+        <textarea id="fNotes" placeholder="Context, links, vendor names, Zazu research…"></textarea>
+      </div>
+      <div>
+        <label>Recurrence</label>
+        <select id="fRecurrence">
+          <option value="">None</option>
+          <option value="yearly">Yearly</option>
+          <option value="quarterly">Quarterly</option>
+          <option value="monthly">Monthly</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+      <button class="modal-save" onclick="saveTask()">Save Task</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast" style="display:none"></div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────────
+let BOARD       = null;
+let editTaskId  = null;
+let defaultStage = "IDEA";
+let filterOwner  = "ALL";
+let filterCat    = "ALL";
+
+const STAGES = [
+  { id:"IDEA",     label:"💡 Idea",     textColor:"var(--stage-idea-text)",     bg:"var(--stage-idea)"     },
+  { id:"RESEARCH", label:"🔍 Research", textColor:"var(--stage-research-text)", bg:"var(--stage-research)" },
+  { id:"ACTIVE",   label:"⚡ Active",   textColor:"var(--stage-active-text)",   bg:"var(--stage-active)"   },
+  { id:"ASSIGNED", label:"📋 Assigned", textColor:"var(--stage-assigned-text)", bg:"var(--stage-assigned)" },
+  { id:"DONE",     label:"✅ Done",     textColor:"var(--stage-done-text)",     bg:"var(--stage-done)"     },
+];
+
+const CAT_META = {
+  HOME:     { label:"Home",     color:"var(--cat-home)",     bg:"var(--cat-home-bg)"     },
+  VEHICLES: { label:"Vehicles", color:"var(--cat-vehicles)", bg:"var(--cat-vehicles-bg)" },
+  FAMILY:   { label:"Family",   color:"var(--cat-family)",   bg:"var(--cat-family-bg)"   },
+  ADMIN:    { label:"Admin",    color:"var(--cat-admin)",    bg:"var(--cat-admin-bg)"    },
+  YARD:     { label:"Yard",     color:"var(--cat-yard)",     bg:"var(--cat-yard-bg)"     },
+  GOALS:    { label:"Goals",    color:"var(--cat-goals)",    bg:"var(--cat-goals-bg)"    },
+};
+
+const OWNER_META = {
+  DAD:  { label:"Dad",  color:"var(--owner-dad)"  },
+  MOM:  { label:"Mom",  color:"var(--owner-mom)"  },
+  BOTH: { label:"Both", color:"var(--owner-both)" },
+  ZAZU: { label:"Zazu", color:"var(--owner-zazu)" },
+};
+
+const PRI_COLOR = { HIGH:"var(--red)", MEDIUM:"var(--amber)", LOW:"var(--muted)" };
+
+// ── Utilities ──────────────────────────────────────────────────────────────
+const today   = () => new Date().toISOString().split("T")[0];
+const nowISO  = () => new Date().toISOString();
+const uid     = () => "t_" + Math.random().toString(36).slice(2,8);
+const daysSince = d => d ? Math.floor((Date.now()-new Date(d).getTime())/86400000) : 0;
+const isOverdue = t => t.dueDate && t.dueDate < today() && t.stage !== "DONE" && !t.snoozedUntil;
+const isStale   = t => !isOverdue(t) && t.stage !== "DONE" && !t.snoozedUntil && daysSince(t.updatedAt) >= (BOARD?.settings?.staleThresholdDays || 7);
+const dueSoon   = (t,d=3) => { if(!t.dueDate||t.stage==="DONE"||isOverdue(t)) return false; const diff=(new Date(t.dueDate)-new Date(today()))/86400000; return diff>=0&&diff<=d; };
+
+// ── Data ───────────────────────────────────────────────────────────────────
+async function loadBoard() {
+  try {
+    const r = await fetch("/api/board");
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    BOARD = await r.json();
+    renderAll();
+  } catch(e) {
+    document.getElementById("boardWrap").innerHTML =
+      `<div class="error-banner">⚠️ Could not load board data.<br><small>${e.message} — is the server running?</small></div>`;
+  }
+}
+
+async function saveBoard(actor) {
+  BOARD.meta.lastUpdated   = nowISO();
+  BOARD.meta.lastUpdatedBy = actor || "BOARD_UI";
+  BOARD._actor = actor || "BOARD_UI";
+  try {
+    await fetch("/api/board", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify(BOARD)
+    });
+  } catch(e) {
+    showToast("⚠️ Save failed — server unreachable");
+  }
+}
+
+// ── Render ─────────────────────────────────────────────────────────────────
+function renderAll() {
+  renderPills();
+  renderFilters();
+  renderBoard();
+  renderFooter();
+}
+
+function renderPills() {
+  const urgent = BOARD.tasks.filter(t => isOverdue(t)).length;
+  const stale  = BOARD.tasks.filter(t => isStale(t)).length;
+  const open   = BOARD.tasks.filter(t => t.stage !== "DONE").length;
+  const el = document.getElementById("navPills");
+  el.innerHTML = `
+    ${urgent ? `<div class="pill pill-urgent">🚨 ${urgent} Urgent</div>` : ""}
+    ${stale  ? `<div class="pill pill-stale">💤 ${stale} Stalled</div>` : ""}
+    <div class="pill pill-open">${open} open</div>
+  `;
+}
+
+function renderFilters() {
+  const owners = document.getElementById("ownerFilters");
+  const cats   = document.getElementById("catFilters");
+  const mk = (label, val, meta, current, setter) => {
+    const active = current === val;
+    const style  = active && meta ? `color:${meta.color}; border-color:${meta.color}; background:${meta.bg||meta.color+"18"};` : "";
+    return `<div class="ftag${active?" active":""}" style="${style}" onclick="${setter}('${val}');renderBoard()">${label}</div>`;
+  };
+  owners.innerHTML = mk("All","ALL",null,filterOwner,"setOwner") +
+    Object.entries(OWNER_META).map(([k,v])=>mk(v.label,k,v,filterOwner,"setOwner")).join("");
+  cats.innerHTML = mk("All","ALL",null,filterCat,"setCat") +
+    Object.entries(CAT_META).map(([k,v])=>mk(v.label,k,v,filterCat,"setCat")).join("");
+}
+
+function setOwner(v) { filterOwner=v; renderFilters(); }
+function setCat(v)   { filterCat=v;   renderFilters(); }
+
+function getVisible() {
+  const search = document.getElementById("searchInput")?.value.toLowerCase()||"";
+  return BOARD.tasks.filter(t => {
+    if (filterOwner!=="ALL" && t.owner!==filterOwner && !(filterOwner==="DAD"&&t.owner==="BOTH") && !(filterOwner==="MOM"&&t.owner==="BOTH")) return false;
+    if (filterCat!=="ALL" && t.category!==filterCat) return false;
+    if (search && !t.title.toLowerCase().includes(search) && !(t.notes||"").toLowerCase().includes(search)) return false;
+    return true;
+  });
+}
+
+function renderBoard() {
+  const visible = getVisible();
+  const wrap = document.getElementById("boardWrap");
+  wrap.innerHTML = `<div class="board">${STAGES.map(s => renderCol(s, visible.filter(t=>t.stage===s.id))).join("")}</div>`;
+}
+
+function renderCol(stage, tasks) {
+  return `
+    <div class="col">
+      <div class="col-head" style="background:${stage.bg};color:${stage.textColor}">
+        <span>${stage.label}</span>
+        <span class="col-count">${tasks.length}</span>
+      </div>
+      <div class="cards">${tasks.map(t=>renderCard(t,stage)).join("")}</div>
+      <button class="col-add" onclick="openAdd('${stage.id}')">+ Add to ${stage.label.replace(/\S+\s/,"")}</button>
+    </div>`;
+}
+
+function renderCard(t, stage) {
+  const stageIdx  = STAGES.findIndex(s=>s.id===t.stage);
+  const cat       = CAT_META[t.category]||{label:t.category,color:"#888",bg:"#eee"};
+  const owner     = OWNER_META[t.owner]||{label:t.owner,color:"#888"};
+  const overdue   = isOverdue(t);
+  const stale     = isStale(t);
+  const soon      = dueSoon(t,3);
+  const cls       = overdue?"overdue":stale?"stale":"";
+  const prevStage = stageIdx > 0 ? STAGES[stageIdx-1] : null;
+  const nextStage = stageIdx < STAGES.length-1 ? STAGES[stageIdx+1] : null;
+
+  let metaRight = "";
+  if (overdue) metaRight = `<span class="overdue-label">⚠ ${daysSince(t.dueDate)}d overdue</span>`;
+  else if (soon) metaRight = `<span class="due-soon">Due ${t.dueDate}</span>`;
+  else if (t.dueDate) metaRight = `<span>${t.dueDate}</span>`;
+  if (stale && !overdue) metaRight += `<span class="stale-label">💤 ${daysSince(t.updatedAt)}d</span>`;
+
+  return `
+    <div class="card ${cls}" onclick="openEdit('${t.id}')">
+      <div class="card-title">
+        <span class="priority-dot" style="background:${PRI_COLOR[t.priority]||"#888"}"></span>
+        ${esc(t.title)}
+      </div>
+      <div>
+        <span class="cat-tag" style="color:${cat.color};background:${cat.bg}">${cat.label}</span>
+      </div>
+      <div class="card-meta">
+        <span class="avatar" style="background:${owner.color}">${t.owner[0]}</span>
+        ${metaRight}
+      </div>
+      <div class="card-actions" onclick="event.stopPropagation()">
+        ${prevStage ? `<button class="card-move" onclick="moveTask('${t.id}','${prevStage.id}')">← ${prevStage.label.replace(/\S+\s/,"")}</button>` : ""}
+        ${nextStage ? `<button class="card-move fwd" onclick="moveTask('${t.id}','${nextStage.id}')">${nextStage.label.replace(/\S+\s/,"")} →</button>` : ""}
+        <button class="card-del" onclick="deleteTask('${t.id}')">✕</button>
+      </div>
+    </div>`;
+}
+
+function renderFooter() {
+  const open = BOARD.tasks.filter(t=>t.stage!=="DONE").length;
+  const done = BOARD.tasks.filter(t=>t.stage==="DONE").length;
+  document.getElementById("footerMeta").textContent = `${open} open · ${done} done`;
+  document.getElementById("footerTime").textContent = `Last saved ${new Date(BOARD.meta.lastUpdated).toLocaleString()}`;
+}
+
+// ── Task operations ────────────────────────────────────────────────────────
+function moveTask(id, newStage) {
+  const t = BOARD.tasks.find(t=>t.id===id);
+  if (!t) return;
+  const prev = t.stage;
+  t.stage     = newStage;
+  t.updatedAt = nowISO();
+  if (newStage === "DONE") t.completedAt = nowISO();
+  t.history.push({ timestamp:nowISO(), actor:"BOARD_UI", change:`stage: ${prev} → ${newStage}` });
+  saveBoard("BOARD_UI");
+  renderAll();
+  showToast(`Moved to ${STAGES.find(s=>s.id===newStage)?.label}`);
+}
+
+function deleteTask(id) {
+  BOARD.tasks = BOARD.tasks.filter(t=>t.id!==id);
+  saveBoard("BOARD_UI");
+  renderAll();
+  showToast("Task removed");
+}
+
+// ── Modal ──────────────────────────────────────────────────────────────────
+function openAdd(stage) {
+  editTaskId   = null;
+  defaultStage = stage || "IDEA";
+  document.getElementById("modalTitle").textContent = "Add Task";
+  document.getElementById("fTitle").value      = "";
+  document.getElementById("fStage").value      = defaultStage;
+  document.getElementById("fPriority").value   = "MEDIUM";
+  document.getElementById("fCategory").value   = "HOME";
+  document.getElementById("fOwner").value      = "DAD";
+  document.getElementById("fDue").value        = "";
+  document.getElementById("fNotes").value      = "";
+  document.getElementById("fRecurrence").value = "";
+  document.getElementById("modalOverlay").style.display = "flex";
+  setTimeout(()=>document.getElementById("fTitle").focus(),80);
+}
+
+function openEdit(id) {
+  const t = BOARD.tasks.find(t=>t.id===id);
+  if (!t) return;
+  editTaskId = id;
+  document.getElementById("modalTitle").textContent = "Edit Task";
+  document.getElementById("fTitle").value      = t.title;
+  document.getElementById("fStage").value      = t.stage;
+  document.getElementById("fPriority").value   = t.priority;
+  document.getElementById("fCategory").value   = t.category;
+  document.getElementById("fOwner").value      = t.owner;
+  document.getElementById("fDue").value        = t.dueDate || "";
+  document.getElementById("fNotes").value      = t.notes || "";
+  document.getElementById("fRecurrence").value = t.recurrence || "";
+  document.getElementById("modalOverlay").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("modalOverlay").style.display = "none";
+  editTaskId = null;
+}
+
+function saveTask() {
+  const title = document.getElementById("fTitle").value.trim();
+  if (!title) { showToast("Please enter a title"); return; }
+
+  if (editTaskId) {
+    const t = BOARD.tasks.find(t=>t.id===editTaskId);
+    if (!t) return;
+    const prevStage = t.stage;
+    t.title      = title;
+    t.stage      = document.getElementById("fStage").value;
+    t.priority   = document.getElementById("fPriority").value;
+    t.category   = document.getElementById("fCategory").value;
+    t.owner      = document.getElementById("fOwner").value;
+    t.dueDate    = document.getElementById("fDue").value || null;
+    t.notes      = document.getElementById("fNotes").value;
+    t.recurrence = document.getElementById("fRecurrence").value || null;
+    t.updatedAt  = nowISO();
+    if (t.stage !== prevStage) {
+      if (t.stage==="DONE") t.completedAt = nowISO();
+      t.history.push({ timestamp:nowISO(), actor:"BOARD_UI", change:`stage: ${prevStage} → ${t.stage}` });
+    }
+  } else {
+    const task = {
+      id: uid(), title,
+      stage:      document.getElementById("fStage").value,
+      priority:   document.getElementById("fPriority").value,
+      category:   document.getElementById("fCategory").value,
+      owner:      document.getElementById("fOwner").value,
+      dueDate:    document.getElementById("fDue").value || null,
+      notes:      document.getElementById("fNotes").value,
+      recurrence: document.getElementById("fRecurrence").value || null,
+      recurrenceMonth: null,
+      source:     "manual",
+      zazuNotes:  "",
+      lastBriefed: null,
+      briefCount:  0,
+      vendorId:    null,
+      blockedBy:   null,
+      snoozedUntil: null,
+      completedAt:  null,
+      createdAt:   nowISO(),
+      updatedAt:   nowISO(),
+      history: [{ timestamp:nowISO(), actor:"BOARD_UI", change:"Task created" }]
+    };
+    BOARD.tasks.push(task);
+  }
+
+  saveBoard("BOARD_UI");
+  closeModal();
+  renderAll();
+  showToast(editTaskId ? "Task updated" : "Task added to board");
+}
+
+// ── Briefing ───────────────────────────────────────────────────────────────
+function openBriefing() {
+  const overdue  = BOARD.tasks.filter(t=>isOverdue(t));
+  const stale    = BOARD.tasks.filter(t=>isStale(t));
+  const open     = BOARD.tasks.filter(t=>t.stage!=="DONE");
+  const inWeek   = BOARD.tasks.filter(t=>{
+    if (!t.dueDate||t.stage==="DONE"||isOverdue(t)) return false;
+    const diff=(new Date(t.dueDate)-new Date(today()))/86400000;
+    return diff>=0&&diff<=7;
+  });
+
+  const p = document.getElementById("briefingPanel");
+  p.innerHTML = `
+    <div class="brief-head">
+      <div class="brief-badge">Morning Briefing</div>
+      <span class="brief-time">${new Date().toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"})}</span>
+      <button class="brief-close" onclick="closeBriefing()">✕</button>
+    </div>
+    <div class="brief-title">EC Household</div>
+    <div class="brief-stats">
+      <div class="stat-box"><div class="stat-num" style="color:${overdue.length?"#F87171":"#6EE7B7"}">${overdue.length}</div><div class="stat-lbl">Overdue</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:${stale.length?"#FCD34D":"#6EE7B7"}">${stale.length}</div><div class="stat-lbl">Stalled</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:#93C5FD">${open.length}</div><div class="stat-lbl">Open</div></div>
+    </div>
+    ${overdue.length ? `
+    <div class="brief-section">
+      <div class="brief-section-label" style="color:#F87171">🚨 Urgent — ${overdue.length} Overdue</div>
+      ${overdue.map(t=>`
+        <div class="brief-item" style="background:rgba(220,38,38,.12);border:1px solid rgba(220,38,38,.2)">
+          <div class="brief-item-title">${esc(t.title)}</div>
+          <div class="brief-item-sub" style="color:#F87171">Due ${t.dueDate} · ${daysSince(t.dueDate)}d overdue · ${t.owner}</div>
+          ${t.notes?`<div class="brief-item-sub" style="color:rgba(255,255,255,.4);margin-top:4px">${esc(t.notes)}</div>`:""}
+        </div>`).join("")}
+    </div>` : ""}
+    ${stale.length ? `
+    <div class="brief-section">
+      <div class="brief-section-label" style="color:#FCD34D">💤 Stalled — ${stale.length} Idle 7+ Days</div>
+      ${stale.map(t=>`
+        <div class="brief-item" style="background:rgba(217,119,6,.1);border:1px solid rgba(217,119,6,.2)">
+          <div class="brief-item-title">${esc(t.title)}</div>
+          <div class="brief-item-sub" style="color:#FCD34D">${daysSince(t.updatedAt)}d idle · ${t.stage} · ${t.owner}</div>
+          ${t.notes?`<div class="brief-item-sub" style="color:rgba(255,255,255,.4);margin-top:4px">${esc(t.notes)}</div>`:""}
+        </div>`).join("")}
+    </div>` : ""}
+    ${inWeek.length ? `
+    <div class="brief-section">
+      <div class="brief-section-label" style="color:#6EE7B7">📅 Due This Week</div>
+      ${inWeek.map(t=>`
+        <div class="brief-item" style="background:rgba(5,150,105,.1);border:1px solid rgba(5,150,105,.2)">
+          <div class="brief-item-title">${esc(t.title)}</div>
+          <div class="brief-item-sub" style="color:#6EE7B7">Due ${t.dueDate} · ${t.owner}</div>
+        </div>`).join("")}
+    </div>` : ""}
+    ${!overdue.length && !stale.length ? `<div class="brief-item" style="background:rgba(5,150,105,.1);border:1px solid rgba(5,150,105,.2);color:#6EE7B7;text-align:center;padding:18px">🎉 No urgent or stalled items — board is clean!</div>` : ""}
+    <div class="brief-footer">Zazu reads this board daily · Last updated ${new Date(BOARD.meta.lastUpdated).toLocaleString()}</div>
+  `;
+  document.getElementById("briefingOverlay").style.display = "flex";
+}
+
+function closeBriefing() {
+  document.getElementById("briefingOverlay").style.display = "none";
+}
+
+// ── Toast ──────────────────────────────────────────────────────────────────
+function showToast(msg) {
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.style.display = "block";
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(()=>{ el.style.display="none"; }, 2500);
+}
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+function esc(s) {
+  return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+// Keyboard shortcuts
+document.addEventListener("keydown", e => {
+  if (e.key==="Escape") { closeModal(); closeBriefing(); }
+});
+
+// Init
+loadBoard();
+setInterval(()=>{ if(BOARD) renderPills(); }, 60000);
+</script>
+</body>
+</html>

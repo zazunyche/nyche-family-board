@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  com.zazu.board-briefing.plist
+  Fires daily at 7:00am — augments Zazu's existing morning briefing with board state.
+  Install: cp launchd/com.zazu.board-briefing.plist ~/Library/LaunchAgents/
+           launchctl load ~/Library/LaunchAgents/com.zazu.board-briefing.plist
+  Test:    launchctl start com.zazu.board-briefing
+  Logs:    /tmp/zazu-board-briefing.stdout.log
+           /tmp/zazu-board-briefing.stderr.log
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.zazu.board-briefing</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/zazunyche/family-board/scripts/board-briefing.sh</string>
+  </array>
+
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>7</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/zazu-board-briefing.stdout.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/tmp/zazu-board-briefing.stderr.log</string>
+
+  <key>RunAtLoad</key>
+  <false/>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>HOME</key>
+    <string>/Users/zazunyche</string>
+    <key>PATH</key>
+    <string>/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin</string>
+  </dict>
+</dict>
+</plist>

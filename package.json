@@ -1,0 +1,17 @@
+{
+  "name": "nyche-family-board",
+  "version": "2.0.0",
+  "description": "Nyche household command center — managed by Zazu",
+  "main": "server.js",
+  "scripts": {
+    "start":    "node server.js",
+    "context":  "node board-tools/zazu-context.js",
+    "read":     "node board-tools/read.js --text",
+    "snapshot": "node scripts/generate-snapshot.js --open",
+    "setup":    "bash scripts/setup.sh"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "private"
+}

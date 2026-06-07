@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  com.zazu.board-midnight-commit.plist
+  Commits board-data.json to git at midnight if there are changes.
+  Install: cp launchd/com.zazu.board-midnight-commit.plist ~/Library/LaunchAgents/
+           launchctl load ~/Library/LaunchAgents/com.zazu.board-midnight-commit.plist
+  Logs:    /tmp/zazu-board-commit.stdout.log
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.zazu.board-midnight-commit</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/zazunyche/family-board/scripts/midnight-commit.sh</string>
+  </array>
+
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>0</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/zazu-board-commit.stdout.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/tmp/zazu-board-commit.stderr.log</string>
+
+  <key>RunAtLoad</key>
+  <false/>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>HOME</key>
+    <string>/Users/zazunyche</string>
+    <key>PATH</key>
+    <string>/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin:/usr/local/bin/git</string>
+  </dict>
+</dict>
+</plist>
