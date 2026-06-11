@@ -59,12 +59,20 @@ After sending both messages, run the board tools shown in the context to:
 - Increment briefCount on any overdue or stalled tasks you surfaced
 - Update lastBriefed timestamp on those tasks
 
-Use your iMessage tools (mcp__plugin_imessage_imessage__*) to send. Use your board tools (node commands) to update task state."
+CRITICAL — iMessage delivery rules:
+- Use ONLY the mcp__plugin_imessage_imessage__reply tool to send iMessages
+- Dad chat_id: any;-;+16173353840
+- Mom chat_id: any;-;+16175438839
+- Do NOT use osascript, bash, or any other method to send messages
+- Do NOT call the Messages app directly
+Use your board tools (node /Users/zazunyche/Documents/src/family-board/board-tools/...) to update task state after sending."
 
 # ── Invoke Claude as Zazu (one-shot, same pattern as daily-briefing.sh) ───────
-claude -p "$PROMPT" \
+/opt/homebrew/bin/claude \
+  --channels plugin:imessage@claude-plugins-official \
   --system-prompt ~/.claude/system-prompt.md \
   --dangerously-skip-permissions \
+  -p "$PROMPT" \
   >> "$LOG_DIR/board-briefing.log" 2>&1
 
 echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] board-briefing.sh complete" >> "$LOG_DIR/board-briefing.log"

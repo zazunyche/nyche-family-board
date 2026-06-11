@@ -205,12 +205,12 @@ if (snoozed.length) {
 
 // ── Board tool reference (so Zazu knows how to update) ────────────────────
 lines.push(`BOARD TOOLS (call these to update the board):`);
-lines.push(`  Add task:    node ~/family-board/board-tools/add.js --title "..." --category HOME --owner DAD --priority MEDIUM --stage IDEA --actor ZAZU`);
-lines.push(`  Move stage:  node ~/family-board/board-tools/move.js --task <id> --to <stage> --actor ZAZU`);
-lines.push(`  Update task: node ~/family-board/board-tools/update.js --task <id> --owner MOM --notes "..." --actor ZAZU`);
-lines.push(`  Snooze:      node ~/family-board/board-tools/update.js --task <id> --snooze 2025-07-01 --actor ZAZU`);
-lines.push(`  Mark done:   node ~/family-board/board-tools/move.js --task <id> --to done --actor ZAZU`);
-lines.push(`  Mark reminded: node ~/family-board/board-tools/mark-reminded.js --reminder <id>`);
+lines.push(`  Add task:    node ~/Documents/src/family-board/board-tools/add.js --title "..." --category HOME --owner DAD --priority MEDIUM --stage IDEA --actor ZAZU`);
+lines.push(`  Move stage:  node ~/Documents/src/family-board/board-tools/move.js --task <id> --to <stage> --actor ZAZU`);
+lines.push(`  Update task: node ~/Documents/src/family-board/board-tools/update.js --task <id> --owner MOM --notes "..." --actor ZAZU`);
+lines.push(`  Snooze:      node ~/Documents/src/family-board/board-tools/update.js --task <id> --snooze 2025-07-01 --actor ZAZU`);
+lines.push(`  Mark done:   node ~/Documents/src/family-board/board-tools/move.js --task <id> --to done --actor ZAZU`);
+lines.push(`  Mark reminded: node ~/Documents/src/family-board/board-tools/mark-reminded.js --reminder <id>`);
 lines.push(``);
 lines.push(`</board_context>`);
 
