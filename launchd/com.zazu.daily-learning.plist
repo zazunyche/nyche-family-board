@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.zazu.daily-learning</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/zazunyche/Documents/src/family-board/scripts/daily-learning.sh</string>
+    </array>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>8</integer>
+        <key>Minute</key>
+        <integer>57</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/Users/zazunyche/Documents/src/family-board/logs/daily-learning-launchd.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/zazunyche/Documents/src/family-board/logs/daily-learning-launchd.log</string>
+
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/Users/zazunyche/.npm-global/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+        <key>HOME</key>
+        <string>/Users/zazunyche</string>
+    </dict>
+</dict>
+</plist>
