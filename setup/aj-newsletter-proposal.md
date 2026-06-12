@@ -16,21 +16,40 @@ AJ's grandparents are scattered and hard to keep in the loop — a monthly newsl
 
 ### What Platform Does Primrose School of Brookhaven Use?
 
-The school's main website does not advertise a specific third-party app. Primrose Schools launched their own "My Primrose App" in 2013 for general school news and resources — but this is a franchise-wide marketing app, not a daily activity tracker.
+**Confirmed: ProCare (Procare Solutions)**
 
-For daily child activity reports, individual Primrose franchise locations make their own decisions. Based on market research, the three most common platforms among Primrose franchises are:
+Dad confirmed on June 12, 2026 that Primrose Brookhaven uses **ProCare** — and forwarded a real daily summary email. The platform research below is now resolved.
 
-| Platform | Daily Email Reports? | Export? | Notes |
-|---|---|---|---|
-| **Brightwheel** | Yes — auto-sent at checkout | CSV roster export; no bulk data export | Most widely adopted by U.S. preschools 2020–2026 |
-| **HiMama / Lillio** | Yes — daily summary email | PDF reports | Strong on developmental observations |
-| **Tadpoles** | Yes — daily email | Limited | Older platform, declining market share |
+| Detail | Value |
+|---|---|
+| Platform | ProCare (connect.procareconnect.com) |
+| Sender address | `connect-notification@online.procaresoftware.com` |
+| Subject format | `Daily summary for MM/DD/YYYY - [Child Name]` |
+| Child's full name in system | Aiden "AJ" Essilfie-Conduah |
+| Classroom | 2-Toddler 2 |
+| Current recipient | `nconduah2@gmail.com` (Mom's Gmail) |
 
-**Most likely:** Brightwheel. It is currently the dominant platform for U.S. preschool and daycare programs and has been adopted aggressively by franchise childcare networks. However, this is not confirmed — Dad should check which app Primrose Brookhaven actually uses (the school's front desk or the enrollment packet will say).
+**Key pipeline-relevant fact:** ProCare sends a daily summary email automatically after checkout. The email contains structured sections with timestamps, meal consumption details, learning activities (with photos), nap times, bathroom changes, and teacher lesson notes. There is no need to install a separate app for the email pipeline — ProCare sends it directly.
 
-**Key pipeline-relevant fact (Brightwheel-specific):** Parents can subscribe to an automatic daily report email sent when their child is checked out. The email goes to the account's registered email address. This is the cleanest pipeline hook available.
+**Photo handling note:** Photos in the ProCare email are hosted on a CDN with **signed, expiring URLs** (e.g., `Expires=89012799` — a Unix timestamp approximately 2-3 months out). They are embedded inline in the HTML email but cannot be permanently linked. For the newsletter, photos must either be downloaded within the expiry window, or sourced directly from Dad's camera roll. Zazu should not attempt to link ProCare photo URLs in the newsletter directly.
 
-**Recommendation:** Confirm the platform with the school. The pipeline design below assumes Brightwheel-style daily emails, but adapts easily to any platform that sends daily emails.
+**Email volume cap:** The daily summary is limited to 20 activities. Full activity logs are accessible only through the ProCare mobile app (`schools.primrose.procareconnect.com`). The email is sufficient for newsletter synthesis.
+
+### ProCare Daily Email — Section Reference
+
+Based on the June 11, 2026 sample email, a typical ProCare daily summary includes:
+
+| Section | Example data |
+|---|---|
+| **Sign-Ins** | "Signed in to Building Sign In at 8:04 AM" |
+| **Sign-Outs** | "Signed out from 2-Toddler 2 at 5:34 PM" |
+| **Naps** | Start: 12:31 PM → End: 2:25 PM (1 hr 54 min) |
+| **Learnings** | Named activity + timestamp + teacher description + photo (e.g., "Circle Time @8:33 AM — helped Primrose friend Katie learn her colors!") |
+| **Meals** | "AJ ate all/most/none of the [meal]. @HH:MM [Menu items]. [Optional teacher note]" |
+| **Bathroom** | Diaper change type (wet/soiled) + timestamp |
+| **Lessons** | Named lesson + description + OUTCOMES (developmental milestone language) |
+
+This is rich, structured data. Every section has consistent formatting across emails — making it straightforward to parse with a prompt that knows the schema. Over 20 school days, this generates meaningful aggregate data for the "By the Numbers" section and enough narrative texture for the highlights sections.
 
 ---
 
@@ -42,13 +61,24 @@ Dad already receives daily Primrose updates, but they arrive as one-off notifica
 
 ### Recommended Approach: Email Forwarding Pipeline
 
-This is the best fit given Zazu already processes Gmail.
+This is the best fit given Zazu already processes Gmail. Platform is confirmed as **ProCare** — pipeline setup below is ProCare-specific.
 
-**Setup (one-time, 5 minutes):**
+**Routing note:** ProCare currently sends to **Mom's Gmail** (`nconduah2@gmail.com`). Dad's email (`nconduah@gmail.com`) may also receive it if registered as a second parent on AJ's ProCare profile. For the pipeline, the cleanest options are:
 
-1. In the Primrose app (Brightwheel/HiMama), add a second email address on AJ's parent profile — use a dedicated address like `aj.updates@gmail.com` or simply add `zazunyche@gmail.com` as a secondary contact. Some platforms allow two parent email addresses on one account.
-2. Alternatively: In Gmail, set up a filter so any email from Primrose's sending domain (e.g., `no-reply@mybrightwheel.com`) is auto-forwarded to `zazunyche@gmail.com` and labeled `AJ/Primrose`. This keeps originals in Nana's inbox and a copy routes to Zazu's Gmail.
-3. Zazu applies a Gmail label: `AJ/Primrose/Unprocessed`. After monthly synthesis, processed emails get relabeled `AJ/Primrose/[Month-Year]`.
+- **Option A (best):** Ask Primrose to add `zazunyche@gmail.com` as a second contact on AJ's ProCare profile. ProCare sends the daily summary to all registered contacts — Zazu gets it directly, no manual forwarding.
+- **Option B:** Set up a Gmail filter in Mom's Gmail (`nconduah2@gmail.com`) to auto-forward ProCare emails to `zazunyche@gmail.com`. Filter criteria: `from:connect-notification@online.procaresoftware.com subject:"Daily summary for"`.
+- **Option C (current workaround):** Mom manually forwards at month-end. Less automated but works without any setup at the school level.
+
+**Setup (one-time, 5 minutes for Option A):**
+
+1. Email or call Primrose Brookhaven front desk: "Can you add a second email address to Aiden Essilfie-Conduah's ProCare profile for daily summary notifications? The address is zazunyche@gmail.com."
+2. Zazu confirms receipt of first ProCare email and applies Gmail label: `AJ/Primrose/Unprocessed`.
+3. After monthly synthesis, processed emails get relabeled `AJ/Primrose/[Month-Year]`.
+
+**Gmail filter (for Option B — in Mom's Gmail settings):**
+- From: `connect-notification@online.procaresoftware.com`
+- Subject contains: `Daily summary for`
+- Action: Forward to `zazunyche@gmail.com`, apply label `AJ/Primrose/Unprocessed`
 
 **Monthly trigger:** On the last day of each month (or a date Dad sets — e.g., the 28th), a scheduled Zazu routine runs:
 - Searches Gmail for all emails labeled `AJ/Primrose/Unprocessed`
@@ -61,18 +91,20 @@ This is the best fit given Zazu already processes Gmail.
 - *App export:* Brightwheel's CSV export covers roster data, not daily activity narratives. HiMama generates PDF reports — possible but requires Dad to download and attach. Not automatic.
 - *Email forwarding:* Zero ongoing work. Works with any email-based daycare app. Already fits Zazu's Gmail MCP access.
 
-### What Comes in Each Daily Email
+### What Comes in Each ProCare Daily Email
 
-A typical Brightwheel daily report includes:
-- Check-in / check-out times
-- Meals logged (what was served, how much eaten)
-- Nap times and duration
-- Activities (classroom activities, outdoor play, art, music, reading)
-- Mood / behavior notes from teachers
-- Photos (sometimes embedded or attached)
-- Teacher messages
+From the confirmed June 11, 2026 ProCare sample for AJ:
 
-Over 20–22 school days a month, this is rich source material.
+- **Sign-in / sign-out times** (building entry + classroom sign-out)
+- **Nap times** — exact start and end to the minute
+- **Learnings** — named curriculum activities with timestamps, teacher descriptions, and CDN-hosted photos (inline in HTML)
+- **Meals** — "ate all/most/none" for each meal (breakfast, AM snack, lunch, PM snack) with full menu items and teacher notes when AJ's eating was notable
+- **Bathroom** — diaper change type and times (wet/soiled per change)
+- **Lessons** — named lesson with curriculum description + formal OUTCOMES in developmental milestone language
+
+**Photo note:** Photos are embedded in the HTML email with signed CDN URLs. They expire (typically 2-3 months) — they cannot be reliably linked in a newsletter. Use them as scene-setters when writing narrative (e.g., "the photo from art time showed AJ covered in blue paint"), and use Dad's camera roll for actual newsletter photos.
+
+Over 20–22 school days a month, this is rich source material for all six newsletter sections.
 
 ---
 
@@ -381,7 +413,7 @@ This turns the newsletter into a conversation and gives grandparents who don't k
 
 These questions would help refine and finalize the system. Roughly in order of importance:
 
-1. **What app does Primrose actually use?** Check your enrollment paperwork or ask the front desk: Brightwheel, HiMama/Lillio, Tadpoles, or something else? This determines how we set up the email pipeline. (5-minute answer.)
+1. ~~**What app does Primrose actually use?**~~ **RESOLVED: ProCare.** Confirmed June 12, 2026. Sender: `connect-notification@online.procaresoftware.com`. Daily summary emails currently go to Mom's Gmail (`nconduah2@gmail.com`). Next step: ask Primrose to add `zazunyche@gmail.com` as a second ProCare contact — or set up a forward filter in Mom's Gmail.
 
 2. **Can you add a second parent email to AJ's school profile?** If yes, we can route daily reports directly to Zazu without touching your inbox at all. If not, a Gmail forward filter works just as well.
 
