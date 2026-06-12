@@ -63,22 +63,18 @@ Dad already receives daily Primrose updates, but they arrive as one-off notifica
 
 This is the best fit given Zazu already processes Gmail. Platform is confirmed as **ProCare** — pipeline setup below is ProCare-specific.
 
-**Routing note:** ProCare currently sends to **Mom's Gmail** (`nconduah2@gmail.com`). Dad's email (`nconduah@gmail.com`) may also receive it if registered as a second parent on AJ's ProCare profile. For the pipeline, the cleanest options are:
+**Routing note:** ProCare sends to **`nconduah2@gmail.com` — Dad's secondary Gmail** (not Mom's). Mom's Gmail is `nanayaaf@gmail.com`. Dad confirmed on June 12 that he will set up a **Gmail forward filter** in `nconduah2@gmail.com`.
 
-- **Option A (best):** Ask Primrose to add `zazunyche@gmail.com` as a second contact on AJ's ProCare profile. ProCare sends the daily summary to all registered contacts — Zazu gets it directly, no manual forwarding.
-- **Option B:** Set up a Gmail filter in Mom's Gmail (`nconduah2@gmail.com`) to auto-forward ProCare emails to `zazunyche@gmail.com`. Filter criteria: `from:connect-notification@online.procaresoftware.com subject:"Daily summary for"`.
-- **Option C (current workaround):** Mom manually forwards at month-end. Less automated but works without any setup at the school level.
+**Setup (one-time, ~2 minutes — Dad does this in nconduah2@gmail.com settings):**
 
-**Setup (one-time, 5 minutes for Option A):**
-
-1. Email or call Primrose Brookhaven front desk: "Can you add a second email address to Aiden Essilfie-Conduah's ProCare profile for daily summary notifications? The address is zazunyche@gmail.com."
-2. Zazu confirms receipt of first ProCare email and applies Gmail label: `AJ/Primrose/Unprocessed`.
+1. In `nconduah2@gmail.com` → Settings → Filters and Blocked Addresses → Create new filter:
+   - From: `connect-notification@online.procaresoftware.com`
+   - Subject contains: `Daily summary for`
+   - Action: **Forward to** `zazunyche@gmail.com`
+2. Zazu applies Gmail label on receipt: `AJ/Primrose/Unprocessed`.
 3. After monthly synthesis, processed emails get relabeled `AJ/Primrose/[Month-Year]`.
 
-**Gmail filter (for Option B — in Mom's Gmail settings):**
-- From: `connect-notification@online.procaresoftware.com`
-- Subject contains: `Daily summary for`
-- Action: Forward to `zazunyche@gmail.com`, apply label `AJ/Primrose/Unprocessed`
+**Test newsletter drafts:** Send to `nconduah@gmail.com` (Dad's primary Gmail) for review before going out to family.
 
 **Monthly trigger:** On the last day of each month (or a date Dad sets — e.g., the 28th), a scheduled Zazu routine runs:
 - Searches Gmail for all emails labeled `AJ/Primrose/Unprocessed`
@@ -372,9 +368,9 @@ Three things we learned about AJ this June:
 
 ## What's Coming Next Month
 
-July brings AJ's second birthday — a milestone we are absolutely not emotionally prepared for. Developmentally, two-year-olds often make a leap in sentence length (moving from two-word to three-word phrases) and begin showing stronger imaginative play sequences. We'll be watching for both. We'll also be eating cake.
+July is the last full month before AJ turns 2 — August is the big one. Developmentally, he's right in the window where two-word combinations start clicking into place, and we'll be watching for his first three-word phrases over the coming weeks. He'll also be moving up to a new classroom sometime around his birthday — we'll have more news on that soon.
 
-*Next edition: The AJ Update — July 2026 (The Birthday Edition)*
+*Next edition: The AJ Update — July 2026*
 
 ---
 
@@ -413,7 +409,7 @@ This turns the newsletter into a conversation and gives grandparents who don't k
 
 These questions would help refine and finalize the system. Roughly in order of importance:
 
-1. ~~**What app does Primrose actually use?**~~ **RESOLVED: ProCare.** Confirmed June 12, 2026. Sender: `connect-notification@online.procaresoftware.com`. Daily summary emails currently go to Mom's Gmail (`nconduah2@gmail.com`). Next step: ask Primrose to add `zazunyche@gmail.com` as a second ProCare contact — or set up a forward filter in Mom's Gmail.
+1. ~~**What app does Primrose actually use?**~~ **RESOLVED: ProCare.** Confirmed June 12, 2026. Sender: `connect-notification@online.procaresoftware.com`. Daily summary emails go to Dad's secondary Gmail (`nconduah2@gmail.com`). Dad will set up a Gmail forward filter from `nconduah2@gmail.com` → `zazunyche@gmail.com`. **ACTION: Set up the filter** (2-minute task in Gmail settings — see pipeline section above).
 
 2. **Can you add a second parent email to AJ's school profile?** If yes, we can route daily reports directly to Zazu without touching your inbox at all. If not, a Gmail forward filter works just as well.
 
@@ -427,7 +423,7 @@ These questions would help refine and finalize the system. Roughly in order of i
 
 7. **Do you want Nana Yaa to review before it goes to the family?** The current workflow puts the draft in Dad's inbox for final review. Should Nana Yaa also get a review copy before sending, or is Dad the final sender?
 
-8. **Birthday edition treatment?** AJ turns 2 in July. Should the July edition be a special "Birthday Edition" with a different format — a year-in-review, photo collage, milestone retrospective? This would require a bit more curation but is a one-time thing.
+8. **Birthday edition treatment?** AJ turns 2 in **August** (not July as initially assumed). Should the August edition be a special "Birthday Edition" with a different format — a year-in-review, photo collage, milestone retrospective? Also: Dad mentioned checking with daycare on when AJ might move up from 2-Toddler 2 — if the class transition happens in August, the birthday edition can also mark that milestone.
 
 ---
 
