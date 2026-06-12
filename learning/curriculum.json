@@ -1,7 +1,6 @@
 {
   "_schema_version": "1.0.0",
   "_description": "Curriculum state for Nana Essilfie-Conduah's AI Agents learning program. Maintained by Zazu. Updated after each delivery and engagement event.",
-
   "learner": {
     "name": "Nana Essilfie-Conduah",
     "email": "nanaec@nychesolutions.com",
@@ -9,7 +8,6 @@
     "background": "MIT CS, software engineer and entrepreneur, building Earnventory, familiar with Zazu and Abeiku",
     "curriculum_start_date": "2026-06-12"
   },
-
   "curriculum_meta": {
     "total_modules": 2,
     "total_mini_modules": 8,
@@ -19,17 +17,15 @@
     "imessage_max_words": 200,
     "email_min_words": 1200
   },
-
   "progress": {
     "current_module": 1,
     "current_mini_module": "1.1",
-    "current_day_number": 1,
-    "current_snippet_id": "module1-day1",
-    "last_delivered_date": null,
-    "next_scheduled_date": "2026-06-12",
-    "status": "not_started"
+    "current_day_number": 2,
+    "current_snippet_id": "module1-day2",
+    "last_delivered_date": "2026-06-12",
+    "next_scheduled_date": "2026-06-13",
+    "status": "in_progress"
   },
-
   "modules": [
     {
       "module_id": "M1",
@@ -57,8 +53,8 @@
               "topic": "What is an agent architecturally",
               "imessage_file": "snippets/module1-day1-imessage.md",
               "email_file": "snippets/module1-day1-email.md",
-              "delivery_status": "pending",
-              "delivered_at": null,
+              "delivery_status": "delivered",
+              "delivered_at": "2026-06-12T09:00:00",
               "engagement": {
                 "imessage_reply": null,
                 "imessage_reply_time_minutes": null,
@@ -172,11 +168,101 @@
           "quiz_sent_date": null,
           "quiz_results": null,
           "snippets": [
-            { "snippet_id": "module1-day6", "day_number": 6, "date": "2026-06-17", "title": "What is a token, exactly?", "topic": "Tokenization mechanics and cost implications", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module1-day7", "day_number": 7, "date": "2026-06-18", "title": "Predicting the next word is not what you think", "topic": "Autoregressive generation and probability distributions", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module1-day8", "day_number": 8, "date": "2026-06-19", "title": "Temperature, top-p, and the knobs you control", "topic": "Sampling parameters and determinism vs. creativity", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module1-day9", "day_number": 9, "date": "2026-06-20", "title": "Why hallucination is a feature, not a bug", "topic": "Structural explanation of hallucination as statistical prediction", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module1-day10", "day_number": 10, "date": "2026-06-21", "title": "Training vs. inference: two completely different time scales", "topic": "The training/inference distinction and runtime behavior implications", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } }
+            {
+              "snippet_id": "module1-day6",
+              "day_number": 6,
+              "date": "2026-06-17",
+              "title": "What is a token, exactly?",
+              "topic": "Tokenization mechanics and cost implications",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module1-day7",
+              "day_number": 7,
+              "date": "2026-06-18",
+              "title": "Predicting the next word is not what you think",
+              "topic": "Autoregressive generation and probability distributions",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module1-day8",
+              "day_number": 8,
+              "date": "2026-06-19",
+              "title": "Temperature, top-p, and the knobs you control",
+              "topic": "Sampling parameters and determinism vs. creativity",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module1-day9",
+              "day_number": 9,
+              "date": "2026-06-20",
+              "title": "Why hallucination is a feature, not a bug",
+              "topic": "Structural explanation of hallucination as statistical prediction",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module1-day10",
+              "day_number": 10,
+              "date": "2026-06-21",
+              "title": "Training vs. inference: two completely different time scales",
+              "topic": "The training/inference distinction and runtime behavior implications",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            }
           ],
           "quiz": {
             "quiz_id": "quiz-1.2",
@@ -205,11 +291,101 @@
           "quiz_sent_date": null,
           "quiz_results": null,
           "snippets": [
-            { "snippet_id": "module1-day11", "day_number": 11, "date": "2026-06-22", "title": "The context window is your agent's RAM", "topic": "Context window size, token budget, and primary engineering constraint", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module1-day12", "day_number": 12, "date": "2026-06-23", "title": "Four types of memory agents can have", "topic": "In-context, external/RAG, in-weights, in-cache memory taxonomy", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module1-day13", "day_number": 13, "date": "2026-06-24", "title": "RAG: Teaching the agent what it doesn't know", "topic": "Retrieval-Augmented Generation, vector embeddings, semantic search", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module1-day14", "day_number": 14, "date": "2026-06-25", "title": "Context engineering is the new prompt engineering", "topic": "Managing context as a first-class engineering discipline", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module1-day15", "day_number": 15, "date": "2026-06-26", "title": "How Zazu remembers (and forgets)", "topic": "Zazu's memory architecture: MEMORY.md, session context, persistence design", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } }
+            {
+              "snippet_id": "module1-day11",
+              "day_number": 11,
+              "date": "2026-06-22",
+              "title": "The context window is your agent's RAM",
+              "topic": "Context window size, token budget, and primary engineering constraint",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module1-day12",
+              "day_number": 12,
+              "date": "2026-06-23",
+              "title": "Four types of memory agents can have",
+              "topic": "In-context, external/RAG, in-weights, in-cache memory taxonomy",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module1-day13",
+              "day_number": 13,
+              "date": "2026-06-24",
+              "title": "RAG: Teaching the agent what it doesn't know",
+              "topic": "Retrieval-Augmented Generation, vector embeddings, semantic search",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module1-day14",
+              "day_number": 14,
+              "date": "2026-06-25",
+              "title": "Context engineering is the new prompt engineering",
+              "topic": "Managing context as a first-class engineering discipline",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module1-day15",
+              "day_number": 15,
+              "date": "2026-06-26",
+              "title": "How Zazu remembers (and forgets)",
+              "topic": "Zazu's memory architecture: MEMORY.md, session context, persistence design",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            }
           ],
           "quiz": {
             "quiz_id": "quiz-1.3",
@@ -238,10 +414,82 @@
           "quiz_sent_date": null,
           "quiz_results": null,
           "snippets": [
-            { "snippet_id": "module1-day16", "day_number": 16, "date": "2026-06-27", "title": "Chain of thought: making the model show its work", "topic": "CoT prompting mechanics and why intermediate tokens reduce error", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module1-day17", "day_number": 17, "date": "2026-06-28", "title": "ReAct: the loop that makes agents smart", "topic": "Reason → Act → Observe → Reason cycle traced through a concrete Zazu task", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module1-day18", "day_number": 18, "date": "2026-06-29", "title": "Claude's 'think' tool and extended thinking mode", "topic": "Hidden scratchpad, extended thinking architecture, cost/benefit tradeoffs", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module1-day19", "day_number": 19, "date": "2026-06-30", "title": "When agents plan ahead — and when they should", "topic": "Planning vs. reactive execution; hierarchical task decomposition; failure modes of over-planning", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } }
+            {
+              "snippet_id": "module1-day16",
+              "day_number": 16,
+              "date": "2026-06-27",
+              "title": "Chain of thought: making the model show its work",
+              "topic": "CoT prompting mechanics and why intermediate tokens reduce error",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module1-day17",
+              "day_number": 17,
+              "date": "2026-06-28",
+              "title": "ReAct: the loop that makes agents smart",
+              "topic": "Reason → Act → Observe → Reason cycle traced through a concrete Zazu task",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module1-day18",
+              "day_number": 18,
+              "date": "2026-06-29",
+              "title": "Claude's 'think' tool and extended thinking mode",
+              "topic": "Hidden scratchpad, extended thinking architecture, cost/benefit tradeoffs",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module1-day19",
+              "day_number": 19,
+              "date": "2026-06-30",
+              "title": "When agents plan ahead — and when they should",
+              "topic": "Planning vs. reactive execution; hierarchical task decomposition; failure modes of over-planning",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            }
           ],
           "quiz": {
             "quiz_id": "quiz-1.4",
@@ -279,14 +527,158 @@
           "quiz_sent_date": null,
           "quiz_results": null,
           "snippets": [
-            { "snippet_id": "module2-day20", "day_number": 20, "date": "2026-07-01", "title": "Tool calls are structured text, not magic", "topic": "Tool-use mechanics at the API level", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day21", "day_number": 21, "date": "2026-07-02", "title": "Designing tools Claude can actually use", "topic": "Tool descriptions, parameter naming, reliable tool call elicitation", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day22", "day_number": 22, "date": "2026-07-03", "title": "Client-side vs. server-side tools", "topic": "Architecture split: developer-executed vs. Anthropic-executed tools", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day23", "day_number": 23, "date": "2026-07-04", "title": "Building a real tool for Earnventory", "topic": "End-to-end: get_supplier_pricing tool design, handler, error cases", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day24", "day_number": 24, "date": "2026-07-05", "title": "MCP: standardizing the clerk windows", "topic": "Model Context Protocol as a cross-model tool standard", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day25", "day_number": 25, "date": "2026-07-06", "title": "Parallel tool calls and multi-step tool chains", "topic": "Multi-tool turns, parallel vs. sequential tool calls, workflow design", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day26", "day_number": 26, "date": "2026-07-07", "title": "Trust, permissions, and the minimal-surface principle", "topic": "Security first-principles: prompt injection, minimal tool surface, OWASP LLM Top 10", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day27", "day_number": 27, "date": "2026-07-08", "title": "Tool use in the Earnventory context", "topic": "Applied synthesis: practical tool set for an Earnventory inventory agent", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } }
+            {
+              "snippet_id": "module2-day20",
+              "day_number": 20,
+              "date": "2026-07-01",
+              "title": "Tool calls are structured text, not magic",
+              "topic": "Tool-use mechanics at the API level",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day21",
+              "day_number": 21,
+              "date": "2026-07-02",
+              "title": "Designing tools Claude can actually use",
+              "topic": "Tool descriptions, parameter naming, reliable tool call elicitation",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day22",
+              "day_number": 22,
+              "date": "2026-07-03",
+              "title": "Client-side vs. server-side tools",
+              "topic": "Architecture split: developer-executed vs. Anthropic-executed tools",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day23",
+              "day_number": 23,
+              "date": "2026-07-04",
+              "title": "Building a real tool for Earnventory",
+              "topic": "End-to-end: get_supplier_pricing tool design, handler, error cases",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day24",
+              "day_number": 24,
+              "date": "2026-07-05",
+              "title": "MCP: standardizing the clerk windows",
+              "topic": "Model Context Protocol as a cross-model tool standard",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day25",
+              "day_number": 25,
+              "date": "2026-07-06",
+              "title": "Parallel tool calls and multi-step tool chains",
+              "topic": "Multi-tool turns, parallel vs. sequential tool calls, workflow design",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day26",
+              "day_number": 26,
+              "date": "2026-07-07",
+              "title": "Trust, permissions, and the minimal-surface principle",
+              "topic": "Security first-principles: prompt injection, minimal tool surface, OWASP LLM Top 10",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day27",
+              "day_number": 27,
+              "date": "2026-07-08",
+              "title": "Tool use in the Earnventory context",
+              "topic": "Applied synthesis: practical tool set for an Earnventory inventory agent",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            }
           ],
           "quiz": {
             "quiz_id": "quiz-2.1",
@@ -315,14 +707,158 @@
           "quiz_sent_date": null,
           "quiz_results": null,
           "snippets": [
-            { "snippet_id": "module2-day28", "day_number": 28, "date": "2026-07-09", "title": "Why one agent isn't enough", "topic": "Scalability limits: context exhaustion, complexity, parallelization", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day29", "day_number": 29, "date": "2026-07-10", "title": "Orchestrator and subagent: the fundamental pattern", "topic": "Core multi-agent architecture: instruction passing, isolated context windows", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day30", "day_number": 30, "date": "2026-07-11", "title": "Zazu and Abeiku: a live case study", "topic": "Architectural analysis of the actual Zazu+Abeiku deployment", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day31", "day_number": 31, "date": "2026-07-12", "title": "Pipeline, fan-out, and swarm patterns", "topic": "Three multi-agent topologies and when to use each", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day32", "day_number": 32, "date": "2026-07-13", "title": "Handoffs: what transfers and what doesn't", "topic": "Information architecture of agent handoffs: minimum viable handoff principle", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day33", "day_number": 33, "date": "2026-07-14", "title": "Trust between agents: why it's harder than trust between services", "topic": "Trust chains, prompt injection through tool results, adversarial design", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day34", "day_number": 34, "date": "2026-07-15", "title": "Designing a multi-agent system for Earnventory", "topic": "Applied: supplier monitoring + pricing + notification agent architecture", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day35", "day_number": 35, "date": "2026-07-16", "title": "Coordination overhead and when NOT to use multi-agent", "topic": "Hidden costs: latency, error propagation, when single-agent with more tools wins", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } }
+            {
+              "snippet_id": "module2-day28",
+              "day_number": 28,
+              "date": "2026-07-09",
+              "title": "Why one agent isn't enough",
+              "topic": "Scalability limits: context exhaustion, complexity, parallelization",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day29",
+              "day_number": 29,
+              "date": "2026-07-10",
+              "title": "Orchestrator and subagent: the fundamental pattern",
+              "topic": "Core multi-agent architecture: instruction passing, isolated context windows",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day30",
+              "day_number": 30,
+              "date": "2026-07-11",
+              "title": "Zazu and Abeiku: a live case study",
+              "topic": "Architectural analysis of the actual Zazu+Abeiku deployment",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day31",
+              "day_number": 31,
+              "date": "2026-07-12",
+              "title": "Pipeline, fan-out, and swarm patterns",
+              "topic": "Three multi-agent topologies and when to use each",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day32",
+              "day_number": 32,
+              "date": "2026-07-13",
+              "title": "Handoffs: what transfers and what doesn't",
+              "topic": "Information architecture of agent handoffs: minimum viable handoff principle",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day33",
+              "day_number": 33,
+              "date": "2026-07-14",
+              "title": "Trust between agents: why it's harder than trust between services",
+              "topic": "Trust chains, prompt injection through tool results, adversarial design",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day34",
+              "day_number": 34,
+              "date": "2026-07-15",
+              "title": "Designing a multi-agent system for Earnventory",
+              "topic": "Applied: supplier monitoring + pricing + notification agent architecture",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day35",
+              "day_number": 35,
+              "date": "2026-07-16",
+              "title": "Coordination overhead and when NOT to use multi-agent",
+              "topic": "Hidden costs: latency, error propagation, when single-agent with more tools wins",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            }
           ],
           "quiz": {
             "quiz_id": "quiz-2.2",
@@ -351,14 +887,158 @@
           "quiz_sent_date": null,
           "quiz_results": null,
           "snippets": [
-            { "snippet_id": "module2-day36", "day_number": 36, "date": "2026-07-17", "title": "Your first API call to Claude", "topic": "Anthropic Python SDK: model, messages, system, stop_reason", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day37", "day_number": 37, "date": "2026-07-18", "title": "Writing a system prompt that actually works", "topic": "Role, constraints, tone, output format — before/after comparison", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day38", "day_number": 38, "date": "2026-07-19", "title": "XML, few-shot, and the prompt engineering toolkit", "topic": "Practical toolkit: XML structure, few-shot examples, output format instructions", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day39", "day_number": 39, "date": "2026-07-20", "title": "Building the agentic loop by hand", "topic": "Tool-use loop from scratch: call → parse → execute → append → repeat", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day40", "day_number": 40, "date": "2026-07-21", "title": "The Claude Agent SDK: what it buys you", "topic": "Agent SDK vs. raw API: built-in tools, session management, compaction", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day41", "day_number": 41, "date": "2026-07-22", "title": "Model selection: Opus vs. Sonnet vs. Haiku", "topic": "Intelligence/cost/latency tradeoffs across model tiers", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day42", "day_number": 42, "date": "2026-07-23", "title": "Structured outputs and strict tool use", "topic": "Reliable JSON from Claude: strict schemas, output format prompting", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day43", "day_number": 43, "date": "2026-07-24", "title": "Putting it together: an Earnventory agent in 200 lines", "topic": "End-to-end code walkthrough: system prompt to agentic loop to output", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } }
+            {
+              "snippet_id": "module2-day36",
+              "day_number": 36,
+              "date": "2026-07-17",
+              "title": "Your first API call to Claude",
+              "topic": "Anthropic Python SDK: model, messages, system, stop_reason",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day37",
+              "day_number": 37,
+              "date": "2026-07-18",
+              "title": "Writing a system prompt that actually works",
+              "topic": "Role, constraints, tone, output format — before/after comparison",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day38",
+              "day_number": 38,
+              "date": "2026-07-19",
+              "title": "XML, few-shot, and the prompt engineering toolkit",
+              "topic": "Practical toolkit: XML structure, few-shot examples, output format instructions",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day39",
+              "day_number": 39,
+              "date": "2026-07-20",
+              "title": "Building the agentic loop by hand",
+              "topic": "Tool-use loop from scratch: call → parse → execute → append → repeat",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day40",
+              "day_number": 40,
+              "date": "2026-07-21",
+              "title": "The Claude Agent SDK: what it buys you",
+              "topic": "Agent SDK vs. raw API: built-in tools, session management, compaction",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day41",
+              "day_number": 41,
+              "date": "2026-07-22",
+              "title": "Model selection: Opus vs. Sonnet vs. Haiku",
+              "topic": "Intelligence/cost/latency tradeoffs across model tiers",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day42",
+              "day_number": 42,
+              "date": "2026-07-23",
+              "title": "Structured outputs and strict tool use",
+              "topic": "Reliable JSON from Claude: strict schemas, output format prompting",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day43",
+              "day_number": 43,
+              "date": "2026-07-24",
+              "title": "Putting it together: an Earnventory agent in 200 lines",
+              "topic": "End-to-end code walkthrough: system prompt to agentic loop to output",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            }
           ],
           "quiz": {
             "quiz_id": "quiz-2.3",
@@ -387,13 +1067,139 @@
           "quiz_sent_date": null,
           "quiz_results": null,
           "snippets": [
-            { "snippet_id": "module2-day44", "day_number": 44, "date": "2026-07-25", "title": "Why 85% reliable × 10 steps = 20% reliable", "topic": "Compounding reliability: failure probability multiplication in multi-step agents", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day45", "day_number": 45, "date": "2026-07-26", "title": "What is an eval, and why you need one before launch", "topic": "LLM evals: unit-test analogy, scoring criteria, regression detection, eval types", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day46", "day_number": 46, "date": "2026-07-27", "title": "The seven failure modes that kill agent projects", "topic": "Prompt injection, context overflow, tool errors, hallucination chains, goal drift, overtrust, scope creep", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day47", "day_number": 47, "date": "2026-07-28", "title": "Observability: logging what matters", "topic": "What to trace: inputs, tool calls, results, reasoning, tokens, latency, trajectories", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day48", "day_number": 48, "date": "2026-07-29", "title": "Minimal footprint and the reversibility principle", "topic": "Core safety design: prefer reversible actions, minimum permissions, human escalation", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day49", "day_number": 49, "date": "2026-07-30", "title": "Continuous evals and behavioral drift", "topic": "How agent behavior degrades, how to detect it, continuous evals against production traffic", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } },
-            { "snippet_id": "module2-day50", "day_number": 50, "date": "2026-07-31", "title": "What makes Zazu reliable — and where it could fail", "topic": "Synthesis: auditing Zazu's design against everything in Module 2; Earnventory implications", "imessage_file": null, "email_file": null, "delivery_status": "pending", "delivered_at": null, "engagement": { "imessage_reply": null, "imessage_reply_time_minutes": null, "email_opened": null, "follow_up_question": null, "sentiment": null, "notes": null } }
+            {
+              "snippet_id": "module2-day44",
+              "day_number": 44,
+              "date": "2026-07-25",
+              "title": "Why 85% reliable × 10 steps = 20% reliable",
+              "topic": "Compounding reliability: failure probability multiplication in multi-step agents",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day45",
+              "day_number": 45,
+              "date": "2026-07-26",
+              "title": "What is an eval, and why you need one before launch",
+              "topic": "LLM evals: unit-test analogy, scoring criteria, regression detection, eval types",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day46",
+              "day_number": 46,
+              "date": "2026-07-27",
+              "title": "The seven failure modes that kill agent projects",
+              "topic": "Prompt injection, context overflow, tool errors, hallucination chains, goal drift, overtrust, scope creep",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day47",
+              "day_number": 47,
+              "date": "2026-07-28",
+              "title": "Observability: logging what matters",
+              "topic": "What to trace: inputs, tool calls, results, reasoning, tokens, latency, trajectories",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day48",
+              "day_number": 48,
+              "date": "2026-07-29",
+              "title": "Minimal footprint and the reversibility principle",
+              "topic": "Core safety design: prefer reversible actions, minimum permissions, human escalation",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day49",
+              "day_number": 49,
+              "date": "2026-07-30",
+              "title": "Continuous evals and behavioral drift",
+              "topic": "How agent behavior degrades, how to detect it, continuous evals against production traffic",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            },
+            {
+              "snippet_id": "module2-day50",
+              "day_number": 50,
+              "date": "2026-07-31",
+              "title": "What makes Zazu reliable — and where it could fail",
+              "topic": "Synthesis: auditing Zazu's design against everything in Module 2; Earnventory implications",
+              "imessage_file": null,
+              "email_file": null,
+              "delivery_status": "pending",
+              "delivered_at": null,
+              "engagement": {
+                "imessage_reply": null,
+                "imessage_reply_time_minutes": null,
+                "email_opened": null,
+                "follow_up_question": null,
+                "sentiment": null,
+                "notes": null
+              }
+            }
           ],
           "quiz": {
             "quiz_id": "quiz-2.4",
@@ -414,17 +1220,21 @@
       ]
     }
   ],
-
   "engagement_summary": {
-    "total_snippets_delivered": 0,
-    "total_snippets_pending": 50,
+    "total_snippets_delivered": 1,
+    "total_snippets_pending": 49,
     "average_reply_time_minutes": null,
     "mini_modules_with_quiz_completed": 0,
     "average_quiz_score": null,
     "adaptations_triggered": [],
-    "last_updated": "2026-06-12"
+    "last_updated": "2026-06-12",
+    "day1": {
+      "date": "2026-06-12",
+      "signal": "positive",
+      "reply_received": true,
+      "insight": "Articulated model+tools+context = emergent capability toward goal. Grasped attending/resident analogy cleanly."
+    }
   },
-
   "adaptation_rules": {
     "slow_down_threshold": "quiz_score < 3",
     "slow_down_action": "Add one review snippet before starting next mini-module; reduce abstraction level in next week's snippets",
