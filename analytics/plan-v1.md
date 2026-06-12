@@ -1,9 +1,17 @@
 # Board Analytics & Execution Intelligence System — Plan v1
 
-**Author:** Abeiku (Nyche Research Agent)
-**Date:** 2026-06-10
-**Review target:** Dad, Saturday June 13
-**Status:** Draft — will be refined nightly through June 12
+**Author:** Abeiku (Nyche Research Agent) + Zazu (nightly refinements)
+**Created:** 2026-06-10
+**Review target:** Dad, Saturday June 13 at 4pm
+**Status:** Final draft — nightly refinements complete
+
+### Change Log
+
+| Date | Change |
+|---|---|
+| 2026-06-10 | Initial draft by Abeiku |
+| 2026-06-11 | Added `resistanceScore` field; expanded reflection layer Sunday cadence; clarified `completionQuality` definitions |
+| 2026-06-12 | Added `EXTERNAL_EVENT` taskType with auto-close rule; added `startedAt` field; updated dedup status (already completed — 16 tasks archived, 47→31 open); added nightly git commit infrastructure; refined Week 1 rollout to reflect completed work |
 
 ---
 
@@ -50,7 +58,7 @@ Running a script against the current data today would yield:
 5. **No completion quality signal.** Did "done" mean fully resolved, or parked? The board currently has no way to distinguish a genuine close from a premature mark-done.
 6. **No effort estimate.** Without a T-shirt size or time estimate attached at creation, there is no way to measure estimation accuracy over time.
 7. **No resistance capture.** Tasks that stall get briefed repeatedly but there is no structured field for "I looked at this and consciously deferred it" vs. "I forgot about it."
-8. **Duplicate task noise.** The board has significant duplicate tasks (7+ Acrisure insurance variants, 5+ WYZE recall variants, 3+ Redfin CMA variants). This inflates task count and corrupts completion rate metrics. Deduplication is a prerequisite for clean analytics.
+8. **Duplicate task noise.** ~~The board has significant duplicate tasks (7+ Acrisure insurance variants, 5+ WYZE recall variants, 3+ Redfin CMA variants). This inflates task count and corrupts completion rate metrics. Deduplication is a prerequisite for clean analytics.~~ **RESOLVED Jun 11:** 16 duplicate tasks archived, board reduced from 47 → 31 open tasks. Dedup is complete; analytics baseline is now clean. Going forward, Zazu will check for existing tasks before adding new ones from email triage.
 
 ---
 
@@ -62,7 +70,7 @@ All fields are **optional at creation** and can be populated by Zazu, the board 
 |---|---|---|---|
 | `stageHistory` | `Array<{stage, enteredAt, exitedAt, durationMs}>` | Precise per-stage time tracking for cycle time analysis | Zazu (on every stage write) |
 | `effortTag` | `enum: XS, S, M, L, XL` | T-shirt effort estimate — set at creation or after first reflection | Dad/Mom via iMessage, or Zazu prompt |
-| `taskType` | `enum: ERRAND, PROJECT, DECISION, RESEARCH, MAINTENANCE, EVENT, HABIT` | Execution shape — distinguishes a phone call from a multi-week project | Zazu inference + human confirm |
+| `taskType` | `enum: ERRAND, PROJECT, DECISION, RESEARCH, MAINTENANCE, EVENT, EXTERNAL_EVENT, HABIT` | Execution shape — distinguishes a phone call from a multi-week project | Zazu inference + human confirm |
 | `intentOrigin` | `enum: REACTIVE, PROACTIVE, DELEGATED` | Was this created in response to something (email, external trigger) or planned? | Auto-derived from `source` field with manual override |
 | `resistanceScore` | `integer 0–5` | Explicit signal of friction — set during reflection when a task was seen but not acted on | Zazu writes after reflection response |
 | `completionQuality` | `enum: FULL, PARTIAL, PARKED, DELEGATED_OUT` | Was done actually done? | Human confirms at close, Zazu prompts if not set |
@@ -72,6 +80,19 @@ All fields are **optional at creation** and can be populated by Zazu, the board 
 | `tags` | `Array<string>` | Freeform labels (e.g., `contractor`, `AJ`, `financial`, `seasonal`) | Human or Zazu at creation |
 | `nextActionType` | `enum: CALL, EMAIL, PURCHASE, SCHEDULE, RESEARCH, BUILD, WAIT` | GTD-style next action — what is the literal next physical action? | Zazu prompt when moving to ACTIVE |
 | `stalledAt` | `ISO8601 timestamp` | Set when a task has been in the same stage past the stale threshold without a snooze | Zazu (nightly stale detection script) |
+| `startedAt` | `ISO8601 timestamp` | When Dad or Mom *first actively worked* on a task — distinct from `createdAt` (board entry) and stage transitions. Self-reported via iMessage ("started on the shed today") or set explicitly at ACTIVE entry | Human via reflection, or Zazu on ACTIVE stage transition |
+
+### The `EXTERNAL_EVENT` taskType — a special case
+
+`EXTERNAL_EVENT` is the most operationally important addition to the `taskType` enum. It covers tasks that are fundamentally time-bounded external occurrences: school events, community happenings, scheduled observations, invitations. The key behavioral rule:
+
+> **When a task of type `EXTERNAL_EVENT` reaches its `dueDate` and is still in any stage except DONE, Zazu auto-archives it nightly.** The event passed — the family either attended or didn't, but rescheduling isn't an option.
+
+Example: "Water Play Wednesday at Primrose (Jun 11)" — once June 11 passed, the task was done regardless of whether it was marked complete. Auto-archiving this prevents calendar-event noise from accumulating in the active board and corrupting stall-time analytics.
+
+**Operational rule for Zazu:** When creating tasks from calendar events, school notices, or invitations, default `taskType` to `EXTERNAL_EVENT` and set `dueDate` explicitly. The nightly board cleanup script will handle auto-closure.
+
+**Analytics implication:** EXTERNAL_EVENT tasks should be excluded from cycle time, completion rate, and resistance analyses — their closure is date-driven, not execution-driven. They are tracked separately as an `event_attendance_log` (future Tier 3 addition).
 
 ### Priority additions (implement first)
 
@@ -79,7 +100,7 @@ These three unlock the most analysis with the least implementation cost:
 
 1. **`stageHistory`** — Zero user friction; Zazu writes this automatically on every stage transition. Unlocks all phase-level timing analysis.
 2. **`effortTag`** — One question at task creation ("Quick task or bigger project? XS/S/M/L/XL"). Unlocks estimation accuracy and category velocity normalization.
-3. **`taskType`** — One enum at creation, Zazu can infer most values from title + category. Unlocks the "natural disposition" analysis Dad asked about.
+3. **`taskType`** — One enum at creation, Zazu can infer most values from title + category. Unlocks the "natural disposition" analysis Dad asked about. The `EXTERNAL_EVENT` subtype should be prioritized as it has an immediate operational benefit (auto-close nightly).
 
 ---
 
@@ -311,11 +332,12 @@ These are the specific patterns the system is being built to surface. Listed in 
 
 **Goal:** Get clean data flowing without breaking anything.
 
-1. **Deploy `dedup-detector.js`** — identify and archive (not delete) the ~15 duplicate tasks currently on the board. Mark them `stage: ARCHIVED` or move to a `archivedTasks[]` array. This is the highest-priority prerequisite for clean analytics.
-2. **Implement `stageHistory` writing** — modify the Zazu board-write code path so that every stage transition appends to `stageHistory`. One-time script to reconstruct partial `stageHistory` from existing `history` entries.
-3. **Add `taskType` inference** — Zazu infers `taskType` from title + category for all new tasks using a simple rule set (e.g., category ADMIN + contains "renew" → MAINTENANCE; category GOALS → PROJECT). Dad confirms or overrides via iMessage.
+1. ~~**Deploy `dedup-detector.js`**~~ **DONE (Jun 11):** 16 duplicate tasks identified and archived manually. Board cleaned from 47 → 31 open tasks. Analytics baseline is now clean. Future dedup detection will be script-assisted, but the one-time cleanup is complete.
+2. **Implement `stageHistory` writing** — modify the Zazu board-write code path so that every stage transition appends to `stageHistory`. One-time script to reconstruct partial `stageHistory` from existing `history` entries where possible.
+3. **Add `taskType` inference** — Zazu infers `taskType` from title + category for all new tasks. Rule set: `category: ADMIN + contains "renew" → MAINTENANCE`; `category: GOALS → PROJECT`; `calendar event / school notice → EXTERNAL_EVENT`; `email triage action item → ERRAND`. Dad confirms or overrides via iMessage.
 4. **Deploy `board-health.js` and `completion-rate.js`** — run nightly, output to `analytics/outputs/daily-health.md`. Zazu reads this file during morning briefing prep.
 5. **Begin Sunday reflection protocol** — first check-in Sunday June 15. Keep it short (3 questions max in Week 1).
+6. **Nightly git commits** ✅ — established Jun 11. Board state is now version-controlled. Every change Zazu makes to `board-data.json` is committed nightly with a summary message. This creates a historical record that can backfill `stageHistory` and provides a time-series dataset for trend analysis independent of real-time field tracking.
 
 ### Week 2 (June 17–23): Phase tracking live
 
@@ -345,7 +367,7 @@ These are the specific patterns the system is being built to surface. Listed in 
 
 These require human judgment to proceed:
 
-1. **Duplicate task cleanup:** The board has ~15 duplicate tasks (multiple insurance, WYZE recall, Redfin, and tax tasks that are functionally the same item). Before analytics are meaningful, these need to be archived. Should Zazu do this in a nightly cleanup pass, or do you want to review them first? Suggested approach: Zazu marks them `stage: ARCHIVED` with a note — they remain in the file but are excluded from active views and analytics.
+1. ~~**Duplicate task cleanup**~~ **RESOLVED:** 16 duplicate tasks archived Jun 11. Board is at 31 open tasks. Going forward, Zazu checks for existing tasks before adding email-triage items.
 
 2. **Effort tagging friction tolerance:** The `effortTag` prompt (XS/S/M/L/XL) adds one iMessage exchange per new task. Is that acceptable, or would you prefer Zazu auto-infer it silently and you only correct outliers during the weekly reflection?
 
@@ -361,4 +383,20 @@ These require human judgment to proceed:
 
 ---
 
-*This document will be revised nightly June 10–12. Significant structural changes will be noted at the top with a change log. Final version delivered to Dad on Saturday June 13.*
+---
+
+## Zazu's Nightly Observations (Jun 10–12)
+
+Patterns noted during active board management this week that informed plan refinements:
+
+**Jun 10:** Tax task (t_8gak2bf) briefCount reached 3 with no stage movement. First real live `resistanceScore > 0` candidate. Task has external accountability (CPA waiting) but internal friction (document gathering is tedious, non-delegatable). This is the prototype case for the reflection layer — a brief pressure script would surface it, a Sunday reflection would capture the "why."
+
+**Jun 11:** Water Play Wednesday task closed after the event date passed. Confirmed the `EXTERNAL_EVENT` auto-close rule is operationally useful — this task would have sat on the board indefinitely without the rule, adding noise to stall metrics.
+
+**Jun 12:** Three distinct task types active simultaneously: Kojo wedding RSVP (DECISION with hard deadline), Techstars application (PROJECT with external deadline), AJ Newsletter (PROJECT with no hard deadline). These behave entirely differently in the funnel — deadline-driven DECISION tasks close fast; open-ended PROJECT tasks drift. The `taskType` + `dueDate` combination will be the strongest predictor of task velocity once the dataset builds.
+
+**Ongoing signal:** Board is skewed heavily toward ADMIN and FAMILY tasks with near-zero YARD and GOALS throughput. The shed (t_002, YARD) has been in RESEARCH since April 2025. GOALS tasks (Earnventory, HBAR) have board presence but no sub-task decomposition — they are goals masquerading as tasks. This is likely a primary contributor to low GOALS completion rates.
+
+---
+
+*Nightly refinements complete. Final version ready for Saturday June 13 4pm review.*
