@@ -3,7 +3,8 @@
 # scripts/daily-learning.sh
 # Runs at 8:57am via com.zazu.daily-learning launchd job.
 # Reads curriculum state, delivers today's AI learning snippet via iMessage
-# and Gmail draft. Updates curriculum.json after delivery.
+# and sends the reference email directly via send-email.js (no draft).
+# Updates curriculum.json after delivery.
 # ─────────────────────────────────────────────────────────────────────────────
 
 set -euo pipefail
@@ -64,6 +65,16 @@ fi
 
 CURRICULUM_STATE=$(cat "$LEARNING_DIR/curriculum.json")
 
+# ── Send email directly (no Claude needed for this step) ─────────────────────
+if [ "$SNIPPET_SOURCE" = "pre-written" ]; then
+  EMAIL_SUBJECT=$(head -1 "$EMAIL_FILE" | sed 's/^# //')
+  EMAIL_SEND_RESULT=$(node "$BOARD_DIR/scripts/send-email.js" \
+    --to "nanaec.nychesolutions@gmail.com" \
+    --subject "$EMAIL_SUBJECT" \
+    --body "$EMAIL_CONTENT" 2>&1)
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Email: $EMAIL_SEND_RESULT" >> "$LOG_DIR/daily-learning.log"
+fi
+
 # ── Build prompt ──────────────────────────────────────────────────────────────
 PROMPT="You are Zazu, the Nyche family AI house manager. It is 9am — time to deliver today's AI learning snippet to Dad.
 
@@ -75,8 +86,8 @@ $(if [ "$SNIPPET_SOURCE" = "pre-written" ]; then
 echo "== IMESSAGE SNIPPET (send this exactly) ==
 $IMESSAGE_CONTENT
 
-== EMAIL CONTENT (create as Gmail draft) ==
-$EMAIL_CONTENT"
+NOTE: The reference email has already been sent directly to nanaec.nychesolutions@gmail.com
+by the shell script. Do NOT create any Gmail draft."
 else
 echo "== CURRICULUM PLAN (use this to generate today's snippet) ==
 $CURRICULUM_PLAN
@@ -89,15 +100,13 @@ Generate today's iMessage snippet and email content following the established fo
 - Email: 1,200+ words, structured reference with ASCII diagrams where helpful, built to return to
 - Save the generated files to:
   $LEARNING_DIR/snippets/${SNIPPET_ID}-imessage.md
-  $LEARNING_DIR/snippets/${SNIPPET_ID}-email.md"
+  $LEARNING_DIR/snippets/${SNIPPET_ID}-email.md
+- Then send the email using: node $BOARD_DIR/scripts/send-email.js --to nanaec.nychesolutions@gmail.com --subject 'SUBJECT' --body 'BODY'"
 fi)
 
 DELIVERY INSTRUCTIONS:
-1. Send the iMessage snippet to Dad via iMessage
-2. Create a Gmail draft to nanaec.nychesolutions@gmail.com with:
-   - Subject: the snippet title from the iMessage header
-   - Body: the full email content (HTML formatted)
-3. After sending, update curriculum.json:
+1. Send the iMessage snippet to Dad via iMessage (ONLY task for pre-written snippets)
+2. After sending, update curriculum.json:
    - Set progress.last_delivered_date to '$TODAY'
    - Set progress.status to 'in_progress'
    - Find the snippet entry with id '$SNIPPET_ID' and set delivered=true, delivery_date='$TODAY'
@@ -107,11 +116,7 @@ DELIVERY INSTRUCTIONS:
 CRITICAL — iMessage delivery:
 - Use ONLY the mcp__plugin_imessage_imessage__reply tool
 - Dad chat_id: any;-;+16173353840
-- Do NOT use osascript, bash, or Messages.app
-
-CRITICAL — Gmail:
-- Use mcp__claude_ai_Gmail__create_draft to create the email draft
-- Send to: nanaec.nychesolutions@gmail.com"
+- Do NOT use osascript, bash, or Messages.app"
 
 # ── Invoke Claude ─────────────────────────────────────────────────────────────
 /opt/homebrew/bin/claude \
