@@ -2,14 +2,8 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # scripts/board-briefing.sh
 # Called by com.zazu.board-briefing launchd job at 7:00am daily.
-# Follows the exact same pattern as ~/.claude/daily-briefing.sh.
-#
-# Reads board-data.json via zazu-context.js and injects it into a
-# claude -p one-shot prompt. Claude (as Zazu) sends the briefing to
-# Dad and Mom via her iMessage channel tools.
-#
-# NOTE: iMessages are sent by Claude using mcp__plugin_imessage_imessage__*
-#       tools inside the -p invocation. This script never calls osascript.
+# Sends iMessages to Dad + Mom, emails Dad's briefing via send-email.js,
+# and updates board task state.
 # ─────────────────────────────────────────────────────────────────────────────
 
 set -euo pipefail
@@ -33,10 +27,11 @@ MOM_NUMBER="+16175438839"
 
 PROMPT="You are Zazu, the Nyche family's AI house manager. Today is $TODAY.
 
-You have two tasks right now:
+You have THREE tasks right now:
 
 1. Send a morning household board briefing to Dad ($DAD_NUMBER) and Mom ($MOM_NUMBER) via iMessage.
-2. After sending, update any task statuses that need it (e.g. increment briefCount on surfaced tasks using the board tools).
+2. Send an email copy of Dad's briefing to nanaec.nychesolutions@gmail.com using send-email.js.
+3. Update board task statuses after sending.
 
 Here is the current household board state:
 
@@ -55,7 +50,13 @@ BRIEFING RULES:
 - Do NOT include snoozed tasks in the briefing
 - If the board is all clear (no overdue, no stalled), lead with that good news then give the week ahead
 
-After sending both messages, run the board tools shown in the context to:
+EMAIL TASK — after both iMessages are sent, use the Bash tool to email Dad's briefing:
+  node /Users/zazunyche/Documents/src/family-board/scripts/send-email.js \\
+    --to nanaec.nychesolutions@gmail.com \\
+    --subject \"Zazu Board Brief — $TODAY\" \\
+    --body \"[plain text of the briefing you sent to Dad via iMessage]\"
+
+BOARD UPDATE — after all messages are sent, use the board tools to:
 - Increment briefCount on any overdue or stalled tasks you surfaced
 - Update lastBriefed timestamp on those tasks
 
@@ -63,11 +64,10 @@ CRITICAL — iMessage delivery rules:
 - Use ONLY the mcp__plugin_imessage_imessage__reply tool to send iMessages
 - Dad chat_id: any;-;+16173353840
 - Mom chat_id: any;-;+16175438839
-- Do NOT use osascript, bash, or any other method to send messages
-- Do NOT call the Messages app directly
+- Do NOT use osascript, bash, or any other method to send iMessages
 Use your board tools (node /Users/zazunyche/Documents/src/family-board/board-tools/...) to update task state after sending."
 
-# ── Invoke Claude as Zazu (one-shot, same pattern as daily-briefing.sh) ───────
+# ── Invoke Claude as Zazu (one-shot) ─────────────────────────────────────────
 /opt/homebrew/bin/claude \
   --channels plugin:imessage@claude-plugins-official \
   --system-prompt ~/.claude/system-prompt.md \
