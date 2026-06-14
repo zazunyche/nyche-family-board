@@ -20,17 +20,19 @@ BOARD_CONTEXT=$(node "$BOARD_DIR/board-tools/zazu-context.js" 2>>"$LOG_DIR/board
   exit 1
 }
 
+# ── Load contact config (never committed — lives in ~/.zazu-config) ───────────
+# shellcheck source=/dev/null
+source ~/.zazu-config
+
 # ── Build prompt ──────────────────────────────────────────────────────────────
 TODAY=$(date "+%A, %B %-d")
-DAD_NUMBER="+16173353840"
-MOM_NUMBER="+16175438839"
 
 PROMPT="You are Zazu, the Nyche family's AI house manager. Today is $TODAY.
 
 You have THREE tasks right now:
 
 1. Send a morning household board briefing to Dad ($DAD_NUMBER) and Mom ($MOM_NUMBER) via iMessage.
-2. Send an email copy of Dad's briefing to nanaec.nychesolutions@gmail.com using send-email.js.
+2. Send an email copy of Dad's briefing to $DAD_EMAIL_WORK using send-email.js.
 3. Update board task statuses after sending.
 
 Here is the current household board state:
@@ -52,7 +54,7 @@ BRIEFING RULES:
 
 EMAIL TASK — after both iMessages are sent, use the Bash tool to email Dad's briefing:
   node /Users/zazunyche/Documents/src/family-board/scripts/send-email.js \\
-    --to nanaec.nychesolutions@gmail.com \\
+    --to $DAD_EMAIL_WORK \\
     --subject \"Zazu Board Brief — $TODAY\" \\
     --body \"[plain text of the briefing you sent to Dad via iMessage]\"
 
@@ -62,8 +64,8 @@ BOARD UPDATE — after all messages are sent, use the board tools to:
 
 CRITICAL — iMessage delivery rules:
 - Use ONLY the mcp__plugin_imessage_imessage__reply tool to send iMessages
-- Dad chat_id: any;-;+16173353840
-- Mom chat_id: any;-;+16175438839
+- Dad chat_id: any;-;$DAD_NUMBER
+- Mom chat_id: any;-;$MOM_NUMBER
 - Do NOT use osascript, bash, or any other method to send iMessages
 Use your board tools (node /Users/zazunyche/Documents/src/family-board/board-tools/...) to update task state after sending."
 

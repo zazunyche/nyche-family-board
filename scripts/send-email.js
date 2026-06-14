@@ -6,24 +6,23 @@
  *   node send-email.js --to "addr@example.com" --subject "Subject" --body "Body text"
  *   node send-email.js --to "a@b.com" --to "c@d.com" --subject "Hi" --html "<b>Hello</b>"
  *
- * Allowed recipients (enforced — will refuse others):
- *   nconduah@gmail.com, nconduah2@gmail.com,
- *   nanaec.nychesolutions@gmail.com, nanayaaf@gmail.com
- *
- * Reads GMAIL_APP_PASSWORD from environment or ~/.zazu-email-creds (one line: password)
+ * Sender and allowed recipients are loaded from ~/.zazu-email-config.json (not committed).
+ * Reads GMAIL_APP_PASSWORD from environment or ~/.zazu-email-creds (one line: password).
  */
 
 const nodemailer = require('/Users/zazunyche/.npm-global/node_modules/nodemailer');
 const fs = require('fs');
 const path = require('path');
 
-const SENDER = 'zazunyche@gmail.com';
-const ALLOWED_RECIPIENTS = new Set([
-  'nconduah@gmail.com',
-  'nconduah2@gmail.com',
-  'nanaec.nychesolutions@gmail.com',
-  'nanayaaf@gmail.com'
-]);
+// Load sender + allowlist from local config (never committed)
+const emailConfigPath = path.join(process.env.HOME, '.zazu-email-config.json');
+if (!fs.existsSync(emailConfigPath)) {
+  console.error('Error: ~/.zazu-email-config.json not found. Create it with sender + allowedRecipients.');
+  process.exit(1);
+}
+const emailConfig = JSON.parse(fs.readFileSync(emailConfigPath, 'utf8'));
+const SENDER = emailConfig.sender;
+const ALLOWED_RECIPIENTS = new Set((emailConfig.allowedRecipients || []).map(r => r.toLowerCase()));
 
 // Parse args
 const args = process.argv.slice(2);

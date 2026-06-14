@@ -1,33 +1,33 @@
-# The AJ Update — Newsletter System Proposal
+# The Child_1 Update — Newsletter System Proposal
 
 **Prepared by:** Abeiku (Nyche Family Research Agent)
 **Date:** June 12, 2026
-**For:** Nana Essilfie-Conduah (Dad), reviewed by Nana Yaa
+**For:** Dad (Dad), reviewed by Mom
 
 ---
 
 ## Executive Summary
 
-AJ's grandparents are scattered and hard to keep in the loop — a monthly newsletter called "The AJ Update" would turn Primrose's daily reports into something warm, readable, and worth forwarding. The core workflow is simple: Primrose emails arrive daily to a designated Gmail address, Zazu batches and processes them at month-end, Abeiku synthesizes the highlights into a structured newsletter, and a Gmail draft lands in Dad's inbox ready for photos and a personal note before he hits send. No new apps, no subscriptions required — just a well-designed pipeline on top of tools the family already has. The first edition could go out as early as the end of June.
+Child_1's grandparents are scattered and hard to keep in the loop — a monthly newsletter called "The Child_1 Update" would turn Child_1's daycare's daily reports into something warm, readable, and worth forwarding. The core workflow is simple: Child_1's daycare emails arrive daily to a designated Gmail address, Zazu batches and processes them at month-end, Abeiku synthesizes the highlights into a structured newsletter, and a Gmail draft lands in Dad's inbox ready for photos and a personal note before he hits send. No new apps, no subscriptions required — just a well-designed pipeline on top of tools the family already has. The first edition could go out as early as the end of June.
 
 ---
 
 ## 1. Research Findings
 
-### What Platform Does Primrose School of Brookhaven Use?
+### What Platform Does Child_1's daycare Use?
 
 **Confirmed: ProCare (Procare Solutions)**
 
-Dad confirmed on June 12, 2026 that Primrose Brookhaven uses **ProCare** — and forwarded a real daily summary email. The platform research below is now resolved.
+Dad confirmed on June 12, 2026 that Child_1's daycare uses **ProCare** — and forwarded a real daily summary email. The platform research below is now resolved.
 
 | Detail | Value |
 |---|---|
 | Platform | ProCare (connect.procareconnect.com) |
 | Sender address | `connect-notification@online.procaresoftware.com` |
 | Subject format | `Daily summary for MM/DD/YYYY - [Child Name]` |
-| Child's full name in system | Aiden "AJ" Essilfie-Conduah |
+| Child's full name in system | Child_1 |
 | Classroom | 2-Toddler 2 |
-| Current recipient | `nconduah2@gmail.com` (Mom's Gmail) |
+| Current recipient | `dad-secondary@gmail.com` (Mom's Gmail) |
 
 **Key pipeline-relevant fact:** ProCare sends a daily summary email automatically after checkout. The email contains structured sections with timestamps, meal consumption details, learning activities (with photos), nap times, bathroom changes, and teacher lesson notes. There is no need to install a separate app for the email pipeline — ProCare sends it directly.
 
@@ -44,8 +44,8 @@ Based on the June 11, 2026 sample email, a typical ProCare daily summary include
 | **Sign-Ins** | "Signed in to Building Sign In at 8:04 AM" |
 | **Sign-Outs** | "Signed out from 2-Toddler 2 at 5:34 PM" |
 | **Naps** | Start: 12:31 PM → End: 2:25 PM (1 hr 54 min) |
-| **Learnings** | Named activity + timestamp + teacher description + photo (e.g., "Circle Time @8:33 AM — helped Primrose friend Katie learn her colors!") |
-| **Meals** | "AJ ate all/most/none of the [meal]. @HH:MM [Menu items]. [Optional teacher note]" |
+| **Learnings** | Named activity + timestamp + teacher description + photo (e.g., "Circle Time @8:33 AM — helped Child_1's daycare friend Katie learn her colors!") |
+| **Meals** | "Child_1 ate all/most/none of the [meal]. @HH:MM [Menu items]. [Optional teacher note]" |
 | **Bathroom** | Diaper change type (wet/soiled) + timestamp |
 | **Lessons** | Named lesson + description + OUTCOMES (developmental milestone language) |
 
@@ -57,27 +57,27 @@ This is rich, structured data. Every section has consistent formatting across em
 
 ### The Core Problem
 
-Dad already receives daily Primrose updates, but they arrive as one-off notifications or emails that get buried. The goal is to accumulate a month's worth of those updates and synthesize them — without creating manual work for Dad during the month.
+Dad already receives daily Child_1's daycare updates, but they arrive as one-off notifications or emails that get buried. The goal is to accumulate a month's worth of those updates and synthesize them — without creating manual work for Dad during the month.
 
 ### Recommended Approach: Email Forwarding Pipeline
 
 This is the best fit given Zazu already processes Gmail. Platform is confirmed as **ProCare** — pipeline setup below is ProCare-specific.
 
-**Routing note:** ProCare sends to **`nconduah2@gmail.com` — Dad's secondary Gmail** (not Mom's). Mom's Gmail is `nanayaaf@gmail.com`. Dad confirmed on June 12 that he will set up a **Gmail forward filter** in `nconduah2@gmail.com`.
+**Routing note:** ProCare sends to **`dad-secondary@gmail.com` — Dad's secondary Gmail** (not Mom's). Mom's Gmail is `mom@gmail.com`. Dad confirmed on June 12 that he will set up a **Gmail forward filter** in `dad-secondary@gmail.com`.
 
-**Setup (one-time, ~2 minutes — Dad does this in nconduah2@gmail.com settings):**
+**Setup (one-time, ~2 minutes — Dad does this in dad-secondary@gmail.com settings):**
 
-1. In `nconduah2@gmail.com` → Settings → Filters and Blocked Addresses → Create new filter:
+1. In `dad-secondary@gmail.com` → Settings → Filters and Blocked Addresses → Create new filter:
    - From: `connect-notification@online.procaresoftware.com`
    - Subject contains: `Daily summary for`
-   - Action: **Forward to** `zazunyche@gmail.com`
-2. Zazu applies Gmail label on receipt: `AJ/Primrose/Unprocessed`.
-3. After monthly synthesis, processed emails get relabeled `AJ/Primrose/[Month-Year]`.
+   - Action: **Forward to** `zazu@gmail.com`
+2. Zazu applies Gmail label on receipt: `Child_1/Child_1's daycare/Unprocessed`.
+3. After monthly synthesis, processed emails get relabeled `Child_1/Child_1's daycare/[Month-Year]`.
 
-**Test newsletter drafts:** Send to `nconduah@gmail.com` (Dad's primary Gmail) for review before going out to family.
+**Test newsletter drafts:** Send to `dad-primary@gmail.com` (Dad's primary Gmail) for review before going out to family.
 
 **Monthly trigger:** On the last day of each month (or a date Dad sets — e.g., the 28th), a scheduled Zazu routine runs:
-- Searches Gmail for all emails labeled `AJ/Primrose/Unprocessed`
+- Searches Gmail for all emails labeled `Child_1/Child_1's daycare/Unprocessed`
 - Bundles the content and passes to Abeiku for synthesis
 - Produces a Gmail draft back to Dad
 
@@ -89,16 +89,16 @@ This is the best fit given Zazu already processes Gmail. Platform is confirmed a
 
 ### What Comes in Each ProCare Daily Email
 
-From the confirmed June 11, 2026 ProCare sample for AJ:
+From the confirmed June 11, 2026 ProCare sample for Child_1:
 
 - **Sign-in / sign-out times** (building entry + classroom sign-out)
 - **Nap times** — exact start and end to the minute
 - **Learnings** — named curriculum activities with timestamps, teacher descriptions, and CDN-hosted photos (inline in HTML)
-- **Meals** — "ate all/most/none" for each meal (breakfast, AM snack, lunch, PM snack) with full menu items and teacher notes when AJ's eating was notable
+- **Meals** — "ate all/most/none" for each meal (breakfast, AM snack, lunch, PM snack) with full menu items and teacher notes when Child_1's eating was notable
 - **Bathroom** — diaper change type and times (wet/soiled per change)
 - **Lessons** — named lesson with curriculum description + formal OUTCOMES in developmental milestone language
 
-**Photo note:** Photos are embedded in the HTML email with signed CDN URLs. They expire (typically 2-3 months) — they cannot be reliably linked in a newsletter. Use them as scene-setters when writing narrative (e.g., "the photo from art time showed AJ covered in blue paint"), and use Dad's camera roll for actual newsletter photos.
+**Photo note:** Photos are embedded in the HTML email with signed CDN URLs. They expire (typically 2-3 months) — they cannot be reliably linked in a newsletter. Use them as scene-setters when writing narrative (e.g., "the photo from art time showed Child_1 covered in blue paint"), and use Dad's camera roll for actual newsletter photos.
 
 Over 20–22 school days a month, this is rich source material for all six newsletter sections.
 
@@ -106,23 +106,23 @@ Over 20–22 school days a month, this is rich source material for all six newsl
 
 ## 3. Content Framework
 
-Each edition of "The AJ Update" has six sections. Below is each section with its source mapping.
+Each edition of "The Child_1 Update" has six sections. Below is each section with its source mapping.
 
 ### Section 1 — Opening Snapshot
 
-> **AJ is [X] months old this month.** [1–2 warm sentences setting the tone for the month.]
+> **Child_1 is [X] months old this month.** [1–2 warm sentences setting the tone for the month.]
 
 **Source:** Dad writes or Zazu generates based on milestone context for that age.
-**Why:** Orients grandparents who don't see AJ daily. Creates an emotional hook in the first 10 seconds of reading.
+**Why:** Orients grandparents who don't see Child_1 daily. Creates an emotional hook in the first 10 seconds of reading.
 
 ---
 
 ### Section 2 — Month in Highlights
 
-> A short narrative (150–200 words) of the standout moments from the month. What made teachers write extra notes? What did AJ do that was funny, unexpected, or clearly new?
+> A short narrative (150–200 words) of the standout moments from the month. What made teachers write extra notes? What did Child_1 do that was funny, unexpected, or clearly new?
 
 **Source:** Synthesized from teacher notes and activity descriptions across the month's emails. Abeiku filters for the most vivid, specific moments rather than listing every day.
-**Why:** This is the section grandparents will read aloud to each other. Specificity is everything — "AJ spent 20 minutes lining up toy dinosaurs by size" beats "AJ played with toys."
+**Why:** This is the section grandparents will read aloud to each other. Specificity is everything — "Child_1 spent 20 minutes lining up toy dinosaurs by size" beats "Child_1 played with toys."
 
 ---
 
@@ -131,13 +131,13 @@ Each edition of "The AJ Update" has six sections. Below is each section with its
 > What skills are emerging or solidifying this month? Organized by domain: language, motor, social, and emotional.
 
 **Source:** Teacher activity notes mapped against 22-month developmental milestones. Abeiku flags when observed behaviors match a known developmental stage (e.g., two-word combinations, pretend play sequences).
-**Why:** Grandparents want to know AJ is growing on track. This section also gives them conversation fodder — "I hear you're saying two words together now!"
+**Why:** Grandparents want to know Child_1 is growing on track. This section also gives them conversation fodder — "I hear you're saying two words together now!"
 
-**Recurring sub-feature:** "Word of the Month" — one new word or phrase AJ said or started using this month. Becomes a running record across editions.
+**Recurring sub-feature:** "Word of the Month" — one new word or phrase Child_1 said or started using this month. Becomes a running record across editions.
 
 ---
 
-### Section 4 — AJ By the Numbers
+### Section 4 — Child_1 By the Numbers
 
 > A small data block. Clean, skimmable.
 
@@ -157,10 +157,10 @@ Each edition of "The AJ Update" has six sections. Below is each section with its
 
 ### Section 5 — Personality Corner
 
-> 2–3 short vignettes or observations about who AJ is becoming as a person. Preferences, quirks, emerging opinions.
+> 2–3 short vignettes or observations about who Child_1 is becoming as a person. Preferences, quirks, emerging opinions.
 
-**Source:** Teacher narrative notes, behavioral observations. Examples: "AJ refused to leave the art table three days in a row" → shows emerging focus and artistic interest.
-**Why:** Development data tells you what AJ can do. Personality tells you who he is. This is the section family shares on family group chats.
+**Source:** Teacher narrative notes, behavioral observations. Examples: "Child_1 refused to leave the art table three days in a row" → shows emerging focus and artistic interest.
+**Why:** Development data tells you what Child_1 can do. Personality tells you who he is. This is the section family shares on family group chats.
 
 ---
 
@@ -170,17 +170,17 @@ Each edition of "The AJ Update" has six sections. Below is each section with its
 > [Photo 2 — Caption suggestion]
 > [Photo 3 — Caption suggestion]
 
-**Source:** Dad adds photos. Zazu suggests caption language based on the month's content. If Dad has a photo of AJ painting, Zazu flags "great match for the art table reference in Personality Corner."
+**Source:** Dad adds photos. Zazu suggests caption language based on the month's content. If Dad has a photo of Child_1 painting, Zazu flags "great match for the art table reference in Personality Corner."
 **Why:** Photos are why people open emails. Keeping them at the end means the text gets read first on mobile. Caption suggestions reduce Dad's writing load.
 
 ---
 
 ### Closing — What's Coming Next Month
 
-> 2–3 sentences previewing what AJ will be working on developmentally at his next age, and any known school events.
+> 2–3 sentences previewing what Child_1 will be working on developmentally at his next age, and any known school events.
 
-**Source:** Zazu generates from developmental milestone data for AJ's next age. Dad can add school-specific events he knows about.
-**Why:** Gives grandparents something to look forward to. "Next month AJ turns 2 — we'll be watching for those first full sentences!" creates anticipation.
+**Source:** Zazu generates from developmental milestone data for Child_1's next age. Dad can add school-specific events he knows about.
+**Why:** Gives grandparents something to look forward to. "Next month Child_1 turns 2 — we'll be watching for those first full sentences!" creates anticipation.
 
 ---
 
@@ -197,7 +197,7 @@ For 10–30 recipients who are grandparents and extended family, dedicated newsl
 **Recommended approach:** Gmail draft with HTML formatting, sent by Dad from his personal email.
 
 The workflow:
-1. Zazu produces the newsletter as a well-formatted Gmail draft in `zazunyche@gmail.com`
+1. Zazu produces the newsletter as a well-formatted Gmail draft in `zazu@gmail.com`
 2. Draft uses basic HTML (bold headers, a simple two-column layout, color accent for the "By the Numbers" block)
 3. Dad opens the draft, inserts photos into the photo placeholders, reviews and adjusts anything, adds a personal note at the top
 4. Dad sends from his own Gmail to the family group — or uses a BCC list he manages
@@ -206,15 +206,15 @@ The workflow:
 
 ### Distribution
 
-**Option A — Simple BCC list:** Dad maintains a `family-aj-update@` Google Group or just a named Gmail contact group "AJ Updates Family." Paste the group into BCC. Free, immediate, fully private.
+**Option A — Simple BCC list:** Dad maintains a `family-aj-update@` Google Group or just a named Gmail contact group "Child_1 Updates Family." Paste the group into BCC. Free, immediate, fully private.
 
 **Option B — Google Group with reply-all disabled:** Creates a `aj-updates@googlegroups.com` address. Dad sends to it; it fans out to all members. Members can reply-to-sender (Dad) but not reply-all spam the list. Low-tech, works perfectly at this scale.
 
-**Naming convention:** `The AJ Update — [Month Year]` (e.g., "The AJ Update — June 2026"). Subject line keeps it findable in Gmail years later.
+**Naming convention:** `The Child_1 Update — [Month Year]` (e.g., "The Child_1 Update — June 2026"). Subject line keeps it findable in Gmail years later.
 
 ### Photo Handling
 
-- Zazu's draft includes `[PHOTO PLACEHOLDER — suggested: insert photo of AJ at art table]` in clearly marked spots
+- Zazu's draft includes `[PHOTO PLACEHOLDER — suggested: insert photo of Child_1 at art table]` in clearly marked spots
 - Dad opens the draft in Gmail, drags photos into those spots, deletes the placeholder text
 - Photos stay in Dad's camera roll — never pass through Zazu's systems
 - Recommended: 3–5 photos per edition. More than 5 and email clients get unhappy; fewer than 3 feels thin.
@@ -227,12 +227,12 @@ The workflow:
 
 ```
 Month runs (school days 1–22)
-  └── Daily: Primrose sends checkout email to forwarded address
-       └── Gmail filter auto-labels: "AJ/Primrose/Unprocessed"
+  └── Daily: Child_1's daycare sends checkout email to forwarded address
+       └── Gmail filter auto-labels: "Child_1/Child_1's daycare/Unprocessed"
 
 Day 28 of month (configurable trigger):
   ├── Zazu scheduled routine fires
-  ├── Gmail MCP: search label "AJ/Primrose/Unprocessed"
+  ├── Gmail MCP: search label "Child_1/Child_1's daycare/Unprocessed"
   ├── Bundle all emails for the month
   ├── Pass to Abeiku for synthesis
   │     ├── Parse daily entries
@@ -242,16 +242,16 @@ Day 28 of month (configurable trigger):
   │     └── Generate newsletter draft (all 6 sections)
   ├── Zazu creates Gmail draft:
   │     └── To: [Dad's email]
-  │         Subject: "DRAFT: The AJ Update — [Month Year] — Ready for your photos"
+  │         Subject: "DRAFT: The Child_1 Update — [Month Year] — Ready for your photos"
   │         Body: Formatted newsletter with photo placeholders
-  └── Zazu relabels processed emails: "AJ/Primrose/June-2026"
+  └── Zazu relabels processed emails: "Child_1/Child_1's daycare/June-2026"
        └── Removes "Unprocessed" label (prevents double-processing)
 ```
 
 ### State Tracking
 
 A small state log lives in Google Drive (or a Notion page) at:
-`/Family/AJ Newsletter/processing-log.json`
+`/Family/Child_1 Newsletter/processing-log.json`
 
 Format:
 ```json
@@ -268,45 +268,45 @@ Zazu writes to this log after each run. Before running, Zazu checks: if `last_pr
 
 ### Graceful Degradation
 
-If the email forwarding setup hasn't been done yet, or if Primrose uses an app (not email), the fallback is:
+If the email forwarding setup hasn't been done yet, or if Child_1's daycare uses an app (not email), the fallback is:
 - Dad screenshots the month's activity log once a month and texts/emails it to Zazu
 - Zazu processes the images via OCR/description
 - Same newsletter output, slightly more manual trigger
 
 ---
 
-## 6. Sample Newsletter: "The AJ Update — June 2026"
+## 6. Sample Newsletter: "The Child_1 Update — June 2026"
 
 ---
 
-**Subject:** The AJ Update — June 2026
+**Subject:** The Child_1 Update — June 2026
 
 ---
 
 *Hi family!*
 
-*Here's this month's update from AJ's world. As always, feel free to reply with questions or give AJ a call — he loves hearing your voices. Photos below were taken this week.*
+*Here's this month's update from Child_1's world. As always, feel free to reply with questions or give Child_1 a call — he loves hearing your voices. Photos below were taken this week.*
 
-*— Nana & Nana Yaa*
+*— Nana & Mom*
 
 ---
 
-# The AJ Update
+# The Child_1 Update
 ### June 2026 · Month 22
 
 ---
 
-## AJ is 22 months old this month.
+## Child_1 is 22 months old this month.
 
-Summer has officially arrived at the Essilfie-Conduah household — and AJ has opinions about all of it. This month he discovered that garden hoses are basically the best invention in human history, formed strong feelings about which cup is the correct cup (it's the blue one, always the blue one), and said something that sounded almost exactly like "I did it!" after stacking six blocks without them falling. June was a big month.
+Summer has officially arrived at the family household — and Child_1 has opinions about all of it. This month he discovered that garden hoses are basically the best invention in human history, formed strong feelings about which cup is the correct cup (it's the blue one, always the blue one), and said something that sounded almost exactly like "I did it!" after stacking six blocks without them falling. June was a big month.
 
 ---
 
 ## Month in Highlights
 
-The standout moment of June at Primrose happened on the 11th. Ms. Tamara's note said AJ spent almost the entire morning at the sensory bin — a table filled with kinetic sand and small animals — completely absorbed, moving animals in and out, narrating something under his breath the whole time. She called it "the longest focused play we've seen from him." We are choosing to interpret this as early engineering genius.
+The standout moment of June at Child_1's daycare happened on the 11th. Ms. Tamara's note said Child_1 spent almost the entire morning at the sensory bin — a table filled with kinetic sand and small animals — completely absorbed, moving animals in and out, narrating something under his breath the whole time. She called it "the longest focused play we've seen from him." We are choosing to interpret this as early engineering genius.
 
-He also had his first real moment of comforting a friend. One of his classmates was crying at drop-off, and according to the daily report, AJ walked over, crouched down to her level, and patted her on the arm. The teachers said the room went quiet. We cried when we read that.
+He also had his first real moment of comforting a friend. One of his classmates was crying at drop-off, and according to the daily report, Child_1 walked over, crouched down to her level, and patted her on the arm. The teachers said the room went quiet. We cried when we read that.
 
 On the food front: mac and cheese remained the reigning champion (again), but June introduced a surprise contender — cucumber slices, eaten enthusiastically on six separate days. We have no explanation. We are not questioning it.
 
@@ -314,19 +314,19 @@ On the food front: mac and cheese remained the reigning champion (again), but Ju
 
 ## Learning & Development
 
-**Language:** AJ's vocabulary continues to expand fast. This month his teachers noted two-word combinations appearing more frequently — "more please," "go outside," "no mine," and our personal favorite, "daddy home?" asked approximately fourteen times after 4pm on weekdays. He's right on track for his age, when two-word phrases are just starting to click into place.
+**Language:** Child_1's vocabulary continues to expand fast. This month his teachers noted two-word combinations appearing more frequently — "more please," "go outside," "no mine," and our personal favorite, "daddy home?" asked approximately fourteen times after 4pm on weekdays. He's right on track for his age, when two-word phrases are just starting to click into place.
 
 > **Word of the Month: "outside"** — said approximately 40 times. He is very clear on his preferences.
 
-**Motor:** Climbing has entered a new era. AJ now navigates the playground structure at Primrose independently, including the ladder section that previously required a hand. Teachers noted he walks upstairs at the school holding the rail, and he has started kicking balls with clear intention (not just walking into them).
+**Motor:** Climbing has entered a new era. Child_1 now navigates the playground structure at Child_1's daycare independently, including the ladder section that previously required a hand. Teachers noted he walks upstairs at the school holding the rail, and he has started kicking balls with clear intention (not just walking into them).
 
 **Social:** Parallel play is his main mode — playing *near* friends more than *with* them, which is completely developmentally normal at this age. But the moment with his classmate this month suggests emotional awareness that's ahead of the curve.
 
-**Emotional:** The teachers used the phrase "learning to wait" three times in June's reports. This is a polite way of saying AJ would like things immediately. He is working on it. So are we.
+**Emotional:** The teachers used the phrase "learning to wait" three times in June's reports. This is a polite way of saying Child_1 would like things immediately. He is working on it. So are we.
 
 ---
 
-## AJ By the Numbers — June 2026
+## Child_1 By the Numbers — June 2026
 
 | | |
 |---|---|
@@ -343,7 +343,7 @@ On the food front: mac and cheese remained the reigning champion (again), but Ju
 
 ## Personality Corner
 
-Three things we learned about AJ this June:
+Three things we learned about Child_1 this June:
 
 **1. He is a completionist.** Every puzzle he starts, he finishes. Every block tower gets one more block until it falls. He stacked six blocks four days in a row trying to get to seven. He got to seven on Thursday.
 
@@ -355,26 +355,26 @@ Three things we learned about AJ this June:
 
 ## Photo Gallery
 
-`[PHOTO PLACEHOLDER 1 — suggested: AJ at sensory bin, kinetic sand]`
+`[PHOTO PLACEHOLDER 1 — suggested: Child_1 at sensory bin, kinetic sand]`
 *Caption: "Engineer at work, June 11."*
 
-`[PHOTO PLACEHOLDER 2 — suggested: AJ outside, garden/water play]`
+`[PHOTO PLACEHOLDER 2 — suggested: Child_1 outside, garden/water play]`
 *Caption: "The garden hose discovery of 2026."*
 
-`[PHOTO PLACEHOLDER 3 — suggested: AJ eating, cucumber moment]`
+`[PHOTO PLACEHOLDER 3 — suggested: Child_1 eating, cucumber moment]`
 *Caption: "Cucumber era has begun. No notes."*
 
 ---
 
 ## What's Coming Next Month
 
-July is the last full month before AJ turns 2 — August is the big one. Developmentally, he's right in the window where two-word combinations start clicking into place, and we'll be watching for his first three-word phrases over the coming weeks. He'll also be moving up to a new classroom sometime around his birthday — we'll have more news on that soon.
+July is the last full month before Child_1 turns 2 — August is the big one. Developmentally, he's right in the window where two-word combinations start clicking into place, and we'll be watching for his first three-word phrases over the coming weeks. He'll also be moving up to a new classroom sometime around his birthday — we'll have more news on that soon.
 
-*Next edition: The AJ Update — July 2026*
+*Next edition: The Child_1 Update — July 2026*
 
 ---
 
-*"The AJ Update" is produced monthly by Zazu, the Nyche family's house manager, from daily reports provided by Primrose School of Brookhaven. Photos and personal notes added by Dad. Reply to this email to reach Nana and Nana Yaa directly.*
+*"The Child_1 Update" is produced monthly by Zazu, the Nyche family's house manager, from daily reports provided by Child_1's daycare. Photos and personal notes added by Dad. Reply to this email to reach Nana and Mom directly.*
 
 ---
 
@@ -382,9 +382,9 @@ July is the last full month before AJ turns 2 — August is the big one. Develop
 
 ### Creative Additions Dad May Not Have Thought Of
 
-**1. The "From AJ's Desk" Paragraph (Strongest Recommendation)**
+**1. The "From Child_1's Desk" Paragraph (Strongest Recommendation)**
 
-Each month, a short paragraph written from AJ's perspective — what he'd say about his month if he could. It's clearly fictional, clearly playful, and becomes the most-forwarded part of the newsletter. Example from June:
+Each month, a short paragraph written from Child_1's perspective — what he'd say about his month if he could. It's clearly fictional, clearly playful, and becomes the most-forwarded part of the newsletter. Example from June:
 
 > *"June was good. I discovered that sand can go in your hair if you try hard enough. I found that out the hard way. I also found out that the garden hose is basically a superpower and I don't understand why we don't just run it all day. Ms. Tamara says I'm 'learning patience.' I'm not sure what that is yet but it sounds slow. I had cucumber for the first time. Don't tell mac and cheese."*
 
@@ -392,14 +392,14 @@ This gives grandparents something to read out loud, share on the family group ch
 
 **2. The Milestone Tracker (Cumulative Across Editions)**
 
-A small section at the bottom of each edition that accumulates milestone data: first full sentence, first jump, first friend mentioned by name, first "why" question, first drawing that looks like something. This becomes AJ's growing record. By edition 12, it's the baby book Dad never had time to keep.
+A small section at the bottom of each edition that accumulates milestone data: first full sentence, first jump, first friend mentioned by name, first "why" question, first drawing that looks like something. This becomes Child_1's growing record. By edition 12, it's the baby book Dad never had time to keep.
 
 **3. The Grandparent Corner (Two-Way Engagement)**
 
-Each edition ends with a question for grandparents to respond to — something that invites them into AJ's world rather than just receiving a report. Examples:
-- *"What was your favorite outdoor activity when you were little? AJ is obsessed with being outside — we want to find out if it runs in the family."*
-- *"AJ is getting interested in books. What's your favorite children's book that you remember?"*
-- *"AJ's personality is starting to really show. What do you think he got from which side of the family?"*
+Each edition ends with a question for grandparents to respond to — something that invites them into Child_1's world rather than just receiving a report. Examples:
+- *"What was your favorite outdoor activity when you were little? Child_1 is obsessed with being outside — we want to find out if it runs in the family."*
+- *"Child_1 is getting interested in books. What's your favorite children's book that you remember?"*
+- *"Child_1's personality is starting to really show. What do you think he got from which side of the family?"*
 
 This turns the newsletter into a conversation and gives grandparents who don't know what to say a specific thing to respond to. Over time, those replies become family lore.
 
@@ -409,28 +409,28 @@ This turns the newsletter into a conversation and gives grandparents who don't k
 
 These questions would help refine and finalize the system. Roughly in order of importance:
 
-1. ~~**What app does Primrose actually use?**~~ **RESOLVED: ProCare.** Confirmed June 12, 2026. Sender: `connect-notification@online.procaresoftware.com`. Daily summary emails go to Dad's secondary Gmail (`nconduah2@gmail.com`). Dad will set up a Gmail forward filter from `nconduah2@gmail.com` → `zazunyche@gmail.com`. **ACTION: Set up the filter** (2-minute task in Gmail settings — see pipeline section above).
+1. ~~**What app does Child_1's daycare actually use?**~~ **RESOLVED: ProCare.** Confirmed June 12, 2026. Sender: `connect-notification@online.procaresoftware.com`. Daily summary emails go to Dad's secondary Gmail (`dad-secondary@gmail.com`). Dad will set up a Gmail forward filter from `dad-secondary@gmail.com` → `zazu@gmail.com`. **ACTION: Set up the filter** (2-minute task in Gmail settings — see pipeline section above).
 
-2. **Can you add a second parent email to AJ's school profile?** If yes, we can route daily reports directly to Zazu without touching your inbox at all. If not, a Gmail forward filter works just as well.
+2. **Can you add a second parent email to Child_1's school profile?** If yes, we can route daily reports directly to Zazu without touching your inbox at all. If not, a Gmail forward filter works just as well.
 
-3. **Who are the newsletter recipients?** A rough list helps determine: How many people? Any who don't use email well? Any who'd prefer a WhatsApp version? Any privacy considerations (anyone you wouldn't want to see photos of AJ publicly)?
+3. **Who are the newsletter recipients?** A rough list helps determine: How many people? Any who don't use email well? Any who'd prefer a WhatsApp version? Any privacy considerations (anyone you wouldn't want to see photos of Child_1 publicly)?
 
-4. **Do you want a private archive?** A private Notion page or Google Site that holds every past edition would give grandparents a browsable "AJ archive" they can visit anytime. Worth doing if you think people will want to go back.
+4. **Do you want a private archive?** A private Notion page or Google Site that holds every past edition would give grandparents a browsable "Child_1 archive" they can visit anytime. Worth doing if you think people will want to go back.
 
 5. **On the 28th or the last day of the month?** Some months have 28/30/31 days — when do you want the draft to land in your inbox? (Suggested: 28th of every month, so you have a consistent mental reminder to add photos and send.)
 
-6. **"From AJ's Desk" — yes or no?** The fictional paragraph from AJ's perspective is a creative addition that makes the newsletter more shareable and keepsake-worthy. Some parents love it; some find it too cutesy. Your call.
+6. **"From Child_1's Desk" — yes or no?** The fictional paragraph from Child_1's perspective is a creative addition that makes the newsletter more shareable and keepsake-worthy. Some parents love it; some find it too cutesy. Your call.
 
-7. **Do you want Nana Yaa to review before it goes to the family?** The current workflow puts the draft in Dad's inbox for final review. Should Nana Yaa also get a review copy before sending, or is Dad the final sender?
+7. **Do you want Mom to review before it goes to the family?** The current workflow puts the draft in Dad's inbox for final review. Should Mom also get a review copy before sending, or is Dad the final sender?
 
-8. **Birthday edition treatment?** AJ turns 2 in **August** (not July as initially assumed). Should the August edition be a special "Birthday Edition" with a different format — a year-in-review, photo collage, milestone retrospective? Also: Dad mentioned checking with daycare on when AJ might move up from 2-Toddler 2 — if the class transition happens in August, the birthday edition can also mark that milestone.
+8. **Birthday edition treatment?** Child_1 turns 2 in **August** (not July as initially assumed). Should the August edition be a special "Birthday Edition" with a different format — a year-in-review, photo collage, milestone retrospective? Also: Dad mentioned checking with daycare on when Child_1 might move up from 2-Toddler 2 — if the class transition happens in August, the birthday edition can also mark that milestone.
 
 ---
 
 ## Sources
 
-- [Primrose School of Brookhaven — Official Page](https://www.primroseschools.com/schools/brookhaven)
-- [New Primrose Schools Mobile App Partners with Parents (2013)](https://www.prnewswire.com/news-releases/new-primrose-schools-mobile-app-partners-with-parents-198955701.html)
+- [Child_1's daycare — Official Page](https://www.primroseschools.com/schools/brookhaven)
+- [New Child_1's daycare Schools Mobile App Partners with Parents (2013)](https://www.prnewswire.com/news-releases/new-primrose-schools-mobile-app-partners-with-parents-198955701.html)
 - [Brightwheel: Subscribe for Daily Updates on Your Child's Activities](https://help.mybrightwheel.com/en/articles/5243986-subscribe-for-daily-updates-on-your-child-s-activities)
 - [Brightwheel: Send a Log of Student Daily Activities to Families](https://help.mybrightwheel.com/en/articles/1380998-send-daily-reports)
 - [Daycare Communication Apps Guide — DaycarePath](https://daycarepath.com/blog/daycare-communication-apps-guide)

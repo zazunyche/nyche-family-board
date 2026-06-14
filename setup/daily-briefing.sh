@@ -5,6 +5,10 @@
 export PATH="/Users/zazunyche/.npm-global/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
 export HOME="/Users/zazunyche"
 
+# ── Load contact config (never committed — lives in ~/.zazu-config) ───────────
+# shellcheck source=/dev/null
+source ~/.zazu-config
+
 TODAY=$(date '+%A, %B %-d, %Y')
 DOW=$(date '+%A')   # e.g. "Wednesday"
 
@@ -46,15 +50,15 @@ PROMPT="You are Zazu, the house manager for the Nyche family. It is 7:00am on ${
 Today's calendar events (Family, Home, Work):
 ${EVENTS}
 
-Send the morning daily briefing to Dad via iMessage (chat_id: any;-;+16173353840). Keep it warm, concise, and useful. Include:
+Send the morning daily briefing to Dad via iMessage (chat_id: any;-;<DAD_NUMBER>). Keep it warm, concise, and useful. Include:
 - A brief good morning with today's date and day
 - Today's scheduled events (if any)
-- Any day-specific standing reminders (e.g. on Wednesdays: AJ needs swim wear)
+- Any day-specific standing reminders (e.g. on Wednesdays: Child_1 needs swim wear)
 - Anything else relevant based on context
 
 CRITICAL — iMessage delivery:
 - Use ONLY the mcp__plugin_imessage_imessage__reply tool to send
-- Dad chat_id: any;-;+16173353840
+- Dad chat_id: any;-;<DAD_NUMBER>
 - Do NOT use osascript, bash, or Messages.app directly
 
 Send it now."

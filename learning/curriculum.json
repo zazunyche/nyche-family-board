@@ -1,9 +1,9 @@
 {
   "_schema_version": "1.0.0",
-  "_description": "Curriculum state for Nana Essilfie-Conduah's AI Agents learning program. Maintained by Zazu. Updated after each delivery and engagement event.",
+  "_description": "Curriculum state for the learner's AI Agents learning program. Maintained by Zazu. Updated after each delivery and engagement event.",
   "learner": {
-    "name": "Nana Essilfie-Conduah",
-    "email": "nanaec@nychesolutions.com",
+    "name": "Dad",
+    "email": "see ~/.zazu-config",
     "imessage_handle": null,
     "background": "MIT CS, software engineer and entrepreneur, building Earnventory, familiar with Zazu and Abeiku",
     "curriculum_start_date": "2026-06-12"

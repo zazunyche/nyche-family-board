@@ -1,6 +1,12 @@
 node_modules/
 logs/
 snapshots/
+board-data.json
 board-data.json.tmp
+preferences/
 .DS_Store
 *.log
+*.local.json
+*.private.*
+.env
+.env.*

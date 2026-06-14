@@ -1,4 +1,4 @@
-# AI Agents: A Technical Curriculum for Nana Essilfie-Conduah
+# AI Agents: A Technical Curriculum for Dad
 **Designed by Abeiku | June 2026**
 
 ---

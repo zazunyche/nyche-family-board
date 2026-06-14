@@ -207,8 +207,8 @@ Format:
   "taskId": "[board task id]",
   "sendDate": "YYYY-MM-DD",
   "owner": "DAD",
-  "handle": "+16173353840",
-  "message": "🌅 Today: AJ wears orange — Spirit Day at daycare! 🧡 — Zazu",
+  "handle": "<DAD_NUMBER from ~/.zazu-config>",
+  "message": "🌅 Today: Child_1 wears orange — Spirit Day at daycare! 🧡 — Zazu",
   "sent": false,
   "createdAt": "[ISO timestamp]",
   "sourceTask": "[task title]"

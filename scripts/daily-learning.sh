@@ -12,6 +12,10 @@ set -euo pipefail
 export PATH="/Users/zazunyche/.npm-global/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
 export HOME="/Users/zazunyche"
 
+# ── Load contact config (never committed — lives in ~/.zazu-config) ───────────
+# shellcheck source=/dev/null
+source ~/.zazu-config
+
 BOARD_DIR="/Users/zazunyche/Documents/src/family-board"
 LEARNING_DIR="$BOARD_DIR/learning"
 LOG_DIR="$BOARD_DIR/logs"
@@ -69,7 +73,7 @@ CURRICULUM_STATE=$(cat "$LEARNING_DIR/curriculum.json")
 if [ "$SNIPPET_SOURCE" = "pre-written" ]; then
   EMAIL_SUBJECT=$(head -1 "$EMAIL_FILE" | sed 's/^# //')
   EMAIL_SEND_RESULT=$(node "$BOARD_DIR/scripts/send-email.js" \
-    --to "nanaec.nychesolutions@gmail.com" \
+    --to "$DAD_EMAIL_WORK" \
     --subject "$EMAIL_SUBJECT" \
     --body "$EMAIL_CONTENT" 2>&1)
   echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Email: $EMAIL_SEND_RESULT" >> "$LOG_DIR/daily-learning.log"
@@ -86,7 +90,7 @@ $(if [ "$SNIPPET_SOURCE" = "pre-written" ]; then
 echo "== IMESSAGE SNIPPET (send this exactly) ==
 $IMESSAGE_CONTENT
 
-NOTE: The reference email has already been sent directly to nanaec.nychesolutions@gmail.com
+NOTE: The reference email has already been sent directly to $DAD_EMAIL_WORK
 by the shell script. Do NOT create any Gmail draft."
 else
 echo "== CURRICULUM PLAN (use this to generate today's snippet) ==
@@ -101,7 +105,7 @@ Generate today's iMessage snippet and email content following the established fo
 - Save the generated files to:
   $LEARNING_DIR/snippets/${SNIPPET_ID}-imessage.md
   $LEARNING_DIR/snippets/${SNIPPET_ID}-email.md
-- Then send the email using: node $BOARD_DIR/scripts/send-email.js --to nanaec.nychesolutions@gmail.com --subject 'SUBJECT' --body 'BODY'"
+- Then send the email using: node $BOARD_DIR/scripts/send-email.js --to $DAD_EMAIL_WORK --subject 'SUBJECT' --body 'BODY'"
 fi)
 
 DELIVERY INSTRUCTIONS:
@@ -115,7 +119,7 @@ DELIVERY INSTRUCTIONS:
 
 CRITICAL — iMessage delivery:
 - Use ONLY the mcp__plugin_imessage_imessage__reply tool
-- Dad chat_id: any;-;+16173353840
+- Dad chat_id: any;-;$DAD_NUMBER
 - Do NOT use osascript, bash, or Messages.app"
 
 # ── Invoke Claude ─────────────────────────────────────────────────────────────

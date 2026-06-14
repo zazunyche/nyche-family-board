@@ -77,7 +77,7 @@ All fields are **optional at creation** and can be populated by Zazu, the board 
 | `energyContext` | `enum: HIGH_FOCUS, LOW_FOCUS, PHYSICAL, COORDINATION` | What kind of energy does this task require? | Zazu prompt at creation (optional) |
 | `linkedGoalId` | `string` | Foreign key to `goals[]` array | Zazu or human at creation |
 | `effortActualHours` | `number` | Self-reported actual time spent — collected via reflection | Dad via iMessage after completion |
-| `tags` | `Array<string>` | Freeform labels (e.g., `contractor`, `AJ`, `financial`, `seasonal`) | Human or Zazu at creation |
+| `tags` | `Array<string>` | Freeform labels (e.g., `contractor`, `Child_1`, `financial`, `seasonal`) | Human or Zazu at creation |
 | `nextActionType` | `enum: CALL, EMAIL, PURCHASE, SCHEDULE, RESEARCH, BUILD, WAIT` | GTD-style next action — what is the literal next physical action? | Zazu prompt when moving to ACTIVE |
 | `stalledAt` | `ISO8601 timestamp` | Set when a task has been in the same stage past the stale threshold without a snooze | Zazu (nightly stale detection script) |
 | `startedAt` | `ISO8601 timestamp` | When Dad or Mom *first actively worked* on a task — distinct from `createdAt` (board entry) and stage transitions. Self-reported via iMessage ("started on the shed today") or set explicitly at ACTIVE entry | Human via reflection, or Zazu on ACTIVE stage transition |
@@ -393,7 +393,7 @@ Patterns noted during active board management this week that informed plan refin
 
 **Jun 11:** Water Play Wednesday task closed after the event date passed. Confirmed the `EXTERNAL_EVENT` auto-close rule is operationally useful — this task would have sat on the board indefinitely without the rule, adding noise to stall metrics.
 
-**Jun 12:** Three distinct task types active simultaneously: Kojo wedding RSVP (DECISION with hard deadline), Techstars application (PROJECT with external deadline), AJ Newsletter (PROJECT with no hard deadline). These behave entirely differently in the funnel — deadline-driven DECISION tasks close fast; open-ended PROJECT tasks drift. The `taskType` + `dueDate` combination will be the strongest predictor of task velocity once the dataset builds.
+**Jun 12:** Three distinct task types active simultaneously: Kojo wedding RSVP (DECISION with hard deadline), Techstars application (PROJECT with external deadline), Child_1 Newsletter (PROJECT with no hard deadline). These behave entirely differently in the funnel — deadline-driven DECISION tasks close fast; open-ended PROJECT tasks drift. The `taskType` + `dueDate` combination will be the strongest predictor of task velocity once the dataset builds.
 
 **Ongoing signal:** Board is skewed heavily toward ADMIN and FAMILY tasks with near-zero YARD and GOALS throughput. The shed (t_002, YARD) has been in RESEARCH since April 2025. GOALS tasks (Earnventory, HBAR) have board presence but no sub-task decomposition — they are goals masquerading as tasks. This is likely a primary contributor to low GOALS completion rates.
 

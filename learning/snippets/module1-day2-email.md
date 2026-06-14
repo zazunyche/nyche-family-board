@@ -24,7 +24,7 @@ Goal received: "Process my forwarded emails"
 Iteration 1
   Sense:   New message from Dad — "Process my forwarded emails"
   Plan:    Need to find the emails. Use search_gmail.
-  Act:     search_gmail(query="from:nconduah@gmail.com is:unread label:forwarded")
+  Act:     search_gmail(query="from:dad@example.com is:unread label:forwarded")
   Observe: 10 email threads returned. Proceed email by email.
 
 Iteration 2
@@ -36,7 +36,7 @@ Iteration 2
 Iteration 3
   Sense:   Reservation is TODAY. Dad doesn't know yet.
   Plan:    Alert immediately via iMessage before processing others.
-  Act:     reply_imessage(chat_id="any;-;+16173353840", message="⚠️ Mikata...")
+  Act:     reply_imessage(chat_id="any;-;+1XXXXXXXXXX", message="⚠️ Mikata...")
   Observe: Message sent. Label thread "zazu-processed". Move to email 2.
 
 Iteration 4–10
@@ -45,7 +45,7 @@ Iteration 4–10
 Iteration 11
   Sense:   10th email labeled. Queue empty.
   Plan:    Goal reached. Summarize for Dad.
-  Act:     reply_imessage(chat_id="any;-;+16173353840", message="All 10 done...")
+  Act:     reply_imessage(chat_id="any;-;+1XXXXXXXXXX", message="All 10 done...")
   Observe: Sent. No more actions needed. end_turn.
 ─────────────────────────────────────────────────────────
 stop_reason: end_turn
@@ -116,7 +116,7 @@ A tool call looks like this in the API:
   "id": "toolu_01...",
   "name": "mcp__plugin_imessage_imessage__reply",
   "input": {
-    "chat_id": "any;-;+16173353840",
+    "chat_id": "any;-;+1XXXXXXXXXX",
     "message": "⚠️ Tonight: Mikata reservation at 7pm..."
   }
 }

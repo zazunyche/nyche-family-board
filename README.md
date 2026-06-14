@@ -143,8 +143,7 @@ node scripts/generate-snapshot.js --open
 
 Phone numbers work — this matches Zazu's allowlist in `~/.claude/channels/imessage/access.json`.
 
-- Dad: `+16173353840`
-- Mom: `+16175438839`
+Contact handles are stored in `~/.zazu-config` (not committed). Scripts source this file at runtime.
 
 ---
 
@@ -200,11 +199,11 @@ See Phase 3 section below.
 3. `com.zazu.gmail-scan` fires within 2 hours
 4. Zazu reads the email via `mcp__claude_ai_Gmail__*`
 5. Claude parses it: date Sept 12, action "wear orange", category FAMILY
-6. Board task created: "AJ wear orange — Spirit Day at daycare" [FAMILY, BOTH]
+6. Board task created: "Child_1 wear orange — Spirit Day at daycare" [FAMILY, BOTH]
 7. Calendar event created on Sept 12 (via osascript or Google Calendar MCP)
 8. Reminder entries added to `pendingReminders[]`:
-   - Sept 10: "📅 In 2 days: AJ wears orange — Spirit Day Thursday! — Zazu"
-   - Sept 12: "🌅 Today: Don't forget — AJ needs to wear orange for Spirit Day! 🧡 — Zazu"
+   - Sept 10: "📅 In 2 days: Child_1 wears orange — Spirit Day Thursday! — Zazu"
+   - Sept 12: "🌅 Today: Don't forget — Child_1 needs to wear orange for Spirit Day! 🧡 — Zazu"
 9. Confirmation iMessage sent: "✓ Got it — board task created + calendar event + reminders set — Zazu"
 
 ---
