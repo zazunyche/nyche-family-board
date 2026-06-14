@@ -16,10 +16,22 @@ LOG="$LOG_DIR/git.log"
 
 cd "$BOARD_DIR"
 
-if ! git diff --quiet board-data.json 2>/dev/null; then
-  git add board-data.json
-  git commit -m "daily snapshot $DATE" >> "$LOG" 2>&1
-  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Committed board-data.json for $DATE" >> "$LOG"
+# Stage all tracked-file changes (board-data.json is gitignored — never committed)
+git add -u
+
+# Also stage any new untracked files that aren't gitignored
+git add . 2>/dev/null || true
+
+if ! git diff --cached --quiet; then
+  git commit -m "nightly sync $DATE" >> "$LOG" 2>&1
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Committed changes for $DATE" >> "$LOG"
+
+  # Push so GitHub Pages stays current
+  if git push origin main >> "$LOG" 2>&1; then
+    echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Pushed to GitHub" >> "$LOG"
+  else
+    echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] WARNING: git push failed — check credentials" >> "$LOG"
+  fi
 else
-  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] No changes to commit for $DATE" >> "$LOG"
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] No tracked changes to commit for $DATE" >> "$LOG"
 fi

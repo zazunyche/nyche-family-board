@@ -18,6 +18,39 @@ const PORT      = process.env.PORT || 3000;
 const DATA_FILE = path.join(__dirname, "board-data.json");
 const PUBLIC    = path.join(__dirname, "public");
 
+// ── Auth ──────────────────────────────────────────────────────────────────────
+// Both BOARD_BEARER_TOKEN and BOARD_GATE_PASSWORD loaded from ~/.zazu-config.
+// Remote requests must provide both. Local (127.0.0.1) requests bypass auth.
+function loadConfig() {
+  try {
+    const cfg = fs.readFileSync(path.join(process.env.HOME, ".zazu-config"), "utf8");
+    const get = (key) => { const m = cfg.match(new RegExp(`^${key}="?([^"\\n]+)"?`, "m")); return m ? m[1].trim() : null; };
+    return { token: get("BOARD_BEARER_TOKEN"), pass: get("BOARD_GATE_PASSWORD") };
+  } catch { return { token: null, pass: null }; }
+}
+
+function isLocalRequest(req) {
+  const ip = req.socket.remoteAddress || "";
+  return ip === "127.0.0.1" || ip === "::1" || ip === "::ffff:127.0.0.1";
+}
+
+function checkAuth(req, res) {
+  // Local requests always pass
+  if (isLocalRequest(req)) return true;
+  const { token, pass } = loadConfig();
+  if (!token) { json(res, 503, { error: "Server not configured for remote access" }); return false; }
+  const authHeader = req.headers["authorization"] || "";
+  if (authHeader !== `Bearer ${token}`) {
+    json(res, 401, { error: "Unauthorized" }); return false;
+  }
+  // Gate password check (optional second factor — send as X-Board-Pass header)
+  if (pass) {
+    const passHeader = req.headers["x-board-pass"] || "";
+    if (passHeader !== pass) { json(res, 401, { error: "Unauthorized" }); return false; }
+  }
+  return true;
+}
+
 // ── MIME types ────────────────────────────────────────────────────────────────
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -49,7 +82,7 @@ function writeBoard(data) {
 function cors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 }
 
 function json(res, status, payload) {
@@ -83,6 +116,7 @@ const server = http.createServer(async (req, res) => {
 
   // ── API: GET /api/board ──────────────────────────────────────────────────
   if (method === "GET" && pathname === "/api/board") {
+    if (!checkAuth(req, res)) return;
     const board = readBoard();
     if (!board) { json(res, 500, { error: "Could not read board-data.json" }); return; }
     json(res, 200, board);
@@ -92,6 +126,7 @@ const server = http.createServer(async (req, res) => {
   // ── API: POST /api/board ─────────────────────────────────────────────────
   // Accepts a full board object and writes it atomically
   if (method === "POST" && pathname === "/api/board") {
+    if (!checkAuth(req, res)) return;
     try {
       const incoming = await collectBody(req);
       if (!incoming || !incoming.tasks) {
@@ -114,6 +149,7 @@ const server = http.createServer(async (req, res) => {
   // ── API: GET /api/briefing ───────────────────────────────────────────────
   // Returns a pre-computed briefing object for Zazu to consume
   if (method === "GET" && pathname === "/api/briefing") {
+    if (!checkAuth(req, res)) return;
     const board = readBoard();
     if (!board) { json(res, 500, { error: "Could not read board" }); return; }
     json(res, 200, buildBriefing(board));
