@@ -51,7 +51,12 @@ Send each reminder exactly as written in the 'message' field — these were pre-
 After all reminders are sent, confirm completion silently (no extra messages needed)."
 
 # ── Invoke Claude (one-shot) ──────────────────────────────────────────────────
-claude -p "$PROMPT" \
+# Wait for iMessage plugin MCP handshake to complete
+sleep 8
+
+/opt/homebrew/bin/claude \
+  --channels plugin:imessage@claude-plugins-official \
+  -p "$PROMPT" \
   --system-prompt ~/.claude/system-prompt.md \
   --dangerously-skip-permissions \
   >> "$LOG_DIR/board-reminders.log" 2>&1

@@ -70,6 +70,9 @@ CRITICAL — iMessage delivery rules:
 Use your board tools (node /Users/zazunyche/Documents/src/family-board/board-tools/...) to update task state after sending."
 
 # ── Invoke Claude as Zazu (one-shot) ─────────────────────────────────────────
+# Wait for iMessage plugin MCP handshake to complete
+sleep 8
+
 /opt/homebrew/bin/claude \
   --channels plugin:imessage@claude-plugins-official \
   --system-prompt ~/.claude/system-prompt.md \

@@ -123,6 +123,11 @@ CRITICAL — iMessage delivery:
 - Do NOT use osascript, bash, or Messages.app"
 
 # ── Invoke Claude ─────────────────────────────────────────────────────────────
+# Wait 8s for the iMessage plugin MCP handshake to complete before Claude
+# tries to call the tool. Without this, the plugin connects too late and
+# the reply tool is missing from Claude's tool list in one-shot (-p) mode.
+sleep 8
+
 /opt/homebrew/bin/claude \
   --channels plugin:imessage@claude-plugins-official \
   --system-prompt ~/.claude/system-prompt.md \
