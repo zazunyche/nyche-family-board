@@ -307,7 +307,7 @@
   <button class="nav-logout" onclick="logout()" title="Re-configure server" id="logoutBtn" style="display:none">⚙️</button>
   <div class="nav-actions">
     <button class="btn btn-ghost" onclick="openBriefing()">☀️ Briefing</button>
-    <button class="btn btn-primary" onclick="openAdd()">+ Add Task</button>
+    <button class="btn btn-primary write-only" onclick="openAdd()">+ Add Task</button>
   </div>
 </nav>
 
@@ -469,6 +469,11 @@ const STORAGE_AUTH  = "zazu_board_auth";
 const STORAGE_URL   = "zazu_board_url";
 const STORAGE_TOKEN = "zazu_board_token";
 
+// Remote mode is read-only — Zazu manages all writes; family just views
+const isLocal = window.location.hostname === "localhost" ||
+                window.location.hostname === "127.0.0.1";
+const READ_ONLY = !isLocal;
+
 function getServerUrl()  { return localStorage.getItem(STORAGE_URL)   || ""; }
 function getBearerToken(){ return localStorage.getItem(STORAGE_TOKEN) || ""; }
 function isAuthed()      { return localStorage.getItem(STORAGE_AUTH)  === "1"; }
@@ -526,10 +531,6 @@ function logout() {
 
 // ── Data ───────────────────────────────────────────────────────────────────
 async function loadBoard() {
-  // Local mode (served directly from server.js on same origin)
-  const isLocal = window.location.hostname === "localhost" ||
-                  window.location.hostname === "127.0.0.1";
-
   if (isLocal) {
     // Direct local access — no auth gate needed
     try {
@@ -544,7 +545,7 @@ async function loadBoard() {
     return;
   }
 
-  // Remote / GitHub Pages mode — require auth
+  // Remote / read-only mode — require auth
   if (!isAuthed()) { showGate(); return; }
 
   try {
@@ -565,13 +566,12 @@ async function loadBoard() {
 }
 
 async function saveBoard(actor) {
+  if (READ_ONLY) return; // Read-only mode — no writes from remote
   BOARD.meta.lastUpdated   = nowISO();
   BOARD.meta.lastUpdatedBy = actor || "BOARD_UI";
   BOARD._actor = actor || "BOARD_UI";
 
-  const isLocal = window.location.hostname === "localhost" ||
-                  window.location.hostname === "127.0.0.1";
-  const url     = isLocal ? "" : getServerUrl();
+  const url = isLocal ? "" : getServerUrl();
   const headers = { "Content-Type": "application/json" };
   if (!isLocal) headers["Authorization"] = `Bearer ${getBearerToken()}`;
 
@@ -590,9 +590,11 @@ function renderAll() {
   renderFilters();
   renderBoard();
   renderFooter();
-  // Show reconfigure button in remote mode
-  const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-  if (!isLocal) document.getElementById("logoutBtn").style.display = "inline-block";
+  // Remote mode: show reconfigure button, hide write actions
+  if (READ_ONLY) {
+    document.getElementById("logoutBtn").style.display = "inline-block";
+    document.querySelectorAll(".write-only").forEach(el => el.style.display = "none");
+  }
 }
 
 function renderPills() {
@@ -648,7 +650,7 @@ function renderCol(stage, tasks) {
         <span class="col-count">${tasks.length}</span>
       </div>
       <div class="cards">${tasks.map(t=>renderCard(t,stage)).join("")}</div>
-      <button class="col-add" onclick="openAdd('${stage.id}')">+ Add to ${stage.label.replace(/\S+\s/,"")}</button>
+      ${READ_ONLY ? "" : `<button class="col-add" onclick="openAdd('${stage.id}')">+ Add to ${stage.label.replace(/\S+\s/,"")}</button>`}
     </div>`;
 }
 
@@ -682,11 +684,11 @@ function renderCard(t, stage) {
         <span class="avatar" style="background:${owner.color}">${t.owner[0]}</span>
         ${metaRight}
       </div>
-      <div class="card-actions" onclick="event.stopPropagation()">
+      ${READ_ONLY ? "" : `<div class="card-actions" onclick="event.stopPropagation()">
         ${prevStage ? `<button class="card-move" onclick="moveTask('${t.id}','${prevStage.id}')">← ${prevStage.label.replace(/\S+\s/,"")}</button>` : ""}
         ${nextStage ? `<button class="card-move fwd" onclick="moveTask('${t.id}','${nextStage.id}')">${nextStage.label.replace(/\S+\s/,"")} →</button>` : ""}
         <button class="card-del" onclick="deleteTask('${t.id}')">✕</button>
-      </div>
+      </div>`}
     </div>`;
 }
 
