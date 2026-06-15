@@ -1,0 +1,77 @@
+#!/bin/bash
+# ─────────────────────────────────────────────────────────────────────────────
+# scripts/hooks/pre-commit
+# Pre-commit hook: blocks PII-sensitive files from being committed.
+#
+# INSTALL: run scripts/install-hooks.sh (or copy this file to .git/hooks/pre-commit
+# and chmod +x it) after every fresh clone.
+# ─────────────────────────────────────────────────────────────────────────────
+
+set -euo pipefail
+
+# ── Blocked filename patterns ─────────────────────────────────────────────────
+# Each entry is a shell glob / regex matched against staged file paths.
+# Format: PATTERN|REASON
+BLOCKED_PATTERNS=(
+  "board-data*|board-data file (contains family PII)"
+  "*.corrupt-backup|corrupt-backup file (potential PII dump)"
+  "preferences/*|preferences directory (contains personal settings/PII)"
+  "*.private.*|private-tagged file (PII/secrets convention)"
+)
+
+# ── Check staged files ────────────────────────────────────────────────────────
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM 2>/dev/null || true)
+
+if [[ -z "$STAGED_FILES" ]]; then
+  exit 0
+fi
+
+BLOCKED=0
+
+while IFS= read -r FILE; do
+  BASENAME=$(basename "$FILE")
+
+  for ENTRY in "${BLOCKED_PATTERNS[@]}"; do
+    PATTERN="${ENTRY%%|*}"
+    REASON="${ENTRY##*|}"
+
+    # Use bash glob matching against the full path and the basename
+    if [[ "$FILE" == $PATTERN ]] || [[ "$BASENAME" == $PATTERN ]] || \
+       [[ "$FILE" == */$PATTERN ]] || [[ "$FILE" =~ ^${PATTERN}$ ]]; then
+      echo ""
+      echo "  PRE-COMMIT BLOCKED"
+      echo "  ──────────────────────────────────────────────────────────────"
+      echo "  File    : $FILE"
+      echo "  Reason  : $REASON"
+      echo "  ──────────────────────────────────────────────────────────────"
+      echo "  This file matches a PII/secrets blocklist pattern."
+      echo "  Unstage it with:  git reset HEAD -- \"$FILE\""
+      echo "  Add to .gitignore if this file should always be excluded."
+      echo ""
+      BLOCKED=1
+      break
+    fi
+  done
+
+  # Explicit check for preferences/ directory prefix (handles nested paths)
+  if [[ "$FILE" == preferences/* ]] || [[ "$FILE" == */preferences/* ]]; then
+    echo ""
+    echo "  PRE-COMMIT BLOCKED"
+    echo "  ──────────────────────────────────────────────────────────────"
+    echo "  File    : $FILE"
+    echo "  Reason  : preferences directory (contains personal settings/PII)"
+    echo "  ──────────────────────────────────────────────────────────────"
+    echo "  Unstage it with:  git reset HEAD -- \"$FILE\""
+    echo ""
+    BLOCKED=1
+  fi
+
+done <<< "$STAGED_FILES"
+
+if [[ "$BLOCKED" -eq 1 ]]; then
+  echo "  Commit aborted. Remove the blocked file(s) from staging and try again."
+  echo ""
+  exit 1
+fi
+
+exit 0
