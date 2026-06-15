@@ -16,11 +16,9 @@ LOG="$LOG_DIR/git.log"
 
 cd "$BOARD_DIR"
 
-# Stage all tracked-file changes (board-data.json is gitignored — never committed)
+# Stage only already-tracked file changes (respects .gitignore; never picks up new untracked files)
+# DO NOT use 'git add .' here — it would commit any untracked file not in .gitignore
 git add -u
-
-# Also stage any new untracked files that aren't gitignored
-git add . 2>/dev/null || true
 
 if ! git diff --cached --quiet; then
   git commit -m "nightly sync $DATE" >> "$LOG" 2>&1

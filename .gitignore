@@ -3,6 +3,7 @@ logs/
 snapshots/
 board-data.json
 board-data.json.tmp
+board-data.json.*
 preferences/
 .DS_Store
 *.log
