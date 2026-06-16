@@ -5,6 +5,10 @@
 # Reads curriculum state, delivers today's AI learning snippet via iMessage
 # and sends the reference email directly via send-email.js (no draft).
 # Updates curriculum.json after delivery.
+#
+# iMessage is sent via osascript (direct Messages.app) — NOT via Claude's
+# iMessage MCP plugin, which is only available in the persistent daemon
+# session and unreachable from one-shot launchd invocations.
 # ─────────────────────────────────────────────────────────────────────────────
 
 set -euo pipefail
@@ -21,7 +25,8 @@ LEARNING_DIR="$BOARD_DIR/learning"
 LOG_DIR="$BOARD_DIR/logs"
 mkdir -p "$LOG_DIR"
 
-echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] daily-learning.sh started" >> "$LOG_DIR/daily-learning.log"
+LOG="$LOG_DIR/daily-learning.log"
+echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] daily-learning.sh started" >> "$LOG"
 
 # ── Guard: skip if already delivered today ────────────────────────────────────
 TODAY=$(date "+%Y-%m-%d")
@@ -31,7 +36,7 @@ LAST_DELIVERED=$(node -e "
 " 2>/dev/null || echo "")
 
 if [ "$LAST_DELIVERED" = "$TODAY" ]; then
-  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Already delivered today ($TODAY), skipping" >> "$LOG_DIR/daily-learning.log"
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Already delivered today ($TODAY), skipping" >> "$LOG"
   exit 0
 fi
 
@@ -51,88 +56,148 @@ MINI_MODULE=$(node -e "
   console.log(d.progress.current_mini_module);
 " 2>/dev/null)
 
-# ── Load snippet content (pre-written or generate from plan) ─────────────────
+echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Delivering $SNIPPET_ID (Day $DAY_NUM)" >> "$LOG"
+
+# ── Determine snippet source ──────────────────────────────────────────────────
 IMESSAGE_FILE="$LEARNING_DIR/snippets/${SNIPPET_ID}-imessage.md"
 EMAIL_FILE="$LEARNING_DIR/snippets/${SNIPPET_ID}-email.md"
 
 if [ -f "$IMESSAGE_FILE" ] && [ -f "$EMAIL_FILE" ]; then
-  IMESSAGE_CONTENT=$(cat "$IMESSAGE_FILE")
-  EMAIL_CONTENT=$(cat "$EMAIL_FILE")
   SNIPPET_SOURCE="pre-written"
 else
-  # Snippet not pre-written — read curriculum plan and generate on the fly
-  CURRICULUM_PLAN=$(cat "$LEARNING_DIR/curriculum-plan.md")
   SNIPPET_SOURCE="generated"
-  IMESSAGE_CONTENT="[GENERATE FROM PLAN]"
-  EMAIL_CONTENT="[GENERATE FROM PLAN]"
 fi
 
-CURRICULUM_STATE=$(cat "$LEARNING_DIR/curriculum.json")
+echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Snippet source: $SNIPPET_SOURCE" >> "$LOG"
 
-# ── Send email directly (no Claude needed for this step) ─────────────────────
-if [ "$SNIPPET_SOURCE" = "pre-written" ]; then
-  EMAIL_SUBJECT=$(head -1 "$EMAIL_FILE" | sed 's/^# //')
-  EMAIL_SEND_RESULT=$(node "$BOARD_DIR/scripts/send-email.js" \
-    --to "$DAD_EMAIL_WORK" \
-    --subject "$EMAIL_SUBJECT" \
-    --body "$EMAIL_CONTENT" 2>&1)
-  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Email: $EMAIL_SEND_RESULT" >> "$LOG_DIR/daily-learning.log"
-fi
+# ── GENERATE content if not pre-written ──────────────────────────────────────
+# Claude's only job here is to create the snippet files + send the email.
+# iMessage delivery and curriculum update are handled by the shell below.
+if [ "$SNIPPET_SOURCE" = "generated" ]; then
+  CURRICULUM_PLAN=$(cat "$LEARNING_DIR/curriculum-plan.md")
+  CURRICULUM_STATE=$(cat "$LEARNING_DIR/curriculum.json")
 
-# ── Build prompt ──────────────────────────────────────────────────────────────
-PROMPT="You are Zazu, the Nyche family AI house manager. It is 9am — time to deliver today's AI learning snippet to Dad.
+  GENERATE_PROMPT="You are Zazu, the Nyche family AI house manager. TODAY: $TODAY.
 
-TODAY: $TODAY
+Task: generate and save today's AI learning snippet for Dad.
+
 SNIPPET: $SNIPPET_ID (Day $DAY_NUM of 50, Mini-Module $MINI_MODULE)
-SOURCE: $SNIPPET_SOURCE
 
-$(if [ "$SNIPPET_SOURCE" = "pre-written" ]; then
-echo "== IMESSAGE SNIPPET (send this exactly) ==
-$IMESSAGE_CONTENT
-
-NOTE: The reference email has already been sent directly to $DAD_EMAIL_WORK
-by the shell script. Do NOT create any Gmail draft."
-else
-echo "== CURRICULUM PLAN (use this to generate today's snippet) ==
+== CURRICULUM PLAN ==
 $CURRICULUM_PLAN
 
 == CURRICULUM STATE ==
 $CURRICULUM_STATE
 
-Generate today's iMessage snippet and email content following the established format:
-- iMessage: concept + example (B) then analogy (A), application-first, max 200 words, self-contained
-- Email: 1,200+ words, structured reference with ASCII diagrams where helpful, built to return to
-- Save the generated files to:
-  $LEARNING_DIR/snippets/${SNIPPET_ID}-imessage.md
-  $LEARNING_DIR/snippets/${SNIPPET_ID}-email.md
-- Then send the email using: node $BOARD_DIR/scripts/send-email.js --to $DAD_EMAIL_WORK --subject 'SUBJECT' --body 'BODY'"
-fi)
+INSTRUCTIONS:
+1. Write today's iMessage snippet (max 200 words, B then A format: concept+example, then analogy, then one-line teaser for tomorrow). Save to:
+   $LEARNING_DIR/snippets/${SNIPPET_ID}-imessage.md
 
-DELIVERY INSTRUCTIONS:
-1. Send the iMessage snippet to Dad via iMessage (ONLY task for pre-written snippets)
-2. After sending, update curriculum.json:
-   - Set progress.last_delivered_date to '$TODAY'
-   - Set progress.status to 'in_progress'
-   - Find the snippet entry with id '$SNIPPET_ID' and set delivered=true, delivery_date='$TODAY'
-   - Advance progress.current_day_number to $((DAY_NUM + 1)) and update current_snippet_id accordingly
-   Use node to write the JSON: node -e \"const fs=require('fs'); const d=JSON.parse(fs.readFileSync('$LEARNING_DIR/curriculum.json')); /* make changes */ fs.writeFileSync('$LEARNING_DIR/curriculum.json', JSON.stringify(d, null, 2));\"
+2. Write the reference email (1,200+ words, structured, ASCII diagrams where helpful). Save to:
+   $LEARNING_DIR/snippets/${SNIPPET_ID}-email.md
 
-CRITICAL — iMessage delivery:
-- Use ONLY the mcp__plugin_imessage_imessage__reply tool
-- Dad chat_id: any;-;$DAD_NUMBER
-- Do NOT use osascript, bash, or Messages.app"
+3. Send the email:
+   node $BOARD_DIR/scripts/send-email.js \\
+     --to $DAD_EMAIL_WORK \\
+     --subject '[subject from email file first line, strip leading #]' \\
+     --body '[full email body]'
 
-# ── Invoke Claude ─────────────────────────────────────────────────────────────
-# Wait 8s for the iMessage plugin MCP handshake to complete before Claude
-# tries to call the tool. Without this, the plugin connects too late and
-# the reply tool is missing from Claude's tool list in one-shot (-p) mode.
-sleep 8
+Do NOT send iMessage — the shell script handles that after you finish.
+Do NOT update curriculum.json — the shell script handles that too.
+Just generate the files and send the email."
 
-/opt/homebrew/bin/claude \
-  --channels plugin:imessage@claude-plugins-official \
-  --system-prompt ~/.claude/system-prompt.md \
-  --dangerously-skip-permissions \
-  -p "$PROMPT" \
-  >> "$LOG_DIR/daily-learning.log" 2>&1
+  /opt/homebrew/bin/claude \
+    --dangerously-skip-permissions \
+    -p "$GENERATE_PROMPT" \
+    >> "$LOG" 2>&1
 
-echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] daily-learning.sh complete" >> "$LOG_DIR/daily-learning.log"
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Claude generation complete" >> "$LOG"
+fi
+
+# ── Verify snippet files exist after generation ───────────────────────────────
+if [ ! -f "$IMESSAGE_FILE" ]; then
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] ERROR: iMessage file missing after generation: $IMESSAGE_FILE" >> "$LOG"
+  exit 1
+fi
+
+if [ ! -f "$EMAIL_FILE" ]; then
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] ERROR: Email file missing: $EMAIL_FILE" >> "$LOG"
+  exit 1
+fi
+
+# ── Send email for pre-written snippets (generated case sends during Claude run) ─
+if [ "$SNIPPET_SOURCE" = "pre-written" ]; then
+  EMAIL_SUBJECT=$(head -1 "$EMAIL_FILE" | sed 's/^# //')
+  EMAIL_CONTENT=$(cat "$EMAIL_FILE")
+  EMAIL_RESULT=$(node "$BOARD_DIR/scripts/send-email.js" \
+    --to "$DAD_EMAIL_WORK" \
+    --subject "$EMAIL_SUBJECT" \
+    --body "$EMAIL_CONTENT" 2>&1)
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Email: $EMAIL_RESULT" >> "$LOG"
+fi
+
+# ── Send iMessage via osascript (no MCP plugin needed) ───────────────────────
+# Write content to a temp file to handle special characters safely.
+TEMP_MSG=$(mktemp /tmp/zazu-learning-XXXXXX.txt)
+cat "$IMESSAGE_FILE" > "$TEMP_MSG"
+
+IMESSAGE_RESULT=$(osascript << OSASCRIPT 2>&1
+set msgFile to "$TEMP_MSG"
+set fileHandle to open for access POSIX file msgFile
+set msgText to (read fileHandle)
+close access fileHandle
+
+tell application "Messages"
+  set targetService to 1st service whose service type = iMessage
+  set targetBuddy to buddy "$DAD_NUMBER" of targetService
+  send msgText to targetBuddy
+end tell
+return "sent"
+OSASCRIPT
+)
+
+rm -f "$TEMP_MSG"
+echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] iMessage: $IMESSAGE_RESULT" >> "$LOG"
+
+# ── Update curriculum.json (shell handles this — no Claude needed) ────────────
+NEXT_DAY=$((DAY_NUM + 1))
+NEXT_SNIPPET_ID="module1-day${NEXT_DAY}"
+
+node -e "
+const fs = require('fs');
+const path = '$LEARNING_DIR/curriculum.json';
+const d = JSON.parse(fs.readFileSync(path));
+
+// Mark current snippet delivered
+let found = false;
+for (const mod of d.modules) {
+  for (const mm of mod.mini_modules) {
+    for (const s of mm.snippets) {
+      if (s.snippet_id === '$SNIPPET_ID') {
+        s.delivery_status = 'delivered';
+        s.delivered_at = new Date().toISOString();
+        s.imessage_file = 'snippets/${SNIPPET_ID}-imessage.md';
+        s.email_file = 'snippets/${SNIPPET_ID}-email.md';
+        found = true;
+        break;
+      }
+    }
+    if (found) break;
+  }
+  if (found) break;
+}
+
+// Advance progress to next sequential day
+d.progress.last_delivered_date = '$TODAY';
+d.progress.status = 'in_progress';
+d.progress.current_day_number = $NEXT_DAY;
+d.progress.current_snippet_id = '$NEXT_SNIPPET_ID';
+if (d.engagement_summary) {
+  d.engagement_summary.total_snippets_delivered = (d.engagement_summary.total_snippets_delivered || 0) + 1;
+}
+
+fs.writeFileSync(path, JSON.stringify(d, null, 2));
+console.log('curriculum.json updated: advanced to day $NEXT_DAY ($NEXT_SNIPPET_ID)');
+" >> "$LOG" 2>&1
+
+echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] daily-learning.sh complete" >> "$LOG"

@@ -44,7 +44,7 @@ Your task: scan the Nyche family Gmail inbox for household-relevant emails recei
 FAMILY CONTEXT:
 - Dad: $DAD_NUMBER
 - Mom: $MOM_NUMBER
-- Child_1/HRH: 21-month-old son
+- $CHILD_1_NAME: 21-month-old son
 - Based in Atlanta, GA
 - Both parents work from home in tech
 
@@ -115,15 +115,15 @@ Schedule reminders for BOTH Dad and Mom. For most events: 2 days before + day of
 For important events (medical, school): 7 days, 2 days, day of.
 
 Day-of reminder example:
-'🌅 Today: Don't forget — Child_1 needs to wear orange for Spirit Day at daycare! 🧡 — Zazu'
+'🌅 Today: Don't forget — $CHILD_1_NAME needs to wear orange for Spirit Day at daycare! 🧡 — Zazu'
 
 Pre-event reminder example:
-'📅 In 2 days (Thursday): Spirit Day at daycare — Child_1 wears orange. Just a heads up! — Zazu'
+'📅 In 2 days (Thursday): Spirit Day at daycare — $CHILD_1_NAME wears orange. Just a heads up! — Zazu'
 
 STEP 6 — SEND CONFIRMATION iMESSAGE
 After creating each task, send a brief confirmation to the parent who sent/forwarded the email.
 Use mcp__plugin_imessage_imessage__* to send.
-Example: '✓ Got it — added \"Child_1 wear orange — Spirit Day\" to the board and set a reminder for 2 days before and the morning of. — Zazu'
+Example: '✓ Got it — added \"$CHILD_1_NAME wear orange — Spirit Day\" to the board and set a reminder for 2 days before and the morning of. — Zazu'
 
 STEP 7 — LABEL PROCESSED EMAILS
 Use Gmail MCP to add the label 'zazu-processed' to each email you handled.

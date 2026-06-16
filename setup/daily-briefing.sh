@@ -53,7 +53,7 @@ ${EVENTS}
 Send the morning daily briefing to Dad via iMessage (chat_id: any;-;<DAD_NUMBER>). Keep it warm, concise, and useful. Include:
 - A brief good morning with today's date and day
 - Today's scheduled events (if any)
-- Any day-specific standing reminders (e.g. on Wednesdays: Child_1 needs swim wear)
+- Any day-specific standing reminders (e.g. on Wednesdays: $CHILD_1_NAME needs swim wear)
 - Anything else relevant based on context
 
 CRITICAL — iMessage delivery:
