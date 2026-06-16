@@ -7,7 +7,8 @@
   Install: cp launchd/com.zazu.board-reminders.plist ~/Library/LaunchAgents/
            launchctl load ~/Library/LaunchAgents/com.zazu.board-reminders.plist
   Test:    launchctl start com.zazu.board-reminders
-  Logs:    /tmp/zazu-board-reminders.stdout.log
+  Logs:    /Users/zazunyche/Documents/src/family-board/logs/board-reminders.log
+           /Users/zazunyche/Documents/src/family-board/logs/board-reminders-launchd.log
 -->
 <plist version="1.0">
 <dict>
@@ -28,11 +29,12 @@
     <integer>0</integer>
   </dict>
 
+  <!-- Persistent log location (survives reboots unlike /tmp) -->
   <key>StandardOutPath</key>
-  <string>/tmp/zazu-board-reminders.stdout.log</string>
+  <string>/Users/zazunyche/Documents/src/family-board/logs/board-reminders-launchd.log</string>
 
   <key>StandardErrorPath</key>
-  <string>/tmp/zazu-board-reminders.stderr.log</string>
+  <string>/Users/zazunyche/Documents/src/family-board/logs/board-reminders-launchd.log</string>
 
   <key>RunAtLoad</key>
   <false/>
@@ -41,8 +43,9 @@
   <dict>
     <key>HOME</key>
     <string>/Users/zazunyche</string>
+    <!-- npm-global/bin required for node tools -->
     <key>PATH</key>
-    <string>/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin</string>
+    <string>/Users/zazunyche/.npm-global/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
   </dict>
 </dict>
 </plist>

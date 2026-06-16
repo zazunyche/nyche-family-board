@@ -7,7 +7,8 @@
   Install: cp launchd/com.zazu.gmail-scan.plist ~/Library/LaunchAgents/
            launchctl load ~/Library/LaunchAgents/com.zazu.gmail-scan.plist
   Test:    launchctl start com.zazu.gmail-scan
-  Logs:    /tmp/zazu-gmail-scan.stdout.log
+  Logs:    /Users/zazunyche/Documents/src/family-board/logs/gmail-scan.log
+           /Users/zazunyche/Documents/src/family-board/logs/gmail-scan-launchd.log
 -->
 <plist version="1.0">
 <dict>
@@ -33,11 +34,12 @@
     <dict><key>Hour</key><integer>21</integer><key>Minute</key><integer>0</integer></dict>
   </array>
 
+  <!-- Persistent log location (survives reboots unlike /tmp) -->
   <key>StandardOutPath</key>
-  <string>/tmp/zazu-gmail-scan.stdout.log</string>
+  <string>/Users/zazunyche/Documents/src/family-board/logs/gmail-scan-launchd.log</string>
 
   <key>StandardErrorPath</key>
-  <string>/tmp/zazu-gmail-scan.stderr.log</string>
+  <string>/Users/zazunyche/Documents/src/family-board/logs/gmail-scan-launchd.log</string>
 
   <key>RunAtLoad</key>
   <false/>
@@ -46,8 +48,9 @@
   <dict>
     <key>HOME</key>
     <string>/Users/zazunyche</string>
+    <!-- npm-global/bin required for node tools -->
     <key>PATH</key>
-    <string>/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin</string>
+    <string>/Users/zazunyche/.npm-global/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
   </dict>
 </dict>
 </plist>

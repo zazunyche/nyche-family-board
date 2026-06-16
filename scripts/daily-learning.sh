@@ -16,17 +16,25 @@ set -euo pipefail
 export PATH="/Users/zazunyche/.npm-global/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
 export HOME="/Users/zazunyche"
 
-# ── Load contact config (never committed — lives in ~/.zazu-config) ───────────
-# shellcheck source=/dev/null
-source ~/.zazu-config
-
 BOARD_DIR="/Users/zazunyche/Documents/src/family-board"
 LEARNING_DIR="$BOARD_DIR/learning"
 LOG_DIR="$BOARD_DIR/logs"
 mkdir -p "$LOG_DIR"
-
 LOG="$LOG_DIR/daily-learning.log"
-echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] daily-learning.sh started" >> "$LOG"
+
+# ── Load shared notify library ────────────────────────────────────────────────
+# shellcheck source=scripts/lib/zazu-notify.sh
+source "$BOARD_DIR/scripts/lib/zazu-notify.sh"
+
+# ── Load contact config (never committed — lives in ~/.zazu-config) ───────────
+# shellcheck source=/dev/null
+if ! source ~/.zazu-config 2>/dev/null; then
+  log_ts "ERROR: ~/.zazu-config not found or not sourceable" "$LOG"
+  # Can't alert via iMessage without config — just exit with failure
+  exit 1
+fi
+
+log_ts "daily-learning.sh started" "$LOG"
 
 # ── Guard: skip if already delivered today ────────────────────────────────────
 TODAY=$(date "+%Y-%m-%d")
@@ -36,7 +44,7 @@ LAST_DELIVERED=$(node -e "
 " 2>/dev/null || echo "")
 
 if [ "$LAST_DELIVERED" = "$TODAY" ]; then
-  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Already delivered today ($TODAY), skipping" >> "$LOG"
+  log_ts "Already delivered today ($TODAY), skipping" "$LOG"
   exit 0
 fi
 
@@ -44,19 +52,28 @@ fi
 SNIPPET_ID=$(node -e "
   const d=JSON.parse(require('fs').readFileSync('$LEARNING_DIR/curriculum.json'));
   console.log(d.progress.current_snippet_id);
-" 2>/dev/null)
+" 2>/dev/null) || {
+  alert_failure "daily-learning.sh" "Failed to read current_snippet_id from curriculum.json" "$LOG"
+  exit 1
+}
 
 DAY_NUM=$(node -e "
   const d=JSON.parse(require('fs').readFileSync('$LEARNING_DIR/curriculum.json'));
   console.log(d.progress.current_day_number);
-" 2>/dev/null)
+" 2>/dev/null) || {
+  alert_failure "daily-learning.sh" "Failed to read current_day_number from curriculum.json" "$LOG"
+  exit 1
+}
 
 MINI_MODULE=$(node -e "
   const d=JSON.parse(require('fs').readFileSync('$LEARNING_DIR/curriculum.json'));
   console.log(d.progress.current_mini_module);
-" 2>/dev/null)
+" 2>/dev/null) || {
+  alert_failure "daily-learning.sh" "Failed to read current_mini_module from curriculum.json" "$LOG"
+  exit 1
+}
 
-echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Delivering $SNIPPET_ID (Day $DAY_NUM)" >> "$LOG"
+log_ts "Delivering $SNIPPET_ID (Day $DAY_NUM)" "$LOG"
 
 # ── Determine snippet source ──────────────────────────────────────────────────
 IMESSAGE_FILE="$LEARNING_DIR/snippets/${SNIPPET_ID}-imessage.md"
@@ -68,7 +85,7 @@ else
   SNIPPET_SOURCE="generated"
 fi
 
-echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Snippet source: $SNIPPET_SOURCE" >> "$LOG"
+log_ts "Snippet source: $SNIPPET_SOURCE" "$LOG"
 
 # ── GENERATE content if not pre-written ──────────────────────────────────────
 # Claude's only job here is to create the snippet files + send the email.
@@ -106,22 +123,25 @@ Do NOT send iMessage — the shell script handles that after you finish.
 Do NOT update curriculum.json — the shell script handles that too.
 Just generate the files and send the email."
 
-  /opt/homebrew/bin/claude \
+  if ! /opt/homebrew/bin/claude \
     --dangerously-skip-permissions \
     -p "$GENERATE_PROMPT" \
-    >> "$LOG" 2>&1
+    >> "$LOG" 2>&1; then
+    alert_failure "daily-learning.sh" "Claude generation step exited non-zero for $SNIPPET_ID" "$LOG"
+    exit 1
+  fi
 
-  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Claude generation complete" >> "$LOG"
+  log_ts "Claude generation complete" "$LOG"
 fi
 
 # ── Verify snippet files exist after generation ───────────────────────────────
 if [ ! -f "$IMESSAGE_FILE" ]; then
-  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] ERROR: iMessage file missing after generation: $IMESSAGE_FILE" >> "$LOG"
+  alert_failure "daily-learning.sh" "iMessage snippet file missing after generation: $IMESSAGE_FILE" "$LOG"
   exit 1
 fi
 
 if [ ! -f "$EMAIL_FILE" ]; then
-  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] ERROR: Email file missing: $EMAIL_FILE" >> "$LOG"
+  alert_failure "daily-learning.sh" "Email file missing: $EMAIL_FILE" "$LOG"
   exit 1
 fi
 
@@ -133,37 +153,32 @@ if [ "$SNIPPET_SOURCE" = "pre-written" ]; then
     --to "$DAD_EMAIL_WORK" \
     --subject "$EMAIL_SUBJECT" \
     --body "$EMAIL_CONTENT" 2>&1)
-  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Email: $EMAIL_RESULT" >> "$LOG"
+  EMAIL_EXIT=$?
+  log_ts "Email send result (exit $EMAIL_EXIT): $EMAIL_RESULT" "$LOG"
+  if [ $EMAIL_EXIT -ne 0 ] || [[ "$EMAIL_RESULT" != *"SENT:"* ]]; then
+    # Email failure is non-fatal — alert but continue with iMessage delivery
+    alert_failure "daily-learning.sh" "Email send failed (exit $EMAIL_EXIT): $EMAIL_RESULT" "$LOG"
+    log_ts "Continuing with iMessage delivery despite email failure" "$LOG"
+  fi
 fi
 
 # ── Send iMessage via osascript (no MCP plugin needed) ───────────────────────
 # Write content to a temp file to handle special characters safely.
-TEMP_MSG=$(mktemp /tmp/zazu-learning-XXXXXX.txt)
-cat "$IMESSAGE_FILE" > "$TEMP_MSG"
+IMESSAGE_RESULT=$(send_imessage "$DAD_NUMBER" "$(cat "$IMESSAGE_FILE")")
+log_ts "iMessage send result: $IMESSAGE_RESULT" "$LOG"
 
-IMESSAGE_RESULT=$(osascript << OSASCRIPT 2>&1
-set msgFile to "$TEMP_MSG"
-set fileHandle to open for access POSIX file msgFile
-set msgText to (read fileHandle)
-close access fileHandle
+# Validate delivery — check_imessage_result calls alert_failure automatically if bad
+if ! check_imessage_result "$IMESSAGE_RESULT" "learning snippet Day $DAY_NUM to Dad" "$LOG"; then
+  exit 1
+fi
 
-tell application "Messages"
-  set targetService to 1st service whose service type = iMessage
-  set targetBuddy to buddy "$DAD_NUMBER" of targetService
-  send msgText to targetBuddy
-end tell
-return "sent"
-OSASCRIPT
-)
-
-rm -f "$TEMP_MSG"
-echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] iMessage: $IMESSAGE_RESULT" >> "$LOG"
+log_ts "iMessage delivered successfully for $SNIPPET_ID" "$LOG"
 
 # ── Update curriculum.json (shell handles this — no Claude needed) ────────────
 NEXT_DAY=$((DAY_NUM + 1))
 NEXT_SNIPPET_ID="module1-day${NEXT_DAY}"
 
-node -e "
+CURRICULUM_UPDATE_RESULT=$(node -e "
 const fs = require('fs');
 const path = '$LEARNING_DIR/curriculum.json';
 const d = JSON.parse(fs.readFileSync(path));
@@ -196,8 +211,19 @@ if (d.engagement_summary) {
   d.engagement_summary.total_snippets_delivered = (d.engagement_summary.total_snippets_delivered || 0) + 1;
 }
 
-fs.writeFileSync(path, JSON.stringify(d, null, 2));
-console.log('curriculum.json updated: advanced to day $NEXT_DAY ($NEXT_SNIPPET_ID)');
-" >> "$LOG" 2>&1
+// Write atomically
+const tmp = path + '.tmp';
+fs.writeFileSync(tmp, JSON.stringify(d, null, 2));
+fs.renameSync(tmp, path);
+console.log('updated:day=$NEXT_DAY');
+" 2>&1)
+CURRICULUM_EXIT=$?
 
-echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] daily-learning.sh complete" >> "$LOG"
+log_ts "Curriculum update (exit $CURRICULUM_EXIT): $CURRICULUM_UPDATE_RESULT" "$LOG"
+
+if [ $CURRICULUM_EXIT -ne 0 ] || [[ "$CURRICULUM_UPDATE_RESULT" != *"updated:"* ]]; then
+  alert_failure "daily-learning.sh" "curriculum.json update failed (exit $CURRICULUM_EXIT): $CURRICULUM_UPDATE_RESULT" "$LOG"
+  exit 1
+fi
+
+log_ts "daily-learning.sh complete — delivered $SNIPPET_ID, advanced to Day $NEXT_DAY" "$LOG"

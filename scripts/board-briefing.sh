@@ -11,18 +11,31 @@ set -euo pipefail
 BOARD_DIR="/Users/zazunyche/Documents/src/family-board"
 LOG_DIR="$BOARD_DIR/logs"
 mkdir -p "$LOG_DIR"
+LOG="$LOG_DIR/board-briefing.log"
 
-echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] board-briefing.sh started" >> "$LOG_DIR/board-briefing.log"
-
-# ── Get board context ─────────────────────────────────────────────────────────
-BOARD_CONTEXT=$(node "$BOARD_DIR/board-tools/zazu-context.js" 2>>"$LOG_DIR/board-briefing.log") || {
-  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] ERROR: zazu-context.js failed" >> "$LOG_DIR/board-briefing.log"
-  exit 1
-}
+# ── Load shared notify library ────────────────────────────────────────────────
+# shellcheck source=scripts/lib/zazu-notify.sh
+source "$BOARD_DIR/scripts/lib/zazu-notify.sh"
 
 # ── Load contact config (never committed — lives in ~/.zazu-config) ───────────
 # shellcheck source=/dev/null
-source ~/.zazu-config
+if ! source ~/.zazu-config 2>/dev/null; then
+  log_ts "ERROR: ~/.zazu-config not found or not sourceable" "$LOG"
+  exit 1
+fi
+
+log_ts "board-briefing.sh started" "$LOG"
+
+# ── Get board context ─────────────────────────────────────────────────────────
+BOARD_CONTEXT=$(node "$BOARD_DIR/board-tools/zazu-context.js" 2>>"$LOG") || {
+  alert_failure "board-briefing.sh" "zazu-context.js failed to produce board context" "$LOG"
+  exit 1
+}
+
+if [ -z "$BOARD_CONTEXT" ]; then
+  alert_failure "board-briefing.sh" "zazu-context.js returned empty output — board state unreadable" "$LOG"
+  exit 1
+fi
 
 # ── Build prompt ──────────────────────────────────────────────────────────────
 TODAY=$(date "+%A, %B %-d")
@@ -73,11 +86,24 @@ Use your board tools (node /Users/zazunyche/Documents/src/family-board/board-too
 # Wait for iMessage plugin MCP handshake to complete
 sleep 8
 
-/opt/homebrew/bin/claude \
+if ! /opt/homebrew/bin/claude \
   --channels plugin:imessage@claude-plugins-official \
   --system-prompt ~/.claude/system-prompt.md \
   --dangerously-skip-permissions \
   -p "$PROMPT" \
-  >> "$LOG_DIR/board-briefing.log" 2>&1
+  >> "$LOG" 2>&1; then
+  alert_failure "board-briefing.sh" "Claude invocation exited non-zero — briefing may not have been delivered" "$LOG"
+  exit 1
+fi
 
-echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] board-briefing.sh complete" >> "$LOG_DIR/board-briefing.log"
+# ── Post-delivery validation ──────────────────────────────────────────────────
+# Check that Claude's run left some evidence of sending (logged output should
+# contain iMessage tool call references). We scan the last 100 lines of the log.
+RECENT_LOG=$(tail -100 "$LOG" 2>/dev/null || echo "")
+if ! echo "$RECENT_LOG" | grep -q "mcp__plugin_imessage"; then
+  alert_failure "board-briefing.sh" "Claude ran but log shows no iMessage tool calls — briefing likely not delivered. Review: $LOG" "$LOG"
+  # Non-zero exit so launchd records failure
+  exit 1
+fi
+
+log_ts "board-briefing.sh complete" "$LOG"

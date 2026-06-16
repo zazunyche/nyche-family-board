@@ -5,7 +5,8 @@
   Commits board-data.json to git at midnight if there are changes.
   Install: cp launchd/com.zazu.board-midnight-commit.plist ~/Library/LaunchAgents/
            launchctl load ~/Library/LaunchAgents/com.zazu.board-midnight-commit.plist
-  Logs:    /tmp/zazu-board-commit.stdout.log
+  Logs:    /Users/zazunyche/Documents/src/family-board/logs/git.log
+           /Users/zazunyche/Documents/src/family-board/logs/midnight-commit-launchd.log
 -->
 <plist version="1.0">
 <dict>
@@ -26,11 +27,12 @@
     <integer>0</integer>
   </dict>
 
+  <!-- Persistent log location (survives reboots unlike /tmp) -->
   <key>StandardOutPath</key>
-  <string>/tmp/zazu-board-commit.stdout.log</string>
+  <string>/Users/zazunyche/Documents/src/family-board/logs/midnight-commit-launchd.log</string>
 
   <key>StandardErrorPath</key>
-  <string>/tmp/zazu-board-commit.stderr.log</string>
+  <string>/Users/zazunyche/Documents/src/family-board/logs/midnight-commit-launchd.log</string>
 
   <key>RunAtLoad</key>
   <false/>
@@ -40,7 +42,7 @@
     <key>HOME</key>
     <string>/Users/zazunyche</string>
     <key>PATH</key>
-    <string>/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin:/usr/local/bin/git</string>
+    <string>/Users/zazunyche/.npm-global/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
   </dict>
 </dict>
 </plist>

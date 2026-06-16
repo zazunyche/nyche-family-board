@@ -22,18 +22,31 @@ LOG_DIR="$BOARD_DIR/logs"
 PROCESSED_FILE="$LOG_DIR/gmail-processed-ids.txt"
 mkdir -p "$LOG_DIR"
 touch "$PROCESSED_FILE"
+LOG="$LOG_DIR/gmail-scan.log"
 
-echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] gmail-scan.sh started" >> "$LOG_DIR/gmail-scan.log"
-
-# ── Get board context (brief mode — just urgent/stalled) ──────────────────────
-BOARD_CONTEXT=$(node "$BOARD_DIR/board-tools/zazu-context.js" --brief 2>>"$LOG_DIR/gmail-scan.log") || {
-  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] ERROR: zazu-context.js failed" >> "$LOG_DIR/gmail-scan.log"
-  exit 1
-}
+# ── Load shared notify library ────────────────────────────────────────────────
+# shellcheck source=scripts/lib/zazu-notify.sh
+source "$BOARD_DIR/scripts/lib/zazu-notify.sh"
 
 # ── Load contact config (never committed — lives in ~/.zazu-config) ───────────
 # shellcheck source=/dev/null
-source ~/.zazu-config
+if ! source ~/.zazu-config 2>/dev/null; then
+  log_ts "ERROR: ~/.zazu-config not found or not sourceable" "$LOG"
+  exit 1
+fi
+
+log_ts "gmail-scan.sh started" "$LOG"
+
+# ── Get board context (brief mode — just urgent/stalled) ──────────────────────
+BOARD_CONTEXT=$(node "$BOARD_DIR/board-tools/zazu-context.js" --brief 2>>"$LOG") || {
+  alert_failure "gmail-scan.sh" "zazu-context.js failed to produce board context" "$LOG"
+  exit 1
+}
+
+if [ -z "$BOARD_CONTEXT" ]; then
+  alert_failure "gmail-scan.sh" "zazu-context.js returned empty output — board state unreadable" "$LOG"
+  exit 1
+fi
 
 TODAY=$(date "+%Y-%m-%d")
 
@@ -115,15 +128,15 @@ Schedule reminders for BOTH Dad and Mom. For most events: 2 days before + day of
 For important events (medical, school): 7 days, 2 days, day of.
 
 Day-of reminder example:
-'🌅 Today: Don't forget — $CHILD_1_NAME needs to wear orange for Spirit Day at daycare! 🧡 — Zazu'
+'Today: Don't forget — $CHILD_1_NAME needs to wear orange for Spirit Day at daycare! — Zazu'
 
 Pre-event reminder example:
-'📅 In 2 days (Thursday): Spirit Day at daycare — $CHILD_1_NAME wears orange. Just a heads up! — Zazu'
+'In 2 days (Thursday): Spirit Day at daycare — $CHILD_1_NAME wears orange. Just a heads up! — Zazu'
 
 STEP 6 — SEND CONFIRMATION iMESSAGE
 After creating each task, send a brief confirmation to the parent who sent/forwarded the email.
 Use mcp__plugin_imessage_imessage__* to send.
-Example: '✓ Got it — added \"$CHILD_1_NAME wear orange — Spirit Day\" to the board and set a reminder for 2 days before and the morning of. — Zazu'
+Example: 'Got it — added \"$CHILD_1_NAME wear orange — Spirit Day\" to the board and set a reminder for 2 days before and the morning of. — Zazu'
 
 STEP 7 — LABEL PROCESSED EMAILS
 Use Gmail MCP to add the label 'zazu-processed' to each email you handled.
@@ -141,9 +154,15 @@ IMPORTANT RULES:
 - Do not send briefing-style messages — only confirmation of what you just did"
 
 # ── Invoke Claude (one-shot) ──────────────────────────────────────────────────
-claude -p "$PROMPT" \
+# Note: gmail-scan uses the Gmail + Calendar MCPs attached to claude.ai session,
+# not a separate --channels flag. The claude binary picks them up automatically.
+if ! /opt/homebrew/bin/claude \
+  -p "$PROMPT" \
   --system-prompt ~/.claude/system-prompt.md \
   --dangerously-skip-permissions \
-  >> "$LOG_DIR/gmail-scan.log" 2>&1
+  >> "$LOG" 2>&1; then
+  alert_failure "gmail-scan.sh" "Claude invocation exited non-zero during Gmail scan" "$LOG"
+  exit 1
+fi
 
-echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] gmail-scan.sh complete" >> "$LOG_DIR/gmail-scan.log"
+log_ts "gmail-scan.sh complete" "$LOG"
