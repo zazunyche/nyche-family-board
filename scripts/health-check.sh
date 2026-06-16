@@ -123,10 +123,10 @@ if [ ${#ISSUES[@]} -eq 0 ] || ! (printf '%s\n' "${ISSUES[@]}" | grep -q "ERROR")
 fi
 
 # ── 4. Board server responding ────────────────────────────────────────────────
-if curl -sf --max-time 5 http://localhost:3001/ > /dev/null 2>&1; then
-  log_ts "CHECK PASS: Board server responding on localhost:3001" "$HEALTH_LOG"
+if curl -sf --max-time 5 http://localhost:3000/ > /dev/null 2>&1; then
+  log_ts "CHECK PASS: Board server responding on localhost:3000" "$HEALTH_LOG"
 else
-  MSG="Board server not responding on localhost:3001"
+  MSG="Board server not responding on localhost:3000"
   log_ts "CHECK FAIL: $MSG" "$HEALTH_LOG"
   ISSUES+=("$MSG")
 fi

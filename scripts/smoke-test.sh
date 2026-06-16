@@ -25,11 +25,11 @@ echo "────────────────────────�
 echo "Zazu smoke-test  $(date -u +%Y-%m-%dT%H:%M:%SZ)"
 echo "────────────────────────────────────────────────────"
 
-# ── 1. Node.js server responding on localhost:3001 ────────────────────────────
-if curl -sf --max-time 5 http://localhost:3001/ > /dev/null 2>&1; then
-  pass "Node.js server responding on localhost:3001"
+# ── 1. Node.js server responding on localhost:3000 ────────────────────────────
+if curl -sf --max-time 5 http://localhost:3000/ > /dev/null 2>&1; then
+  pass "Node.js server responding on localhost:3000"
 else
-  fail "Node.js server" "curl to localhost:3001 failed — is server.js running?"
+  fail "Node.js server" "curl to localhost:3000 failed — is server.js running?"
 fi
 
 # ── 2. board-data.json readable and valid JSON ────────────────────────────────
