@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  com.zazu.board-server.plist
+  Keeps the family-board Node server (localhost:3000) running at all times.
+  RunAtLoad starts it on login/boot. KeepAlive respawns it if it ever crashes.
+  Added 2026-06-19 after a 35hr outage where the server had to be started by hand.
+  Install: launchctl load ~/Library/LaunchAgents/com.zazu.board-server.plist
+  Logs:    /Users/zazunyche/Documents/src/family-board/logs/server.log
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.zazu.board-server</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/caffeinate</string>
+    <string>-i</string>
+    <string>/usr/bin/env</string>
+    <string>node</string>
+    <string>/Users/zazunyche/Documents/src/family-board/server.js</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/zazunyche/Documents/src/family-board</string>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>KeepAlive</key>
+  <true/>
+
+  <key>StandardOutPath</key>
+  <string>/Users/zazunyche/Documents/src/family-board/logs/server.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/Users/zazunyche/Documents/src/family-board/logs/server.log</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>HOME</key>
+    <string>/Users/zazunyche</string>
+    <key>PATH</key>
+    <string>/Users/zazunyche/.npm-global/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
+</dict>
+</plist>

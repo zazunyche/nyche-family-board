@@ -7,6 +7,8 @@
 
     <key>ProgramArguments</key>
     <array>
+        <string>/usr/bin/caffeinate</string>
+        <string>-i</string>
         <string>/bin/bash</string>
         <string>/Users/zazunyche/Documents/src/family-board/scripts/daily-learning.sh</string>
     </array>
