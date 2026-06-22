@@ -3,7 +3,16 @@
 # scripts/board-reminders.sh
 # Called by com.zazu.board-reminders launchd job at 8:00am daily.
 # Reads pending reminders from board-data.json and sends them via
-# Zazu's iMessage channel. Marks each reminder as sent after delivery.
+# osascript, then marks each as sent.
+#
+# Rewritten 2026-06-22: previously spawned a fresh `claude -p --channels
+# plugin:imessage` session and required it to use the MCP tool to send each
+# reminder. Same fragile pattern as the morning briefings — the MCP
+# connection frequently doesn't finish registering inside a short-lived
+# headless session, so reminders could silently never go out. There's no
+# reason for this script to involve an LLM at all: reminder messages are
+# already pre-composed text sitting in board-data.json. This is now pure
+# bash + node + osascript — nothing to hang on, nothing to misfire.
 # ─────────────────────────────────────────────────────────────────────────────
 
 set -euo pipefail
@@ -28,64 +37,54 @@ log_ts "board-reminders.sh started" "$LOG"
 
 TODAY=$(date "+%Y-%m-%d")
 
-# ── Check if there are any reminders due today ────────────────────────────────
-REMINDERS_JSON=$(node -e "
+# ── Pull due reminders into a JSONL temp file (id|handle|base64 message) ──────
+REMINDERS_FILE=$(mktemp /tmp/zazu-reminders-XXXXXX.jsonl)
+REMINDER_COUNT=$(node -e "
 const fs = require('fs');
 const b  = JSON.parse(fs.readFileSync('$BOARD_DIR/board-data.json', 'utf8'));
 const due = (b.pendingReminders || []).filter(r => !r.sent && r.sendDate === '$TODAY');
-console.log(JSON.stringify(due));
+const lines = due.map(r => JSON.stringify({
+  id: r.id,
+  handle: r.handle,
+  message: Buffer.from(r.message, 'utf8').toString('base64')
+}));
+fs.writeFileSync('$REMINDERS_FILE', lines.join('\n') + (lines.length ? '\n' : ''));
+console.log(due.length);
 " 2>>"$LOG") || {
   alert_failure "board-reminders.sh" "Failed to read pending reminders from board-data.json" "$LOG"
+  rm -f "$REMINDERS_FILE"
   exit 1
 }
 
-REMINDER_COUNT=$(node -e "console.log(JSON.parse(process.argv[1]).length)" "$REMINDERS_JSON" 2>/dev/null || echo "0")
-
 if [ "$REMINDER_COUNT" -eq 0 ]; then
   log_ts "No reminders due today" "$LOG"
+  rm -f "$REMINDERS_FILE"
   exit 0
 fi
 
 log_ts "$REMINDER_COUNT reminder(s) due today" "$LOG"
 
-# ── Build prompt ──────────────────────────────────────────────────────────────
-PROMPT="You are Zazu, the Nyche family's AI house manager. Today is $TODAY.
+FAIL_COUNT=0
+while IFS= read -r line; do
+  [ -z "$line" ] && continue
+  RID=$(node -e "console.log(JSON.parse(process.argv[1]).id)" "$line")
+  HANDLE=$(node -e "console.log(JSON.parse(process.argv[1]).handle)" "$line")
+  MSG=$(node -e "console.log(JSON.parse(process.argv[1]).message)" "$line" | base64 -d)
 
-You have scheduled reminders to deliver right now via iMessage.
+  RESULT=$(send_imessage "$HANDLE" "$MSG")
+  if [[ "$RESULT" == *"sent"* ]]; then
+    node "$BOARD_DIR/board-tools/mark-reminded.js" --reminder "$RID" --actor ZAZU >> "$LOG" 2>&1
+    log_ts "Reminder $RID sent to $HANDLE and marked" "$LOG"
+  else
+    FAIL_COUNT=$((FAIL_COUNT + 1))
+    log_ts "ERROR: Reminder $RID failed to send to $HANDLE: $RESULT" "$LOG"
+  fi
+done < "$REMINDERS_FILE"
 
-REMINDERS DUE TODAY:
-$REMINDERS_JSON
+rm -f "$REMINDERS_FILE"
 
-For each reminder:
-1. Send the message to the specified handle using your iMessage tools (mcp__plugin_imessage_imessage__*)
-2. After sending successfully, mark it as sent by running:
-   node $BOARD_DIR/board-tools/mark-reminded.js --reminder [id] --actor ZAZU
-
-Send each reminder exactly as written in the 'message' field — these were pre-composed when the event was discovered. Do not paraphrase or expand them.
-
-After all reminders are sent, confirm completion silently (no extra messages needed)."
-
-# ── Invoke Claude (one-shot) ──────────────────────────────────────────────────
-# Wait for iMessage plugin MCP handshake to complete
-sleep 8
-
-if ! /opt/homebrew/bin/claude \
-  --channels plugin:imessage@claude-plugins-official \
-  -p "$PROMPT" \
-  --system-prompt ~/.claude/system-prompt.md \
-  --dangerously-skip-permissions \
-  >> "$LOG" 2>&1; then
-  alert_failure "board-reminders.sh" "Claude invocation exited non-zero — reminders may not have been delivered ($REMINDER_COUNT due)" "$LOG"
-  exit 1
-fi
-
-# ── Post-delivery validation ──────────────────────────────────────────────────
-# Verify that mark-reminded.js was actually called for each reminder.
-# If no reminders were marked, Claude likely failed to deliver them.
-RECENT_LOG=$(tail -150 "$LOG" 2>/dev/null || echo "")
-
-if ! echo "$RECENT_LOG" | grep -q "mark-reminded"; then
-  alert_failure "board-reminders.sh" "Claude ran but log shows no mark-reminded.js calls — $REMINDER_COUNT reminder(s) may not have been delivered. Review: $LOG" "$LOG"
+if [ "$FAIL_COUNT" -gt 0 ]; then
+  alert_failure "board-reminders.sh" "$FAIL_COUNT of $REMINDER_COUNT reminder(s) failed to send" "$LOG"
   exit 1
 fi
 
