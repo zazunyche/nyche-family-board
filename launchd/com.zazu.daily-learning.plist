@@ -10,6 +10,9 @@
         <string>/usr/bin/caffeinate</string>
         <string>-i</string>
         <string>/bin/bash</string>
+        <string>-c</string>
+        <string>for i in 1 2 3 4 5; do /bin/bash "$1" &amp;&amp; exit 0; echo "[retry] attempt $i failed (EINTR or similar), retrying in 3s" 1&gt;&amp;2; sleep 3; done; exit 1</string>
+        <string>_</string>
         <string>/Users/zazunyche/Documents/src/family-board/scripts/daily-learning.sh</string>
     </array>
 

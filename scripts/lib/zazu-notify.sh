@@ -56,7 +56,7 @@ send_imessage() {
   result=$(osascript << OSASCRIPT 2>&1
 set msgFile to "$tmp"
 set fileHandle to open for access POSIX file msgFile
-set msgText to (read fileHandle)
+set msgText to (read fileHandle as «class utf8»)
 close access fileHandle
 
 tell application "Messages"
