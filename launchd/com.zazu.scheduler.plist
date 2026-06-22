@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  com.zazu.scheduler.plist
+  Long-running scheduler daemon — replaces StartCalendarInterval for all
+  heavier Zazu scripts. See scripts/zazu-scheduler.js for why.
+  Node, not bash: launchd directly exec'ing /bin/bash for non-trivial
+  scripts fails 100% of the time in this environment; launchd exec'ing
+  node does not. RunAtLoad + KeepAlive matches com.zazu.board-server,
+  the one pattern proven 100% reliable here.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.zazu.scheduler</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/caffeinate</string>
+    <string>-i</string>
+    <string>/usr/bin/env</string>
+    <string>node</string>
+    <string>/Users/zazunyche/Documents/src/family-board/scripts/zazu-scheduler.js</string>
+  </array>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>KeepAlive</key>
+  <true/>
+
+  <key>StandardOutPath</key>
+  <string>/Users/zazunyche/Documents/src/family-board/logs/scheduler-launchd.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/Users/zazunyche/Documents/src/family-board/logs/scheduler-launchd.log</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>HOME</key>
+    <string>/Users/zazunyche</string>
+    <key>PATH</key>
+    <string>/Users/zazunyche/.npm-global/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
+</dict>
+</plist>

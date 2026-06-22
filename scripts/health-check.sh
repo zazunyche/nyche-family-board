@@ -131,6 +131,31 @@ else
   ISSUES+=("$MSG")
 fi
 
+# ── 5. Missed-trigger check: did today's scheduled jobs actually complete? ────
+# Checks for a "complete" log line dated today, not just absence of ERROR —
+# catches jobs that were killed before logging anything at all (e.g. EINTR'd
+# before the script even started), which checks 1-3 above wouldn't see.
+CURRENT_HOUR=$(date "+%H")
+# Parallel arrays instead of an associative array — stock macOS /bin/bash is
+# 3.2 (no bash 4+ declare -A support).
+EXPECTED_LOGS=("daily-briefing.log" "board-briefing.log" "board-reminders.log")
+EXPECTED_HOURS=(7 7 8)
+for idx in "${!EXPECTED_LOGS[@]}"; do
+  logfile="${EXPECTED_LOGS[$idx]}"
+  DUE_HOUR="${EXPECTED_HOURS[$idx]}"
+  FULL_LOG="$LOG_DIR/$logfile"
+  if [ "$CURRENT_HOUR" -lt "$DUE_HOUR" ]; then
+    continue   # not due yet today
+  fi
+  if [ -f "$FULL_LOG" ] && grep -q "\[$TODAY.*complete\|\[$TODAY.*No reminders due" "$FULL_LOG" 2>/dev/null; then
+    log_ts "CHECK PASS: $logfile shows a completed run today" "$HEALTH_LOG"
+  else
+    MSG="$logfile has no completed run today — job may have been killed before it could log anything (missed trigger)"
+    log_ts "CHECK FAIL: $MSG" "$HEALTH_LOG"
+    ISSUES+=("$MSG")
+  fi
+done
+
 # ── Summary and alert ─────────────────────────────────────────────────────────
 ISSUE_COUNT=${#ISSUES[@]}
 
