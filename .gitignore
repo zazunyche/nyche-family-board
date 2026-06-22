@@ -11,3 +11,4 @@ preferences/
 *.private.*
 .env
 .env.*
+whisper-models/
