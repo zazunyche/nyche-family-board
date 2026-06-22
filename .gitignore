@@ -13,3 +13,4 @@ preferences/
 .env.*
 whisper-models/
 .claude/
+guides/
