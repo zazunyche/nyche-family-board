@@ -133,27 +133,39 @@ function runOnce(name, scriptPath) {
 const GMAIL_TIMES = ["07:30", "09:30", "11:30", "13:30", "15:30", "17:30", "19:30", "21:00"];
 const HEALTH_TIMES = ["07:30", "09:00", "11:00", "13:00", "15:00", "17:00", "19:00", "21:00"];
 
+// ── Job table (data-driven, catch-up-safe) ─────────────────────────────────
+// Found 2026-06-23: the old design fired a job only on the exact tick where
+// nowHM() === dueTime. If a single 30s tick was ever skipped or delayed past
+// that one-minute window — for any reason (system hiccup, GC pause, clock
+// jitter; root cause not fully pinned down despite investigation, but
+// caffeinate-prevented-sleep was ruled out) — runOnce()'s early-return on an
+// already-written marker meant the job silently never ran for the rest of
+// the day, with ZERO log trace (marker existed, so the "Triggering" log line
+// was never reached). midnight-commit, daily-briefing, and board-briefing
+// all missed this way on 2026-06-23 simultaneously, caught only because Dad
+// asked about health-check alerts.
+//
+// Fix: each job now fires once a day at the FIRST tick where nowHM() >= due
+// time (not ===). Same marker-gated runOnce() keeps it to exactly one run —
+// but now a missed tick just means it fires a few seconds late on the next
+// tick instead of silently vanishing for the whole day. This is strictly
+// more robust and costs nothing (ticks are 30s apart anyway).
+const JOBS = [
+  { name: "midnight-commit", time: "00:00", script: `${BOARD_DIR}/scripts/midnight-commit.sh` },
+  { name: "daily-briefing", time: "07:00", script: `${HOME}/.claude/daily-briefing.sh` },
+  { name: "board-briefing", time: "07:00", script: `${BOARD_DIR}/scripts/board-briefing.sh` },
+  { name: "board-reminders", time: "08:00", script: `${BOARD_DIR}/scripts/board-reminders.sh` },
+  { name: "daily-learning", time: "08:57", script: `${BOARD_DIR}/scripts/daily-learning.sh` },
+  ...GMAIL_TIMES.map((t) => ({ name: `gmail-scan-${t}`, time: t, script: `${BOARD_DIR}/scripts/gmail-scan.sh` })),
+  ...HEALTH_TIMES.map((t) => ({ name: `health-check-${t}`, time: t, script: `${BOARD_DIR}/scripts/health-check.sh` })),
+];
+
 function tickInner() {
   const hm = nowHM();
-
-  if (hm === "07:00") {
-    runOnce("daily-briefing", `${HOME}/.claude/daily-briefing.sh`);
-    runOnce("board-briefing", `${BOARD_DIR}/scripts/board-briefing.sh`);
-  }
-  if (hm === "08:00") {
-    runOnce("board-reminders", `${BOARD_DIR}/scripts/board-reminders.sh`);
-  }
-  if (hm === "08:57") {
-    runOnce("daily-learning", `${BOARD_DIR}/scripts/daily-learning.sh`);
-  }
-  if (hm === "00:00") {
-    runOnce("midnight-commit", `${BOARD_DIR}/scripts/midnight-commit.sh`);
-  }
-  if (GMAIL_TIMES.includes(hm)) {
-    runOnce(`gmail-scan-${hm}`, `${BOARD_DIR}/scripts/gmail-scan.sh`);
-  }
-  if (HEALTH_TIMES.includes(hm)) {
-    runOnce(`health-check-${hm}`, `${BOARD_DIR}/scripts/health-check.sh`);
+  for (const job of JOBS) {
+    if (hm >= job.time) {
+      runOnce(job.name, job.script);
+    }
   }
 }
 
