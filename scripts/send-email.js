@@ -5,6 +5,7 @@
  * Usage:
  *   node send-email.js --to "addr@example.com" --subject "Subject" --body "Body text"
  *   node send-email.js --to "a@b.com" --to "c@d.com" --subject "Hi" --html "<b>Hello</b>"
+ *   node send-email.js --to "a@b.com" --subject "Hi" --body "..." --attach "/path/to/file.pdf" --attach "/path/to/img.png"
  *
  * Sender and allowed recipients are loaded from ~/.zazu-email-config.json (not committed).
  * Reads GMAIL_APP_PASSWORD from environment or ~/.zazu-email-creds (one line: password).
@@ -39,6 +40,7 @@ const cc = get('--cc');
 const subject = (get('--subject')[0] || '').trim();
 const body = get('--body').join('\n') || get('--text').join('\n');
 const html = get('--html')[0] || '';
+const attachPaths = get('--attach');
 
 if (!to.length) { console.error('Error: --to is required'); process.exit(1); }
 if (!subject)   { console.error('Error: --subject is required'); process.exit(1); }
@@ -75,6 +77,12 @@ const mailOptions = { from: SENDER, to, subject };
 if (cc.length) mailOptions.cc = cc;
 if (html) { mailOptions.html = html; if (body) mailOptions.text = body; }
 else mailOptions.text = body;
+if (attachPaths.length) {
+  for (const p of attachPaths) {
+    if (!fs.existsSync(p)) { console.error(`Error: attachment not found: ${p}`); process.exit(1); }
+  }
+  mailOptions.attachments = attachPaths.map(p => ({ filename: path.basename(p), path: p }));
+}
 
 transporter.sendMail(mailOptions, (err, info) => {
   if (err) {
