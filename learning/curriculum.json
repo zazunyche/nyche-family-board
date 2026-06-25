@@ -20,9 +20,9 @@
   "progress": {
     "current_module": 1,
     "current_mini_module": "1.1",
-    "current_day_number": 7,
-    "current_snippet_id": "module1-day7",
-    "last_delivered_date": "2026-06-23",
+    "current_day_number": 8,
+    "current_snippet_id": "module1-day8",
+    "last_delivered_date": "2026-06-24",
     "next_scheduled_date": "2026-06-13",
     "status": "in_progress"
   },
@@ -193,10 +193,10 @@
               "date": "2026-06-18",
               "title": "Predicting the next word is not what you think",
               "topic": "Autoregressive generation and probability distributions",
-              "imessage_file": null,
-              "email_file": null,
-              "delivery_status": "pending",
-              "delivered_at": null,
+              "imessage_file": "snippets/module1-day7-imessage.md",
+              "email_file": "snippets/module1-day7-email.md",
+              "delivery_status": "delivered",
+              "delivered_at": "2026-06-24T13:01:06.051Z",
               "engagement": {
                 "imessage_reply": null,
                 "imessage_reply_time_minutes": null,
@@ -1221,7 +1221,7 @@
     }
   ],
   "engagement_summary": {
-    "total_snippets_delivered": 6,
+    "total_snippets_delivered": 7,
     "total_snippets_pending": 48,
     "average_reply_time_minutes": null,
     "mini_modules_with_quiz_completed": 0,
