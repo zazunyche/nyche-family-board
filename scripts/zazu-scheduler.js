@@ -132,6 +132,8 @@ function runOnce(name, scriptPath) {
 
 const GMAIL_TIMES = ["07:30", "09:30", "11:30", "13:30", "15:30", "17:30", "19:30", "21:00"];
 const HEALTH_TIMES = ["07:30", "09:00", "11:00", "13:00", "15:00", "17:00", "19:00", "21:00"];
+// Every 4.5 hours — resume interrupted sessions, work from backlog
+const HEARTBEAT_TIMES = ["00:00", "04:30", "09:00", "13:30", "18:00", "22:30"];
 
 // ── Job table (data-driven, catch-up-safe) ─────────────────────────────────
 // Found 2026-06-23: the old design fired a job only on the exact tick where
@@ -151,13 +153,15 @@ const HEALTH_TIMES = ["07:30", "09:00", "11:00", "13:00", "15:00", "17:00", "19:
 // tick instead of silently vanishing for the whole day. This is strictly
 // more robust and costs nothing (ticks are 30s apart anyway).
 const JOBS = [
-  { name: "midnight-commit", time: "00:00", script: `${BOARD_DIR}/scripts/midnight-commit.sh` },
+  { name: "midnight-commit",      time: "00:00", script: `${BOARD_DIR}/scripts/midnight-commit.sh` },
+  { name: "priority-escalation",  time: "00:30", script: `${BOARD_DIR}/scripts/priority-escalation.sh` },
   { name: "daily-briefing", time: "07:00", script: `${HOME}/.claude/daily-briefing.sh` },
   { name: "board-briefing", time: "07:00", script: `${BOARD_DIR}/scripts/board-briefing.sh` },
   { name: "board-reminders", time: "08:00", script: `${BOARD_DIR}/scripts/board-reminders.sh` },
   { name: "daily-learning", time: "08:57", script: `${BOARD_DIR}/scripts/daily-learning.sh` },
   ...GMAIL_TIMES.map((t) => ({ name: `gmail-scan-${t}`, time: t, script: `${BOARD_DIR}/scripts/gmail-scan.sh` })),
   ...HEALTH_TIMES.map((t) => ({ name: `health-check-${t}`, time: t, script: `${BOARD_DIR}/scripts/health-check.sh` })),
+  ...HEARTBEAT_TIMES.map((t) => ({ name: `heartbeat-${t}`, time: t, script: `${BOARD_DIR}/scripts/heartbeat.sh` })),
 ];
 
 function tickInner() {
