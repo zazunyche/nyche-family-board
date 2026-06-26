@@ -5,13 +5,14 @@
 # Runs nightly (added to scheduler at 00:30, after midnight-commit).
 #
 # Implements dynamic priority escalation per analytics plan v1.2:
+#   - Task with dueDate PAST (days < 0)                          → flag OVERDUE; iMessage Dad once/day
 #   - Task with dueDate within 14 days AND priority MEDIUM or LOW → escalate one level
 #   - Task with dueDate within  3 days AND priority not HIGH       → escalate to HIGH
-#   - Task with dueDate within  1 day                             → flag URGENT in log
+#   - Task with dueDate within  1 day (days 0–1)                 → flag URGENT in log
 #   - Task briefed 3+ times with no stage movement in 7+ days    → flag resistance
 #
 # All escalations are written to task history[] for auditability.
-# iMessage summary sent to Dad only if at least one escalation occurred.
+# OVERDUE iMessage sent to Dad once per calendar day (flag: /tmp/zazu-overdue-notified-YYYY-MM-DD).
 # ─────────────────────────────────────────────────────────────────────────────
 
 export PATH="/Users/zazunyche/.npm-global/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
@@ -83,8 +84,13 @@ for (const task of (data.tasks || [])) {
   if (task.dueDate) {
     const days = daysUntil(task.dueDate);
 
-    if (days <= 1) {
-      // URGENT flag — always, regardless of priority
+    if (days < 0) {
+      // OVERDUE — past the deadline entirely
+      const daysOver = Math.abs(days);
+      log(`OVERDUE: "${task.title}" — ${daysOver} day(s) past due (${task.dueDate}), priority: ${task.priority}`);
+      escalations.push({ id: task.id, title: task.title, type: "OVERDUE", daysLeft: days, daysOver, from: task.priority, to: task.priority });
+    } else if (days <= 1) {
+      // URGENT — due today or tomorrow
       log(`URGENT: "${task.title}" due in ${days} day(s) (${task.dueDate}) — current priority: ${task.priority}`);
       escalations.push({ id: task.id, title: task.title, type: "URGENT", daysLeft: days, from: task.priority, to: task.priority });
     } else if (days <= 3 && task.priority !== "HIGH") {
@@ -155,9 +161,10 @@ try {
   process.exit(1);
 }
 
-// ── Emit results to the escalation log ──────────────────────────────────────
+// ── Emit results to the escalation log + temp file for bash iMessage step ──
 const result = { escalations, resistanceFlags };
 fs.appendFileSync(LOG, `[${new Date().toISOString()}] Result: ${JSON.stringify(result)}\n`);
+fs.writeFileSync("/tmp/zazu-escalation-result.json", JSON.stringify(result));
 NODEEOF
 
 EXIT_CODE=$?
@@ -165,6 +172,38 @@ if [ $EXIT_CODE -ne 0 ]; then
   log_ts "priority-escalation.sh: Node script failed — exit $EXIT_CODE" "$LOG"
   log_ts "priority-escalation.sh complete (error)" "$LOG"
   exit 1
+fi
+
+# ── iMessage Dad for OVERDUE tasks (once per calendar day, daytime only) ─────
+# Sends once per calendar day IF the current hour is 08:00–21:59 ET.
+# Night runs (nightly at 00:30) skip the send; the flag is only set on actual
+# delivery, so the first daytime run of the day will still catch it.
+RESULT_FILE="/tmp/zazu-escalation-result.json"
+TODAY=$(date +%Y-%m-%d)
+NOTIFIED_FLAG="/tmp/zazu-overdue-notified-${TODAY}"
+SEND_HOUR=$(date +%H)
+
+if [ -f "$RESULT_FILE" ] && [ ! -f "$NOTIFIED_FLAG" ] && [ "$SEND_HOUR" -ge 8 ] && [ "$SEND_HOUR" -lt 22 ]; then
+  OVERDUE_COUNT=$(node -e "try{const r=require('$RESULT_FILE');console.log(r.escalations.filter(e=>e.type==='OVERDUE').length)}catch(e){console.log(0)}" 2>/dev/null)
+
+  if [ "${OVERDUE_COUNT:-0}" -gt "0" ] 2>/dev/null; then
+    OVERDUE_MSG=$(node -e "
+const r=require('$RESULT_FILE');
+const items=r.escalations.filter(e=>e.type==='OVERDUE');
+const lines=items.map(e=>'• '+e.title+' ('+e.daysOver+'d past due)');
+console.log('⚠️ OVERDUE tasks ('+items.length+'):\n'+lines.join('\n')+'\n\nMark done or snooze on the board.');
+" 2>/dev/null)
+
+    if [ -n "$OVERDUE_MSG" ]; then
+      RESULT=$(send_imessage "$DAD_NUMBER" "$OVERDUE_MSG")
+      if [[ "$RESULT" == *"sent"* ]]; then
+        touch "$NOTIFIED_FLAG"
+        log_ts "OVERDUE iMessage sent to Dad: $OVERDUE_COUNT task(s)" "$LOG"
+      else
+        log_ts "WARNING: OVERDUE iMessage failed: $RESULT" "$LOG"
+      fi
+    fi
+  fi
 fi
 
 log_ts "priority-escalation.sh complete" "$LOG"
