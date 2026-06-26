@@ -155,10 +155,15 @@ const HEARTBEAT_TIMES = ["00:00", "04:30", "09:00", "13:30", "18:00", "22:30"];
 const JOBS = [
   { name: "midnight-commit",      time: "00:00", script: `${BOARD_DIR}/scripts/midnight-commit.sh` },
   { name: "priority-escalation",  time: "00:30", script: `${BOARD_DIR}/scripts/priority-escalation.sh` },
+  { name: "analytics-refresh",    time: "06:45", script: `${BOARD_DIR}/scripts/analytics-refresh.sh` },
   { name: "daily-briefing", time: "07:00", script: `${HOME}/.claude/daily-briefing.sh` },
   { name: "board-briefing", time: "07:00", script: `${BOARD_DIR}/scripts/board-briefing.sh` },
   { name: "board-reminders", time: "08:00", script: `${BOARD_DIR}/scripts/board-reminders.sh` },
-  { name: "daily-learning", time: "08:57", script: `${BOARD_DIR}/scripts/daily-learning.sh` },
+  { name: "daily-learning",      time: "08:57", script: `${BOARD_DIR}/scripts/daily-learning.sh` },
+  // Sunday-only job — the script itself exits early (DOW guard) on Mon–Sat.
+  // Registered here as a daily entry so the scheduler never has to know what
+  // day it is; the marker file approach still dedups to once per day.
+  { name: "sunday-reflection",   time: "14:00", script: `${BOARD_DIR}/scripts/sunday-reflection.sh` },
   ...GMAIL_TIMES.map((t) => ({ name: `gmail-scan-${t}`, time: t, script: `${BOARD_DIR}/scripts/gmail-scan.sh` })),
   ...HEALTH_TIMES.map((t) => ({ name: `health-check-${t}`, time: t, script: `${BOARD_DIR}/scripts/health-check.sh` })),
   ...HEARTBEAT_TIMES.map((t) => ({ name: `heartbeat-${t}`, time: t, script: `${BOARD_DIR}/scripts/heartbeat.sh` })),

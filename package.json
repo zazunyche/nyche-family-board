@@ -8,7 +8,10 @@
     "context":  "node board-tools/zazu-context.js",
     "read":     "node board-tools/read.js --text",
     "snapshot": "node scripts/generate-snapshot.js --open",
-    "setup":    "bash scripts/setup.sh"
+    "setup":    "bash scripts/setup.sh",
+    "health":   "node analytics/scripts/board-health.js",
+    "rates":    "node analytics/scripts/completion-rate.js",
+    "analytics": "node analytics/scripts/board-health.js --save && node analytics/scripts/completion-rate.js --save"
   },
   "engines": {
     "node": ">=18.0.0"

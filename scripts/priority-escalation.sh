@@ -115,21 +115,30 @@ for (const task of (data.tasks || [])) {
 
   // ── Resistance detection (briefed 3+ times, no stage movement in 7+ days) ──
   const briefCount = task.briefCount || 0;
-  const lastStageChange = task.updatedAt || task.createdAt;
-  const staleDays = lastStageChange ? daysSince(lastStageChange) : 0;
+  // Use stageHistory to find when the current stage was entered — updatedAt
+  // changes on every write (escalation, notes) so it's useless as a stale signal.
+  const currentStageEntry = (task.stageHistory || [])
+    .filter(s => s.stage === task.stage && s.exitedAt === null)
+    .slice(-1)[0];
+  const stageEnteredAt = currentStageEntry
+    ? currentStageEntry.enteredAt
+    : (task.createdAt || NOW_ISO);
+  const staleDays = daysSince(stageEnteredAt);
 
   if (briefCount >= 3 && staleDays >= 7) {
-    // Set resistanceScore if not already flagged
-    if (!task.resistanceScore || task.resistanceScore === 0) {
-      task.resistanceScore = Math.min(5, Math.floor(staleDays / 7)); // 1pt per week stale, max 5
+    const newScore = Math.min(5, Math.floor(staleDays / 7)); // 1pt per week stale, max 5
+    // Update score if it has grown (don't write if unchanged)
+    if (newScore > (task.resistanceScore || 0)) {
+      const prevScore = task.resistanceScore || 0;
+      task.resistanceScore = newScore;
       task.updatedAt = NOW_ISO;
       (task.history = task.history || []).push({
         timestamp: NOW_ISO,
         actor: "ZAZU",
-        change: `resistanceScore set to ${task.resistanceScore} (briefed ${briefCount}x, no movement for ${staleDays} days)`
+        change: `resistanceScore: ${prevScore} → ${newScore} (briefed ${briefCount}x, no stage movement for ${staleDays} days)`
       });
-      log(`Resistance flagged: "${task.title}" — briefed ${briefCount}x, stale ${staleDays} days, score: ${task.resistanceScore}`);
-      resistanceFlags.push({ id: task.id, title: task.title, briefCount, staleDays, score: task.resistanceScore });
+      log(`Resistance flagged: "${task.title}" — briefed ${briefCount}x, stale ${staleDays} days, score: ${newScore}`);
+      resistanceFlags.push({ id: task.id, title: task.title, briefCount, staleDays, score: newScore });
     }
   }
 }

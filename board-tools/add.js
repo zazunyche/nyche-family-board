@@ -98,6 +98,9 @@ const task = {
   briefCount:      0,
   vendorId:        null,
   blockedBy:       null,
+  stageHistory: [
+    { stage: STAGE, enteredAt: nowISO, exitedAt: null, durationMs: null }
+  ],
   history: [
     {
       timestamp: nowISO,

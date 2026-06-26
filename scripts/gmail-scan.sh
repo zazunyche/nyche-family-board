@@ -103,7 +103,19 @@ For actionable emails, run this command:
 
 STEP 4 — CREATE CALENDAR EVENTS (for date-specific items)
 For events with a specific date (spirit day, picture day, appointment, school event):
-Use your Google Calendar MCP or osascript to create an event on the relevant date.
+ALWAYS create on the iCloud "Family" calendar via osascript — this is the shared family
+calendar that both Dad and Mom see on their iPhones. Do NOT use Google Calendar MCP for
+family events (that only writes to zazunyche@gmail.com's personal Google Calendar, which
+the family doesn't share).
+
+Use this osascript pattern:
+  osascript -e 'tell application "Calendar"
+    set theCal to calendar "Family"
+    set eventStart to date "Saturday, June 27, 2026 at 2:00:00 PM"
+    set eventEnd to date "Saturday, June 27, 2026 at 11:59:00 PM"
+    set newEvent to make new event at end of events of theCal with properties {summary:"[title]", start date:eventStart, end date:eventEnd, description:"[description]"}
+  end tell'
+
 Include in the event description: what needs to happen, who needs to do what.
 
 STEP 5 — SCHEDULE REMINDERS

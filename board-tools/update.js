@@ -80,6 +80,17 @@ const nowISO  = new Date().toISOString();
 
 if (NEW_STAGE && NEW_STAGE !== task.stage) {
   changes.push(`stage: ${task.stage} → ${NEW_STAGE}`);
+
+  // Close the current stageHistory entry
+  task.stageHistory = task.stageHistory || [];
+  const openEntry = task.stageHistory.slice().reverse().find(s => s.exitedAt === null);
+  if (openEntry) {
+    openEntry.exitedAt  = nowISO;
+    openEntry.durationMs = new Date(nowISO) - new Date(openEntry.enteredAt);
+  }
+  // Open a new entry for the incoming stage
+  task.stageHistory.push({ stage: NEW_STAGE, enteredAt: nowISO, exitedAt: null, durationMs: null });
+
   task.stage = NEW_STAGE;
   if (NEW_STAGE === "DONE" && !task.completedAt) {
     task.completedAt = nowISO;
@@ -130,12 +141,6 @@ task.history.push({
   actor:     ACTOR,
   change:    changes.join(" | ")
 });
-
-// Update briefCount tracking if Zazu is the actor
-if (ACTOR === "ZAZU") {
-  task.lastBriefed = nowISO;
-  task.briefCount  = (task.briefCount || 0) + 1;
-}
 
 // ── Write atomically ──────────────────────────────────────────────────────────
 board.meta.lastUpdated   = nowISO;

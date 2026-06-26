@@ -59,6 +59,7 @@ Compose TWO separate morning briefing texts — one for Dad, one for Mom:
 - Then stalled items (idle 7+ days)
 - Then due this week
 - Then their personal open task list
+- For tasks that show a NEXT SUBTASK line, surface the next subtask specifically (not just the parent task title)
 - Keep it scannable — short lines, light emoji, not a wall of text
 - Sign off: '— Zazu'
 - Do NOT include snoozed tasks
@@ -102,6 +103,13 @@ if ! node "$BOARD_DIR/scripts/send-email.js" \
   --subject "Zazu Board Brief — $TODAY" \
   --body "$DAD_MSG" >> "$LOG" 2>&1; then
   log_ts "WARNING: board briefing email failed to send" "$LOG"
+fi
+
+# ── Mark active tasks as briefed (enables resistanceScore detection) ───────────
+if node "$BOARD_DIR/board-tools/mark-briefed.js" >> "$LOG" 2>&1; then
+  log_ts "mark-briefed complete" "$LOG"
+else
+  log_ts "WARNING: mark-briefed.js failed — briefCount not updated" "$LOG"
 fi
 
 log_ts "board-briefing.sh complete" "$LOG"

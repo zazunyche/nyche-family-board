@@ -86,7 +86,11 @@ if (JSON_OUT) {
     overdue:  overdue.map(t => ({ id:t.id, title:t.title, owner:t.owner, dueDate:t.dueDate, daysOverdue:daysSince(t.dueDate), priority:t.priority, notes:t.notes, zazuNotes:t.zazuNotes })),
     stale:    stale.map(t  => ({ id:t.id, title:t.title, owner:t.owner, stage:t.stage, daysIdle:daysSince(t.updatedAt), priority:t.priority, notes:t.notes, zazuNotes:t.zazuNotes })),
     dueThisWeek: inWeek.map(t => ({ id:t.id, title:t.title, owner:t.owner, dueDate:t.dueDate, stage:t.stage })),
-    allOpen:  open.map(t  => ({ id:t.id, title:t.title, stage:t.stage, owner:t.owner, category:t.category, priority:t.priority, dueDate:t.dueDate, daysIdle:daysSince(t.updatedAt), isStale:isStale(t), isOverdue:isOverdue(t), notes:t.notes, zazuNotes:t.zazuNotes })),
+    allOpen:  open.map(t  => {
+      const subs = t.subtasks || [];
+      const nextSub = subs.find(s => s.stage !== "DONE") || null;
+      return { id:t.id, title:t.title, stage:t.stage, owner:t.owner, category:t.category, priority:t.priority, dueDate:t.dueDate, daysIdle:daysSince(t.updatedAt), isStale:isStale(t), isOverdue:isOverdue(t), notes:t.notes, zazuNotes:t.zazuNotes, subtaskCount: subs.length, subtaskDoneCount: subs.filter(s=>s.stage==="DONE").length, nextSubtask: nextSub ? { id: nextSub.id, title: nextSub.title } : null };
+    }),
     vehicles: board.vehicles,
     pendingReminders: pendingToday,
     goals:    board.goals,
@@ -173,6 +177,13 @@ if (!BRIEF) {
         t.dueDate && !isOverdue(t) ? `due ${t.dueDate}` : null,
       ].filter(Boolean).join(" | ");
       lines.push(`    [${t.id}] [${t.stage}] ${t.title}${flags ? " — " + flags : ""}`);
+      // Show next incomplete subtask if any
+      const subs = t.subtasks || [];
+      const nextSub = subs.find(s => s.stage !== "DONE");
+      if (nextSub) {
+        const doneCount = subs.filter(s => s.stage === "DONE").length;
+        lines.push(`      → NEXT SUBTASK (${doneCount}/${subs.length} done): ${nextSub.title} [${nextSub.id}]`);
+      }
     });
   });
   lines.push(``);
@@ -205,12 +216,15 @@ if (snoozed.length) {
 
 // ── Board tool reference (so Zazu knows how to update) ────────────────────
 lines.push(`BOARD TOOLS (call these to update the board):`);
-lines.push(`  Add task:    node ~/Documents/src/family-board/board-tools/add.js --title "..." --category HOME --owner DAD --priority MEDIUM --stage IDEA --actor ZAZU`);
-lines.push(`  Move stage:  node ~/Documents/src/family-board/board-tools/move.js --task <id> --to <stage> --actor ZAZU`);
-lines.push(`  Update task: node ~/Documents/src/family-board/board-tools/update.js --task <id> --owner MOM --notes "..." --actor ZAZU`);
-lines.push(`  Snooze:      node ~/Documents/src/family-board/board-tools/update.js --task <id> --snooze 2025-07-01 --actor ZAZU`);
-lines.push(`  Mark done:   node ~/Documents/src/family-board/board-tools/move.js --task <id> --to done --actor ZAZU`);
+lines.push(`  Add task:      node ~/Documents/src/family-board/board-tools/add.js --title "..." --category HOME --owner DAD --priority MEDIUM --stage IDEA --actor ZAZU`);
+lines.push(`  Move stage:    node ~/Documents/src/family-board/board-tools/move.js --task <id> --to <stage> --actor ZAZU`);
+lines.push(`  Update task:   node ~/Documents/src/family-board/board-tools/update.js --task <id> --owner MOM --notes "..." --actor ZAZU`);
+lines.push(`  Snooze:        node ~/Documents/src/family-board/board-tools/update.js --task <id> --snooze 2025-07-01 --actor ZAZU`);
+lines.push(`  Mark done:     node ~/Documents/src/family-board/board-tools/move.js --task <id> --to done --actor ZAZU`);
 lines.push(`  Mark reminded: node ~/Documents/src/family-board/board-tools/mark-reminded.js --reminder <id>`);
+lines.push(`  Add subtask:   node ~/Documents/src/family-board/board-tools/subtask.js --task <id> --add "subtask title" --actor ZAZU`);
+lines.push(`  Done subtask:  node ~/Documents/src/family-board/board-tools/subtask.js --task <id> --done <subtask-id> --actor ZAZU`);
+lines.push(`  List subtasks: node ~/Documents/src/family-board/board-tools/subtask.js --task <id> --list`);
 lines.push(``);
 lines.push(`</board_context>`);
 
