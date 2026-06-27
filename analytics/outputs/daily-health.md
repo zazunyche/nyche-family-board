@@ -1,4 +1,4 @@
-# Board Health — Jun 26, 2026, 11:45 PM
+# Board Health — Jun 27, 2026, 6:45 AM
 
 ## Summary
 
@@ -31,14 +31,13 @@
 | BOTH | 4 |
 | MOM | 3 |
 
-## Overdue Tasks (4)
+## Overdue Tasks (3)
 
 | ID | Title | Due | Days Overdue | Owner |
 |----|-------|-----|-------------|-------|
 | t_ximvmxa | Book rental car for Chicago (Kojo wedding) | 2026-06-21 | 6 | DAD |
 | t_2ol963z | Pantry storage solutions — get dimensions + photo, | 2026-06-27 | 0 | DAD |
 | t_fifa2601 | FIFA Fan Festival™ Atlanta — attend | 2026-06-27 | 0 | BOTH |
-| t_diaper01 | Get Huggies size 3 diapers — for Annie visit | 2026-06-27 | 0 | MOM |
 
 ## Stale Tasks — no update in 14+ days (0)
 
@@ -73,10 +72,24 @@ _None_
 | effortTag | ✓ none |
 | stageHistory | ✓ none |
 
-## Resistance Flagged — stalled after 3+ briefings (1)
+## Resistance Flagged — stalled after 3+ briefings (15)
 
 | ID | Title | Score | Briefings | Owner |
 |----|-------|-------|-----------|-------|
+| t_propmed1 | Property Medics — send furniture photos to Nathan | 1/5 | 3 | MOM |
+| t_propmed2 | Property Medics — confirm floor installation sched | 1/5 | 3 | MOM |
 | t_glnrose1 | Glen Rose Drive — review financials | 1/5 | 4 | DAD |
+| t_invest01 | Evaluate investment opportunities — ChargeExpress, | 1/5 | 3 | DAD |
+| t_redfin01 | Follow up with Redfin agent on Oak Forest CMA — Au | 1/5 | 3 | DAD |
+| t_insure01 | Review Acrisure home insurance renewal | 1/5 | 3 | DAD |
+| t_suncr001 | Bring labeled sunscreen to AJ's daycare | 1/5 | 3 | BOTH |
+| t_6aj3ogq | Property Medics: schedule return visit + send gara | 1/5 | 3 | DAD |
+| t_j8zw44t | Board UI — external access via Tailscale or Cloudf | 1/5 | 3 | DAD |
+| t_0jf2gam | Audit tasks with start dates before April 2025 — f | 1/5 | 3 | DAD |
+| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | 1/5 | 3 | DAD |
+| t_iosapp01 | iOS app for family board — Yaa's plan | 1/5 | 3 | DAD |
+| t_wnb2uq9 | Review Primrose July calendar for key dates and cl | 1/5 | 3 | BOTH |
+| t_ximvmxa | Book rental car for Chicago (Kojo wedding) | 1/5 | 4 | DAD |
+| t_2ol963z | Pantry storage solutions — get dimensions + photo, | 1/5 | 3 | DAD |
 
-> **Resistance pending:** t_propmed1, t_propmed2, t_invest01, t_redfin01, t_insure01, t_suncr001, t_0hmz63i, t_6aj3ogq, t_j8zw44t, t_0jf2gam, t_15sig01, t_iosapp01, t_wnb2uq9, t_ximvmxa, t_2ol963z — briefed 3+ times, resistanceScore still 0 (will be set by nightly escalation).
+> **Resistance pending:** t_0hmz63i — briefed 3+ times, resistanceScore still 0 (will be set by nightly escalation).

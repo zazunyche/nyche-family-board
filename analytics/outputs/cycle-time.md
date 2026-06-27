@@ -1,4 +1,4 @@
-# Cycle Time Report — Jun 26, 2026, 11:45 PM
+# Cycle Time Report — Jun 27, 2026, 6:45 AM
 
 _18 completed tasks analyzed. 18 active tasks (age shown)._
 
@@ -42,24 +42,24 @@ _18 completed tasks analyzed. 18 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Glen Rose Drive — review financials | GOALS | DAD | ACTIVE | 26.2d | M |
-| Follow up with Redfin agent on Oak Forest … | GOALS | DAD | ACTIVE | 20.2d | M |
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 20.2d | M |
-| Bring labeled sunscreen to AJ's daycare | FAMILY | BOTH | ACTIVE | 18.2d | M |
-| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 16.2d | L |
-| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 16.2d | L |
-| Evaluate investment opportunities — Charge… | GOALS | DAD | RESEARCH | 15.2d | L |
-| Primrose June prep — sunscreen, summer spa… | FAMILY | BOTH | ACTIVE | 12.3d | XL |
-| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 12.3d | L |
-| Board UI — external access via Tailscale o… | GOALS | DAD | ACTIVE | 12.2d | L |
-| Audit tasks with start dates before April … | ADMIN | DAD | ACTIVE | 12.2d | M |
-| iOS app for family board — Yaa's plan | GOALS | DAD | IDEA | 12.2d | XL |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 11d | M |
-| Review Primrose July calendar for key date… | FAMILY | BOTH | ACTIVE | 10.5d | M |
-| Book rental car for Chicago (Kojo wedding) | FAMILY | DAD | ACTIVE | 7.7d | M |
-| Pantry storage solutions — get dimensions … | HOME | DAD | ACTIVE | 7.3d | L |
-| FIFA Fan Festival™ Atlanta — attend | FAMILY | BOTH | ACTIVE | 1.7d | S |
-| Get Huggies size 3 diapers — for Annie visit | FAMILY | MOM | ACTIVE | 0.3d | XS |
+| Glen Rose Drive — review financials | GOALS | DAD | ACTIVE | 26.4d | M |
+| Follow up with Redfin agent on Oak Forest … | GOALS | DAD | ACTIVE | 20.4d | M |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 20.4d | M |
+| Bring labeled sunscreen to AJ's daycare | FAMILY | BOTH | ACTIVE | 18.4d | M |
+| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 16.4d | L |
+| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 16.4d | L |
+| Evaluate investment opportunities — Charge… | GOALS | DAD | RESEARCH | 15.4d | L |
+| Primrose June prep — sunscreen, summer spa… | FAMILY | BOTH | ACTIVE | 12.5d | XL |
+| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 12.5d | L |
+| Board UI — external access via Tailscale o… | GOALS | DAD | ACTIVE | 12.5d | L |
+| Audit tasks with start dates before April … | ADMIN | DAD | ACTIVE | 12.5d | M |
+| iOS app for family board — Yaa's plan | GOALS | DAD | IDEA | 12.4d | XL |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 11.3d | M |
+| Review Primrose July calendar for key date… | FAMILY | BOTH | ACTIVE | 10.8d | M |
+| Book rental car for Chicago (Kojo wedding) | FAMILY | DAD | ACTIVE | 8d | M |
+| Pantry storage solutions — get dimensions … | HOME | DAD | ACTIVE | 7.6d | L |
+| FIFA Fan Festival™ Atlanta — attend | FAMILY | BOTH | ACTIVE | 2d | S |
+| Get Huggies size 3 diapers — for Annie visit | FAMILY | MOM | ACTIVE | 0.6d | XS |
 
 ## Stage Dwell Time (tasks with stageHistory)
 

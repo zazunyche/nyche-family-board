@@ -49,7 +49,7 @@ send_imessage() {
 
   # Write message to a temp file to safely handle special characters, quotes, etc.
   local tmp
-  tmp=$(mktemp /tmp/zazu-msg-XXXXXX.txt)
+  tmp=$(mktemp /tmp/zazu-msgXXXXXX)  # macOS mktemp: X's must be at end of template
   printf '%s' "$message" > "$tmp"
 
   local result

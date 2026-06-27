@@ -1,4 +1,4 @@
-# Stage Funnel — Jun 26, 2026, 11:45 PM
+# Stage Funnel — Jun 27, 2026, 6:45 AM
 
 _36 total tasks_
 
@@ -48,4 +48,18 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **78%** of done tasks_
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
+| Property Medics — send furniture photos to… | 1 | 3 | ACTIVE |
+| Property Medics — confirm floor installati… | 1 | 3 | ACTIVE |
 | Glen Rose Drive — review financials | 1 | 4 | ACTIVE |
+| Evaluate investment opportunities — Charge… | 1 | 3 | RESEARCH |
+| Follow up with Redfin agent on Oak Forest … | 1 | 3 | ACTIVE |
+| Review Acrisure home insurance renewal | 1 | 3 | ACTIVE |
+| Bring labeled sunscreen to AJ's daycare | 1 | 3 | ACTIVE |
+| Property Medics: schedule return visit + s… | 1 | 3 | ACTIVE |
+| Board UI — external access via Tailscale o… | 1 | 3 | ACTIVE |
+| Audit tasks with start dates before April … | 1 | 3 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 1 | 3 | ACTIVE |
+| iOS app for family board — Yaa's plan | 1 | 3 | IDEA |
+| Review Primrose July calendar for key date… | 1 | 3 | ACTIVE |
+| Book rental car for Chicago (Kojo wedding) | 1 | 4 | ACTIVE |
+| Pantry storage solutions — get dimensions … | 1 | 3 | ACTIVE |
