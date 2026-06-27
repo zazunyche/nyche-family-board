@@ -39,8 +39,12 @@ const LOG = path.join(BOARD_DIR, "logs", "scheduler.log");
 
 // Per-child safety limits. A hung or chatty child must never be able to
 // wedge or crash the scheduler itself.
-const CHILD_TIMEOUT_MS = 10 * 60 * 1000; // 10 min — generous for claude -p / gmail scans
-const CHILD_MAX_BUFFER = 10 * 1024 * 1024; // 10MB stdout+stderr
+// Jobs that run claude -p sessions (heartbeat) need a longer timeout than
+// other scripts. Per-job overrides are specified in the JOBS table via
+// optional `timeoutMs` field; this constant is the default.
+const CHILD_TIMEOUT_MS     = 10 * 60 * 1000; // 10 min default
+const CHILD_TIMEOUT_MS_LONG = 15 * 60 * 1000; // 15 min for claude -p jobs
+const CHILD_MAX_BUFFER     = 10 * 1024 * 1024; // 10MB stdout+stderr
 
 function log(msg) {
   const line = `[${new Date().toISOString()}] ${msg}\n`;
@@ -82,7 +86,7 @@ function today() {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 }
 
-function runOnce(name, scriptPath) {
+function runOnce(name, scriptPath, timeoutMs) {
   const marker = `/tmp/zazu-ran-${name}-${today()}`;
   if (fs.existsSync(marker)) return;
   try {
@@ -93,6 +97,7 @@ function runOnce(name, scriptPath) {
   }
   log(`Triggering ${name} (${scriptPath})`);
 
+  const jobTimeout = timeoutMs || CHILD_TIMEOUT_MS;
   let child;
   try {
     child = exec(
@@ -100,7 +105,7 @@ function runOnce(name, scriptPath) {
       {
         cwd: BOARD_DIR,
         env: { ...process.env, HOME, PATH: `${HOME}/.npm-global/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin` },
-        timeout: CHILD_TIMEOUT_MS,     // hard cap — a hung child gets SIGTERM'd, never lingers forever
+        timeout: jobTimeout,           // hard cap — per-job override or default 10min
         maxBuffer: CHILD_MAX_BUFFER,
         killSignal: "SIGTERM",
       },
@@ -166,14 +171,14 @@ const JOBS = [
   { name: "sunday-reflection",   time: "14:00", script: `${BOARD_DIR}/scripts/sunday-reflection.sh` },
   ...GMAIL_TIMES.map((t) => ({ name: `gmail-scan-${t}`, time: t, script: `${BOARD_DIR}/scripts/gmail-scan.sh` })),
   ...HEALTH_TIMES.map((t) => ({ name: `health-check-${t}`, time: t, script: `${BOARD_DIR}/scripts/health-check.sh` })),
-  ...HEARTBEAT_TIMES.map((t) => ({ name: `heartbeat-${t}`, time: t, script: `${BOARD_DIR}/scripts/heartbeat.sh` })),
+  ...HEARTBEAT_TIMES.map((t) => ({ name: `heartbeat-${t}`, time: t, script: `${BOARD_DIR}/scripts/heartbeat.sh`, timeoutMs: CHILD_TIMEOUT_MS_LONG })),
 ];
 
 function tickInner() {
   const hm = nowHM();
   for (const job of JOBS) {
     if (hm >= job.time) {
-      runOnce(job.name, job.script);
+      runOnce(job.name, job.script, job.timeoutMs);
     }
   }
 }

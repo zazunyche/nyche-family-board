@@ -125,7 +125,7 @@ Proceed. Do the work. Log it. Clean up WIP when done."
 # ── Run the claude work session ───────────────────────────────────────────────
 log_ts "Launching claude -p work session" "$LOG"
 
-WORK_OUTPUT=$(gtimeout 600 /opt/homebrew/bin/claude -p "$PROMPT" --dangerously-skip-permissions 2>>"$LOG")
+WORK_OUTPUT=$(gtimeout 480 /opt/homebrew/bin/claude -p "$PROMPT" --dangerously-skip-permissions 2>>"$LOG")
 EXIT_CODE=$?
 
 if [ $EXIT_CODE -ne 0 ]; then
