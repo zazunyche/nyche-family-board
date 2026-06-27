@@ -90,20 +90,20 @@ if [ -z "$MOM_MSG" ]; then
 — Zazu"
 fi
 
-# ── Deliver via direct osascript (proven path, no MCP dependency) ─────────────
-DAD_RESULT=$(send_imessage "$DAD_NUMBER" "$DAD_MSG")
-check_imessage_result "$DAD_RESULT" "board briefing to Dad" "$LOG"
-
-MOM_RESULT=$(send_imessage "$MOM_NUMBER" "$MOM_MSG")
-check_imessage_result "$MOM_RESULT" "board briefing to Mom" "$LOG"
-
-# ── Email copy of Dad's briefing ───────────────────────────────────────────────
+# ── Email copy of Dad's briefing (sent first — email is more reliable than iMessage) ─────────
 if ! node "$BOARD_DIR/scripts/send-email.js" \
   --to "$DAD_EMAIL_WORK" \
   --subject "Zazu Board Brief — $TODAY" \
   --body "$DAD_MSG" >> "$LOG" 2>&1; then
   log_ts "WARNING: board briefing email failed to send" "$LOG"
 fi
+
+# ── Deliver via direct osascript (best-effort — failure logged but does not abort) ──────────
+DAD_RESULT=$(send_imessage "$DAD_NUMBER" "$DAD_MSG") || true
+check_imessage_result "$DAD_RESULT" "board briefing to Dad" "$LOG" || true
+
+MOM_RESULT=$(send_imessage "$MOM_NUMBER" "$MOM_MSG") || true
+check_imessage_result "$MOM_RESULT" "board briefing to Mom" "$LOG" || true
 
 # ── Mark active tasks as briefed (enables resistanceScore detection) ───────────
 if node "$BOARD_DIR/board-tools/mark-briefed.js" >> "$LOG" 2>&1; then
