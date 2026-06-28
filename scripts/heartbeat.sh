@@ -125,28 +125,36 @@ Proceed. Do the work. Log it. Clean up WIP when done."
 # ── Run the claude work session ───────────────────────────────────────────────
 log_ts "Launching claude -p work session" "$LOG"
 
-WORK_OUTPUT=$(gtimeout 480 /opt/homebrew/bin/claude -p "$PROMPT" --dangerously-skip-permissions 2>>"$LOG")
-EXIT_CODE=$?
+# Trap SIGTERM (sent by scheduler at timeout) and propagate to the claude
+# subprocess so it doesn't become an orphan holding AppleEvent connections.
+CLAUDE_PID=""
+cleanup() {
+  [ -n "$CLAUDE_PID" ] && kill "$CLAUDE_PID" 2>/dev/null
+  log_ts "heartbeat.sh: received SIGTERM — killed claude subprocess (pid $CLAUDE_PID)" "$LOG"
+  exit 1
+}
+trap cleanup SIGTERM SIGINT
 
-if [ $EXIT_CODE -ne 0 ]; then
-  log_ts "heartbeat claude session failed — exit $EXIT_CODE" "$LOG"
-  log_ts "heartbeat.sh complete (session error)" "$LOG"
-  exit 0  # Don't propagate — scheduler treats non-zero as FAILED and logs loudly
-fi
+/opt/homebrew/bin/claude -p "$PROMPT" --dangerously-skip-permissions >> "$LOG" 2>&1 &
+CLAUDE_PID=$!
+# Wait up to 8 minutes, then kill cleanly
+( sleep 480; kill "$CLAUDE_PID" 2>/dev/null ) &
+WATCHDOG_PID=$!
+wait "$CLAUDE_PID"
+WORK_EXIT=$?
+kill "$WATCHDOG_PID" 2>/dev/null
+trap - SIGTERM SIGINT
 
-if [ -n "$WORK_OUTPUT" ]; then
-  log_ts "Session summary: $WORK_OUTPUT" "$LOG"
+WORK_OUTPUT=""  # output is now in LOG directly
+if [ $WORK_EXIT -ne 0 ]; then
+  log_ts "heartbeat claude session failed — exit $WORK_EXIT" "$LOG"
 fi
 
 # ── Daytime summary iMessage ──────────────────────────────────────────────────
 # Only text Dad if: (a) daytime, (b) session produced output, (c) WIP was
 # cleared (meaning actual work finished) or board task was updated.
-if [ "$DAYTIME" = true ] && [ -n "$WORK_OUTPUT" ] && [ ! -f "$WIP_FILE" ]; then
-  SUMMARY_MSG="Heartbeat work session complete — ${NOW}
-
-${WORK_OUTPUT}
-
-— Zazu"
+if [ "$DAYTIME" = true ] && [ ! -f "$WIP_FILE" ] && [ $WORK_EXIT -eq 0 ]; then
+  SUMMARY_MSG="Heartbeat work session complete — ${NOW}. Check heartbeat.log for details. — Zazu"
   RESULT=$(send_imessage "$DAD_NUMBER" "$SUMMARY_MSG")
   check_imessage_result "$RESULT" "heartbeat summary to Dad" "$LOG"
 fi
