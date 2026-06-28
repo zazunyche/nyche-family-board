@@ -38,7 +38,12 @@ log_ts "board-reminders.sh started" "$LOG"
 TODAY=$(date "+%Y-%m-%d")
 
 # ── Pull due reminders into a JSONL temp file (id|handle|base64 message) ──────
-REMINDERS_FILE=$(mktemp /tmp/zazu-reminders-XXXXXX.jsonl)
+# NOTE: macOS mktemp requires X's at the very END of the template.
+# Using /tmp/zazu-remindersXXXXXX (no extension) to avoid macOS mktemp bug
+# where /tmp/prefix-XXXXXX.jsonl creates the literal filename (X's not expanded).
+REMINDERS_FILE=$(mktemp /tmp/zazu-remindersXXXXXX)
+# Ensure temp file is always cleaned up even if the script crashes or is killed
+trap 'rm -f "$REMINDERS_FILE"' EXIT
 REMINDER_COUNT=$(node -e "
 const fs = require('fs');
 const b  = JSON.parse(fs.readFileSync('$BOARD_DIR/board-data.json', 'utf8'));
