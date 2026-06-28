@@ -206,4 +206,12 @@ console.log('⚠️ OVERDUE tasks ('+items.length+'):\n'+lines.join('\n')+'\n\nM
   fi
 fi
 
+# ── Auto-close EXTERNAL_EVENT tasks whose dueDate has passed ──────────────────
+CLOSE_OUT=$(node "$BOARD_DIR/board-tools/auto-close-events.js" --apply 2>&1)
+CLOSE_EXIT=$?
+log_ts "auto-close-events: $CLOSE_OUT" "$LOG"
+if [ $CLOSE_EXIT -ne 0 ]; then
+  log_ts "WARNING: auto-close-events.js exited $CLOSE_EXIT" "$LOG"
+fi
+
 log_ts "priority-escalation.sh complete" "$LOG"
