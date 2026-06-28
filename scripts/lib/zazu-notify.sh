@@ -70,6 +70,15 @@ OSASCRIPT
   local exit_code=$?
   rm -f "$tmp"
 
+  # -1712 = AppleEvent timed out. This is AMBIGUOUS — Messages may have already
+  # queued and sent the message before the confirmation timeout. Retrying on -1712
+  # causes duplicate messages. Treat as "probably sent" and let the caller decide
+  # how to log it, but do NOT signal failure (return 0).
+  if [[ $exit_code -ne 0 && "$result" == *"-1712"* ]]; then
+    echo "ambiguous-1712"
+    return 0
+  fi
+
   echo "$result"
   return $exit_code
 }
@@ -83,6 +92,13 @@ check_imessage_result() {
   local result="$1"
   local description="$2"
   local logfile="${3:-}"
+
+  if [[ "$result" == *"ambiguous-1712"* ]]; then
+    # AppleEvent timed out — message was probably queued and sent by Messages before
+    # the timeout. Log a warning but do NOT retry (retrying causes duplicates).
+    log_ts "WARNING: iMessage -1712 timeout for [$description] — message likely sent, skipping retry" "$logfile"
+    return 0
+  fi
 
   if [[ "$result" != *"sent"* ]]; then
     log_ts "ERROR: iMessage delivery failed for [$description]: $result" "$logfile"
