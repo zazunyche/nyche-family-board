@@ -20,10 +20,10 @@
   "progress": {
     "current_module": 1,
     "current_mini_module": "1.3",
-    "current_day_number": 12,
-    "current_snippet_id": "module1-day12",
-    "last_delivered_date": "2026-06-27",
-    "next_scheduled_date": "2026-06-28",
+    "current_day_number": 13,
+    "current_snippet_id": "module1-day13",
+    "last_delivered_date": "2026-06-28",
+    "next_scheduled_date": "2026-06-29",
     "status": "in_progress"
   },
   "modules": [
@@ -316,10 +316,10 @@
               "date": "2026-06-23",
               "title": "Four types of memory agents can have",
               "topic": "In-context, external/RAG, in-weights, in-cache memory taxonomy",
-              "imessage_file": null,
-              "email_file": null,
-              "delivery_status": "pending",
-              "delivered_at": null,
+              "imessage_file": "snippets/module1-day12-imessage.md",
+              "email_file": "snippets/module1-day12-email.md",
+              "delivery_status": "delivered",
+              "delivered_at": "2026-06-28T13:07:25.280Z",
               "engagement": {
                 "imessage_reply": null,
                 "imessage_reply_time_minutes": null,
@@ -1221,7 +1221,7 @@
     }
   ],
   "engagement_summary": {
-    "total_snippets_delivered": 11,
+    "total_snippets_delivered": 12,
     "total_snippets_pending": 46,
     "average_reply_time_minutes": null,
     "mini_modules_with_quiz_completed": 0,
