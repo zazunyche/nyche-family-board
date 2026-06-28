@@ -21,6 +21,7 @@ const BOARD_PATH = path.join(__dirname, '../../board-data.json');
 const OUTPUTS_DIR = path.join(__dirname, '../outputs');
 const STALE_DAYS = 14;
 const HIGH_BRIEF_THRESHOLD = 3;
+const RESISTANCE_STALE_DAYS = 7; // must match priority-escalation.sh threshold
 
 function loadBoard() {
   return JSON.parse(fs.readFileSync(BOARD_PATH, 'utf8'));
@@ -28,6 +29,17 @@ function loadBoard() {
 
 function msDays(ms) {
   return Math.round(ms / (1000 * 60 * 60 * 24));
+}
+
+// Returns how many days a task has been in its current stage.
+// Uses stageHistory enteredAt (same source as priority-escalation.sh) so that
+// updatedAt writes (escalation flags, resistance writes) don't reset the clock.
+function stageAgeDays(task, now) {
+  const entry = (task.stageHistory || [])
+    .filter(s => s.stage === task.stage && s.exitedAt === null)
+    .slice(-1)[0];
+  const enteredAt = entry ? entry.enteredAt : (task.createdAt || new Date(now).toISOString());
+  return msDays(now - new Date(enteredAt).getTime());
 }
 
 function run() {
@@ -51,17 +63,17 @@ function run() {
   const activeByStage = {};
   active.forEach(t => { activeByStage[t.stage] = (activeByStage[t.stage] || 0) + 1; });
 
-  // Stale: non-snoozed active tasks last updated > STALE_DAYS ago
+  // Stale: non-snoozed active tasks whose current stage has been unchanged for > STALE_DAYS.
+  // Uses stageHistory enteredAt (not updatedAt) so escalation/resistance writes don't hide staleness.
   const stale = active.filter(t => {
     if (t.snoozedUntil && new Date(t.snoozedUntil) > now) return false;
-    const ageDays = msDays(now - new Date(t.updatedAt));
-    return ageDays > STALE_DAYS;
+    return stageAgeDays(t, now) > STALE_DAYS;
   }).map(t => ({
     id: t.id,
     title: t.title,
     stage: t.stage,
     owner: t.owner,
-    ageDays: msDays(now - new Date(t.updatedAt)),
+    ageDays: stageAgeDays(t, now),
   }));
 
   // Overdue: has dueDate in the past and not DONE/ARCHIVED
@@ -84,9 +96,14 @@ function run() {
   const missingEffortTag = active.filter(t => !t.effortTag).map(t => t.id);
   const missingStageHistory = active.filter(t => !t.stageHistory || t.stageHistory.length === 0).map(t => t.id);
 
-  // Resistance candidates: briefed >= 3, resistanceScore is still 0 (not yet flagged)
+  // Resistance candidates: briefed >= 3, stale >= RESISTANCE_STALE_DAYS, resistanceScore still 0.
+  // Mirrors priority-escalation.sh criteria so the two agree on what's "pending."
   const resistanceCandidates = active
-    .filter(t => (t.briefCount || 0) >= HIGH_BRIEF_THRESHOLD && (t.resistanceScore || 0) === 0)
+    .filter(t =>
+      (t.briefCount || 0) >= HIGH_BRIEF_THRESHOLD &&
+      stageAgeDays(t, now) >= RESISTANCE_STALE_DAYS &&
+      (t.resistanceScore || 0) === 0
+    )
     .map(t => t.id);
 
   // Resistance flagged: have an active resistanceScore > 0
