@@ -1,6 +1,6 @@
-# Stage Funnel — Jun 28, 2026, 1:32 PM
+# Stage Funnel — Jun 28, 2026, 10:31 PM
 
-_37 total tasks_
+_38 total tasks_
 
 ## Stage Distribution
 
@@ -8,21 +8,21 @@ _37 total tasks_
 |-------|-------|------------|
 | IDEA | 1 | 3% |
 | RESEARCH | 1 | 3% |
-| ACTIVE | 16 | 43% |
-| DONE | 19 | 51% |
+| ACTIVE | 16 | 42% |
+| DONE | 20 | 53% |
 
 ## Funnel Conversion (top-of-funnel → done)
 
-- IDEA → moved forward: **97%** (36/37)
-- Entered ACTIVE or DONE: **95%** (35/37)
-- Reached DONE: **51%** (19/37)
-- ACTIVE → DONE (of those that went ACTIVE): **54%** (19/35)
+- IDEA → moved forward: **97%** (37/38)
+- Entered ACTIVE or DONE: **95%** (36/38)
+- Reached DONE: **53%** (20/38)
+- ACTIVE → DONE (of those that went ACTIVE): **56%** (20/36)
 
 ## Stage Distribution by Category
 
 | Category | IDEA | RESEARCH | ACTIVE | DONE | Total | Done% |
 |----------|------|----------|--------|------|-------|-------|
-| ADMIN | 0 | 0 | 2 | 8 | 10 | 80% |
+| ADMIN | 0 | 0 | 2 | 9 | 11 | 82% |
 | FAMILY | 0 | 0 | 6 | 9 | 15 | 60% |
 | GOALS | 1 | 1 | 3 | 1 | 6 | 17% |
 | HOME | 0 | 0 | 5 | 1 | 6 | 17% |
@@ -31,8 +31,8 @@ _37 total tasks_
 
 | Owner | IDEA | RESEARCH | ACTIVE | DONE | Total | Done% |
 |-------|------|----------|--------|------|-------|-------|
-| BOTH | 0 | 0 | 3 | 6 | 9 | 67% |
-| DAD | 1 | 1 | 9 | 6 | 17 | 35% |
+| BOTH | 0 | 0 | 4 | 6 | 10 | 60% |
+| DAD | 1 | 1 | 8 | 7 | 17 | 41% |
 | MOM | 0 | 0 | 4 | 1 | 5 | 20% |
 | ZAZU | 0 | 0 | 0 | 6 | 6 | 100% |
 
@@ -40,9 +40,10 @@ _37 total tasks_
 
 | Quality | Count | % of done |
 |---------|-------|-----------|
-| FULL | 14 | 74% |
+| FULL | 14 | 70% |
+| GOOD | 1 | 5% |
 
-_Genuine completion rate (FULL + DELEGATED_OUT): **74%** of done tasks_
+_Genuine completion rate (FULL + DELEGATED_OUT): **70%** of done tasks_
 
 ## Resistance Signals (non-zero resistanceScore)
 
@@ -57,10 +58,8 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **74%** of done tasks_
 | Bring labeled sunscreen to AJ's daycare | 2 | 5 | ACTIVE |
 | Property Medics: schedule return visit + s… | 1 | 5 | ACTIVE |
 | Board UI — external access via Tailscale o… | 1 | 5 | ACTIVE |
-| Audit tasks with start dates before April … | 1 | 5 | ACTIVE |
 | 15 Sigourney — follow up with neighbor on … | 1 | 5 | ACTIVE |
 | iOS app for family board — Yaa's plan | 1 | 5 | IDEA |
 | Review Primrose July calendar for key date… | 1 | 5 | ACTIVE |
 | Book rental car for Chicago (Kojo wedding) | 1 | 6 | ACTIVE |
 | Pantry storage solutions — get dimensions … | 1 | 5 | ACTIVE |
-
