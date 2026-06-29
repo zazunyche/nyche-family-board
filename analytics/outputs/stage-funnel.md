@@ -1,6 +1,6 @@
-# Stage Funnel — Jun 29, 2026, 9:01 AM
+# Stage Funnel — Jun 29, 2026, 1:32 PM
 
-_39 total tasks_
+_38 total tasks_
 
 ## Stage Distribution
 
@@ -8,21 +8,21 @@ _39 total tasks_
 |-------|-------|------------|
 | IDEA | 1 | 3% |
 | RESEARCH | 1 | 3% |
-| ACTIVE | 17 | 44% |
-| DONE | 20 | 51% |
+| ACTIVE | 16 | 42% |
+| DONE | 20 | 53% |
 
 ## Funnel Conversion (top-of-funnel → done)
 
-- IDEA → moved forward: **97%** (38/39)
-- Entered ACTIVE or DONE: **95%** (37/39)
-- Reached DONE: **51%** (20/39)
-- ACTIVE → DONE (of those that went ACTIVE): **54%** (20/37)
+- IDEA → moved forward: **97%** (37/38)
+- Entered ACTIVE or DONE: **95%** (36/38)
+- Reached DONE: **53%** (20/38)
+- ACTIVE → DONE (of those that went ACTIVE): **56%** (20/36)
 
 ## Stage Distribution by Category
 
 | Category | IDEA | RESEARCH | ACTIVE | DONE | Total | Done% |
 |----------|------|----------|--------|------|-------|-------|
-| ADMIN | 0 | 0 | 3 | 9 | 12 | 75% |
+| ADMIN | 0 | 0 | 2 | 9 | 11 | 82% |
 | FAMILY | 0 | 0 | 6 | 9 | 15 | 60% |
 | GOALS | 1 | 1 | 3 | 1 | 6 | 17% |
 | HOME | 0 | 0 | 5 | 1 | 6 | 17% |
@@ -33,7 +33,7 @@ _39 total tasks_
 |-------|------|----------|--------|------|-------|-------|
 | BOTH | 0 | 0 | 4 | 6 | 10 | 60% |
 | DAD | 1 | 1 | 8 | 7 | 17 | 41% |
-| MOM | 0 | 0 | 5 | 1 | 6 | 17% |
+| MOM | 0 | 0 | 4 | 1 | 5 | 20% |
 | ZAZU | 0 | 0 | 0 | 6 | 6 | 100% |
 
 ## Completion Quality (DONE tasks)
@@ -63,3 +63,4 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **70%** of done tasks_
 | Review Primrose July calendar for key date… | 1 | 6 | ACTIVE |
 | Book rental car for Chicago (Kojo wedding) | 1 | 7 | ACTIVE |
 | Pantry storage solutions — get dimensions … | 1 | 6 | ACTIVE |
+

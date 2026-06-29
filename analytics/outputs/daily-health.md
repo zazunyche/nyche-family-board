@@ -1,16 +1,16 @@
-# Board Health — Jun 29, 2026, 9:01 AM
+# Board Health — Jun 29, 2026, 1:32 PM
 
 ## Summary
 
 | Total | Active | Done | Archived |
 |-------|--------|------|----------|
-| 39 | 19 | 20 | 0 |
+| 38 | 18 | 20 | 0 |
 
 ## Active Tasks by Stage
 
 | Stage | Count |
 |-------|-------|
-| ACTIVE | 17 |
+| ACTIVE | 16 |
 | RESEARCH | 1 |
 | IDEA | 1 |
 
@@ -21,14 +21,14 @@
 | FAMILY | 6 |
 | HOME | 5 |
 | GOALS | 5 |
-| ADMIN | 3 |
+| ADMIN | 2 |
 
 ## Active Tasks by Owner
 
 | Owner | Count |
 |-------|-------|
 | DAD | 10 |
-| MOM | 5 |
+| MOM | 4 |
 | BOTH | 4 |
 
 ## Overdue Tasks (3)
@@ -101,3 +101,4 @@
 | t_wnb2uq9 | Review Primrose July calendar for key dates and cl | 1/5 | 6 | BOTH |
 | t_ximvmxa | Book rental car for Chicago (Kojo wedding) | 1/5 | 7 | DAD |
 | t_2ol963z | Pantry storage solutions — get dimensions + photo, | 1/5 | 6 | DAD |
+
