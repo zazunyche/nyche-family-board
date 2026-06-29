@@ -80,6 +80,11 @@ while IFS= read -r line; do
   if [[ "$RESULT" == *"sent"* ]]; then
     node "$BOARD_DIR/board-tools/mark-reminded.js" --reminder "$RID" --actor ZAZU >> "$LOG" 2>&1
     log_ts "Reminder $RID sent to $HANDLE and marked" "$LOG"
+  elif [[ "$RESULT" == *"ambiguous-1712"* ]]; then
+    # -1712 = AppleEvent confirmation timed out. Message was probably delivered.
+    # Mark as sent to prevent re-sending tomorrow; log a warning not an error.
+    node "$BOARD_DIR/board-tools/mark-reminded.js" --reminder "$RID" --actor ZAZU >> "$LOG" 2>&1
+    log_ts "WARNING: Reminder $RID send confirmation ambiguous (-1712) — marked sent to prevent duplicate" "$LOG"
   else
     FAIL_COUNT=$((FAIL_COUNT + 1))
     log_ts "ERROR: Reminder $RID failed to send to $HANDLE: $RESULT" "$LOG"
