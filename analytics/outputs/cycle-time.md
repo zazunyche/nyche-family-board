@@ -1,4 +1,4 @@
-# Cycle Time Report — Jun 28, 2026, 10:31 PM
+# Cycle Time Report — Jun 29, 2026, 4:33 AM
 
 _20 completed tasks analyzed. 18 active tasks (age shown)._
 
@@ -43,24 +43,24 @@ _20 completed tasks analyzed. 18 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Glen Rose Drive — review financials | GOALS | DAD | ACTIVE | 28.1d | M |
-| Follow up with Redfin agent on Oak Forest … | GOALS | DAD | ACTIVE | 22.1d | M |
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 22.1d | M |
-| Bring labeled sunscreen to AJ's daycare | FAMILY | BOTH | ACTIVE | 20.1d | M |
-| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 18.1d | L |
-| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 18.1d | L |
-| Evaluate investment opportunities — Charge… | GOALS | DAD | RESEARCH | 17.1d | L |
-| Primrose June prep — sunscreen, summer spa… | FAMILY | BOTH | ACTIVE | 14.2d | XL |
-| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 14.2d | L |
-| Board UI — external access via Tailscale o… | GOALS | DAD | ACTIVE | 14.1d | L |
-| iOS app for family board — Yaa's plan | GOALS | DAD | IDEA | 14.1d | XL |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 13d | M |
-| Review Primrose July calendar for key date… | FAMILY | BOTH | ACTIVE | 12.5d | M |
-| Book rental car for Chicago (Kojo wedding) | FAMILY | DAD | ACTIVE | 9.6d | M |
-| Pantry storage solutions — get dimensions … | HOME | DAD | ACTIVE | 9.2d | L |
-| Get Huggies size 3 diapers — for Annie visit | FAMILY | MOM | ACTIVE | 2.2d | XS |
-| Plan AJ's 2nd birthday party | FAMILY | MOM | ACTIVE | 1.4d | L |
-| Review Charge Express capital raise — deci… | ADMIN | BOTH | ACTIVE | 0.3d | M |
+| Glen Rose Drive — review financials | GOALS | DAD | ACTIVE | 28.4d | M |
+| Follow up with Redfin agent on Oak Forest … | GOALS | DAD | ACTIVE | 22.4d | M |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 22.4d | M |
+| Bring labeled sunscreen to AJ's daycare | FAMILY | BOTH | ACTIVE | 20.4d | M |
+| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 18.4d | L |
+| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 18.4d | L |
+| Evaluate investment opportunities — Charge… | GOALS | DAD | RESEARCH | 17.4d | L |
+| Primrose June prep — sunscreen, summer spa… | FAMILY | BOTH | ACTIVE | 14.5d | XL |
+| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 14.5d | L |
+| Board UI — external access via Tailscale o… | GOALS | DAD | ACTIVE | 14.4d | L |
+| iOS app for family board — Yaa's plan | GOALS | DAD | IDEA | 14.4d | XL |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 13.2d | M |
+| Review Primrose July calendar for key date… | FAMILY | BOTH | ACTIVE | 12.7d | M |
+| Book rental car for Chicago (Kojo wedding) | FAMILY | DAD | ACTIVE | 9.9d | M |
+| Pantry storage solutions — get dimensions … | HOME | DAD | ACTIVE | 9.5d | L |
+| Get Huggies size 3 diapers — for Annie visit | FAMILY | MOM | ACTIVE | 2.5d | XS |
+| Plan AJ's 2nd birthday party | FAMILY | MOM | ACTIVE | 1.7d | L |
+| Review Charge Express capital raise — deci… | ADMIN | BOTH | ACTIVE | 0.5d | M |
 
 ## Stage Dwell Time (tasks with stageHistory)
 

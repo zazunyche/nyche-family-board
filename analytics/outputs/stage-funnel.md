@@ -1,4 +1,4 @@
-# Stage Funnel — Jun 28, 2026, 10:31 PM
+# Stage Funnel — Jun 29, 2026, 4:33 AM
 
 _38 total tasks_
 
@@ -56,10 +56,10 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **70%** of done tasks_
 | Follow up with Redfin agent on Oak Forest … | 2 | 5 | ACTIVE |
 | Review Acrisure home insurance renewal | 2 | 5 | ACTIVE |
 | Bring labeled sunscreen to AJ's daycare | 2 | 5 | ACTIVE |
-| Property Medics: schedule return visit + s… | 1 | 5 | ACTIVE |
+| Property Medics: schedule return visit + s… | 2 | 5 | ACTIVE |
+| iOS app for family board — Yaa's plan | 2 | 5 | IDEA |
 | Board UI — external access via Tailscale o… | 1 | 5 | ACTIVE |
 | 15 Sigourney — follow up with neighbor on … | 1 | 5 | ACTIVE |
-| iOS app for family board — Yaa's plan | 1 | 5 | IDEA |
 | Review Primrose July calendar for key date… | 1 | 5 | ACTIVE |
 | Book rental car for Chicago (Kojo wedding) | 1 | 6 | ACTIVE |
 | Pantry storage solutions — get dimensions … | 1 | 5 | ACTIVE |
