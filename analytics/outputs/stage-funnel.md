@@ -1,6 +1,6 @@
-# Stage Funnel — Jun 29, 2026, 1:32 PM
+# Stage Funnel — Jun 29, 2026, 6:01 PM
 
-_38 total tasks_
+_39 total tasks_
 
 ## Stage Distribution
 
@@ -8,22 +8,22 @@ _38 total tasks_
 |-------|-------|------------|
 | IDEA | 1 | 3% |
 | RESEARCH | 1 | 3% |
-| ACTIVE | 16 | 42% |
-| DONE | 20 | 53% |
+| ACTIVE | 17 | 44% |
+| DONE | 20 | 51% |
 
 ## Funnel Conversion (top-of-funnel → done)
 
-- IDEA → moved forward: **97%** (37/38)
-- Entered ACTIVE or DONE: **95%** (36/38)
-- Reached DONE: **53%** (20/38)
-- ACTIVE → DONE (of those that went ACTIVE): **56%** (20/36)
+- IDEA → moved forward: **97%** (38/39)
+- Entered ACTIVE or DONE: **95%** (37/39)
+- Reached DONE: **51%** (20/39)
+- ACTIVE → DONE (of those that went ACTIVE): **54%** (20/37)
 
 ## Stage Distribution by Category
 
 | Category | IDEA | RESEARCH | ACTIVE | DONE | Total | Done% |
 |----------|------|----------|--------|------|-------|-------|
 | ADMIN | 0 | 0 | 2 | 9 | 11 | 82% |
-| FAMILY | 0 | 0 | 6 | 9 | 15 | 60% |
+| FAMILY | 0 | 0 | 7 | 9 | 16 | 56% |
 | GOALS | 1 | 1 | 3 | 1 | 6 | 17% |
 | HOME | 0 | 0 | 5 | 1 | 6 | 17% |
 
@@ -31,7 +31,7 @@ _38 total tasks_
 
 | Owner | IDEA | RESEARCH | ACTIVE | DONE | Total | Done% |
 |-------|------|----------|--------|------|-------|-------|
-| BOTH | 0 | 0 | 4 | 6 | 10 | 60% |
+| BOTH | 0 | 0 | 5 | 6 | 11 | 55% |
 | DAD | 1 | 1 | 8 | 7 | 17 | 41% |
 | MOM | 0 | 0 | 4 | 1 | 5 | 20% |
 | ZAZU | 0 | 0 | 0 | 6 | 6 | 100% |
