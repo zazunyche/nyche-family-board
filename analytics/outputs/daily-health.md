@@ -1,4 +1,4 @@
-# Board Health — Jun 30, 2026, 9:04 AM
+# Board Health — Jun 30, 2026, 1:33 PM
 
 ## Summary
 
@@ -38,7 +38,7 @@
 | t_2ol963z | Pantry storage solutions — get dimensions + photo, | 2026-06-27 | 4 | DAD |
 | t_diaper01 | Get Huggies size 3 diapers — for Annie visit | 2026-06-28 | 3 | MOM |
 
-## Stale Tasks — no update in 14+ days (10)
+## Stale Tasks — no update in 14+ days (11)
 
 | ID | Title | Stage | Age (days) | Owner |
 |----|-------|-------|-----------|-------|
@@ -51,6 +51,7 @@
 | t_suncr001 | Bring labeled sunscreen to AJ's daycare | ACTIVE | 16 | BOTH |
 | t_6aj3ogq | Property Medics: schedule return visit + send gara | ACTIVE | 16 | DAD |
 | t_j8zw44t | Board UI — external access via Tailscale or Cloudf | ACTIVE | 15 | DAD |
+| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | ACTIVE | 15 | DAD |
 | t_iosapp01 | iOS app for family board — Yaa's plan | IDEA | 16 | DAD |
 
 ## High Brief Count — briefed 3+ times with no completion (16)

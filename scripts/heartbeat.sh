@@ -109,16 +109,36 @@ ${WIP_CONTEXT}
 === BOARD BACKLOG (non-DONE tasks) ===
 ${BOARD_SNAPSHOT}
 
-=== KNOWN PENDING ZAZU WORK (from analytics plan v1.2) ===
-Priority order based on Dad's Week 1+2 catch-up request (Jun 25):
-1. stageHistory schema — add to board-data.json and write on every stage transition
-2. taskType inference — add field to task schema, infer type from title/category/source
-3. effortTag auto-inference — XS/S/M/L/XL, infer from title keywords
-4. Dynamic priority escalation — nightly check: escalate tasks approaching deadline
-5. board-health.js — script that checks board for stale tasks, missing fields, etc.
-6. completion-rate.js — calculates completion rate, average time-to-done, etc.
-7. resistanceScore writes — flag tasks briefed 3+ times with no stage movement
-8. requirements[] array — seed with decisions captured in Jun conversations
+=== ZAZU WORK STATUS (updated 2026-06-30, supersedes old plan v1.2 punch list) ===
+The original 8-item catch-up list (stageHistory schema, taskType/effortTag inference,
+priority escalation, board-health.js, completion-rate.js, resistanceScore writes,
+requirements[] array) is DONE — verified repeatedly across heartbeats on 2026-06-30.
+Do not re-derive this; it was confirmed stale 5+ times in a row and wasted a cycle
+each time. If you need to double check, grep board-data.json task fields directly
+instead of re-reading this list.
+
+Current source of truth for ZAZU-ownable infra work: analytics/plan-v1.md, "Analytics
+Scripts Roadmap" section. Status as of 2026-06-30:
+- Tier 1 (no schema changes): COMPLETE — board-health.js, completion-rate.js,
+  lead-time-basic.js, dedup-detector.js built; brief-pressure.js superseded by
+  board-health.js (not building).
+- Tier 2 (needs stageHistory): COMPLETE except snooze-pattern.js, which is
+  intentionally deferred — 0 tasks currently use snoozedUntil, so output would be
+  empty. Re-check task count before building it.
+- Tier 3 (needs 30+ days of reflection data) and Tier 4 (dashboard feeds): NOT YET
+  ELIGIBLE — gated on time/data that doesn't exist yet. Do not start these early.
+- Reflection layer (plan-v1.md "Reflection Layer Design"): the full parse-and-write
+  reflections[] array design was never built; sunday-reflection.sh ships a simpler
+  3-question one-way send instead (deliberate scope reduction, same pattern as
+  board-reminders.sh). Building the full version is a multi-session project, not a
+  heartbeat task — don't start it without Dad's go-ahead.
+
+If analytics infra is genuinely exhausted (check the above first), fall back to:
+(a) run analytics/scripts/board-health.js and fix any real data-quality gaps it
+    flags (missing fields, new duplicate clusters, etc.), or
+(b) pick the highest-priority item in the BOARD BACKLOG above that ZAZU can actually
+    progress (not just remind about — most backlog items need Mom/Dad action, which
+    board-reminders.sh already handles on its own schedule, so don't duplicate that).
 
 Proceed. Do the work. Log it. Clean up WIP when done."
 
