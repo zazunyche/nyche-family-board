@@ -1,13 +1,13 @@
-# Cycle Time Report — Jun 30, 2026, 4:32 AM
+# Cycle Time Report — Jun 30, 2026, 9:04 AM
 
-_20 completed tasks analyzed. 19 active tasks (age shown)._
+_19 completed tasks analyzed. 18 active tasks (age shown)._
 
 ## Overall Lead Time (creation → done)
 
 | Metric | Value |
 |--------|-------|
-| Completed tasks | 20 |
-| Median | 0.8d |
+| Completed tasks | 19 |
+| Median | 1.1d |
 | Min    | 0d |
 | Max    | 15.5d |
 
@@ -16,7 +16,7 @@ _20 completed tasks analyzed. 19 active tasks (age shown)._
 | Category | n | Median | Min | Max |
 |----------|---|--------|-----|-----|
 | ADMIN | 9 | 0.3d | 0d | 13.8d |
-| FAMILY | 9 | 1.6d | 0d | 15.5d |
+| FAMILY | 8 | 3.4d | 0.2d | 15.5d |
 | GOALS | 1 | 3d | 3d | 3d |
 | HOME | 1 | 0d | 0d | 0d |
 
@@ -24,8 +24,8 @@ _20 completed tasks analyzed. 19 active tasks (age shown)._
 
 | Owner | n | Median | Min | Max |
 |-------|---|--------|-----|-----|
-| BOTH | 6 | 1.3d | 0d | 15.5d |
-| DAD | 7 | 10.3d | 0d | 13.8d |
+| BOTH | 4 | 1.3d | 0.2d | 15.5d |
+| DAD | 8 | 10.6d | 0d | 13.8d |
 | MOM | 1 | 0.2d | 0.2d | 0.2d |
 | ZAZU | 6 | 0.2d | 0d | 0.4d |
 
@@ -33,8 +33,7 @@ _20 completed tasks analyzed. 19 active tasks (age shown)._
 
 | Type | n | Median | Min | Max |
 |------|---|--------|-----|-----|
-| ERRAND | 8 | 1d | 0d | 13.5d |
-| EXTERNAL_EVENT | 1 | 2.6d | 2.6d | 2.6d |
+| ERRAND | 8 | 3.4d | 0.2d | 13.5d |
 | MAINTENANCE | 1 | 15.5d | 15.5d | 15.5d |
 | PROJECT | 7 | 0.1d | 0d | 12d |
 | RESEARCH | 3 | 3d | 0.3d | 13.8d |
@@ -43,29 +42,28 @@ _20 completed tasks analyzed. 19 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Glen Rose Drive — review financials | GOALS | DAD | ACTIVE | 29.4d | M |
-| Follow up with Redfin agent on Oak Forest … | GOALS | DAD | ACTIVE | 23.4d | M |
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 23.4d | M |
-| Bring labeled sunscreen to AJ's daycare | FAMILY | BOTH | ACTIVE | 21.4d | M |
-| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 19.4d | L |
-| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 19.4d | L |
-| Evaluate investment opportunities — Charge… | GOALS | DAD | RESEARCH | 18.4d | L |
-| Primrose June prep — sunscreen, summer spa… | FAMILY | BOTH | ACTIVE | 15.5d | XL |
-| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 15.5d | L |
-| Board UI — external access via Tailscale o… | GOALS | DAD | ACTIVE | 15.4d | L |
-| iOS app for family board — Yaa's plan | GOALS | DAD | IDEA | 15.4d | XL |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 14.2d | M |
-| Review Primrose July calendar for key date… | FAMILY | BOTH | ACTIVE | 13.7d | M |
-| Book rental car for Chicago (Kojo wedding) | FAMILY | DAD | ACTIVE | 10.9d | M |
-| Pantry storage solutions — get dimensions … | HOME | DAD | ACTIVE | 10.5d | L |
-| Get Huggies size 3 diapers — for Annie visit | FAMILY | MOM | ACTIVE | 3.5d | XS |
-| Plan AJ's 2nd birthday party | FAMILY | MOM | ACTIVE | 2.7d | L |
-| Review Charge Express capital raise — deci… | ADMIN | BOTH | ACTIVE | 1.5d | M |
-| Attend AJ's Red White & Blue Parade at Pri… | FAMILY | BOTH | ACTIVE | 0.5d | XS |
+| Glen Rose Drive — review financials | GOALS | DAD | ACTIVE | 29.5d | M |
+| Follow up with Redfin agent on Oak Forest … | GOALS | DAD | ACTIVE | 23.5d | M |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 23.5d | M |
+| Bring labeled sunscreen to AJ's daycare | FAMILY | BOTH | ACTIVE | 21.5d | M |
+| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 19.5d | L |
+| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 19.5d | L |
+| Evaluate investment opportunities — Charge… | GOALS | DAD | RESEARCH | 18.5d | L |
+| Primrose June prep — sunscreen, summer spa… | FAMILY | BOTH | ACTIVE | 15.6d | XL |
+| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 15.6d | L |
+| Board UI — external access via Tailscale o… | GOALS | DAD | ACTIVE | 15.6d | L |
+| iOS app for family board — Yaa's plan | GOALS | DAD | IDEA | 15.5d | XL |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 14.4d | M |
+| Review Primrose July calendar for key date… | FAMILY | BOTH | ACTIVE | 13.9d | M |
+| Pantry storage solutions — get dimensions … | HOME | DAD | ACTIVE | 10.7d | L |
+| Get Huggies size 3 diapers — for Annie visit | FAMILY | MOM | ACTIVE | 3.7d | XS |
+| Plan AJ's 2nd birthday party | FAMILY | MOM | ACTIVE | 2.8d | L |
+| Review Charge Express capital raise — deci… | ADMIN | BOTH | ACTIVE | 1.7d | M |
+| Attend AJ's Red White & Blue Parade at Pri… | FAMILY | BOTH | ACTIVE | 0.6d | XS |
 
 ## Stage Dwell Time (tasks with stageHistory)
 
 | Stage | n | Median dwell | Min | Max |
 |-------|---|-------------|-----|-----|
 | ACTIVE | 10 | 0.4d | 0d | 13.8d |
-| IDEA | 19 | 3.3d | 0d | 15.5d |
+| IDEA | 18 | 4.2d | 0.2d | 15.5d |
