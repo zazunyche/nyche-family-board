@@ -1,4 +1,4 @@
-# Completion Rate Report — Jun 29, 2026, 6:01 PM
+# Completion Rate Report — Jun 29, 2026, 10:32 PM
 
 _39 total tasks (excl. archived), 20 done — overall rate: **51%**_
 
@@ -55,4 +55,3 @@ Lead time (creation → done): median **0.75 days**, min 0d, max 15.5d (n=20)
 - Lead time is measured from `createdAt` to `completedAt` and includes waiting time.
 - ARCHIVED tasks are excluded (they were removed, not completed).
 - Dataset is small (20 completed tasks). Rates will become meaningful at 25+ completions.
-

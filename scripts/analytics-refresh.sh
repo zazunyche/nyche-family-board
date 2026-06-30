@@ -28,8 +28,11 @@ CT_EXIT=$?
 node analytics/scripts/stage-funnel.js --save >> "$LOG" 2>&1
 SF_EXIT=$?
 
-if [ $HC_EXIT -ne 0 ] || [ $CR_EXIT -ne 0 ] || [ $CT_EXIT -ne 0 ] || [ $SF_EXIT -ne 0 ]; then
-  log_ts "analytics-refresh.sh: one or more scripts failed (board-health=$HC_EXIT completion-rate=$CR_EXIT cycle-time=$CT_EXIT stage-funnel=$SF_EXIT)" "$LOG"
+node analytics/scripts/dedup-detector.js --save >> "$LOG" 2>&1
+DD_EXIT=$?
+
+if [ $HC_EXIT -ne 0 ] || [ $CR_EXIT -ne 0 ] || [ $CT_EXIT -ne 0 ] || [ $SF_EXIT -ne 0 ] || [ $DD_EXIT -ne 0 ]; then
+  log_ts "analytics-refresh.sh: one or more scripts failed (board-health=$HC_EXIT completion-rate=$CR_EXIT cycle-time=$CT_EXIT stage-funnel=$SF_EXIT dedup-detector=$DD_EXIT)" "$LOG"
   exit 1
 fi
 

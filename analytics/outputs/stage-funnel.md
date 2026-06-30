@@ -1,4 +1,4 @@
-# Stage Funnel — Jun 29, 2026, 6:01 PM
+# Stage Funnel — Jun 29, 2026, 10:32 PM
 
 _39 total tasks_
 
@@ -63,4 +63,3 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **70%** of done tasks_
 | Review Primrose July calendar for key date… | 1 | 6 | ACTIVE |
 | Book rental car for Chicago (Kojo wedding) | 1 | 7 | ACTIVE |
 | Pantry storage solutions — get dimensions … | 1 | 6 | ACTIVE |
-
