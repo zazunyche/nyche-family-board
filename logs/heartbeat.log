@@ -405,3 +405,9 @@ Done. Here's what this session accomplished:
 [2026-06-30T02:30:14Z] Launching claude -p work session
 [2026-06-30T02:33Z] heartbeat (22:30 ET) — verified "known pending ZAZU work" list (stageHistory, taskType, effortTag, resistanceScore, priority-escalation, board-health.js, completion-rate.js, requirements[]) was already fully implemented in prior sessions. Found the actual gap: dedup-detector.js (last unbuilt Tier 1 script in analytics/plan-v1.md) was missing.
 [DONE] Built analytics/scripts/dedup-detector.js — Jaccard title-similarity dedup detection (threshold 0.6, same-category required), wired into analytics-refresh.sh. Tested against live board: flags 2 genuine duplicate clusters (wipes, FIFA passes), correctly excludes false positives (Airbnb vs rental car, audit/build-script title overlaps). Added req_012 to board-data.json documenting the decision and motivation (Charge Express was manually deduped 3x prior — this would have caught it). Committed dcb4d5f.
+WIP is cleared, working tree is clean, work is committed.
+
+**Summary:** This heartbeat's "known pending ZAZU work" list (stageHistory, taskType, effortTag, resistanceScore, priority-escalation, board-health.js, completion-rate.js, requirements[]) turned out to be stale — all 8 items were already shipped in prior sessions today. I verified this against the actual code/board state, then found the real gap: `dedup-detector.js`, the last unbuilt Tier 1 script from the analytics plan.
+
+Built it (Jaccard title-similarity, same-category required, threshold tuned to 0.6 against live data to avoid false positives like "Airbnb" vs "rental car" for the same trip), wired it into `analytics-refresh.sh`, and validated it catches the exact pattern that previously required manual cleanup (the Charge Express task got duplicated 3x from one email thread and had to be hand-merged). Committed as `dcb4d5f` + `59450f2`.
+[2026-06-30T02:33:53Z] heartbeat.sh complete
