@@ -34,8 +34,11 @@ SF_EXIT=$?
 node analytics/scripts/dedup-detector.js --save >> "$LOG" 2>&1
 DD_EXIT=$?
 
-if [ $HC_EXIT -ne 0 ] || [ $CR_EXIT -ne 0 ] || [ $LT_EXIT -ne 0 ] || [ $CT_EXIT -ne 0 ] || [ $SF_EXIT -ne 0 ] || [ $DD_EXIT -ne 0 ]; then
-  log_ts "analytics-refresh.sh: one or more scripts failed (board-health=$HC_EXIT completion-rate=$CR_EXIT lead-time-basic=$LT_EXIT cycle-time=$CT_EXIT stage-funnel=$SF_EXIT dedup-detector=$DD_EXIT)" "$LOG"
+node analytics/scripts/wait-ratio.js --save >> "$LOG" 2>&1
+WR_EXIT=$?
+
+if [ $HC_EXIT -ne 0 ] || [ $CR_EXIT -ne 0 ] || [ $LT_EXIT -ne 0 ] || [ $CT_EXIT -ne 0 ] || [ $SF_EXIT -ne 0 ] || [ $DD_EXIT -ne 0 ] || [ $WR_EXIT -ne 0 ]; then
+  log_ts "analytics-refresh.sh: one or more scripts failed (board-health=$HC_EXIT completion-rate=$CR_EXIT lead-time-basic=$LT_EXIT cycle-time=$CT_EXIT stage-funnel=$SF_EXIT dedup-detector=$DD_EXIT wait-ratio=$WR_EXIT)" "$LOG"
   exit 1
 fi
 

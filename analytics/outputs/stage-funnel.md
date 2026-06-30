@@ -1,4 +1,4 @@
-# Stage Funnel — Jun 30, 2026, 12:01 AM
+# Stage Funnel — Jun 30, 2026, 4:32 AM
 
 _39 total tasks_
 
@@ -57,9 +57,9 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **70%** of done tasks_
 | Review Acrisure home insurance renewal | 2 | 6 | ACTIVE |
 | Bring labeled sunscreen to AJ's daycare | 2 | 6 | ACTIVE |
 | Property Medics: schedule return visit + s… | 2 | 6 | ACTIVE |
+| Board UI — external access via Tailscale o… | 2 | 6 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 2 | 6 | ACTIVE |
 | iOS app for family board — Yaa's plan | 2 | 6 | IDEA |
-| Board UI — external access via Tailscale o… | 1 | 6 | ACTIVE |
-| 15 Sigourney — follow up with neighbor on … | 1 | 6 | ACTIVE |
-| Review Primrose July calendar for key date… | 1 | 6 | ACTIVE |
+| Review Primrose July calendar for key date… | 2 | 6 | ACTIVE |
 | Book rental car for Chicago (Kojo wedding) | 1 | 7 | ACTIVE |
 | Pantry storage solutions — get dimensions … | 1 | 6 | ACTIVE |

@@ -1,4 +1,4 @@
-# Board Health — Jun 30, 2026, 12:01 AM
+# Board Health — Jun 30, 2026, 4:31 AM
 
 ## Summary
 
@@ -95,9 +95,9 @@
 | t_insure01 | Review Acrisure home insurance renewal | 2/5 | 6 | DAD |
 | t_suncr001 | Bring labeled sunscreen to AJ's daycare | 2/5 | 6 | BOTH |
 | t_6aj3ogq | Property Medics: schedule return visit + send gara | 2/5 | 6 | DAD |
+| t_j8zw44t | Board UI — external access via Tailscale or Cloudf | 2/5 | 6 | DAD |
+| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | 2/5 | 6 | DAD |
 | t_iosapp01 | iOS app for family board — Yaa's plan | 2/5 | 6 | DAD |
-| t_j8zw44t | Board UI — external access via Tailscale or Cloudf | 1/5 | 6 | DAD |
-| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | 1/5 | 6 | DAD |
-| t_wnb2uq9 | Review Primrose July calendar for key dates and cl | 1/5 | 6 | BOTH |
+| t_wnb2uq9 | Review Primrose July calendar for key dates and cl | 2/5 | 6 | BOTH |
 | t_ximvmxa | Book rental car for Chicago (Kojo wedding) | 1/5 | 7 | DAD |
 | t_2ol963z | Pantry storage solutions — get dimensions + photo, | 1/5 | 6 | DAD |

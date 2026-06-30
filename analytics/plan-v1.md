@@ -237,7 +237,7 @@ Listed in implementation priority order. All scripts consume `board-data.json` d
 |---|---|---|---|
 | `cycle-time.js` | `analytics/scripts/` | Cycle time per stage, per category | Where in the pipeline does each category type actually stall? |
 | `stage-funnel.js` | `analytics/scripts/` | Funnel chart data (IDEA→RESEARCH→ACTIVE→DONE) | What % of tasks drop out at each stage? |
-| `wait-ratio.js` | `analytics/scripts/` | Wait ratio per task and category average | How much of each task's life is active work vs. idle waiting? |
+| `wait-ratio.js` | `analytics/scripts/` | Wait ratio per task and category average | **DONE (Jun 30):** wired into `analytics-refresh.sh`. How much of each task's life is active work vs. idle waiting? |
 | `snooze-pattern.js` | `analytics/scripts/` | Snooze frequency by owner, day-of-week | When do people defer, and do they come back? |
 
 ### Tier 3 — Build after 30+ days of reflection data
