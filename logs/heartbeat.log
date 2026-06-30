@@ -411,3 +411,6 @@ WIP is cleared, working tree is clean, work is committed.
 
 Built it (Jaccard title-similarity, same-category required, threshold tuned to 0.6 against live data to avoid false positives like "Airbnb" vs "rental car" for the same trip), wired it into `analytics-refresh.sh`, and validated it catches the exact pattern that previously required manual cleanup (the Charge Express task got duplicated 3x from one email thread and had to be hand-merged). Committed as `dcb4d5f` + `59450f2`.
 [2026-06-30T02:33:53Z] heartbeat.sh complete
+[2026-06-30T04:00:15Z] heartbeat.sh started
+[2026-06-30T04:00:15Z] Launching claude -p work session
+[2026-06-30T04:01Z] heartbeat (00:00 ET) — verified Tier 1 analytics scripts status against analytics/plan-v1.md. board-health.js, completion-rate.js, dedup-detector.js already shipped. brief-pressure.js found redundant with board-health.js's existing "High Brief Count" section — marked SUPERSEDED in plan, not building. Built analytics/scripts/lead-time-basic.js (creation→done histogram + per-category median, distinct from completion-rate.js's single median figure), wired into scripts/analytics-refresh.sh. Tested standalone + via full refresh run — all 6 scripts exit 0. Updated plan-v1.md Tier 1 table to reflect final status (5/5 accounted for: 4 built, 1 superseded).

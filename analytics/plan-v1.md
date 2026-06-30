@@ -227,9 +227,9 @@ Listed in implementation priority order. All scripts consume `board-data.json` d
 |---|---|---|---|
 | `board-health.js` | `analytics/scripts/` | Markdown summary | How many tasks are active, stale, overdue, duplicated? |
 | `completion-rate.js` | `analytics/scripts/` | Rate by category, owner, source | What % of tasks reach DONE, broken down by category and owner |
-| `lead-time-basic.js` | `analytics/scripts/` | Histogram + median by category | How long do tasks take from creation to done, by category |
-| `brief-pressure.js` | `analytics/scripts/` | Ranked list of high-brief incomplete tasks | Which tasks are Zazu briefing repeatedly with no action — drag signal |
-| `dedup-detector.js` | `analytics/scripts/` | List of likely duplicate task clusters | Identify duplicate tasks for cleanup (WYZE, insurance, CMA variants) |
+| `lead-time-basic.js` | `analytics/scripts/` | Histogram + median by category | **DONE (Jun 30):** wired into `analytics-refresh.sh`. How long do tasks take from creation to done, by category |
+| `brief-pressure.js` | `analytics/scripts/` | Ranked list of high-brief incomplete tasks | **SUPERSEDED (Jun 30):** `board-health.js` already has a "High Brief Count" + "Resistance Flagged" section covering this exact question — a standalone script would be redundant. Not building separately. Which tasks are Zazu briefing repeatedly with no action — drag signal |
+| `dedup-detector.js` | `analytics/scripts/` | List of likely duplicate task clusters | **DONE (Jun 30):** wired into `analytics-refresh.sh`, Jaccard title-similarity. Identify duplicate tasks for cleanup (WYZE, insurance, CMA variants) |
 
 ### Tier 2 — Build after `stageHistory` is implemented (Week 2)
 

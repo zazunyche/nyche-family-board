@@ -22,6 +22,9 @@ HC_EXIT=$?
 node analytics/scripts/completion-rate.js --save >> "$LOG" 2>&1
 CR_EXIT=$?
 
+node analytics/scripts/lead-time-basic.js --save >> "$LOG" 2>&1
+LT_EXIT=$?
+
 node analytics/scripts/cycle-time.js --save >> "$LOG" 2>&1
 CT_EXIT=$?
 
@@ -31,8 +34,8 @@ SF_EXIT=$?
 node analytics/scripts/dedup-detector.js --save >> "$LOG" 2>&1
 DD_EXIT=$?
 
-if [ $HC_EXIT -ne 0 ] || [ $CR_EXIT -ne 0 ] || [ $CT_EXIT -ne 0 ] || [ $SF_EXIT -ne 0 ] || [ $DD_EXIT -ne 0 ]; then
-  log_ts "analytics-refresh.sh: one or more scripts failed (board-health=$HC_EXIT completion-rate=$CR_EXIT cycle-time=$CT_EXIT stage-funnel=$SF_EXIT dedup-detector=$DD_EXIT)" "$LOG"
+if [ $HC_EXIT -ne 0 ] || [ $CR_EXIT -ne 0 ] || [ $LT_EXIT -ne 0 ] || [ $CT_EXIT -ne 0 ] || [ $SF_EXIT -ne 0 ] || [ $DD_EXIT -ne 0 ]; then
+  log_ts "analytics-refresh.sh: one or more scripts failed (board-health=$HC_EXIT completion-rate=$CR_EXIT lead-time-basic=$LT_EXIT cycle-time=$CT_EXIT stage-funnel=$SF_EXIT dedup-detector=$DD_EXIT)" "$LOG"
   exit 1
 fi
 
