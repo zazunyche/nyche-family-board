@@ -442,3 +442,26 @@ Merged each into its older/canonical task (carrying forward max `briefCount` and
 [2026-06-30T17:30:17Z] Launching claude -p work session
 [2026-06-30T17:34Z] heartbeat (13:30 ET) — known pending ZAZU work list confirmed stale for the 6th consecutive heartbeat; root cause found: the list is hardcoded in scripts/heartbeat.sh and never gets updated, so every session burns a cycle re-deriving "this is already done." Fixed at the source: replaced the stale list with current status (Tier 1/2 analytics complete, Tier 3/4 gated and not yet eligible, reflection layer intentionally scoped down) plus fallback guidance for when infra work is exhausted. Also fixed plan-v1.md — cycle-time.js and stage-funnel.js were built+wired but never marked DONE in the Tier 2 table.
 [DONE] Fixed stale "known pending ZAZU work" list at its source (scripts/heartbeat.sh) instead of re-discovering staleness again — updated to reflect real current status and added fallback guidance. Also corrected plan-v1.md Tier 2 table (cycle-time.js, stage-funnel.js were done but unmarked). Analytics refreshed, all 7 scripts exit 0. Committed 3d37df8.
+Working tree is clean, WIP file removed, work committed. This isn't iMessage-noteworthy (internal infra maintenance), so no message to Dad/Mom this round.
+
+**Summary:** The "known pending ZAZU work" list had been confirmed stale for 6 consecutive heartbeats — every session was burning a cycle re-deriving "this is all already done" before finding real work. Root cause: the list is hardcoded directly in `scripts/heartbeat.sh` and nothing was ever updating it. Fixed at the source — replaced the dead 8-item list with the actual current state (Tier 1/2 analytics scripts complete, Tier 3/4 correctly gated on data that doesn't exist yet, reflection layer's full design intentionally not built) plus fallback guidance so future heartbeats skip straight to real work instead of rediscovering staleness. Also corrected `analytics/plan-v1.md` — `cycle-time.js` and `stage-funnel.js` were built and wired in weeks ago but never marked DONE in the tracking table. Analytics refreshed (all 7 scripts exit 0), committed as `3d37df8` and `225e849`.
+[2026-06-30T17:35:38Z] WARNING: iMessage -1712 timeout for [heartbeat summary to Dad] — message likely sent, skipping retry
+[2026-06-30T17:35:38Z] heartbeat.sh complete
+[2026-06-30T22:00:17Z] heartbeat.sh started
+[2026-06-30T22:00:18Z] Launching claude -p work session
+[2026-06-30T22:08:18Z] heartbeat claude session failed — exit 143
+[2026-06-30T22:08:18Z] heartbeat.sh complete
+[2026-07-01T02:30:18Z] heartbeat.sh started
+[2026-07-01T02:30:18Z] Launching claude -p work session
+[2026-06-30T22:30:00Z] heartbeat.sh started
+[2026-06-30T22:30Z] heartbeat (22:30 ET) — no WIP. Prior heartbeat at 22:00 ET failed (exit 143). Found 5 new tasks (all briefCount=0) created ~1hr ago from email triage. Two are time-critical: t_ezx56e8 (water play bag, due TOMORROW July 1, HIGH) and t_2vvghnw (Primrose closed July 3, HIGH). Sent consolidated urgent iMessage alert to Dad (+16173353840) and Mom (+16175438839) covering both items. Both returned -1712 timeout (documented pattern — messages likely sent). Updated board briefCount/lastBriefed for both tasks. Remaining new tasks (t_f0cptx7 Jul30 childcare, t_f5l3auo Teacher Meet & Greet, t_m2rnhvo AJ wears blue Jul 15) will be covered in tomorrow morning's daily brief — not time-critical tonight.
+[DONE] Urgent Primrose alerts sent — water play bag (due July 1) and July 3 closure childcare. Board updated (briefCount +1, lastBriefed set). iMessages returned -1712 (likely sent per prior pattern).
+Session complete. Two urgent iMessage alerts sent to Dad and Mom covering:
+
+1. **Water play bag — due tomorrow (July 1)**: bathing suit/swim shirt, closed-toe water shoes, towel, full change of clothes, sunscreen before drop-off, label everything, regular diaper at arrival
+2. **Primrose closed July 3**: need childcare plan for AJ
+
+Board updated — `briefCount` and `lastBriefed` set on both tasks. Both iMessages returned the recurring -1712 timeout (prior logs confirm this pattern means messages likely delivered). Three other new tasks (July 15 blue day, July 30 childcare, Teacher Meet & Greet) are non-urgent and will surface in tomorrow's morning brief.
+[2026-07-01T02:37:26Z] heartbeat.sh complete
+[2026-07-01T03:58:07Z] heartbeat claude session failed — exit 137
+[2026-07-01T03:58:07Z] heartbeat.sh complete
