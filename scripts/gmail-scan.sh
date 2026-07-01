@@ -143,8 +143,22 @@ Pre-event reminder example:
 
 STEP 6 — SEND CONFIRMATION iMESSAGE
 After creating each task, send a brief confirmation to the parent who sent/forwarded the email.
-Use mcp__plugin_imessage_imessage__* to send.
-Example: 'Got it — added \"$CHILD_1_NAME wear orange — Spirit Day\" to the board and set a reminder for 2 days before and the morning of. — Zazu'
+IMPORTANT: Do NOT use mcp__plugin_imessage_imessage__reply — that tool requires an active
+inbound chat_id and will fail in a headless session, reporting false "not allowlisted" errors.
+Instead, use the Bash tool with osascript and a temp file (the same pattern as zazu-notify.sh):
+  TMP=\$(mktemp /tmp/zazu-msgXXXXXX)
+  printf '%s' "Your confirmation message here. — Zazu" > "\$TMP"
+  osascript << OSAEOF
+set f to open for access POSIX file "\$TMP"
+set t to (read f as «class utf8»)
+close access f
+tell application "Messages"
+  set svc to 1st service whose service type = iMessage
+  send t to buddy "$DAD_NUMBER" of svc
+end tell
+OSAEOF
+  rm -f "\$TMP"
+Example confirmation: 'Got it — added "$CHILD_1_NAME wear orange — Spirit Day" to the board and set a reminder for 2 days before and the morning of. — Zazu'
 
 STEP 7 — LABEL PROCESSED EMAILS
 Use Gmail MCP to add the label 'zazu-processed' to each email you handled.

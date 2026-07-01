@@ -46,6 +46,7 @@ log_ts() {
 send_imessage() {
   local phone="$1"
   local message="$2"
+  local _is_retry="${3:-0}"  # internal: 1 = already restarted Messages once
 
   # Write message to a temp file to safely handle special characters, quotes, etc.
   local tmp
@@ -70,13 +71,26 @@ OSASCRIPT
   local exit_code=$?
   rm -f "$tmp"
 
-  # -1712 = AppleEvent timed out. This is AMBIGUOUS — Messages may have already
-  # queued and sent the message before the confirmation timeout. Retrying on -1712
-  # causes duplicate messages. Treat as "probably sent" and let the caller decide
-  # how to log it, but do NOT signal failure (return 0).
+  # -1712 = Messages.app AppleEvent timeout — the app is in a locked/stuck state.
+  # Root cause: orphaned background claude -p processes hold open AppleEvent
+  # connections, causing Messages to timeout on new requests.
+  #
+  # Strategy: restart Messages once and retry. If the retry also fails, return
+  # "ambiguous-1712" (message may have been queued; don't retry further to avoid
+  # duplicates). Never retry more than once — that causes duplicate sends.
   if [[ $exit_code -ne 0 && "$result" == *"-1712"* ]]; then
-    echo "ambiguous-1712"
-    return 0
+    if [[ "$_is_retry" == "0" ]]; then
+      killall Messages 2>/dev/null
+      sleep 3
+      open -a Messages
+      sleep 10
+      send_imessage "$phone" "$message" "1"
+      return $?
+    else
+      # Already restarted — still failing. Return ambiguous so callers don't retry.
+      echo "ambiguous-1712"
+      return 0
+    fi
   fi
 
   echo "$result"

@@ -74,7 +74,12 @@ fi
 # ── Build prompt ─────────────────────────────────────────────────────────────
 NOW=$(date '+%Y-%m-%d %H:%M ET')
 
-PROMPT="You are Zazu, the Nyche family house manager AI running on a Mac mini at /Users/zazunyche. This is an automated heartbeat check — it fires every 4.5 hours to ensure no work falls through the cracks.
+# Use a heredoc so embedded double-quotes inside the prompt don't terminate
+# the outer bash string (fixed: "Analytics Scripts Roadmap" was closing the
+# double-quoted PROMPT= assignment on line 120, making bash try to execute
+# 'Scripts' as a command every heartbeat run).
+PROMPT=$(cat << PROMPT_EOF
+You are Zazu, the Nyche family house manager AI running on a Mac mini at /Users/zazunyche. This is an automated heartbeat check — it fires every 4.5 hours to ensure no work falls through the cracks.
 
 Current time: $NOW
 
@@ -85,7 +90,7 @@ Current time: $NOW
 2. IF NO WIP (or WIP is fresh/< 5 min old, meaning the prior session just started and is probably still running): scan the board backlog below for the highest-priority ZAZU-owned or queued work item and begin it.
 
 3. WHEN STARTING LONG WORK: before beginning anything that might take more than a few minutes of tool use, write your intended work to $WIP_FILE so the next heartbeat can resume if you get cut off:
-   Example: echo '{\"task\": \"Implement stageHistory schema\", \"nextStep\": \"Update board-data.json task schema, then update board-reminders.sh to write stageHistory on transitions\", \"boardTaskId\": \"t_XXX\", \"startedAt\": \"${NOW}\", \"agent\": \"ZAZU\"}' > $WIP_FILE
+   Example: echo '{"task": "Implement stageHistory schema", "nextStep": "Update board-data.json task schema", "boardTaskId": "t_XXX", "startedAt": "$NOW", "agent": "ZAZU"}' > $WIP_FILE
 
 4. WHEN COMPLETE: delete the WIP file: rm -f $WIP_FILE
    Then write a brief summary (2-4 lines) of what you did to: $LOG
@@ -97,7 +102,7 @@ Current time: $NOW
 - Do NOT use iMessage MCP tools — they may not be available in this session
 - Do NOT use Gmail MCP, Notion MCP, or Google Calendar MCP tools — same reason
 - You CAN use Bash, Read, Write, Edit tools — these always work
-- You CAN send iMessages via Bash: osascript -e 'tell app \"Messages\" to send \"msg\" to buddy \"+1XXX\" of service 1'
+- You CAN send iMessages via Bash using osascript and a temp file (see zazu-notify.sh)
 - But only send iMessages if the work is genuinely complete and noteworthy
 - Keep this session focused — pick ONE task and complete it. Do not start multiple things.
 - If the work is larger than one session, write a clear WIP file and stop.
@@ -140,7 +145,9 @@ If analytics infra is genuinely exhausted (check the above first), fall back to:
     progress (not just remind about — most backlog items need Mom/Dad action, which
     board-reminders.sh already handles on its own schedule, so don't duplicate that).
 
-Proceed. Do the work. Log it. Clean up WIP when done."
+Proceed. Do the work. Log it. Clean up WIP when done.
+PROMPT_EOF
+)
 
 # ── Run the claude work session ───────────────────────────────────────────────
 log_ts "Launching claude -p work session" "$LOG"
