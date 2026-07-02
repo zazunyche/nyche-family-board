@@ -1,4 +1,4 @@
-# Board Health — Jul 1, 2026, 12:02 AM
+# Board Health — Jul 1, 2026, 6:45 AM
 
 ## Summary
 
@@ -50,7 +50,7 @@
 | t_redfin01 | Follow up with Redfin agent on Oak Forest CMA — Au | ACTIVE | 17 | DAD |
 | t_insure01 | Review Acrisure home insurance renewal | ACTIVE | 17 | DAD |
 | t_suncr001 | Bring labeled sunscreen to AJ's daycare | ACTIVE | 17 | BOTH |
-| t_6aj3ogq | Property Medics: schedule return visit + send gara | ACTIVE | 16 | DAD |
+| t_6aj3ogq | Property Medics: schedule return visit + send gara | ACTIVE | 17 | DAD |
 | t_j8zw44t | Board UI — external access via Tailscale or Cloudf | ACTIVE | 15 | DAD |
 | t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | ACTIVE | 15 | DAD |
 | t_iosapp01 | iOS app for family board — Yaa's plan | IDEA | 16 | DAD |

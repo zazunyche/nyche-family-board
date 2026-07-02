@@ -20,9 +20,9 @@
   "progress": {
     "current_module": 1,
     "current_mini_module": "1.3",
-    "current_day_number": 15,
-    "current_snippet_id": "module1-day15",
-    "last_delivered_date": "2026-06-30",
+    "current_day_number": 16,
+    "current_snippet_id": "module1-day16",
+    "last_delivered_date": "2026-07-01",
     "next_scheduled_date": "2026-06-29",
     "status": "in_progress"
   },
@@ -373,10 +373,10 @@
               "date": "2026-06-26",
               "title": "How Zazu remembers (and forgets)",
               "topic": "Zazu's memory architecture: MEMORY.md, session context, persistence design",
-              "imessage_file": null,
-              "email_file": null,
-              "delivery_status": "pending",
-              "delivered_at": null,
+              "imessage_file": "snippets/module1-day15-imessage.md",
+              "email_file": "snippets/module1-day15-email.md",
+              "delivery_status": "delivered",
+              "delivered_at": "2026-07-01T13:08:27.883Z",
               "engagement": {
                 "imessage_reply": null,
                 "imessage_reply_time_minutes": null,
@@ -1221,7 +1221,7 @@
     }
   ],
   "engagement_summary": {
-    "total_snippets_delivered": 16,
+    "total_snippets_delivered": 18,
     "total_snippets_pending": 46,
     "average_reply_time_minutes": null,
     "mini_modules_with_quiz_completed": 0,

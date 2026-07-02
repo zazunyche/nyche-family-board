@@ -1,4 +1,4 @@
-# Cycle Time Report — Jul 1, 2026, 12:02 AM
+# Cycle Time Report — Jul 1, 2026, 6:45 AM
 
 _21 completed tasks analyzed. 21 active tasks (age shown)._
 
@@ -42,27 +42,27 @@ _21 completed tasks analyzed. 21 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Glen Rose Drive — review financials | GOALS | DAD | ACTIVE | 30.2d | M |
-| Follow up with Redfin agent on Oak Forest … | GOALS | DAD | ACTIVE | 24.2d | M |
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 24.2d | M |
-| Bring labeled sunscreen to AJ's daycare | FAMILY | BOTH | ACTIVE | 22.2d | M |
-| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 20.2d | L |
-| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 20.2d | L |
-| Evaluate investment opportunities — Charge… | GOALS | DAD | RESEARCH | 19.2d | L |
-| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 16.3d | L |
-| Board UI — external access via Tailscale o… | GOALS | DAD | ACTIVE | 16.2d | L |
-| iOS app for family board — Yaa's plan | GOALS | DAD | IDEA | 16.2d | XL |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 15d | M |
-| Pantry storage solutions — get dimensions … | HOME | DAD | ACTIVE | 11.3d | L |
-| Get Huggies size 3 diapers — for Annie visit | FAMILY | MOM | ACTIVE | 4.3d | XS |
-| Plan AJ's 2nd birthday party | FAMILY | MOM | ACTIVE | 3.5d | L |
-| Review Charge Express capital raise — deci… | ADMIN | BOTH | ACTIVE | 2.4d | M |
-| Attend AJ's Red White & Blue Parade at Pri… | FAMILY | BOTH | ACTIVE | 1.3d | XS |
-| Pack AJ's water play bag — Primrose Water … | FAMILY | BOTH | ACTIVE | 0.3d | XS |
-| Plan childcare — Primrose closed July 3 (h… | FAMILY | BOTH | ACTIVE | 0.3d | S |
-| Plan childcare — Primrose closed July 30-3… | FAMILY | BOTH | ACTIVE | 0.3d | S |
-| Attend Teacher Meet & Greet at Primrose Br… | FAMILY | BOTH | ACTIVE | 0.3d | XS |
-| AJ wears BLUE — Ally's Birthday at Primros… | FAMILY | BOTH | ACTIVE | 0.3d | XS |
+| Glen Rose Drive — review financials | GOALS | DAD | ACTIVE | 30.4d | M |
+| Follow up with Redfin agent on Oak Forest … | GOALS | DAD | ACTIVE | 24.4d | M |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 24.4d | M |
+| Bring labeled sunscreen to AJ's daycare | FAMILY | BOTH | ACTIVE | 22.4d | M |
+| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 20.4d | L |
+| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 20.4d | L |
+| Evaluate investment opportunities — Charge… | GOALS | DAD | RESEARCH | 19.4d | L |
+| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 16.6d | L |
+| Board UI — external access via Tailscale o… | GOALS | DAD | ACTIVE | 16.5d | L |
+| iOS app for family board — Yaa's plan | GOALS | DAD | IDEA | 16.4d | XL |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 15.3d | M |
+| Pantry storage solutions — get dimensions … | HOME | DAD | ACTIVE | 11.6d | L |
+| Get Huggies size 3 diapers — for Annie visit | FAMILY | MOM | ACTIVE | 4.6d | XS |
+| Plan AJ's 2nd birthday party | FAMILY | MOM | ACTIVE | 3.7d | L |
+| Review Charge Express capital raise — deci… | ADMIN | BOTH | ACTIVE | 2.6d | M |
+| Attend AJ's Red White & Blue Parade at Pri… | FAMILY | BOTH | ACTIVE | 1.6d | XS |
+| Pack AJ's water play bag — Primrose Water … | FAMILY | BOTH | ACTIVE | 0.5d | XS |
+| Plan childcare — Primrose closed July 3 (h… | FAMILY | BOTH | ACTIVE | 0.5d | S |
+| Plan childcare — Primrose closed July 30-3… | FAMILY | BOTH | ACTIVE | 0.5d | S |
+| Attend Teacher Meet & Greet at Primrose Br… | FAMILY | BOTH | ACTIVE | 0.5d | XS |
+| AJ wears BLUE — Ally's Birthday at Primros… | FAMILY | BOTH | ACTIVE | 0.5d | XS |
 
 ## Stage Dwell Time (tasks with stageHistory)
 

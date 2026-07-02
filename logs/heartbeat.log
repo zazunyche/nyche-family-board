@@ -465,3 +465,27 @@ Board updated — `briefCount` and `lastBriefed` set on both tasks. Both iMessag
 [2026-07-01T02:37:26Z] heartbeat.sh complete
 [2026-07-01T03:58:07Z] heartbeat claude session failed — exit 137
 [2026-07-01T03:58:07Z] heartbeat.sh complete
+[2026-07-01T04:00:18Z] heartbeat.sh started
+[2026-07-01T04:00:18Z] Launching claude -p work session
+[DONE] Board data quality fix — filled taskType/effortTag/intentOrigin on 5 new tasks (t_ezx56e8, t_2vvghnw, t_f0cptx7, t_f5l3auo, t_m2rnhvo) created in Jun 30 email triage; marked t_wnb2uq9 DONE (July calendar reviewed, 3 tasks extracted); marked t_0hmz63i DONE (June prep tasks — June is over, sunscreen tracked in t_suncr001). Data quality: 10 missing fields → 0. Active: 23 → 21.
+Done. Here's what happened this session:
+
+**Data quality fix** — 5 tasks created during last night's email triage were missing `taskType`, `effortTag`, and `intentOrigin`. Filled them all:
+- `t_ezx56e8` (water play bag) → ERRAND / XS
+- `t_2vvghnw` (July 3 childcare) → DECISION / S
+- `t_f0cptx7` (July 30–31 childcare) → DECISION / S
+- `t_f5l3auo` (Teacher Meet & Greet) → EVENT / XS
+- `t_m2rnhvo` (AJ wears blue July 15) → EVENT / XS
+
+**Closed 2 stale tasks:**
+- `t_wnb2uq9` — "Review Primrose July calendar" → DONE. The calendar was already reviewed last night; those 3 tasks above are the output.
+- `t_0hmz63i` — "Primrose June prep" → DONE (PARTIAL). June is over; the ongoing sunscreen reminder is tracked in `t_suncr001`.
+
+Board health is now clean: 0 missing fields, active count 23 → 21.
+[2026-07-01T04:02:58Z] heartbeat.sh complete
+[2026-07-01T08:30:19Z] heartbeat.sh started
+[2026-07-01T13:00:20Z] heartbeat.sh started
+[2026-07-01T17:30:20Z] heartbeat.sh started
+[2026-07-01T22:00:21Z] heartbeat.sh started
+[2026-07-02T02:30:22Z] heartbeat.sh started
+[2026-07-02T04:00:22Z] heartbeat.sh started
