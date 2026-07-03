@@ -20,9 +20,9 @@
   "progress": {
     "current_module": 1,
     "current_mini_module": "1.3",
-    "current_day_number": 16,
-    "current_snippet_id": "module1-day16",
-    "last_delivered_date": "2026-07-01",
+    "current_day_number": 17,
+    "current_snippet_id": "module1-day17",
+    "last_delivered_date": "2026-07-02",
     "next_scheduled_date": "2026-06-29",
     "status": "in_progress"
   },
@@ -420,10 +420,10 @@
               "date": "2026-06-27",
               "title": "Chain of thought: making the model show its work",
               "topic": "CoT prompting mechanics and why intermediate tokens reduce error",
-              "imessage_file": null,
-              "email_file": null,
-              "delivery_status": "pending",
-              "delivered_at": null,
+              "imessage_file": "snippets/module1-day16-imessage.md",
+              "email_file": "snippets/module1-day16-email.md",
+              "delivery_status": "delivered",
+              "delivered_at": "2026-07-02T13:03:22.943Z",
               "engagement": {
                 "imessage_reply": null,
                 "imessage_reply_time_minutes": null,
@@ -1221,7 +1221,7 @@
     }
   ],
   "engagement_summary": {
-    "total_snippets_delivered": 18,
+    "total_snippets_delivered": 20,
     "total_snippets_pending": 46,
     "average_reply_time_minutes": null,
     "mini_modules_with_quiz_completed": 0,
