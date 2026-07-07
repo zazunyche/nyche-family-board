@@ -1,4 +1,4 @@
-# Stage Funnel — Jul 5, 2026, 11:54 PM
+# Stage Funnel — Jul 6, 2026, 6:45 AM
 
 _43 total tasks_
 
@@ -50,17 +50,17 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **61%** of done tasks_
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Property Medics — send furniture photos to… | 3 | 11 | ACTIVE |
-| Property Medics — confirm floor installati… | 3 | 11 | ACTIVE |
-| Glen Rose Drive — review financials | 3 | 12 | ACTIVE |
-| Evaluate investment opportunities — Charge… | 3 | 11 | RESEARCH |
-| Follow up with Redfin agent on Oak Forest … | 3 | 11 | ACTIVE |
-| Review Acrisure home insurance renewal | 3 | 11 | ACTIVE |
-| Bring labeled sunscreen to AJ's daycare | 3 | 11 | ACTIVE |
-| Property Medics: schedule return visit + s… | 3 | 11 | ACTIVE |
-| iOS app for family board — Yaa's plan | 3 | 11 | IDEA |
-| Board UI — external access via Tailscale o… | 2 | 11 | ACTIVE |
-| 15 Sigourney — follow up with neighbor on … | 2 | 11 | ACTIVE |
-| Pantry storage solutions — get dimensions … | 2 | 11 | ACTIVE |
-| Plan AJ's 2nd birthday party | 1 | 8 | ACTIVE |
-| Review Charge Express capital raise — deci… | 1 | 6 | ACTIVE |
+| Property Medics — send furniture photos to… | 3 | 12 | ACTIVE |
+| Property Medics — confirm floor installati… | 3 | 12 | ACTIVE |
+| Glen Rose Drive — review financials | 3 | 13 | ACTIVE |
+| Evaluate investment opportunities — Charge… | 3 | 12 | RESEARCH |
+| Follow up with Redfin agent on Oak Forest … | 3 | 12 | ACTIVE |
+| Review Acrisure home insurance renewal | 3 | 12 | ACTIVE |
+| Bring labeled sunscreen to AJ's daycare | 3 | 12 | ACTIVE |
+| Property Medics: schedule return visit + s… | 3 | 12 | ACTIVE |
+| iOS app for family board — Yaa's plan | 3 | 12 | IDEA |
+| Board UI — external access via Tailscale o… | 2 | 12 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 2 | 12 | ACTIVE |
+| Pantry storage solutions — get dimensions … | 2 | 12 | ACTIVE |
+| Plan AJ's 2nd birthday party | 1 | 9 | ACTIVE |
+| Review Charge Express capital raise — deci… | 1 | 7 | ACTIVE |
