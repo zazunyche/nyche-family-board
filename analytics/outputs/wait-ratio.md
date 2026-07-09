@@ -1,4 +1,4 @@
-# Wait Ratio Report — Jul 8, 2026, 6:45 AM
+# Wait Ratio Report — Jul 8, 2026, 10:14 PM
 
 _42 of 43 tasks have usable stageHistory. Wait ratio = time in IDEA/RESEARCH ÷ total time tracked. Work stage = ACTIVE._
 
@@ -7,36 +7,36 @@ _42 of 43 tasks have usable stageHistory. Wait ratio = time in IDEA/RESEARCH ÷ 
 | Metric | Value |
 |--------|-------|
 | Tasks analyzed | 42 |
-| Average wait ratio | 45.9% |
-| Median wait ratio | 34.5% |
+| Average wait ratio | 46.1% |
+| Median wait ratio | 35.1% |
 
 ## Wait Ratio by Category
 
 | Category | n | Avg wait ratio | Median wait ratio |
 |----------|---|----------------|--------------------|
-| ADMIN | 12 | 44.5% | 20.7% |
-| FAMILY | 19 | 51.7% | 51.2% |
-| GOALS | 6 | 60.6% | 67.8% |
-| HOME | 5 | 9.5% | 12.1% |
+| ADMIN | 12 | 44.6% | 21.5% |
+| FAMILY | 19 | 52.2% | 53.7% |
+| GOALS | 6 | 60.4% | 67.5% |
+| HOME | 5 | 9.3% | 11.8% |
 
 ## DONE vs. Still-Open Tasks
 
 | Group | n | Avg wait ratio | Median wait ratio |
 |-------|---|----------------|--------------------|
-| DONE | 22 | 72.3% | 97.3% |
-| Still open | 20 | 16.8% | 2.2% |
+| DONE | 22 | 72.9% | 97.4% |
+| Still open | 20 | 16.7% | 2.2% |
 
 ## Highest Wait Ratio — Open Tasks (idle the longest relative to effort)
 
 | Task | Category | Stage | Wait Ratio | Total Tracked |
 |------|----------|-------|------------|----------------|
-| Evaluate investment opportunities — Charge… | GOALS | RESEARCH | 100% | 26.4d |
-| iOS app for family board — Yaa's plan | GOALS | IDEA | 100% | 23.4d |
-| Glen Rose Drive — review financials | GOALS | ACTIVE | 35.6% | 37.4d |
-| Follow up with Redfin agent on Oak Forest … | GOALS | ACTIVE | 23.3% | 31.4d |
-| Review Acrisure home insurance renewal | HOME | ACTIVE | 23.3% | 31.4d |
-| Bring labeled sunscreen to AJ's daycare | FAMILY | ACTIVE | 18.1% | 29.4d |
-| Property Medics — send furniture photos to… | HOME | ACTIVE | 12.1% | 27.4d |
-| Property Medics — confirm floor installati… | HOME | ACTIVE | 12.1% | 27.4d |
-| Plan AJ's 2nd birthday party | FAMILY | ACTIVE | 7.5% | 10.7d |
-| Board UI — external access via Tailscale o… | GOALS | ACTIVE | 4.5% | 23.5d |
+| Evaluate investment opportunities — Charge… | GOALS | RESEARCH | 100% | 27.1d |
+| iOS app for family board — Yaa's plan | GOALS | IDEA | 100% | 24.1d |
+| Glen Rose Drive — review financials | GOALS | ACTIVE | 35% | 38.1d |
+| Follow up with Redfin agent on Oak Forest … | GOALS | ACTIVE | 22.8% | 32.1d |
+| Review Acrisure home insurance renewal | HOME | ACTIVE | 22.8% | 32.1d |
+| Bring labeled sunscreen to AJ's daycare | FAMILY | ACTIVE | 17.7% | 30.1d |
+| Property Medics — send furniture photos to… | HOME | ACTIVE | 11.8% | 28.1d |
+| Property Medics — confirm floor installati… | HOME | ACTIVE | 11.8% | 28.1d |
+| Plan AJ's 2nd birthday party | FAMILY | ACTIVE | 7.1% | 11.4d |
+| Board UI — external access via Tailscale o… | GOALS | ACTIVE | 4.4% | 24.1d |

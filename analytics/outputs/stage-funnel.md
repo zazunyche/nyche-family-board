@@ -1,4 +1,4 @@
-# Stage Funnel — Jul 8, 2026, 6:45 AM
+# Stage Funnel — Jul 8, 2026, 10:14 PM
 
 _43 total tasks_
 
@@ -50,22 +50,23 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **61%** of done tasks_
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Property Medics — send furniture photos to… | 3 | 14 | ACTIVE |
-| Property Medics — confirm floor installati… | 3 | 14 | ACTIVE |
-| Glen Rose Drive — review financials | 3 | 15 | ACTIVE |
-| Evaluate investment opportunities — Charge… | 3 | 14 | RESEARCH |
-| Follow up with Redfin agent on Oak Forest … | 3 | 14 | ACTIVE |
-| Review Acrisure home insurance renewal | 3 | 14 | ACTIVE |
-| Bring labeled sunscreen to AJ's daycare | 3 | 14 | ACTIVE |
-| Property Medics: schedule return visit + s… | 3 | 14 | ACTIVE |
-| Board UI — external access via Tailscale o… | 3 | 14 | ACTIVE |
-| 15 Sigourney — follow up with neighbor on … | 3 | 14 | ACTIVE |
-| iOS app for family board — Yaa's plan | 3 | 14 | IDEA |
-| Pantry storage solutions — get dimensions … | 2 | 14 | ACTIVE |
-| Plan AJ's 2nd birthday party | 1 | 11 | ACTIVE |
-| Review Charge Express capital raise — deci… | 1 | 9 | ACTIVE |
-| Attend AJ's Red White & Blue Parade at Pri… | 1 | 9 | ACTIVE |
-| Plan childcare — Primrose closed July 3 (h… | 1 | 8 | ACTIVE |
-| Plan childcare — Primrose closed July 30-3… | 1 | 7 | ACTIVE |
-| Attend Teacher Meet & Greet at Primrose Br… | 1 | 7 | ACTIVE |
-| AJ wears BLUE — Ally's Birthday at Primros… | 1 | 7 | ACTIVE |
+| Property Medics — send furniture photos to… | 3 | 15 | ACTIVE |
+| Property Medics — confirm floor installati… | 3 | 15 | ACTIVE |
+| Glen Rose Drive — review financials | 3 | 16 | ACTIVE |
+| Evaluate investment opportunities — Charge… | 3 | 15 | RESEARCH |
+| Follow up with Redfin agent on Oak Forest … | 3 | 15 | ACTIVE |
+| Review Acrisure home insurance renewal | 3 | 15 | ACTIVE |
+| Bring labeled sunscreen to AJ's daycare | 3 | 15 | ACTIVE |
+| Property Medics: schedule return visit + s… | 3 | 15 | ACTIVE |
+| Board UI — external access via Tailscale o… | 3 | 15 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 3 | 15 | ACTIVE |
+| iOS app for family board — Yaa's plan | 3 | 15 | IDEA |
+| Pantry storage solutions — get dimensions … | 2 | 15 | ACTIVE |
+| Plan AJ's 2nd birthday party | 1 | 12 | ACTIVE |
+| Review Charge Express capital raise — deci… | 1 | 10 | ACTIVE |
+| Attend AJ's Red White & Blue Parade at Pri… | 1 | 10 | ACTIVE |
+| Plan childcare — Primrose closed July 3 (h… | 1 | 9 | ACTIVE |
+| Plan childcare — Primrose closed July 30-3… | 1 | 8 | ACTIVE |
+| Attend Teacher Meet & Greet at Primrose Br… | 1 | 8 | ACTIVE |
+| AJ wears BLUE — Ally's Birthday at Primros… | 1 | 8 | ACTIVE |
+| Check in with Ghana shippers — next shipme… | 1 | 7 | ACTIVE |
