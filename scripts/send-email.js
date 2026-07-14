@@ -38,7 +38,8 @@ const get = (flag) => {
 const to = get('--to');
 const cc = get('--cc');
 const subject = (get('--subject')[0] || '').trim();
-const body = get('--body').join('\n') || get('--text').join('\n');
+const bodyFile = get('--body-file')[0];
+const body = bodyFile ? fs.readFileSync(bodyFile, 'utf8') : (get('--body').join('\n') || get('--text').join('\n'));
 const html = get('--html')[0] || '';
 const attachPaths = get('--attach');
 
