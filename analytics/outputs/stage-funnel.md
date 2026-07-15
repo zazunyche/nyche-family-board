@@ -1,4 +1,4 @@
-# Stage Funnel — Jul 13, 2026, 6:45 AM
+# Stage Funnel — Jul 14, 2026, 6:45 AM
 
 _43 total tasks_
 
@@ -49,19 +49,19 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **63%** of done tasks_
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Glen Rose Drive — review financials | 5 | 21 | ACTIVE |
-| Follow up with Redfin agent on Oak Forest … | 5 | 20 | ACTIVE |
-| Review Acrisure home insurance renewal | 5 | 20 | ACTIVE |
-| Property Medics — send furniture photos to… | 4 | 20 | ACTIVE |
-| Property Medics — confirm floor installati… | 4 | 20 | ACTIVE |
-| Evaluate investment opportunities — Charge… | 4 | 20 | RESEARCH |
-| Property Medics: schedule return visit + s… | 4 | 20 | ACTIVE |
-| iOS app for family board — Yaa's plan | 4 | 20 | ACTIVE |
-| 15 Sigourney — follow up with neighbor on … | 3 | 20 | ACTIVE |
-| Pantry storage solutions — get dimensions … | 3 | 20 | ACTIVE |
-| Plan AJ's 2nd birthday party | 2 | 17 | ACTIVE |
-| Review Charge Express capital raise — deci… | 2 | 15 | ACTIVE |
-| Plan childcare — Primrose closed July 30-3… | 1 | 13 | ACTIVE |
-| Attend Teacher Meet & Greet at Primrose Br… | 1 | 13 | ACTIVE |
-| AJ wears BLUE — Ally's Birthday at Primros… | 1 | 13 | ACTIVE |
-| Check in with Ghana shippers — next shipme… | 1 | 12 | ACTIVE |
+| Glen Rose Drive — review financials | 5 | 22 | ACTIVE |
+| Follow up with Redfin agent on Oak Forest … | 5 | 21 | ACTIVE |
+| Review Acrisure home insurance renewal | 5 | 21 | ACTIVE |
+| Property Medics — send furniture photos to… | 4 | 21 | ACTIVE |
+| Property Medics — confirm floor installati… | 4 | 21 | ACTIVE |
+| Evaluate investment opportunities — Charge… | 4 | 21 | RESEARCH |
+| Property Medics: schedule return visit + s… | 4 | 21 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 4 | 21 | ACTIVE |
+| iOS app for family board — Yaa's plan | 4 | 21 | ACTIVE |
+| Pantry storage solutions — get dimensions … | 3 | 21 | ACTIVE |
+| Plan AJ's 2nd birthday party | 2 | 18 | ACTIVE |
+| Review Charge Express capital raise — deci… | 2 | 16 | ACTIVE |
+| Plan childcare — Primrose closed July 30-3… | 1 | 14 | ACTIVE |
+| Attend Teacher Meet & Greet at Primrose Br… | 1 | 14 | ACTIVE |
+| AJ wears BLUE — Ally's Birthday at Primros… | 1 | 14 | ACTIVE |
+| Check in with Ghana shippers — next shipme… | 1 | 13 | ACTIVE |
