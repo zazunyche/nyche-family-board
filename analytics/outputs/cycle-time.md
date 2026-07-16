@@ -1,4 +1,4 @@
-# Cycle Time Report — Jul 14, 2026, 6:45 AM
+# Cycle Time Report — Jul 15, 2026, 6:45 AM
 
 _27 completed tasks analyzed. 16 active tasks (age shown)._
 
@@ -44,22 +44,22 @@ _27 completed tasks analyzed. 16 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Glen Rose Drive — review financials | GOALS | DAD | ACTIVE | 43.4d | M |
-| Follow up with Redfin agent on Oak Forest … | GOALS | DAD | ACTIVE | 37.4d | M |
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 37.4d | M |
-| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 33.4d | L |
-| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 33.4d | L |
-| Evaluate investment opportunities — Charge… | GOALS | DAD | RESEARCH | 32.4d | L |
-| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 29.6d | L |
-| iOS app for family board — Yaa's plan | GOALS | DAD | ACTIVE | 29.4d | XL |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 28.3d | M |
-| Pantry storage solutions — get dimensions … | HOME | DAD | ACTIVE | 24.6d | L |
-| Plan AJ's 2nd birthday party | FAMILY | MOM | ACTIVE | 16.7d | L |
-| Review Charge Express capital raise — deci… | ADMIN | BOTH | ACTIVE | 15.6d | M |
-| Plan childcare — Primrose closed July 30-3… | FAMILY | BOTH | ACTIVE | 13.5d | S |
-| Attend Teacher Meet & Greet at Primrose Br… | FAMILY | BOTH | ACTIVE | 13.5d | XS |
-| AJ wears BLUE — Ally's Birthday at Primros… | FAMILY | BOTH | ACTIVE | 13.5d | XS |
-| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 12.7d | — |
+| Glen Rose Drive — review financials | GOALS | DAD | ACTIVE | 44.4d | M |
+| Follow up with Redfin agent on Oak Forest … | GOALS | DAD | ACTIVE | 38.4d | M |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 38.4d | M |
+| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 34.4d | L |
+| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 34.4d | L |
+| Evaluate investment opportunities — Charge… | GOALS | DAD | RESEARCH | 33.4d | L |
+| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 30.6d | L |
+| iOS app for family board — Yaa's plan | GOALS | DAD | ACTIVE | 30.4d | XL |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 29.3d | M |
+| Pantry storage solutions — get dimensions … | HOME | DAD | ACTIVE | 25.6d | L |
+| Plan AJ's 2nd birthday party | FAMILY | MOM | ACTIVE | 17.7d | L |
+| Review Charge Express capital raise — deci… | ADMIN | BOTH | ACTIVE | 16.6d | M |
+| Plan childcare — Primrose closed July 30-3… | FAMILY | BOTH | ACTIVE | 14.5d | S |
+| Attend Teacher Meet & Greet at Primrose Br… | FAMILY | BOTH | ACTIVE | 14.5d | XS |
+| AJ wears BLUE — Ally's Birthday at Primros… | FAMILY | BOTH | ACTIVE | 14.5d | XS |
+| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 13.7d | — |
 
 ## Stage Dwell Time (tasks with stageHistory)
 
