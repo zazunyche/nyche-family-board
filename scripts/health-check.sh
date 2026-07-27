@@ -189,6 +189,35 @@ for idx in "${!EXPECTED_LOGS[@]}"; do
   fi
 done
 
+# ── 6. Zazu iMessage session (claude-imessage tmux) ──────────────────────────
+# If the tmux session is gone, Zazu is completely offline (not just degraded).
+# launchd's KeepAlive=true should auto-restart it, but repeated auth failures
+# can put it into a crash-restart loop where it never stays up. We alert so
+# Dad knows to run /login remotely (via Tailscale) rather than discovering
+# the outage by noticing Zazu went silent.
+ZAZU_SESSION="claude-imessage"
+if /opt/homebrew/bin/tmux has-session -t "$ZAZU_SESSION" 2>/dev/null; then
+  log_ts "CHECK PASS: claude-imessage tmux session is running" "$HEALTH_LOG"
+  # Secondary: check stderr log for auth/login errors in the last 30 minutes
+  ZAZU_STDERR="/tmp/zazu.stderr.log"
+  if [ -f "$ZAZU_STDERR" ]; then
+    RECENT_AUTH_ERR=$(find "$ZAZU_STDERR" -newer /tmp -prune -o -print 2>/dev/null; \
+      awk -v cutoff="$(date -v-30M +%s 2>/dev/null || date -d '30 minutes ago' +%s 2>/dev/null || echo 0)" \
+      'BEGIN{found=0} /not logged in|login required|authentication|Unauthorized|401/{found=1} END{print found}' \
+      "$ZAZU_STDERR" 2>/dev/null || echo "0")
+    if [ "$RECENT_AUTH_ERR" = "1" ]; then
+      MSG="Zazu session running but auth errors detected in stderr — may need /login soon"
+      log_ts "CHECK WARN: $MSG" "$HEALTH_LOG"
+      ESCALATE_ISSUES+=("$MSG")
+    fi
+  fi
+else
+  MSG="claude-imessage tmux session is NOT running — Zazu is completely offline"
+  log_ts "CHECK FAIL: $MSG" "$HEALTH_LOG"
+  log_ts "  launchd KeepAlive should restart it; if this alert repeats, SSH in and run: claude login" "$HEALTH_LOG"
+  ESCALATE_ISSUES+=("$MSG — launchd should auto-restart within seconds; if this alert repeats, SSH in and run 'claude login'")
+fi
+
 # ── Summary and alert ─────────────────────────────────────────────────────────
 FIXED_COUNT=${#FIXED_ISSUES[@]}
 ESCALATE_COUNT=${#ESCALATE_ISSUES[@]}
