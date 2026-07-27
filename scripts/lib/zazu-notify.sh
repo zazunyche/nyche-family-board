@@ -26,6 +26,46 @@
 # If it is not set yet, we fall back to a sentinel so alert_failure still works.
 : "${DAD_NUMBER:=UNCONFIGURED}"
 
+# ── Deduplication ─────────────────────────────────────────────────────────────
+# Prevent the same message from being sent to the same recipient more than once
+# within a 30-minute window. This guards against scheduler restarts, crash loops,
+# and concurrent invocations that would otherwise spam identical content.
+#
+# Strategy: one marker file per (recipient, content) hash in /tmp/zazu-dedup/.
+# touch() is atomic on macOS so no lock file is needed. Markers older than
+# 30 minutes are pruned on each successful send.
+DEDUP_DIR="/tmp/zazu-dedup"
+DEDUP_WINDOW_SECS=1800  # 30 minutes
+
+# Returns 0 (duplicate, skip) or 1 (not a duplicate, proceed).
+_dedup_check() {
+  local hash="$1"
+  local mark="$DEDUP_DIR/$hash"
+  [[ -d "$DEDUP_DIR" ]] || return 1
+  [[ -f "$mark" ]] || return 1
+  local file_ts
+  file_ts=$(stat -f %m "$mark" 2>/dev/null || stat -c %Y "$mark" 2>/dev/null || echo 0)
+  local age=$(( $(date +%s) - file_ts ))
+  [[ $age -lt $DEDUP_WINDOW_SECS ]]
+}
+
+# Records a successful send so future calls within the window are suppressed.
+_dedup_record() {
+  local hash="$1"
+  mkdir -p "$DEDUP_DIR" 2>/dev/null || true
+  touch "$DEDUP_DIR/$hash" 2>/dev/null || true
+  # Prune stale markers (older than window) to keep the dir small
+  find "$DEDUP_DIR" -maxdepth 1 -type f -mmin +30 -delete 2>/dev/null || true
+}
+
+# Compute a short hash from recipient + message content.
+_dedup_hash() {
+  local phone="$1"
+  local message="$2"
+  # shasum is POSIX-available on macOS; take first 16 hex chars (64-bit) — sufficient for dedup
+  printf '%s|%s' "$phone" "$message" | /usr/bin/shasum 2>/dev/null | cut -c1-16 || echo ""
+}
+
 # ── log_ts ────────────────────────────────────────────────────────────────────
 # Usage: log_ts "message" /path/to/logfile
 log_ts() {
@@ -47,6 +87,18 @@ send_imessage() {
   local phone="$1"
   local message="$2"
   local _is_retry="${3:-0}"  # internal: 1 = already restarted Messages once
+
+  # ── Deduplication guard ───────────────────────────────────────────────────
+  # Skip if identical content was sent to this recipient within the last 30 min.
+  # Only apply on the first attempt (_is_retry=0) — retries are deliberate.
+  if [[ "$_is_retry" == "0" ]]; then
+    local _dedup_h
+    _dedup_h=$(_dedup_hash "$phone" "$message")
+    if [[ -n "$_dedup_h" ]] && _dedup_check "$_dedup_h"; then
+      echo "deduped"
+      return 0
+    fi
+  fi
 
   # Write message to a temp file to safely handle special characters, quotes, etc.
   local tmp
@@ -93,6 +145,13 @@ OSASCRIPT
     fi
   fi
 
+  # Record a successful send so the dedup guard can suppress duplicates within the window
+  if [[ $exit_code -eq 0 && "$result" == *"sent"* ]]; then
+    local _rec_hash
+    _rec_hash=$(_dedup_hash "$phone" "$message")
+    [[ -n "$_rec_hash" ]] && _dedup_record "$_rec_hash" || true
+  fi
+
   echo "$result"
   return $exit_code
 }
@@ -106,6 +165,12 @@ check_imessage_result() {
   local result="$1"
   local description="$2"
   local logfile="${3:-}"
+
+  if [[ "$result" == *"deduped"* ]]; then
+    # Identical content sent to this recipient within the last 30 min — suppressed.
+    log_ts "INFO: iMessage suppressed (duplicate within 30 min window) for [$description]" "$logfile"
+    return 0
+  fi
 
   if [[ "$result" == *"ambiguous-1712"* ]]; then
     # AppleEvent timed out — message was probably queued and sent by Messages before
@@ -162,7 +227,9 @@ Check logs at: $BOARD_DIR/logs/"
   if [[ "$DAD_NUMBER" != "UNCONFIGURED" ]]; then
     local alert_result
     alert_result=$(send_imessage "$DAD_NUMBER" "$alert_msg" 2>&1) || true
-    if [[ "$alert_result" != *"sent"* ]]; then
+    if [[ "$alert_result" == *"deduped"* ]]; then
+      log_ts "INFO: Failure alert suppressed — identical alert sent within last 30 min" "$logfile"
+    elif [[ "$alert_result" != *"sent"* ]]; then
       log_ts "WARNING: Could not send failure alert via iMessage: $alert_result" "$logfile"
     else
       log_ts "Failure alert sent to Dad via iMessage" "$logfile"
