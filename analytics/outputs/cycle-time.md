@@ -1,4 +1,4 @@
-# Cycle Time Report — Aug 1, 2026, 6:45 AM
+# Cycle Time Report — Aug 2, 2026, 6:45 AM
 
 _27 completed tasks analyzed. 21 active tasks (age shown)._
 
@@ -44,27 +44,27 @@ _27 completed tasks analyzed. 21 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Glen Rose Drive — review financials | GOALS | DAD | ACTIVE | 61.4d | M |
-| Follow up with Redfin agent on Oak Forest … | GOALS | DAD | ACTIVE | 55.4d | M |
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 55.4d | M |
-| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 51.4d | L |
-| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 51.4d | L |
-| Evaluate investment opportunities — Charge… | GOALS | DAD | RESEARCH | 50.4d | L |
-| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 47.5d | L |
-| iOS app for family board — Yaa's plan | GOALS | DAD | ACTIVE | 47.4d | XL |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 46.3d | M |
-| Pantry storage solutions — get dimensions … | HOME | DAD | ACTIVE | 42.6d | L |
-| Plan AJ's 2nd birthday party | FAMILY | MOM | ACTIVE | 34.7d | L |
-| Review Charge Express capital raise — deci… | ADMIN | BOTH | ACTIVE | 33.6d | M |
-| Plan childcare — Primrose closed July 30-3… | FAMILY | BOTH | ACTIVE | 31.5d | S |
-| Attend Teacher Meet & Greet at Primrose Br… | FAMILY | BOTH | ACTIVE | 31.5d | XS |
-| AJ wears BLUE — Ally's Birthday at Primros… | FAMILY | BOTH | ACTIVE | 31.5d | XS |
-| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 30.7d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | ACTIVE | 5.3d | — |
-| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 5.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 5.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 5.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 5.3d | — |
+| Glen Rose Drive — review financials | GOALS | DAD | ACTIVE | 62.4d | M |
+| Follow up with Redfin agent on Oak Forest … | GOALS | DAD | ACTIVE | 56.4d | M |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 56.4d | M |
+| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 52.4d | L |
+| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 52.4d | L |
+| Evaluate investment opportunities — Charge… | GOALS | DAD | RESEARCH | 51.4d | L |
+| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 48.6d | L |
+| iOS app for family board — Yaa's plan | GOALS | DAD | ACTIVE | 48.4d | XL |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 47.3d | M |
+| Pantry storage solutions — get dimensions … | HOME | DAD | ACTIVE | 43.6d | L |
+| Plan AJ's 2nd birthday party | FAMILY | MOM | ACTIVE | 35.7d | L |
+| Review Charge Express capital raise — deci… | ADMIN | BOTH | ACTIVE | 34.6d | M |
+| Plan childcare — Primrose closed July 30-3… | FAMILY | BOTH | ACTIVE | 32.5d | S |
+| Attend Teacher Meet & Greet at Primrose Br… | FAMILY | BOTH | ACTIVE | 32.5d | XS |
+| AJ wears BLUE — Ally's Birthday at Primros… | FAMILY | BOTH | ACTIVE | 32.5d | XS |
+| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 31.7d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | ACTIVE | 6.3d | — |
+| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 6.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 6.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 6.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 6.3d | — |
 
 ## Stage Dwell Time (tasks with stageHistory)
 
