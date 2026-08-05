@@ -1,4 +1,4 @@
-# Stage Funnel — Aug 3, 2026, 6:45 AM
+# Stage Funnel — Aug 4, 2026, 6:45 AM
 
 _48 total tasks_
 
@@ -49,24 +49,24 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **63%** of done tasks_
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Property Medics — send furniture photos to… | 5 | 38 | ACTIVE |
-| Property Medics — confirm floor installati… | 5 | 38 | ACTIVE |
-| Glen Rose Drive — review financials | 5 | 39 | ACTIVE |
-| Evaluate investment opportunities — Charge… | 5 | 38 | RESEARCH |
-| Follow up with Redfin agent on Oak Forest … | 5 | 38 | ACTIVE |
-| Review Acrisure home insurance renewal | 5 | 38 | ACTIVE |
-| Property Medics: schedule return visit + s… | 5 | 38 | ACTIVE |
-| 15 Sigourney — follow up with neighbor on … | 5 | 38 | ACTIVE |
-| iOS app for family board — Yaa's plan | 5 | 38 | ACTIVE |
-| Pantry storage solutions — get dimensions … | 5 | 38 | ACTIVE |
-| Plan AJ's 2nd birthday party | 5 | 35 | ACTIVE |
-| Review Charge Express capital raise — deci… | 5 | 33 | ACTIVE |
-| Plan childcare — Primrose closed July 30-3… | 4 | 31 | ACTIVE |
-| Attend Teacher Meet & Greet at Primrose Br… | 4 | 31 | ACTIVE |
-| AJ wears BLUE — Ally's Birthday at Primros… | 4 | 31 | ACTIVE |
-| Check in with Ghana shippers — next shipme… | 4 | 30 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 1 | 7 | ACTIVE |
-| Renew British passport — Dad | 1 | 7 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 1 | 7 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 1 | 7 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 1 | 7 | IDEA |
+| Property Medics — send furniture photos to… | 5 | 39 | ACTIVE |
+| Property Medics — confirm floor installati… | 5 | 39 | ACTIVE |
+| Glen Rose Drive — review financials | 5 | 40 | ACTIVE |
+| Evaluate investment opportunities — Charge… | 5 | 39 | RESEARCH |
+| Follow up with Redfin agent on Oak Forest … | 5 | 39 | ACTIVE |
+| Review Acrisure home insurance renewal | 5 | 39 | ACTIVE |
+| Property Medics: schedule return visit + s… | 5 | 39 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 5 | 39 | ACTIVE |
+| iOS app for family board — Yaa's plan | 5 | 39 | ACTIVE |
+| Pantry storage solutions — get dimensions … | 5 | 39 | ACTIVE |
+| Plan AJ's 2nd birthday party | 5 | 36 | ACTIVE |
+| Review Charge Express capital raise — deci… | 5 | 34 | ACTIVE |
+| Plan childcare — Primrose closed July 30-3… | 4 | 32 | ACTIVE |
+| Attend Teacher Meet & Greet at Primrose Br… | 4 | 32 | ACTIVE |
+| AJ wears BLUE — Ally's Birthday at Primros… | 4 | 32 | ACTIVE |
+| Check in with Ghana shippers — next shipme… | 4 | 31 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 1 | 8 | ACTIVE |
+| Renew British passport — Dad | 1 | 8 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 1 | 8 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 1 | 8 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 1 | 8 | IDEA |
