@@ -1,4 +1,4 @@
-# Stage Funnel — Aug 6, 2026, 6:45 AM
+# Stage Funnel — Aug 7, 2026, 6:45 AM
 
 _48 total tasks_
 
@@ -8,31 +8,31 @@ _48 total tasks_
 |-------|-------|------------|
 | IDEA | 3 | 6% |
 | RESEARCH | 1 | 2% |
-| ACTIVE | 17 | 35% |
-| DONE | 27 | 56% |
+| ACTIVE | 12 | 25% |
+| DONE | 32 | 67% |
 
 ## Funnel Conversion (top-of-funnel → done)
 
 - IDEA → moved forward: **94%** (45/48)
 - Entered ACTIVE or DONE: **92%** (44/48)
-- Reached DONE: **56%** (27/48)
-- ACTIVE → DONE (of those that went ACTIVE): **61%** (27/44)
+- Reached DONE: **67%** (32/48)
+- ACTIVE → DONE (of those that went ACTIVE): **73%** (32/44)
 
 ## Stage Distribution by Category
 
 | Category | IDEA | RESEARCH | ACTIVE | DONE | Total | Done% |
 |----------|------|----------|--------|------|-------|-------|
 | ADMIN | 3 | 0 | 5 | 9 | 17 | 53% |
-| FAMILY | 0 | 0 | 4 | 15 | 19 | 79% |
-| GOALS | 0 | 1 | 3 | 2 | 6 | 33% |
-| HOME | 0 | 0 | 5 | 1 | 6 | 17% |
+| FAMILY | 0 | 0 | 1 | 18 | 19 | 95% |
+| GOALS | 0 | 1 | 2 | 3 | 6 | 50% |
+| HOME | 0 | 0 | 4 | 2 | 6 | 33% |
 
 ## Stage Distribution by Owner
 
 | Owner | IDEA | RESEARCH | ACTIVE | DONE | Total | Done% |
 |-------|------|----------|--------|------|-------|-------|
-| BOTH | 0 | 0 | 4 | 10 | 14 | 71% |
-| DAD | 3 | 1 | 10 | 9 | 23 | 39% |
+| BOTH | 0 | 0 | 1 | 13 | 14 | 93% |
+| DAD | 3 | 1 | 8 | 11 | 23 | 48% |
 | MOM | 0 | 0 | 3 | 2 | 5 | 40% |
 | ZAZU | 0 | 0 | 0 | 6 | 6 | 100% |
 
@@ -40,33 +40,28 @@ _48 total tasks_
 
 | Quality | Count | % of done |
 |---------|-------|-----------|
-| FULL | 17 | 63% |
-| PARTIAL | 1 | 4% |
+| FULL | 17 | 53% |
+| PARTIAL | 1 | 3% |
 
-_Genuine completion rate (FULL + DELEGATED_OUT): **63%** of done tasks_
+_Genuine completion rate (FULL + DELEGATED_OUT): **53%** of done tasks_
 
 ## Resistance Signals (non-zero resistanceScore)
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Property Medics — send furniture photos to… | 5 | 41 | ACTIVE |
-| Property Medics — confirm floor installati… | 5 | 41 | ACTIVE |
-| Glen Rose Drive — review financials | 5 | 42 | ACTIVE |
-| Evaluate investment opportunities — Charge… | 5 | 41 | RESEARCH |
-| Follow up with Redfin agent on Oak Forest … | 5 | 41 | ACTIVE |
-| Review Acrisure home insurance renewal | 5 | 41 | ACTIVE |
-| Property Medics: schedule return visit + s… | 5 | 41 | ACTIVE |
-| 15 Sigourney — follow up with neighbor on … | 5 | 41 | ACTIVE |
-| iOS app for family board — Yaa's plan | 5 | 41 | ACTIVE |
-| Pantry storage solutions — get dimensions … | 5 | 41 | ACTIVE |
-| Plan AJ's 2nd birthday party | 5 | 38 | ACTIVE |
-| Review Charge Express capital raise — deci… | 5 | 36 | ACTIVE |
-| Plan childcare — Primrose closed July 30-3… | 5 | 34 | ACTIVE |
-| Attend Teacher Meet & Greet at Primrose Br… | 5 | 34 | ACTIVE |
-| AJ wears BLUE — Ally's Birthday at Primros… | 5 | 34 | ACTIVE |
-| Check in with Ghana shippers — next shipme… | 5 | 33 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 1 | 10 | ACTIVE |
-| Renew British passport — Dad | 1 | 10 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 1 | 10 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 1 | 10 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 1 | 10 | IDEA |
+| Property Medics — send furniture photos to… | 5 | 42 | ACTIVE |
+| Property Medics — confirm floor installati… | 5 | 42 | ACTIVE |
+| Glen Rose Drive — review financials | 5 | 43 | ACTIVE |
+| Evaluate investment opportunities — Charge… | 5 | 42 | RESEARCH |
+| Follow up with Redfin agent on Oak Forest … | 5 | 42 | ACTIVE |
+| Review Acrisure home insurance renewal | 5 | 42 | ACTIVE |
+| Property Medics: schedule return visit + s… | 5 | 42 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 5 | 42 | ACTIVE |
+| Plan AJ's 2nd birthday party | 5 | 39 | ACTIVE |
+| Review Charge Express capital raise — deci… | 5 | 37 | ACTIVE |
+| Check in with Ghana shippers — next shipme… | 5 | 34 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 1 | 11 | ACTIVE |
+| Renew British passport — Dad | 1 | 11 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 1 | 11 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 1 | 11 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 1 | 11 | IDEA |

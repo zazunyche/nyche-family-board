@@ -1,31 +1,31 @@
-# Cycle Time Report — Aug 6, 2026, 6:45 AM
+# Cycle Time Report — Aug 7, 2026, 6:45 AM
 
-_27 completed tasks analyzed. 21 active tasks (age shown)._
+_32 completed tasks analyzed. 16 active tasks (age shown)._
 
 ## Overall Lead Time (creation → done)
 
 | Metric | Value |
 |--------|-------|
-| Completed tasks | 27 |
-| Median | 5.2d |
+| Completed tasks | 32 |
+| Median | 10.6d |
 | Min    | 0d |
-| Max    | 33.6d |
+| Max    | 52.5d |
 
 ## Lead Time by Category (completed tasks)
 
 | Category | n | Median | Min | Max |
 |----------|---|--------|-----|-----|
 | ADMIN | 9 | 0.3d | 0d | 13.8d |
-| FAMILY | 15 | 11d | 0.2d | 33.6d |
-| GOALS | 2 | 15.3d | 3d | 27.6d |
-| HOME | 1 | 0d | 0d | 0d |
+| FAMILY | 18 | 12.7d | 0.2d | 36.6d |
+| GOALS | 3 | 27.6d | 3d | 52.5d |
+| HOME | 2 | 23.8d | 0d | 47.6d |
 
 ## Lead Time by Owner (completed tasks)
 
 | Owner | n | Median | Min | Max |
 |-------|---|--------|-----|-----|
-| BOTH | 10 | 12.7d | 0.2d | 33.6d |
-| DAD | 9 | 11d | 0d | 27.6d |
+| BOTH | 13 | 14.5d | 0.2d | 36.6d |
+| DAD | 11 | 12d | 0d | 52.5d |
 | MOM | 2 | 2.9d | 0.2d | 5.7d |
 | ZAZU | 6 | 0.2d | 0d | 0.4d |
 
@@ -33,38 +33,33 @@ _27 completed tasks analyzed. 21 active tasks (age shown)._
 
 | Type | n | Median | Min | Max |
 |------|---|--------|-----|-----|
-| DECISION | 1 | 12.2d | 12.2d | 12.2d |
+| DECISION | 2 | 24.4d | 12.2d | 36.6d |
 | ERRAND | 12 | 5.4d | 0.2d | 33.6d |
-| EVENT | 1 | 13.2d | 13.2d | 13.2d |
+| EVENT | 3 | 36.6d | 13.2d | 36.6d |
 | MAINTENANCE | 1 | 15.5d | 15.5d | 15.5d |
-| PROJECT | 8 | 0.2d | 0d | 27.6d |
-| RESEARCH | 4 | 8.4d | 0.3d | 14.5d |
+| PROJECT | 9 | 0.3d | 0d | 52.5d |
+| RESEARCH | 5 | 13.8d | 0.3d | 47.6d |
 
 ## Active Task Age (oldest first)
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Glen Rose Drive — review financials | GOALS | DAD | ACTIVE | 66.4d | M |
-| Follow up with Redfin agent on Oak Forest … | GOALS | DAD | ACTIVE | 60.4d | M |
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 60.4d | M |
-| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 56.4d | L |
-| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 56.4d | L |
-| Evaluate investment opportunities — Charge… | GOALS | DAD | RESEARCH | 55.4d | L |
-| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 52.6d | L |
-| iOS app for family board — Yaa's plan | GOALS | DAD | ACTIVE | 52.4d | XL |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 51.3d | M |
-| Pantry storage solutions — get dimensions … | HOME | DAD | ACTIVE | 47.6d | L |
-| Plan AJ's 2nd birthday party | FAMILY | MOM | ACTIVE | 39.7d | L |
-| Review Charge Express capital raise — deci… | ADMIN | BOTH | ACTIVE | 38.6d | M |
-| Plan childcare — Primrose closed July 30-3… | FAMILY | BOTH | ACTIVE | 36.5d | S |
-| Attend Teacher Meet & Greet at Primrose Br… | FAMILY | BOTH | ACTIVE | 36.5d | XS |
-| AJ wears BLUE — Ally's Birthday at Primros… | FAMILY | BOTH | ACTIVE | 36.5d | XS |
-| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 35.7d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | ACTIVE | 10.3d | — |
-| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 10.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 10.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 10.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 10.3d | — |
+| Glen Rose Drive — review financials | GOALS | DAD | ACTIVE | 67.4d | M |
+| Follow up with Redfin agent on Oak Forest … | GOALS | DAD | ACTIVE | 61.4d | M |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 61.4d | M |
+| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 57.4d | L |
+| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 57.4d | L |
+| Evaluate investment opportunities — Charge… | GOALS | DAD | RESEARCH | 56.4d | L |
+| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 53.5d | L |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 52.3d | M |
+| Plan AJ's 2nd birthday party | FAMILY | MOM | ACTIVE | 40.7d | L |
+| Review Charge Express capital raise — deci… | ADMIN | BOTH | ACTIVE | 39.6d | M |
+| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 36.7d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | ACTIVE | 11.3d | — |
+| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 11.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 11.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 11.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 11.3d | — |
 
 ## Stage Dwell Time (tasks with stageHistory)
 
