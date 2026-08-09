@@ -1,4 +1,4 @@
-# Lead Time Report — Aug 7, 2026, 6:45 AM
+# Lead Time Report — Aug 8, 2026, 6:45 AM
 
 _32 completed tasks with valid timestamps. Median lead time: **10.6 days** (min 0d, max 52.5d)_
 
