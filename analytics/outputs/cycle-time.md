@@ -1,4 +1,4 @@
-# Cycle Time Report — Aug 9, 2026, 6:45 AM
+# Cycle Time Report — Aug 10, 2026, 6:45 AM
 
 _32 completed tasks analyzed. 16 active tasks (age shown)._
 
@@ -44,22 +44,22 @@ _32 completed tasks analyzed. 16 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Glen Rose Drive — review financials | GOALS | DAD | ACTIVE | 69.4d | M |
-| Follow up with Redfin agent on Oak Forest … | GOALS | DAD | ACTIVE | 63.4d | M |
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 63.4d | M |
-| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 59.4d | L |
-| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 59.4d | L |
-| Evaluate investment opportunities — Charge… | GOALS | DAD | RESEARCH | 58.4d | L |
-| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 55.5d | L |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 54.3d | M |
-| Plan AJ's 2nd birthday party | FAMILY | MOM | ACTIVE | 42.7d | L |
-| Review Charge Express capital raise — deci… | ADMIN | BOTH | ACTIVE | 41.6d | M |
-| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 38.7d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | ACTIVE | 13.3d | — |
-| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 13.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 13.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 13.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 13.3d | — |
+| Glen Rose Drive — review financials | GOALS | DAD | ACTIVE | 70.4d | M |
+| Follow up with Redfin agent on Oak Forest … | GOALS | DAD | ACTIVE | 64.4d | M |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 64.4d | M |
+| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 60.4d | L |
+| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 60.4d | L |
+| Evaluate investment opportunities — Charge… | GOALS | DAD | RESEARCH | 59.4d | L |
+| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 56.6d | L |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 55.3d | M |
+| Plan AJ's 2nd birthday party | FAMILY | MOM | ACTIVE | 43.7d | L |
+| Review Charge Express capital raise — deci… | ADMIN | BOTH | ACTIVE | 42.6d | M |
+| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 39.7d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | ACTIVE | 14.3d | — |
+| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 14.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 14.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 14.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 14.3d | — |
 
 ## Stage Dwell Time (tasks with stageHistory)
 
