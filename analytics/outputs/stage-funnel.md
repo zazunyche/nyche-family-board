@@ -1,4 +1,4 @@
-# Stage Funnel — Aug 10, 2026, 6:45 AM
+# Stage Funnel — Aug 11, 2026, 6:45 AM
 
 _48 total tasks_
 
@@ -49,19 +49,19 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **53%** of done tasks_
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Property Medics — send furniture photos to… | 5 | 45 | ACTIVE |
-| Property Medics — confirm floor installati… | 5 | 45 | ACTIVE |
-| Glen Rose Drive — review financials | 5 | 46 | ACTIVE |
-| Evaluate investment opportunities — Charge… | 5 | 45 | RESEARCH |
-| Follow up with Redfin agent on Oak Forest … | 5 | 45 | ACTIVE |
-| Review Acrisure home insurance renewal | 5 | 45 | ACTIVE |
-| Property Medics: schedule return visit + s… | 5 | 45 | ACTIVE |
-| 15 Sigourney — follow up with neighbor on … | 5 | 45 | ACTIVE |
-| Plan AJ's 2nd birthday party | 5 | 42 | ACTIVE |
-| Review Charge Express capital raise — deci… | 5 | 40 | ACTIVE |
-| Check in with Ghana shippers — next shipme… | 5 | 37 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 14 | ACTIVE |
-| Renew British passport — Dad | 2 | 14 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 14 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 14 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 14 | IDEA |
+| Property Medics — send furniture photos to… | 5 | 46 | ACTIVE |
+| Property Medics — confirm floor installati… | 5 | 46 | ACTIVE |
+| Glen Rose Drive — review financials | 5 | 47 | ACTIVE |
+| Evaluate investment opportunities — Charge… | 5 | 46 | RESEARCH |
+| Follow up with Redfin agent on Oak Forest … | 5 | 46 | ACTIVE |
+| Review Acrisure home insurance renewal | 5 | 46 | ACTIVE |
+| Property Medics: schedule return visit + s… | 5 | 46 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 5 | 46 | ACTIVE |
+| Plan AJ's 2nd birthday party | 5 | 43 | ACTIVE |
+| Review Charge Express capital raise — deci… | 5 | 41 | ACTIVE |
+| Check in with Ghana shippers — next shipme… | 5 | 38 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 15 | ACTIVE |
+| Renew British passport — Dad | 2 | 15 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 15 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 15 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 15 | IDEA |
