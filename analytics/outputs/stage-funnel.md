@@ -1,30 +1,30 @@
-# Stage Funnel — Aug 11, 2026, 6:45 AM
+# Stage Funnel — Aug 12, 2026, 6:45 AM
 
-_48 total tasks_
+_49 total tasks_
 
 ## Stage Distribution
 
 | Stage | Count | % of total |
 |-------|-------|------------|
 | IDEA | 3 | 6% |
-| RESEARCH | 1 | 2% |
-| ACTIVE | 12 | 25% |
-| DONE | 32 | 67% |
+| RESEARCH | 0 | 0% |
+| ACTIVE | 10 | 20% |
+| DONE | 36 | 73% |
 
 ## Funnel Conversion (top-of-funnel → done)
 
-- IDEA → moved forward: **94%** (45/48)
-- Entered ACTIVE or DONE: **92%** (44/48)
-- Reached DONE: **67%** (32/48)
-- ACTIVE → DONE (of those that went ACTIVE): **73%** (32/44)
+- IDEA → moved forward: **94%** (46/49)
+- Entered ACTIVE or DONE: **94%** (46/49)
+- Reached DONE: **73%** (36/49)
+- ACTIVE → DONE (of those that went ACTIVE): **78%** (36/46)
 
 ## Stage Distribution by Category
 
 | Category | IDEA | RESEARCH | ACTIVE | DONE | Total | Done% |
 |----------|------|----------|--------|------|-------|-------|
-| ADMIN | 3 | 0 | 5 | 9 | 17 | 53% |
-| FAMILY | 0 | 0 | 1 | 18 | 19 | 95% |
-| GOALS | 0 | 1 | 2 | 3 | 6 | 50% |
+| ADMIN | 3 | 0 | 5 | 10 | 18 | 56% |
+| FAMILY | 0 | 0 | 0 | 19 | 19 | 100% |
+| GOALS | 0 | 0 | 1 | 5 | 6 | 83% |
 | HOME | 0 | 0 | 4 | 2 | 6 | 33% |
 
 ## Stage Distribution by Owner
@@ -32,36 +32,33 @@ _48 total tasks_
 | Owner | IDEA | RESEARCH | ACTIVE | DONE | Total | Done% |
 |-------|------|----------|--------|------|-------|-------|
 | BOTH | 0 | 0 | 1 | 13 | 14 | 93% |
-| DAD | 3 | 1 | 8 | 11 | 23 | 48% |
-| MOM | 0 | 0 | 3 | 2 | 5 | 40% |
+| DAD | 3 | 0 | 7 | 14 | 24 | 58% |
+| MOM | 0 | 0 | 2 | 3 | 5 | 60% |
 | ZAZU | 0 | 0 | 0 | 6 | 6 | 100% |
 
 ## Completion Quality (DONE tasks)
 
 | Quality | Count | % of done |
 |---------|-------|-----------|
-| FULL | 17 | 53% |
+| FULL | 17 | 47% |
 | PARTIAL | 1 | 3% |
 
-_Genuine completion rate (FULL + DELEGATED_OUT): **53%** of done tasks_
+_Genuine completion rate (FULL + DELEGATED_OUT): **47%** of done tasks_
 
 ## Resistance Signals (non-zero resistanceScore)
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Property Medics — send furniture photos to… | 5 | 46 | ACTIVE |
-| Property Medics — confirm floor installati… | 5 | 46 | ACTIVE |
-| Glen Rose Drive — review financials | 5 | 47 | ACTIVE |
-| Evaluate investment opportunities — Charge… | 5 | 46 | RESEARCH |
-| Follow up with Redfin agent on Oak Forest … | 5 | 46 | ACTIVE |
-| Review Acrisure home insurance renewal | 5 | 46 | ACTIVE |
-| Property Medics: schedule return visit + s… | 5 | 46 | ACTIVE |
-| 15 Sigourney — follow up with neighbor on … | 5 | 46 | ACTIVE |
-| Plan AJ's 2nd birthday party | 5 | 43 | ACTIVE |
-| Review Charge Express capital raise — deci… | 5 | 41 | ACTIVE |
-| Check in with Ghana shippers — next shipme… | 5 | 38 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 15 | ACTIVE |
-| Renew British passport — Dad | 2 | 15 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 15 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 15 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 15 | IDEA |
+| Property Medics — send furniture photos to… | 5 | 47 | ACTIVE |
+| Property Medics — confirm floor installati… | 5 | 47 | ACTIVE |
+| Glen Rose Drive — review financials | 5 | 48 | ACTIVE |
+| Review Acrisure home insurance renewal | 5 | 47 | ACTIVE |
+| Property Medics: schedule return visit + s… | 5 | 47 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 5 | 47 | ACTIVE |
+| Review Charge Express capital raise — deci… | 5 | 42 | ACTIVE |
+| Check in with Ghana shippers — next shipme… | 5 | 39 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 16 | ACTIVE |
+| Renew British passport — Dad | 2 | 16 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 16 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 16 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 16 | IDEA |
