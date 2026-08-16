@@ -1,6 +1,6 @@
-# Lead Time Report — Aug 14, 2026, 6:45 AM
+# Lead Time Report — Aug 15, 2026, 6:45 AM
 
-_36 completed tasks with valid timestamps. Median lead time: **11.5 days** (min 0d, max 65.5d)_
+_38 completed tasks with valid timestamps. Median lead time: **12.1 days** (min 0d, max 74.5d)_
 
 ## Distribution
 
@@ -11,17 +11,17 @@ _36 completed tasks with valid timestamps. Median lead time: **11.5 days** (min 
 | 1-3 days | 4 ████ |
 | 3-7 days | 2 ██ |
 | 1-4 weeks | 11 ███████████ |
-| 1-3 months | 9 █████████ |
+| 1-3 months | 11 ███████████ |
 | 3+ months | 0  |
 
 ## Median Lead Time by Category
 
 | Category | Count | Median Days |
 |----------|-------|-------------|
-| GOALS | 5 | 52.5 |
+| GOALS | 6 | 56.5 |
 | HOME | 2 | 23.8 |
 | FAMILY | 19 | 13.2 |
-| ADMIN | 10 | 0.3 |
+| ADMIN | 11 | 0.3 |
 
 ## Notes
 

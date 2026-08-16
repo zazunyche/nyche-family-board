@@ -1,4 +1,4 @@
-# Stage Funnel — Aug 14, 2026, 6:45 AM
+# Stage Funnel — Aug 15, 2026, 6:45 AM
 
 _49 total tasks_
 
@@ -8,31 +8,31 @@ _49 total tasks_
 |-------|-------|------------|
 | IDEA | 3 | 6% |
 | RESEARCH | 0 | 0% |
-| ACTIVE | 10 | 20% |
-| DONE | 36 | 73% |
+| ACTIVE | 8 | 16% |
+| DONE | 38 | 78% |
 
 ## Funnel Conversion (top-of-funnel → done)
 
 - IDEA → moved forward: **94%** (46/49)
 - Entered ACTIVE or DONE: **94%** (46/49)
-- Reached DONE: **73%** (36/49)
-- ACTIVE → DONE (of those that went ACTIVE): **78%** (36/46)
+- Reached DONE: **78%** (38/49)
+- ACTIVE → DONE (of those that went ACTIVE): **83%** (38/46)
 
 ## Stage Distribution by Category
 
 | Category | IDEA | RESEARCH | ACTIVE | DONE | Total | Done% |
 |----------|------|----------|--------|------|-------|-------|
-| ADMIN | 3 | 0 | 5 | 10 | 18 | 56% |
+| ADMIN | 3 | 0 | 4 | 11 | 18 | 61% |
 | FAMILY | 0 | 0 | 0 | 19 | 19 | 100% |
-| GOALS | 0 | 0 | 1 | 5 | 6 | 83% |
+| GOALS | 0 | 0 | 0 | 6 | 6 | 100% |
 | HOME | 0 | 0 | 4 | 2 | 6 | 33% |
 
 ## Stage Distribution by Owner
 
 | Owner | IDEA | RESEARCH | ACTIVE | DONE | Total | Done% |
 |-------|------|----------|--------|------|-------|-------|
-| BOTH | 0 | 0 | 1 | 13 | 14 | 93% |
-| DAD | 3 | 0 | 7 | 14 | 24 | 58% |
+| BOTH | 0 | 0 | 0 | 14 | 14 | 100% |
+| DAD | 3 | 0 | 6 | 15 | 24 | 63% |
 | MOM | 0 | 0 | 2 | 3 | 5 | 60% |
 | ZAZU | 0 | 0 | 0 | 6 | 6 | 100% |
 
@@ -40,25 +40,23 @@ _49 total tasks_
 
 | Quality | Count | % of done |
 |---------|-------|-----------|
-| FULL | 17 | 47% |
+| FULL | 17 | 45% |
 | PARTIAL | 1 | 3% |
 
-_Genuine completion rate (FULL + DELEGATED_OUT): **47%** of done tasks_
+_Genuine completion rate (FULL + DELEGATED_OUT): **45%** of done tasks_
 
 ## Resistance Signals (non-zero resistanceScore)
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Property Medics — send furniture photos to… | 5 | 49 | ACTIVE |
-| Property Medics — confirm floor installati… | 5 | 49 | ACTIVE |
-| Glen Rose Drive — review financials | 5 | 50 | ACTIVE |
-| Review Acrisure home insurance renewal | 5 | 49 | ACTIVE |
-| Property Medics: schedule return visit + s… | 5 | 49 | ACTIVE |
-| 15 Sigourney — follow up with neighbor on … | 5 | 49 | ACTIVE |
-| Review Charge Express capital raise — deci… | 5 | 44 | ACTIVE |
-| Check in with Ghana shippers — next shipme… | 5 | 41 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 18 | ACTIVE |
-| Renew British passport — Dad | 2 | 18 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 18 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 18 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 18 | IDEA |
+| Property Medics — send furniture photos to… | 5 | 50 | ACTIVE |
+| Property Medics — confirm floor installati… | 5 | 50 | ACTIVE |
+| Review Acrisure home insurance renewal | 5 | 50 | ACTIVE |
+| Property Medics: schedule return visit + s… | 5 | 50 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 5 | 50 | ACTIVE |
+| Check in with Ghana shippers — next shipme… | 5 | 42 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 19 | ACTIVE |
+| Renew British passport — Dad | 2 | 19 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 19 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 19 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 2 | 19 | IDEA |
