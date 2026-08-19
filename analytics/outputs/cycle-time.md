@@ -1,4 +1,4 @@
-# Cycle Time Report — Aug 17, 2026, 6:45 AM
+# Cycle Time Report — Aug 18, 2026, 6:45 AM
 
 _38 completed tasks analyzed. 11 active tasks (age shown)._
 
@@ -44,17 +44,17 @@ _38 completed tasks analyzed. 11 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 71.4d | M |
-| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 67.4d | L |
-| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 67.4d | L |
-| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 63.6d | L |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 62.3d | M |
-| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 46.7d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | ACTIVE | 21.3d | — |
-| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 21.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 21.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 21.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 21.3d | — |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 72.4d | M |
+| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 68.4d | L |
+| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 68.4d | L |
+| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 64.6d | L |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 63.3d | M |
+| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 47.7d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | ACTIVE | 22.3d | — |
+| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 22.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 22.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 22.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 22.3d | — |
 
 ## Stage Dwell Time (tasks with stageHistory)
 
