@@ -1,4 +1,4 @@
-# Stage Funnel — Aug 28, 2026, 6:45 AM
+# Stage Funnel — Aug 29, 2026, 6:45 AM
 
 _52 total tasks_
 
@@ -49,14 +49,14 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **45%** of done tasks_
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Property Medics — send furniture photos to… | 5 | 63 | ACTIVE |
-| Property Medics — confirm floor installati… | 5 | 63 | ACTIVE |
-| Review Acrisure home insurance renewal | 5 | 63 | ACTIVE |
-| Property Medics: schedule return visit + s… | 5 | 63 | ACTIVE |
-| 15 Sigourney — follow up with neighbor on … | 5 | 63 | ACTIVE |
-| Check in with Ghana shippers — next shipme… | 5 | 55 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 4 | 32 | ACTIVE |
-| Renew British passport — Dad | 4 | 32 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 4 | 32 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 4 | 32 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 4 | 32 | IDEA |
+| Property Medics — send furniture photos to… | 5 | 64 | ACTIVE |
+| Property Medics — confirm floor installati… | 5 | 64 | ACTIVE |
+| Review Acrisure home insurance renewal | 5 | 64 | ACTIVE |
+| Property Medics: schedule return visit + s… | 5 | 64 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 5 | 64 | ACTIVE |
+| Check in with Ghana shippers — next shipme… | 5 | 56 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 4 | 33 | ACTIVE |
+| Renew British passport — Dad | 4 | 33 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 4 | 33 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 4 | 33 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 4 | 33 | IDEA |
