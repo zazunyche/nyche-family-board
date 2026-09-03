@@ -1,4 +1,4 @@
-# Stage Funnel — Sep 1, 2026, 6:45 AM
+# Stage Funnel — Sep 2, 2026, 6:45 AM
 
 _52 total tasks_
 
@@ -49,17 +49,17 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **45%** of done tasks_
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Property Medics — send furniture photos to… | 5 | 67 | ACTIVE |
-| Property Medics — confirm floor installati… | 5 | 67 | ACTIVE |
-| Review Acrisure home insurance renewal | 5 | 67 | ACTIVE |
-| Property Medics: schedule return visit + s… | 5 | 67 | ACTIVE |
-| 15 Sigourney — follow up with neighbor on … | 5 | 67 | ACTIVE |
-| Check in with Ghana shippers — next shipme… | 5 | 59 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 36 | ACTIVE |
-| Renew British passport — Dad | 5 | 36 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 36 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 36 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 36 | IDEA |
-| Book car rental for Aug 31 — confirm Canad… | 1 | 7 | ACTIVE |
-| Contact RI nanny agency — coverage for Oct… | 1 | 7 | ACTIVE |
-| Check Ghana nanny availability — Dec 14–Jan 9 | 1 | 7 | ACTIVE |
+| Property Medics — send furniture photos to… | 5 | 68 | ACTIVE |
+| Property Medics — confirm floor installati… | 5 | 68 | ACTIVE |
+| Review Acrisure home insurance renewal | 5 | 68 | ACTIVE |
+| Property Medics: schedule return visit + s… | 5 | 68 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 5 | 68 | ACTIVE |
+| Check in with Ghana shippers — next shipme… | 5 | 60 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 37 | ACTIVE |
+| Renew British passport — Dad | 5 | 37 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 37 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 37 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 37 | IDEA |
+| Book car rental for Aug 31 — confirm Canad… | 1 | 8 | ACTIVE |
+| Contact RI nanny agency — coverage for Oct… | 1 | 8 | ACTIVE |
+| Check Ghana nanny availability — Dec 14–Jan 9 | 1 | 8 | ACTIVE |
