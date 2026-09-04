@@ -1,4 +1,4 @@
-# Board Health — Sep 2, 2026, 6:45 AM
+# Board Health — Sep 3, 2026, 6:45 AM
 
 ## Summary
 
@@ -32,42 +32,42 @@
 
 | ID | Title | Due | Days Overdue | Owner |
 |----|-------|-----|-------------|-------|
-| t_l4rf88c | Book car rental for Aug 31 — confirm Canada drivin | 2026-08-29 | 4 | MOM |
+| t_l4rf88c | Book car rental for Aug 31 — confirm Canada drivin | 2026-08-29 | 5 | MOM |
 
 ## Stale Tasks — no update in 14+ days (11)
 
 | ID | Title | Stage | Age (days) | Owner |
 |----|-------|-------|-----------|-------|
-| t_propmed1 | Property Medics — send furniture photos to Nathan | ACTIVE | 83 | MOM |
-| t_propmed2 | Property Medics — confirm floor installation sched | ACTIVE | 83 | MOM |
-| t_insure01 | Review Acrisure home insurance renewal | ACTIVE | 87 | DAD |
-| t_6aj3ogq | Property Medics: schedule return visit + send gara | ACTIVE | 80 | DAD |
-| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | ACTIVE | 78 | DAD |
-| t_rhikfs3 | Check in with Ghana shippers — next shipment dates | ACTIVE | 63 | DAD |
-| t_u8smwu1 | Pay Texas Comptroller sales tax — Nyche LLC (Q3 20 | ACTIVE | 37 | DAD |
-| t_r1908t7 | Renew British passport — Dad | ACTIVE | 37 | DAD |
-| t_f7smuoh | Pay Texas Comptroller sales tax — Nyche LLC (Q4 20 | IDEA | 37 | DAD |
-| t_yxb8crl | Pay Texas Comptroller sales tax — Nyche LLC (Q1 20 | IDEA | 37 | DAD |
-| t_4i3duz1 | Pay Texas Comptroller sales tax — Nyche LLC (Q2 20 | IDEA | 37 | DAD |
+| t_propmed1 | Property Medics — send furniture photos to Nathan | ACTIVE | 84 | MOM |
+| t_propmed2 | Property Medics — confirm floor installation sched | ACTIVE | 84 | MOM |
+| t_insure01 | Review Acrisure home insurance renewal | ACTIVE | 88 | DAD |
+| t_6aj3ogq | Property Medics: schedule return visit + send gara | ACTIVE | 81 | DAD |
+| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | ACTIVE | 79 | DAD |
+| t_rhikfs3 | Check in with Ghana shippers — next shipment dates | ACTIVE | 64 | DAD |
+| t_u8smwu1 | Pay Texas Comptroller sales tax — Nyche LLC (Q3 20 | ACTIVE | 38 | DAD |
+| t_r1908t7 | Renew British passport — Dad | ACTIVE | 38 | DAD |
+| t_f7smuoh | Pay Texas Comptroller sales tax — Nyche LLC (Q4 20 | IDEA | 38 | DAD |
+| t_yxb8crl | Pay Texas Comptroller sales tax — Nyche LLC (Q1 20 | IDEA | 38 | DAD |
+| t_4i3duz1 | Pay Texas Comptroller sales tax — Nyche LLC (Q2 20 | IDEA | 38 | DAD |
 
 ## High Brief Count — briefed 3+ times with no completion (14)
 
 | ID | Title | Brief Count | Owner |
 |----|-------|-------------|-------|
-| t_propmed1 | Property Medics — send furniture photos to Nathan | 68 | MOM |
-| t_propmed2 | Property Medics — confirm floor installation sched | 68 | MOM |
-| t_insure01 | Review Acrisure home insurance renewal | 68 | DAD |
-| t_6aj3ogq | Property Medics: schedule return visit + send gara | 68 | DAD |
-| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | 68 | DAD |
-| t_rhikfs3 | Check in with Ghana shippers — next shipment dates | 60 | DAD |
-| t_u8smwu1 | Pay Texas Comptroller sales tax — Nyche LLC (Q3 20 | 37 | DAD |
-| t_r1908t7 | Renew British passport — Dad | 37 | DAD |
-| t_f7smuoh | Pay Texas Comptroller sales tax — Nyche LLC (Q4 20 | 37 | DAD |
-| t_yxb8crl | Pay Texas Comptroller sales tax — Nyche LLC (Q1 20 | 37 | DAD |
-| t_4i3duz1 | Pay Texas Comptroller sales tax — Nyche LLC (Q2 20 | 37 | DAD |
-| t_l4rf88c | Book car rental for Aug 31 — confirm Canada drivin | 8 | MOM |
-| t_2o46ktl | Contact RI nanny agency — coverage for Oct 1–3 (we | 8 | MOM |
-| t_7n4uaqd | Check Ghana nanny availability — Dec 14–Jan 9 | 8 | MOM |
+| t_propmed1 | Property Medics — send furniture photos to Nathan | 69 | MOM |
+| t_propmed2 | Property Medics — confirm floor installation sched | 69 | MOM |
+| t_insure01 | Review Acrisure home insurance renewal | 69 | DAD |
+| t_6aj3ogq | Property Medics: schedule return visit + send gara | 69 | DAD |
+| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | 69 | DAD |
+| t_rhikfs3 | Check in with Ghana shippers — next shipment dates | 61 | DAD |
+| t_u8smwu1 | Pay Texas Comptroller sales tax — Nyche LLC (Q3 20 | 38 | DAD |
+| t_r1908t7 | Renew British passport — Dad | 38 | DAD |
+| t_f7smuoh | Pay Texas Comptroller sales tax — Nyche LLC (Q4 20 | 38 | DAD |
+| t_yxb8crl | Pay Texas Comptroller sales tax — Nyche LLC (Q1 20 | 38 | DAD |
+| t_4i3duz1 | Pay Texas Comptroller sales tax — Nyche LLC (Q2 20 | 38 | DAD |
+| t_l4rf88c | Book car rental for Aug 31 — confirm Canada drivin | 9 | MOM |
+| t_2o46ktl | Contact RI nanny agency — coverage for Oct 1–3 (we | 9 | MOM |
+| t_7n4uaqd | Check Ghana nanny availability — Dec 14–Jan 9 | 9 | MOM |
 
 ## Data Quality (18 missing fields)
 
@@ -81,17 +81,17 @@
 
 | ID | Title | Score | Briefings | Owner |
 |----|-------|-------|-----------|-------|
-| t_propmed1 | Property Medics — send furniture photos to Nathan | 5/5 | 68 | MOM |
-| t_propmed2 | Property Medics — confirm floor installation sched | 5/5 | 68 | MOM |
-| t_insure01 | Review Acrisure home insurance renewal | 5/5 | 68 | DAD |
-| t_6aj3ogq | Property Medics: schedule return visit + send gara | 5/5 | 68 | DAD |
-| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | 5/5 | 68 | DAD |
-| t_rhikfs3 | Check in with Ghana shippers — next shipment dates | 5/5 | 60 | DAD |
-| t_u8smwu1 | Pay Texas Comptroller sales tax — Nyche LLC (Q3 20 | 5/5 | 37 | DAD |
-| t_r1908t7 | Renew British passport — Dad | 5/5 | 37 | DAD |
-| t_f7smuoh | Pay Texas Comptroller sales tax — Nyche LLC (Q4 20 | 5/5 | 37 | DAD |
-| t_yxb8crl | Pay Texas Comptroller sales tax — Nyche LLC (Q1 20 | 5/5 | 37 | DAD |
-| t_4i3duz1 | Pay Texas Comptroller sales tax — Nyche LLC (Q2 20 | 5/5 | 37 | DAD |
-| t_l4rf88c | Book car rental for Aug 31 — confirm Canada drivin | 1/5 | 8 | MOM |
-| t_2o46ktl | Contact RI nanny agency — coverage for Oct 1–3 (we | 1/5 | 8 | MOM |
-| t_7n4uaqd | Check Ghana nanny availability — Dec 14–Jan 9 | 1/5 | 8 | MOM |
+| t_propmed1 | Property Medics — send furniture photos to Nathan | 5/5 | 69 | MOM |
+| t_propmed2 | Property Medics — confirm floor installation sched | 5/5 | 69 | MOM |
+| t_insure01 | Review Acrisure home insurance renewal | 5/5 | 69 | DAD |
+| t_6aj3ogq | Property Medics: schedule return visit + send gara | 5/5 | 69 | DAD |
+| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | 5/5 | 69 | DAD |
+| t_rhikfs3 | Check in with Ghana shippers — next shipment dates | 5/5 | 61 | DAD |
+| t_u8smwu1 | Pay Texas Comptroller sales tax — Nyche LLC (Q3 20 | 5/5 | 38 | DAD |
+| t_r1908t7 | Renew British passport — Dad | 5/5 | 38 | DAD |
+| t_f7smuoh | Pay Texas Comptroller sales tax — Nyche LLC (Q4 20 | 5/5 | 38 | DAD |
+| t_yxb8crl | Pay Texas Comptroller sales tax — Nyche LLC (Q1 20 | 5/5 | 38 | DAD |
+| t_4i3duz1 | Pay Texas Comptroller sales tax — Nyche LLC (Q2 20 | 5/5 | 38 | DAD |
+| t_l4rf88c | Book car rental for Aug 31 — confirm Canada drivin | 1/5 | 9 | MOM |
+| t_2o46ktl | Contact RI nanny agency — coverage for Oct 1–3 (we | 1/5 | 9 | MOM |
+| t_7n4uaqd | Check Ghana nanny availability — Dec 14–Jan 9 | 1/5 | 9 | MOM |
