@@ -1,4 +1,4 @@
-# Cycle Time Report — Sep 5, 2026, 6:45 AM
+# Cycle Time Report — Sep 14, 2026, 10:38 AM
 
 _38 completed tasks analyzed. 14 active tasks (age shown)._
 
@@ -44,20 +44,20 @@ _38 completed tasks analyzed. 14 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 90.4d | M |
-| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 86.4d | L |
-| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 86.4d | L |
-| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 82.6d | L |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 81.3d | M |
-| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 65.7d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | ACTIVE | 40.3d | — |
-| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 40.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 40.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 40.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 40.3d | — |
-| Book car rental for Aug 31 — confirm Canad… | FAMILY | MOM | ACTIVE | 11.8d | — |
-| Contact RI nanny agency — coverage for Oct… | FAMILY | MOM | ACTIVE | 11.8d | — |
-| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 11.8d | — |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 99.6d | M |
+| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 95.6d | L |
+| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 95.6d | L |
+| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 91.7d | L |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 90.5d | M |
+| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 74.9d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | ACTIVE | 49.5d | — |
+| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 49.5d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 49.5d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 49.5d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 49.5d | — |
+| Book car rental for Aug 31 — confirm Canad… | FAMILY | MOM | ACTIVE | 21d | — |
+| Contact RI nanny agency — coverage for Oct… | FAMILY | MOM | ACTIVE | 21d | — |
+| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 21d | — |
 
 ## Stage Dwell Time (tasks with stageHistory)
 

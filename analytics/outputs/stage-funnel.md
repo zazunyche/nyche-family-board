@@ -1,4 +1,4 @@
-# Stage Funnel — Sep 5, 2026, 6:45 AM
+# Stage Funnel — Sep 14, 2026, 10:38 AM
 
 _52 total tasks_
 
@@ -49,17 +49,17 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **45%** of done tasks_
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Property Medics — send furniture photos to… | 5 | 71 | ACTIVE |
-| Property Medics — confirm floor installati… | 5 | 71 | ACTIVE |
-| Review Acrisure home insurance renewal | 5 | 71 | ACTIVE |
-| Property Medics: schedule return visit + s… | 5 | 71 | ACTIVE |
-| 15 Sigourney — follow up with neighbor on … | 5 | 71 | ACTIVE |
-| Check in with Ghana shippers — next shipme… | 5 | 63 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 40 | ACTIVE |
-| Renew British passport — Dad | 5 | 40 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 40 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 40 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 40 | IDEA |
-| Book car rental for Aug 31 — confirm Canad… | 1 | 11 | ACTIVE |
-| Contact RI nanny agency — coverage for Oct… | 1 | 11 | ACTIVE |
-| Check Ghana nanny availability — Dec 14–Jan 9 | 1 | 11 | ACTIVE |
+| Property Medics — send furniture photos to… | 5 | 72 | ACTIVE |
+| Property Medics — confirm floor installati… | 5 | 72 | ACTIVE |
+| Review Acrisure home insurance renewal | 5 | 72 | ACTIVE |
+| Property Medics: schedule return visit + s… | 5 | 72 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 5 | 72 | ACTIVE |
+| Check in with Ghana shippers — next shipme… | 5 | 64 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 41 | ACTIVE |
+| Renew British passport — Dad | 5 | 41 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 41 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 41 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 41 | IDEA |
+| Book car rental for Aug 31 — confirm Canad… | 3 | 12 | ACTIVE |
+| Contact RI nanny agency — coverage for Oct… | 3 | 12 | ACTIVE |
+| Check Ghana nanny availability — Dec 14–Jan 9 | 3 | 12 | ACTIVE |
