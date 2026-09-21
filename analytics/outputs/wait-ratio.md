@@ -1,4 +1,4 @@
-# Wait Ratio Report — Sep 19, 2026, 6:45 AM
+# Wait Ratio Report — Sep 20, 2026, 6:45 AM
 
 _51 of 52 tasks have usable stageHistory. Wait ratio = time in IDEA/RESEARCH ÷ total time tracked. Work stage = ACTIVE._
 
@@ -8,35 +8,35 @@ _51 of 52 tasks have usable stageHistory. Wait ratio = time in IDEA/RESEARCH ÷ 
 |--------|-------|
 | Tasks analyzed | 51 |
 | Average wait ratio | 54.9% |
-| Median wait ratio | 72.5% |
+| Median wait ratio | 72.7% |
 
 ## Wait Ratio by Category
 
 | Category | n | Avg wait ratio | Median wait ratio |
 |----------|---|----------------|--------------------|
-| ADMIN | 18 | 56.4% | 92.6% |
-| FAMILY | 22 | 59% | 86.4% |
-| GOALS | 6 | 73.1% | 86.2% |
+| ADMIN | 18 | 56.4% | 92.7% |
+| FAMILY | 22 | 59.1% | 86.5% |
+| GOALS | 6 | 73.2% | 86.4% |
 | HOME | 5 | 9.2% | 3.3% |
 
 ## DONE vs. Still-Open Tasks
 
 | Group | n | Avg wait ratio | Median wait ratio |
 |-------|---|----------------|--------------------|
-| DONE | 37 | 67.1% | 93.3% |
+| DONE | 37 | 67.2% | 93.4% |
 | Still open | 14 | 22.4% | 0% |
 
 ## Highest Wait Ratio — Open Tasks (idle the longest relative to effort)
 
 | Task | Category | Stage | Wait Ratio | Total Tracked |
 |------|----------|-------|------------|----------------|
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | IDEA | 100% | 54.3d |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | IDEA | 100% | 54.3d |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | IDEA | 100% | 54.3d |
-| Review Acrisure home insurance renewal | HOME | ACTIVE | 7% | 104.4d |
-| Property Medics — send furniture photos to… | HOME | ACTIVE | 3.3% | 100.4d |
-| Property Medics — confirm floor installati… | HOME | ACTIVE | 3.3% | 100.4d |
-| Property Medics: schedule return visit + s… | HOME | ACTIVE | 0% | 96.5d |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | ACTIVE | 0% | 95.3d |
-| Check in with Ghana shippers — next shipme… | ADMIN | ACTIVE | 0% | 79.7d |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | ACTIVE | 0% | 54.3d |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | IDEA | 100% | 55.3d |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | IDEA | 100% | 55.3d |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | IDEA | 100% | 55.3d |
+| Review Acrisure home insurance renewal | HOME | ACTIVE | 6.9% | 105.4d |
+| Property Medics — send furniture photos to… | HOME | ACTIVE | 3.3% | 101.4d |
+| Property Medics — confirm floor installati… | HOME | ACTIVE | 3.3% | 101.4d |
+| Property Medics: schedule return visit + s… | HOME | ACTIVE | 0% | 97.6d |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | ACTIVE | 0% | 96.3d |
+| Check in with Ghana shippers — next shipme… | ADMIN | ACTIVE | 0% | 80.7d |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | ACTIVE | 0% | 55.3d |
