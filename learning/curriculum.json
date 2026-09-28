@@ -20,9 +20,9 @@
   "progress": {
     "current_module": 1,
     "current_mini_module": "1.3",
-    "current_day_number": 84,
-    "current_snippet_id": "module1-day84",
-    "last_delivered_date": "2026-09-26",
+    "current_day_number": 85,
+    "current_snippet_id": "module1-day85",
+    "last_delivered_date": "2026-09-27",
     "next_scheduled_date": "2026-06-29",
     "status": "in_progress"
   },
@@ -1221,7 +1221,7 @@
     }
   ],
   "engagement_summary": {
-    "total_snippets_delivered": 145,
+    "total_snippets_delivered": 146,
     "total_snippets_pending": 46,
     "average_reply_time_minutes": null,
     "mini_modules_with_quiz_completed": 0,
