@@ -1,4 +1,4 @@
-# Stage Funnel — Sep 29, 2026, 6:45 AM
+# Stage Funnel — Sep 30, 2026, 6:45 AM
 
 _52 total tasks_
 
@@ -8,24 +8,24 @@ _52 total tasks_
 |-------|-------|------------|
 | IDEA | 3 | 6% |
 | RESEARCH | 0 | 0% |
-| ACTIVE | 11 | 21% |
-| DONE | 38 | 73% |
+| ACTIVE | 7 | 13% |
+| DONE | 42 | 81% |
 
 ## Funnel Conversion (top-of-funnel → done)
 
 - IDEA → moved forward: **94%** (49/52)
 - Entered ACTIVE or DONE: **94%** (49/52)
-- Reached DONE: **73%** (38/52)
-- ACTIVE → DONE (of those that went ACTIVE): **78%** (38/49)
+- Reached DONE: **81%** (42/52)
+- ACTIVE → DONE (of those that went ACTIVE): **86%** (42/49)
 
 ## Stage Distribution by Category
 
 | Category | IDEA | RESEARCH | ACTIVE | DONE | Total | Done% |
 |----------|------|----------|--------|------|-------|-------|
 | ADMIN | 3 | 0 | 4 | 11 | 18 | 61% |
-| FAMILY | 0 | 0 | 3 | 19 | 22 | 86% |
+| FAMILY | 0 | 0 | 1 | 21 | 22 | 95% |
 | GOALS | 0 | 0 | 0 | 6 | 6 | 100% |
-| HOME | 0 | 0 | 4 | 2 | 6 | 33% |
+| HOME | 0 | 0 | 2 | 4 | 6 | 67% |
 
 ## Stage Distribution by Owner
 
@@ -33,33 +33,29 @@ _52 total tasks_
 |-------|------|----------|--------|------|-------|-------|
 | BOTH | 0 | 0 | 0 | 14 | 14 | 100% |
 | DAD | 3 | 0 | 6 | 15 | 24 | 63% |
-| MOM | 0 | 0 | 5 | 3 | 8 | 38% |
+| MOM | 0 | 0 | 1 | 7 | 8 | 88% |
 | ZAZU | 0 | 0 | 0 | 6 | 6 | 100% |
 
 ## Completion Quality (DONE tasks)
 
 | Quality | Count | % of done |
 |---------|-------|-----------|
-| FULL | 17 | 45% |
-| PARTIAL | 1 | 3% |
+| FULL | 17 | 40% |
+| PARTIAL | 1 | 2% |
 
-_Genuine completion rate (FULL + DELEGATED_OUT): **45%** of done tasks_
+_Genuine completion rate (FULL + DELEGATED_OUT): **40%** of done tasks_
 
 ## Resistance Signals (non-zero resistanceScore)
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Property Medics — send furniture photos to… | 5 | 87 | ACTIVE |
-| Property Medics — confirm floor installati… | 5 | 87 | ACTIVE |
-| Review Acrisure home insurance renewal | 5 | 87 | ACTIVE |
-| Property Medics: schedule return visit + s… | 5 | 87 | ACTIVE |
-| 15 Sigourney — follow up with neighbor on … | 5 | 87 | ACTIVE |
-| Check in with Ghana shippers — next shipme… | 5 | 79 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 56 | ACTIVE |
-| Renew British passport — Dad | 5 | 56 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 56 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 56 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 56 | IDEA |
-| Book car rental for Aug 31 — confirm Canad… | 5 | 27 | ACTIVE |
-| Contact RI nanny agency — coverage for Oct… | 5 | 27 | ACTIVE |
-| Check Ghana nanny availability — Dec 14–Jan 9 | 5 | 27 | ACTIVE |
+| Review Acrisure home insurance renewal | 5 | 88 | ACTIVE |
+| Property Medics: schedule return visit + s… | 5 | 88 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 5 | 88 | ACTIVE |
+| Check in with Ghana shippers — next shipme… | 5 | 80 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 57 | ACTIVE |
+| Renew British passport — Dad | 5 | 57 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 57 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 57 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 57 | IDEA |
+| Check Ghana nanny availability — Dec 14–Jan 9 | 5 | 28 | ACTIVE |

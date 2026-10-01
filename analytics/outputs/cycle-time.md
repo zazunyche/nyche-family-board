@@ -1,24 +1,24 @@
-# Cycle Time Report — Sep 29, 2026, 6:45 AM
+# Cycle Time Report — Sep 30, 2026, 6:45 AM
 
-_38 completed tasks analyzed. 14 active tasks (age shown)._
+_42 completed tasks analyzed. 10 active tasks (age shown)._
 
 ## Overall Lead Time (creation → done)
 
 | Metric | Value |
 |--------|-------|
-| Completed tasks | 38 |
-| Median | 12.1d |
+| Completed tasks | 42 |
+| Median | 13.4d |
 | Min    | 0d |
-| Max    | 74.5d |
+| Max    | 110.5d |
 
 ## Lead Time by Category (completed tasks)
 
 | Category | n | Median | Min | Max |
 |----------|---|--------|-----|-----|
 | ADMIN | 11 | 0.3d | 0d | 46.7d |
-| FAMILY | 19 | 13.2d | 0.2d | 44.8d |
+| FAMILY | 21 | 13.5d | 0.2d | 44.8d |
 | GOALS | 6 | 56.5d | 3d | 74.5d |
-| HOME | 2 | 23.8d | 0d | 47.6d |
+| HOME | 4 | 79.1d | 0d | 110.5d |
 
 ## Lead Time by Owner (completed tasks)
 
@@ -26,7 +26,7 @@ _38 completed tasks analyzed. 14 active tasks (age shown)._
 |-------|---|--------|-----|-----|
 | BOTH | 14 | 15d | 0.2d | 46.7d |
 | DAD | 15 | 13.5d | 0d | 74.5d |
-| MOM | 3 | 5.7d | 0.2d | 44.8d |
+| MOM | 7 | 35.9d | 0.2d | 110.5d |
 | ZAZU | 6 | 0.2d | 0d | 0.4d |
 
 ## Lead Time by Task Type
@@ -34,7 +34,7 @@ _38 completed tasks analyzed. 14 active tasks (age shown)._
 | Type | n | Median | Min | Max |
 |------|---|--------|-----|-----|
 | DECISION | 3 | 36.6d | 12.2d | 46.7d |
-| ERRAND | 12 | 5.4d | 0.2d | 33.6d |
+| ERRAND | 14 | 8d | 0.2d | 110.5d |
 | EVENT | 3 | 36.6d | 13.2d | 36.6d |
 | MAINTENANCE | 1 | 15.5d | 15.5d | 15.5d |
 | PROJECT | 13 | 12d | 0d | 74.5d |
@@ -44,24 +44,20 @@ _38 completed tasks analyzed. 14 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 114.4d | M |
-| Property Medics — send furniture photos to… | HOME | MOM | ACTIVE | 110.4d | L |
-| Property Medics — confirm floor installati… | HOME | MOM | ACTIVE | 110.4d | L |
-| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 106.6d | L |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 105.3d | M |
-| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 89.7d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | ACTIVE | 64.3d | — |
-| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 64.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 64.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 64.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 64.3d | — |
-| Book car rental for Aug 31 — confirm Canad… | FAMILY | MOM | ACTIVE | 35.8d | — |
-| Contact RI nanny agency — coverage for Oct… | FAMILY | MOM | ACTIVE | 35.8d | — |
-| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 35.8d | — |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 115.4d | M |
+| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 107.6d | L |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 106.3d | M |
+| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 90.7d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | ACTIVE | 65.3d | — |
+| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 65.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 65.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 65.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 65.3d | — |
+| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 36.8d | — |
 
 ## Stage Dwell Time (tasks with stageHistory)
 
 | Stage | n | Median dwell | Min | Max |
 |-------|---|-------------|-----|-----|
-| ACTIVE | 16 | 1.9d | 0d | 26.6d |
+| ACTIVE | 18 | 4.1d | 0d | 35.9d |
 | IDEA | 18 | 4.2d | 0.2d | 15.5d |
