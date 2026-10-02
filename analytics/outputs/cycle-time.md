@@ -1,4 +1,4 @@
-# Cycle Time Report — Sep 30, 2026, 6:45 AM
+# Cycle Time Report — Oct 1, 2026, 6:45 AM
 
 _42 completed tasks analyzed. 10 active tasks (age shown)._
 
@@ -44,16 +44,16 @@ _42 completed tasks analyzed. 10 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 115.4d | M |
-| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 107.6d | L |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 106.3d | M |
-| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 90.7d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | ACTIVE | 65.3d | — |
-| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 65.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 65.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 65.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 65.3d | — |
-| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 36.8d | — |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 116.4d | M |
+| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 108.6d | L |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 107.3d | M |
+| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 91.7d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | ACTIVE | 66.3d | — |
+| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 66.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 66.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 66.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 66.3d | — |
+| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 37.8d | — |
 
 ## Stage Dwell Time (tasks with stageHistory)
 
