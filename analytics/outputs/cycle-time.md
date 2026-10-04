@@ -1,6 +1,6 @@
-# Cycle Time Report — Oct 2, 2026, 6:45 AM
+# Cycle Time Report — Oct 3, 2026, 6:45 AM
 
-_42 completed tasks analyzed. 10 active tasks (age shown)._
+_42 completed tasks analyzed. 11 active tasks (age shown)._
 
 ## Overall Lead Time (creation → done)
 
@@ -44,16 +44,17 @@ _42 completed tasks analyzed. 10 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 117.4d | M |
-| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 109.5d | L |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 108.3d | M |
-| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 92.7d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | ACTIVE | 67.3d | — |
-| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 67.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 67.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 67.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 67.3d | — |
-| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 38.8d | — |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 118.4d | M |
+| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 110.5d | L |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 109.3d | M |
+| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 93.7d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | ACTIVE | 68.3d | — |
+| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 68.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 68.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 68.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 68.3d | — |
+| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 39.8d | — |
+| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 0.7d | — |
 
 ## Stage Dwell Time (tasks with stageHistory)
 
