@@ -1,4 +1,4 @@
-# Stage Funnel — Oct 5, 2026, 6:45 AM
+# Stage Funnel — Oct 6, 2026, 6:45 AM
 
 _53 total tasks_
 
@@ -49,13 +49,13 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **40%** of done tasks_
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Review Acrisure home insurance renewal | 5 | 93 | ACTIVE |
-| Property Medics: schedule return visit + s… | 5 | 93 | ACTIVE |
-| 15 Sigourney — follow up with neighbor on … | 5 | 93 | ACTIVE |
-| Check in with Ghana shippers — next shipme… | 5 | 85 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 62 | ACTIVE |
-| Renew British passport — Dad | 5 | 62 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 62 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 62 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 62 | IDEA |
-| Check Ghana nanny availability — Dec 14–Jan 9 | 5 | 33 | ACTIVE |
+| Review Acrisure home insurance renewal | 5 | 94 | ACTIVE |
+| Property Medics: schedule return visit + s… | 5 | 94 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 5 | 94 | ACTIVE |
+| Check in with Ghana shippers — next shipme… | 5 | 86 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 63 | ACTIVE |
+| Renew British passport — Dad | 5 | 63 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 63 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 63 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 63 | IDEA |
+| Check Ghana nanny availability — Dec 14–Jan 9 | 5 | 34 | ACTIVE |
