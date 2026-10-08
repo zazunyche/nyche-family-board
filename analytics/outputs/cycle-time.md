@@ -1,4 +1,4 @@
-# Cycle Time Report — Oct 6, 2026, 6:45 AM
+# Cycle Time Report — Oct 7, 2026, 6:45 AM
 
 _42 completed tasks analyzed. 11 active tasks (age shown)._
 
@@ -44,17 +44,17 @@ _42 completed tasks analyzed. 11 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 121.4d | M |
-| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 113.6d | L |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 112.3d | M |
-| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 96.7d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | ACTIVE | 71.3d | — |
-| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 71.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 71.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 71.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 71.3d | — |
-| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 42.8d | — |
-| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 3.7d | — |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 122.4d | M |
+| Property Medics: schedule return visit + s… | HOME | DAD | ACTIVE | 114.6d | L |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 113.3d | M |
+| Check in with Ghana shippers — next shipme… | ADMIN | DAD | ACTIVE | 97.7d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | ACTIVE | 72.3d | — |
+| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 72.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 72.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 72.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 72.3d | — |
+| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 43.8d | — |
+| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 4.7d | — |
 
 ## Stage Dwell Time (tasks with stageHistory)
 
