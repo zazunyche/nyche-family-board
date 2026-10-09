@@ -61,6 +61,8 @@ Compose TWO separate morning briefing texts — one for Dad, one for Mom:
 - Then their personal open task list
 - For tasks that show a NEXT SUBTASK line, surface the next subtask specifically (not just the parent task title)
 - Keep it scannable — short lines, light emoji, not a wall of text
+- CRITICAL: append each task's ID in square brackets at the END of that task's line, exactly as given in the board state, e.g. '• Pay Texas sales tax — due Oct 15  [t_u8smwu1]'. Every task line MUST end with its [t_xxxxxxx] ID. Never invent or alter an ID.
+- End each person's message with a one-line reply hint: '↩️ Reply e.g. \"t_xxxxxxx done\" or \"t_xxxxxxx snooze 3d\" and I'll update the board.'
 - Sign off: '— Zazu'
 - Do NOT include snoozed tasks
 - If the board is all clear (no overdue, no stalled), lead with that good news then give the week ahead
