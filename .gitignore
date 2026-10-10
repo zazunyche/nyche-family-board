@@ -21,3 +21,7 @@ hermes-bridge/scratch/
 hermes-bridge/applied/
 # keep the sanitized example tracked despite the .env.* rule above
 !infra/hermes/.env.example
+
+# Finance pipeline: code tracked, data/db never committed
+finance/*.db
+finance/out/
