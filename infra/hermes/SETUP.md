@@ -46,7 +46,10 @@ nightly-committed by `scripts/midnight-commit.sh`.
   ```
 - Bridge routing (board-tools/hermes-bridge.js ROUTES):
   - `analysis` → provider `ollama`, model `qwen3:4b` (LOCAL, free, private — sensitive data).
-  - `research` → provider `nousportal`, model `anthropic/claude-haiku-5.5` (economical cloud + web).
+  - `research` → provider `nousportal`, model `qwen/qwen3.8-flash` (economical cloud + web).
+- **Model policy (Dad, 2026-10-10):** only leave the local free model when a job needs web/Tool-Gateway,
+  heavy reasoning beyond the local 4B, or a diverse perspective. When Zazu (Claude) directs Hermes, route to a
+  NON-Claude family (Qwen/Llama) — a second Claude adds little value.
 - **Spend cap:** the $10 PAYG credit is the hard ceiling (Portal stops at $0). Kept low by using an
   economical model, `agent.max_turns: 50`, and restricted toolsets. Rotate the key eventually (it was sent over iMessage).
 - Still TODO: install Docker before ever enabling Hermes terminal/code execution.

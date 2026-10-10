@@ -40,7 +40,8 @@ const cc = get('--cc');
 const subject = (get('--subject')[0] || '').trim();
 const bodyFile = get('--body-file')[0];
 const body = bodyFile ? fs.readFileSync(bodyFile, 'utf8') : (get('--body').join('\n') || get('--text').join('\n'));
-const html = get('--html')[0] || '';
+const htmlFile = get('--html-file')[0];
+const html = htmlFile ? fs.readFileSync(htmlFile, 'utf8') : (get('--html')[0] || '');
 const attachPaths = get('--attach');
 
 if (!to.length) { console.error('Error: --to is required'); process.exit(1); }

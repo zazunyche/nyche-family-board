@@ -39,9 +39,13 @@ const UPDATE_JS   = path.join(__dirname, "update.js");
 // NO terminal/code. We NEVER load terminal/code_execution/browser/computer_use.
 //   analysis → LOCAL (free, private) — for sensitive data, never leaves the Mac.
 //   research → Nous Portal (economical cloud model) with web access.
+// POLICY (Dad, 2026-10-10): only leave the local free model when the job needs
+// web/Tool-Gateway, heavy reasoning beyond the local 4B, or a DIVERSE perspective.
+// When Zazu (a Claude model) directs Hermes, route to a NON-Claude family (Qwen/Llama)
+// — a second Claude adds little. Hence Qwen below, not Claude.
 const ROUTES = {
-  analysis: { provider: "ollama",   model: "qwen3:4b",                  toolset: "todo" },
-  research: { provider: "nousportal", model: "anthropic/claude-haiku-5.5", toolset: "safe" },
+  analysis: { provider: "ollama",   model: "qwen3:4b",          toolset: "todo" },
+  research: { provider: "nousportal", model: "qwen/qwen3.8-flash", toolset: "safe" },
 };
 const RUN_TIMEOUT = 240000; // 4 min per job
 
@@ -91,15 +95,13 @@ function delegate() {
 // ── run ──────────────────────────────────────────────────────────────────────
 function buildPrompt(job) {
   const parts = [
-    `You are Hermes, assisting the Nyche family's house-manager (Zazu) through a SANDBOXED, READ-ONLY bridge.`,
-    `Do NOT attempt to run shell commands, write files, or take any external action — only return your written ${job.mode} as plain text. Zazu will review before anything is applied.`,
+    `${job.mode === "research" ? "RESEARCH TASK" : "ANALYSIS TASK"}: ${job.title}`,
+    job.notes ? `Context: ${job.notes}` : ``,
     ``,
-    `TASK: ${job.title}`,
-    job.notes ? `CONTEXT: ${job.notes}` : ``,
-    ``,
-    `INSTRUCTIONS: ${job.instructions}`,
+    job.instructions,
   ];
-  if (job.input) parts.push(``, `An input file has been copied into your working directory as "input${path.extname(job.input)}". Read it if relevant.`);
+  if (job.input) parts.push(``, `An input file is in your working directory as "input${path.extname(job.input)}". Read it if relevant.`);
+  parts.push(``, `(Return your ${job.mode} as plain text only — do not run shell commands or write files; Zazu reviews before anything is applied.)`);
   return parts.filter(Boolean).join("\n");
 }
 

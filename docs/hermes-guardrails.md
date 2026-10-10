@@ -36,8 +36,9 @@ node board-tools/hermes-bridge.js apply    --task <id> [--done] [--reject]
 
 ## Hybrid routing (added 2026-10-10)
 - `analysis` mode → LOCAL (ollama/qwen3:4b): free, private, for sensitive data.
-- `research` mode → Nous Portal via custom `nousportal` provider, model `anthropic/claude-haiku-5.5`:
-  economical cloud model with web access (the `safe` toolset).
+- `research` mode → Nous Portal via custom `nousportal` provider, model `qwen/qwen3.8-flash`:
+  economical NON-Claude cloud model with web access (the `safe` toolset). Policy: when Zazu (Claude)
+  directs Hermes, use a different model family (Qwen/Llama) for diversity.
 - **Spend:** free pay-as-you-go, $10 credit = hard ceiling (Portal stops at $0). Economical model +
   `max_turns: 50` + restricted toolsets keep per-job cost low.
 
