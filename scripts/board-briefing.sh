@@ -46,35 +46,12 @@ fi
 
 TODAY=$(date "+%A, %B %-d")
 
-# ── Compose only — no --channels, no tool use, nothing to hang on ─────────────
-COMPOSE_PROMPT="You are Zazu, the Nyche family's AI house manager. Today is $TODAY.
-
-Here is the current household board state:
-
-$BOARD_CONTEXT
-
-Compose TWO separate morning briefing texts — one for Dad, one for Mom:
-- Personalise each: Dad gets his tasks, Mom gets hers. Both get household-wide urgent/stalled items.
-- Lead with urgent/overdue items — these come first always
-- Then stalled items (idle 7+ days)
-- Then due this week
-- Then their personal open task list
-- For tasks that show a NEXT SUBTASK line, surface the next subtask specifically (not just the parent task title)
-- Keep it scannable — short lines, light emoji, not a wall of text
-- CRITICAL: append each task's ID in square brackets at the END of that task's line, exactly as given in the board state, e.g. '• Pay Texas sales tax — due Oct 15  [t_u8smwu1]'. Every task line MUST end with its [t_xxxxxxx] ID. Never invent or alter an ID.
-- End each person's message with a one-line reply hint: '↩️ Reply e.g. \"t_xxxxxxx done\" or \"t_xxxxxxx snooze 3d\" and I'll update the board.'
-- Sign off: '— Zazu'
-- Do NOT include snoozed tasks
-- If the board is all clear (no overdue, no stalled), lead with that good news then give the week ahead
-
-Output EXACTLY in this format, nothing else before or after:
-===DAD===
-[Dad's full message text here]
-===MOM===
-[Mom's full message text here]
-===END==="
-
-RAW=$(gtimeout 90 /opt/homebrew/bin/claude -p "$COMPOSE_PROMPT" --dangerously-skip-permissions 2>>"$LOG") || true
+# ── Compose deterministically ────────────────────────────────────────────────
+# Rewritten 2026-10-09: the headless `claude -p` composer was flaky (frequent
+# empty/malformed output -> useless fallback) and could not guarantee a stable
+# number->task-id mapping. compose-brief.js renders a NUMBERED list in code and
+# persists logs/brief-index.json so replies like "2 done" resolve to the real id.
+RAW=$(node "$BOARD_DIR/board-tools/compose-brief.js" 2>>"$LOG") || true
 
 DAD_MSG=$(printf '%s\n' "$RAW" | sed -n '/===DAD===/,/===MOM===/p' | sed '1d;$d')
 MOM_MSG=$(printf '%s\n' "$RAW" | sed -n '/===MOM===/,/===END===/p' | sed '1d;$d')
