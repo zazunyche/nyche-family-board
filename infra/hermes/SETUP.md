@@ -34,8 +34,19 @@ nightly-committed by `scripts/midnight-commit.sh`.
 - `config.snapshot.yaml` is sanitized (any literal secret value → `<REDACTED>`) by `snapshot-hermes-config.sh`.
 - `.env.example` documents the KEY NAMES only.
 
-## Hybrid (Nous Portal) — pending wiring
-- Provide auth via EITHER `NOUS_API_KEY` in `~/.hermes/.env` OR OAuth (`hermes auth add nous`).
-- Keep local (qwen3:4b) as default for private/analysis; route heavy/research to Portal per-invocation.
-- Set a spend cap once the key is in.
-- Install Docker before ever enabling Hermes terminal/code execution.
+## Hybrid (Nous Portal) — WIRED 2026-10-10
+- `NOUS_API_KEY` stored in `~/.hermes/.env` (gitignored, outside repo). Free pay-as-you-go, $10 credit.
+- The built-in `nous` provider wants OAuth even with a key, so we define a **custom OpenAI-compatible
+  provider** in config.yaml:
+  ```
+  providers:
+    nousportal:
+      base_url: "https://inference-api.nousresearch.com/v1"
+      key_env: "NOUS_API_KEY"
+  ```
+- Bridge routing (board-tools/hermes-bridge.js ROUTES):
+  - `analysis` → provider `ollama`, model `qwen3:4b` (LOCAL, free, private — sensitive data).
+  - `research` → provider `nousportal`, model `anthropic/claude-haiku-5.5` (economical cloud + web).
+- **Spend cap:** the $10 PAYG credit is the hard ceiling (Portal stops at $0). Kept low by using an
+  economical model, `agent.max_turns: 50`, and restricted toolsets. Rotate the key eventually (it was sent over iMessage).
+- Still TODO: install Docker before ever enabling Hermes terminal/code execution.

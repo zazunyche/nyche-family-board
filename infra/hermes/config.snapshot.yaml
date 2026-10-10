@@ -2331,3 +2331,9 @@ updates:
 #   # This runs ONCE per process at startup, so it cannot replace a credential
 #   # that expires mid-session. For a single provider whose token needs
 #   # re-minting during a session, use `providers.<name>.key_cmd` instead.
+
+# ── Custom provider: Nous Portal via API key (added 2026-10-10 for the Zazu↔Hermes hybrid tier) ──
+providers:
+  nousportal:
+    base_url: "https://inference-api.nousresearch.com/v1"
+    key_env: "NOUS_API_KEY"

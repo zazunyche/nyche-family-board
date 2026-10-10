@@ -34,14 +34,16 @@ const SCRATCH     = path.join(BRIDGE, "scratch");
 const APPLIED     = path.join(BRIDGE, "applied");
 const HERMES      = path.join(process.env.HOME, ".local", "bin", "hermes");
 const UPDATE_JS   = path.join(__dirname, "update.js");
-const MODEL       = "qwen3:4b";
-const PROVIDER    = "ollama";
-// Valid Hermes toolsets (see toolsets.py). 'todo' = in-session planning only
-// (no web/terminal/file → honors local-privacy boundary for sensitive analysis).
-// 'safe' = "Safe toolkit without terminal access" (web/vision/image, NO terminal/code).
-// We NEVER load terminal / code_execution / browser / computer_use.
-const TOOLSETS    = { analysis: "todo", research: "safe" };
-const RUN_TIMEOUT = 240000; // 4 min per job (local model)
+// Per-mode routing. Toolsets (see toolsets.py): 'todo' = in-session only
+// (no web/terminal/file → local-privacy boundary); 'safe' = web/vision/image,
+// NO terminal/code. We NEVER load terminal/code_execution/browser/computer_use.
+//   analysis → LOCAL (free, private) — for sensitive data, never leaves the Mac.
+//   research → Nous Portal (economical cloud model) with web access.
+const ROUTES = {
+  analysis: { provider: "ollama",   model: "qwen3:4b",                  toolset: "todo" },
+  research: { provider: "nousportal", model: "anthropic/claude-haiku-5.5", toolset: "safe" },
+};
+const RUN_TIMEOUT = 240000; // 4 min per job
 
 [BRIDGE, JOBS, PROPOSALS, SCRATCH, APPLIED].forEach(d => fs.mkdirSync(d, { recursive: true }));
 
@@ -62,7 +64,7 @@ function delegate() {
   const id = argVal("--task");
   if (!id) throw new Error("--task <id> required");
   const mode = (argVal("--mode") || "analysis").toLowerCase();
-  if (!TOOLSETS[mode]) throw new Error(`--mode must be analysis|research`);
+  if (!ROUTES[mode]) throw new Error(`--mode must be analysis|research`);
   const board = readBoard();
   const task  = findTask(board, id);
   if (!task) throw new Error(`task ${id} not found`);
@@ -107,17 +109,18 @@ function runJob(jobFile) {
   fs.mkdirSync(scratch, { recursive: true });
   if (job.input) fs.copyFileSync(job.input, path.join(scratch, `input${path.extname(job.input)}`));
 
-  const toolset = TOOLSETS[job.mode] || "core";
+  const route   = ROUTES[job.mode] || ROUTES.analysis;
   const prompt  = buildPrompt(job);
-  // GUARDRAIL: no --yolo; restricted toolset; scoped cwd; local model.
-  const argv = ["-z", prompt, "-t", toolset, "-m", MODEL, "--provider", PROVIDER, "--in", scratch];
+  // GUARDRAIL: no --yolo; restricted toolset; scoped cwd; per-mode provider/model.
+  const argv = ["-z", prompt, "-t", route.toolset, "-m", route.model, "--provider", route.provider, "--in", scratch];
   let output, ok = true;
   try { output = sh(HERMES, argv); }
   catch (e) { ok = false; output = `ERROR invoking Hermes: ${e.message}\n${e.stdout || ""}`; }
 
   const proposal = {
-    taskId: job.taskId, title: job.title, mode: job.mode, model: MODEL,
-    toolset, generatedAt: nowISO(), ok, proposal: (output || "").trim(),
+    taskId: job.taskId, title: job.title, mode: job.mode,
+    provider: route.provider, model: route.model, toolset: route.toolset,
+    generatedAt: nowISO(), ok, proposal: (output || "").trim(),
   };
   fs.writeFileSync(path.join(PROPOSALS, `${job.taskId}.json`), JSON.stringify(proposal, null, 2));
   console.log(`${ok ? "✓" : "✗"} ran ${job.taskId} [${job.mode}] → hermes-bridge/proposals/${job.taskId}.json`);

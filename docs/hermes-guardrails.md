@@ -34,7 +34,14 @@ node board-tools/hermes-bridge.js apply    --task <id> [--done] [--reject]
 6. **Local & private.** Model is `qwen3:4b` via Ollama (`127.0.0.1:11434`). Raw sensitive data
    (statements, email) never leaves the Mac. `agent.max_turns` capped at 50.
 
+## Hybrid routing (added 2026-10-10)
+- `analysis` mode → LOCAL (ollama/qwen3:4b): free, private, for sensitive data.
+- `research` mode → Nous Portal via custom `nousportal` provider, model `anthropic/claude-haiku-5.5`:
+  economical cloud model with web access (the `safe` toolset).
+- **Spend:** free pay-as-you-go, $10 credit = hard ceiling (Portal stops at $0). Economical model +
+  `max_turns: 50` + restricted toolsets keep per-job cost low.
+
 ## Still TODO before expanding Hermes's powers
 - **Docker** is NOT installed. Before ever enabling the `terminal`/`code_execution` toolsets,
   install Docker and switch `terminal.backend` to `docker` (config.yaml has the template).
-- **Spend cap**: set when the hybrid (cloud) tier is added (Nous Portal / OpenRouter).
+- Rotate `NOUS_API_KEY` eventually (it was shared over iMessage).
