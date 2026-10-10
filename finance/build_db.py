@@ -30,7 +30,7 @@ def text_of(path):
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS accounts(
   id INTEGER PRIMARY KEY, institution TEXT, type TEXT, last4 TEXT,
-  is_credit INTEGER, UNIQUE(institution,type,last4));
+  is_credit INTEGER, owner TEXT, UNIQUE(institution,type,last4));
 CREATE TABLE IF NOT EXISTS statements(
   id INTEGER PRIMARY KEY, account_id INTEGER, period_start TEXT, period_end TEXT,
   begin_balance REAL, end_balance REAL, total_in REAL, total_out REAL,
@@ -45,9 +45,10 @@ CREATE TABLE IF NOT EXISTS transactions(
 def db_connect():
     con = sqlite3.connect(DB); con.executescript(SCHEMA); return con
 
-def upsert_account(con, inst, typ, last4, is_credit):
-    con.execute("INSERT OR IGNORE INTO accounts(institution,type,last4,is_credit) VALUES(?,?,?,?)",
-                (inst,typ,last4,is_credit))
+def upsert_account(con, inst, typ, last4, is_credit, owner="JOINT"):
+    # owner: DAD | MOM | JOINT  — enables per-person filtering on top of the household view.
+    con.execute("INSERT OR IGNORE INTO accounts(institution,type,last4,is_credit,owner) VALUES(?,?,?,?,?)",
+                (inst,typ,last4,is_credit,owner))
     return con.execute("SELECT id FROM accounts WHERE institution=? AND type=? AND last4=?",
                        (inst,typ,last4)).fetchone()[0]
 
@@ -109,7 +110,7 @@ def load_capone_bank(con):
         except Exception as e:
             rows.append((os.path.basename(f),"ERROR",str(e)[:60])); continue
         for a in accts:
-            aid=upsert_account(con,"Capital One",a["type"],a["last4"],0)
+            aid=upsert_account(con,"Capital One",a["type"],a["last4"],0,owner="JOINT")  # 360 bank: joint w/ Nana Yaa
             tin=sum(t["amount"] for t in a["txns"] if t["amount"]>0)
             tout=sum(-t["amount"] for t in a["txns"] if t["amount"]<0)
             # reconcile: begin + net == end  (and last balance == end)
