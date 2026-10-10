@@ -14,3 +14,10 @@ preferences/
 whisper-models/
 .claude/
 guides/
+# Hermes bridge runtime queues (may contain sensitive job content) — code + README stay tracked
+hermes-bridge/jobs/
+hermes-bridge/proposals/
+hermes-bridge/scratch/
+hermes-bridge/applied/
+# keep the sanitized example tracked despite the .env.* rule above
+!infra/hermes/.env.example

@@ -29,6 +29,11 @@ log_ts "midnight-commit.sh started" "$LOG"
 
 cd "$BOARD_DIR"
 
+# Refresh the sanitized Hermes config snapshot so config drift is tracked nightly.
+if [ -x "$BOARD_DIR/infra/hermes/snapshot-hermes-config.sh" ]; then
+  "$BOARD_DIR/infra/hermes/snapshot-hermes-config.sh" >> "$LOG" 2>&1 || log_ts "WARNING: hermes config snapshot failed" "$LOG"
+fi
+
 # Stage only already-tracked file changes (respects .gitignore; never picks up new untracked files)
 # DO NOT use 'git add .' here — it would commit any untracked file not in .gitignore
 git add -u
