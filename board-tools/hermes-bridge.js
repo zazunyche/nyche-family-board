@@ -47,7 +47,7 @@ const ROUTES = {
   analysis: { provider: "ollama",   model: "qwen3:4b",          toolset: "todo" },
   research: { provider: "nousportal", model: "qwen/qwen3.8-flash", toolset: "safe" },
 };
-const RUN_TIMEOUT = 240000; // 4 min per job
+const RUN_TIMEOUT = 600000; // 10 min per job (research + web can be slow)
 
 [BRIDGE, JOBS, PROPOSALS, SCRATCH, APPLIED].forEach(d => fs.mkdirSync(d, { recursive: true }));
 
