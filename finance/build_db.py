@@ -11,6 +11,17 @@ Usage: python3 finance/build_db.py [--docs DIR] [--db PATH]
 """
 import os, re, sys, glob, sqlite3
 from pypdf import PdfReader
+import pdfplumber
+
+FULLMON = {m:i for i,m in enumerate(
+    ["January","February","March","April","May","June","July","August",
+     "September","October","November","December"], start=1)}
+def plumber_lines(path):
+    out=[]
+    with pdfplumber.open(path) as pdf:
+        for pg in pdf.pages:
+            out += [l for l in (pg.extract_text() or "").splitlines() if l.strip()]
+    return out
 
 HOME = os.path.expanduser("~")
 DOCS = os.path.join(HOME, "Documents", "Financial-Audit-2025-2026", "ecFinanceDocsv1")
@@ -133,16 +144,82 @@ def load_capone_bank(con):
                          "OK" if recon else "RECON-FAIL", f"in {tin:,.0f} out {tout:,.0f}", len(a["txns"])))
     return rows
 
+# ── Chase deposit accounts (checking + savings share one format) ──────────────
+CH_TXN = re.compile(r'^(\d{2})/(\d{2})\s+(.*?)\s+(-?\$?[\d,]+\.\d{2})\s+(\$?[\d,]+\.\d{2})\s*$')
+CH_PERIOD = re.compile(r'([A-Z][a-z]+) \d{1,2}, (\d{4}) through ([A-Z][a-z]+) \d{1,2}, (\d{4})')
+CH_BEGIN = re.compile(r'Beginning Balance\s+\$([\d,]+\.\d{2})')
+CH_END   = re.compile(r'Ending Balance\s+\$([\d,]+\.\d{2})')
+
+def parse_chase_deposit(path):
+    lines = plumber_lines(path); txt="\n".join(lines)
+    mb=CH_BEGIN.search(txt); me=CH_END.search(txt)
+    if not (mb and me): return None
+    begin=money(mb.group(1)); end=money(me.group(1))
+    mp=CH_PERIOD.search(txt)
+    sm=em=sy=ey=None
+    if mp:
+        sm,sy,em,ey = FULLMON[mp.group(1)],int(mp.group(2)),FULLMON[mp.group(3)],int(mp.group(4))
+    def year_for(mon):
+        if sm is None: return ey or sy
+        if mon==sm: return sy
+        if mon==em: return ey
+        return ey or sy
+    txns=[]
+    for l in lines:
+        m=CH_TXN.match(l.strip())
+        if not m: continue
+        mon=int(m.group(1)); day=int(m.group(2))
+        amt=money(m.group(4))
+        yr=year_for(mon)
+        txns.append(dict(date=f"{yr}-{mon:02d}-{day:02d}", desc=re.sub(r'\s+',' ',m.group(3)).strip(),
+            amount=amt, direction=('in' if amt>0 else 'out'), balance_after=money(m.group(5))))
+    pstart=f"{sy}-{sm:02d}-01" if sm else None
+    pend  =f"{ey}-{em:02d}-28" if em else None
+    return dict(begin=begin,end=end,period_start=pstart,period_end=pend,txns=txns)
+
+def load_chase_deposit(con):
+    specs=[("chase - checking","checking","2782"),("chase - savings","savings","3196")]
+    rows=[]
+    for folder,typ,last4 in specs:
+        for f in sorted(glob.glob(os.path.join(DOCS, folder, "*.pdf"))):
+            try: s=parse_chase_deposit(f)
+            except Exception as e: rows.append((os.path.basename(f),typ,"ERROR",str(e)[:50])); continue
+            if not s: rows.append((os.path.basename(f),typ,"NO-BAL","skipped")); continue
+            aid=upsert_account(con,"Chase",typ,last4,0,owner="JOINT")
+            net=sum(t["amount"] for t in s["txns"])
+            recon=abs((s["begin"]+net)-s["end"])<0.01
+            tin=sum(t["amount"] for t in s["txns"] if t["amount"]>0)
+            tout=sum(-t["amount"] for t in s["txns"] if t["amount"]<0)
+            con.execute("""INSERT OR REPLACE INTO statements
+              (account_id,period_start,period_end,begin_balance,end_balance,total_in,total_out,source_file,parsed_ok,reconciled,note)
+              VALUES(?,?,?,?,?,?,?,?,1,?,?)""",
+              (aid,s["period_start"],s["period_end"],s["begin"],s["end"],tin,tout,os.path.basename(f),
+               1 if recon else 0, None if recon else f"net {s['begin']+net:.2f} vs end {s['end']:.2f}"))
+            sid=con.execute("SELECT id FROM statements WHERE account_id=? AND source_file=?",(aid,os.path.basename(f))).fetchone()[0]
+            con.execute("DELETE FROM transactions WHERE statement_id=?", (sid,))
+            for t in s["txns"]:
+                con.execute("""INSERT INTO transactions
+                  (account_id,statement_id,txn_date,description,amount,direction,balance_after,source_file)
+                  VALUES(?,?,?,?,?,?,?,?)""",
+                  (aid,sid,t["date"],t["desc"],t["amount"],t["direction"],t["balance_after"],os.path.basename(f)))
+            rows.append((os.path.basename(f),typ,"OK" if recon else "RECON-FAIL",f"in {tin:,.0f} out {tout:,.0f}",len(s["txns"])))
+    return rows
+
 def main():
     con=db_connect()
     print(f"DOCS={DOCS}\nDB={DB}\n")
+    allrows=[]
     print("=== Capital One 360 bank ===")
-    rows=load_capone_bank(con)
-    con.commit()
-    ok=sum(1 for r in rows if len(r)>2 and r[2]=="OK")
-    fail=[r for r in rows if len(r)>2 and r[2] in ("RECON-FAIL","ERROR")]
+    rows=load_capone_bank(con); allrows+=rows
     for r in rows: print("  ", " | ".join(str(x) for x in r))
+    print("\n=== Chase checking + savings ===")
+    crows=load_chase_deposit(con); allrows+=crows
+    for r in crows: print("  ", " | ".join(str(x) for x in r))
+    con.commit()
+    ok=sum(1 for r in allrows if len(r)>2 and r[2]=="OK")
+    fail=[r for r in allrows if len(r)>2 and r[2] in ("RECON-FAIL","ERROR","NO-BAL")]
     print(f"\nreconciled OK: {ok} | problems: {len(fail)}")
+    for r in fail: print("  PROBLEM:", " | ".join(str(x) for x in r))
     # quick household cashflow rollup (Capital One only, so far)
     print("\n=== Capital One monthly cashflow (in / out / net) ===")
     for row in con.execute("""SELECT period_end, SUM(total_in), SUM(total_out), SUM(total_in-total_out)
