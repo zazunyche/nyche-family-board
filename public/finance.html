@@ -1,136 +1,210 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nyche Finance Dashboard</title>
+<title>Nyche Finance</title>
 <style>
-  :root{--grn:#2f6f4f;--red:#b3261e;--ink:#1f2328;--mut:#6b6860}
+  :root{--grn:#2e7d52;--red:#b3452f;--ink:#1f2328;--mut:#6b6860;--line:#e6e4e0;--nav:#0d1b2a;--accent:#44627d}
   *{box-sizing:border-box}
-  body{margin:0;background:#f4f4f2;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink)}
-  .wrap{max-width:760px;margin:0 auto;padding:18px}
-  h1{font-size:21px;margin:0 0 2px}.sub{color:var(--mut);font-size:12px;margin:0 0 14px}
+  body{margin:0;background:#f4f4f2;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);font-variant-numeric:tabular-nums}
+  a{color:inherit;text-decoration:none}
+  /* gate */
   .gate{max-width:360px;margin:60px auto;background:#fff;padding:22px;border-radius:12px;box-shadow:0 2px 14px rgba(0,0,0,.08)}
-  .gate input{width:100%;padding:10px;margin:6px 0;border:1px solid #ddd;border-radius:8px;font-size:14px}
-  .gate button,.btn{background:#0d1b2a;color:#fff;border:0;padding:10px 16px;border-radius:8px;font-size:14px;cursor:pointer}
+  .gate input{width:100%;padding:10px;margin:6px 0;border:1px solid var(--line);border-radius:8px;font-size:14px}
+  .gate button{background:var(--nav);color:#fff;border:0;padding:10px 16px;border-radius:8px;font-size:14px;cursor:pointer}
   .err{color:var(--red);font-size:13px;min-height:18px}
-  .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
-  .filters select{padding:7px 10px;border:1px solid #ddd;border-radius:8px;font-size:13px;background:#fff}
-  .kpis{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
-  .kpi{flex:1;min-width:120px;background:#0d1b2a;color:#fff;border-radius:10px;padding:12px 14px}
-  .kpi .l{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#8fb4d9}
-  .kpi .v{font-size:19px;font-weight:700;margin-top:3px}
-  h2{font-size:15px;border-left:4px solid var(--grn);padding-left:9px;margin:18px 0 8px}
+  /* shell: left sidebar + main */
+  .shell{display:flex;min-height:100vh}
+  .side{width:190px;background:var(--nav);color:#cdd8e4;padding:16px 10px;flex-shrink:0}
+  .brand{color:#fff;font-size:16px;font-weight:700;padding:4px 10px 14px}
+  .navlink{display:block;padding:9px 12px;border-radius:8px;font-size:14px;margin:2px 0;cursor:pointer;color:#aebccd}
+  .navlink.active{background:#1b2b3d;color:#fff}
+  .navlink .ic{display:inline-block;width:20px}
+  .main{flex:1;padding:20px 24px;max-width:900px}
+  .topbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+  .topbar select{padding:7px 10px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:#fff}
+  h1{font-size:20px;margin:0 0 2px}.sub{color:var(--mut);font-size:12px;margin:0 0 14px}
+  h2{font-size:14px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;margin:20px 0 8px}
+  .cards{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+  .card{flex:1;min-width:150px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .card .l{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--mut)}
+  .card .v{font-size:26px;font-weight:700;margin:4px 0 2px}
+  .d-up{color:var(--red)}.d-dn{color:var(--grn)}.d-flat{color:var(--mut)}
   table{width:100%;border-collapse:collapse;font-size:13px}
-  .barwrap{background:#eee;border-radius:3px;height:12px;flex:1;overflow:hidden}
-  .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  td,th{padding:5px 8px;text-align:left}.num{text-align:right;white-space:nowrap}
+  tr+tr td{border-top:1px solid var(--line)}
+  .barwrap{background:#eee;border-radius:3px;height:12px;overflow:hidden}
+  .pill{display:inline-block;font-size:10px;padding:1px 7px;border-radius:20px;background:#eef3f8;color:var(--accent)}
+  .attn{background:#fff8e6;border:1px solid #f0d98a;border-radius:10px;padding:10px 14px;font-size:13px}
   .badge{display:inline-block;background:#eaf5ee;color:var(--grn);font-size:11px;padding:2px 8px;border-radius:20px}
+  .panel{display:none}.panel.active{display:block}
+  @media(max-width:720px){.shell{display:block}.side{width:auto;display:flex;overflow-x:auto;padding:8px}.brand{display:none}
+    .navlink{white-space:nowrap;font-size:13px;padding:7px 10px}.main{padding:14px}}
 </style></head>
 <body>
 <div id="gate" class="gate" style="display:none">
-  <h1>🔒 Finance</h1><p class="sub">Enter access to view</p>
+  <h1>🔒 Finance</h1><p class="sub">Enter access</p>
   <input id="gUrl" type="url" placeholder="Board URL"><input id="gTok" type="password" placeholder="Bearer token">
   <input id="gPass" type="password" placeholder="Password" autofocus>
   <button onclick="unlock()">Unlock</button><p id="gErr" class="err"></p>
 </div>
 
-<div id="app" class="wrap" style="display:none">
-  <h1>💰 Nyche Finance</h1>
-  <p class="sub" id="sub"></p>
-  <div class="filters">
-    <select id="fPerson"></select><select id="fCat"></select>
-    <select id="fFrom"></select><span style="align-self:center;color:var(--mut)">→</span><select id="fTo"></select>
-  </div>
-  <div class="kpis">
-    <div class="kpi"><div class="l">Income (household)</div><div class="v" id="kIn">—</div></div>
-    <div class="kpi"><div class="l">Spending</div><div class="v" id="kOut">—</div></div>
-    <div class="kpi"><div class="l">Net</div><div class="v" id="kNet">—</div></div>
-  </div>
-  <h2>Money in vs out, by month</h2>
-  <table id="tMonth"></table>
-  <h2>Where it goes — by category</h2>
-  <table id="tCat"></table>
-  <h2>Biggest expenses</h2>
-  <table id="tBig"></table>
-  <h2>📈 Net worth over time <span style="font-size:11px;color:var(--mut);font-weight:400">(cash accounts − card balances)</span></h2>
-  <table id="tNW"></table>
-  <h2>🔁 Recurring &amp; subscriptions <span style="font-size:11px;color:var(--mut);font-weight:400">(annualized run-rate)</span></h2>
-  <table id="tRec"></table>
-  <p class="sub" style="margin-top:18px">All data stays local; served over your private Tailscale network behind login. Aggregates only. — Zazu</p>
+<div id="shell" class="shell" style="display:none">
+  <nav class="side">
+    <div class="brand">💰 Nyche Finance</div>
+    <div id="nav"></div>
+  </nav>
+  <main class="main">
+    <div class="topbar">
+      <strong id="tabTitle" style="margin-right:auto"></strong>
+      <select id="fPerson" title="Person"></select>
+      <select id="fFrom" title="From"></select><span style="color:var(--mut)">→</span><select id="fTo" title="To"></select>
+      <select id="fCat" title="Category" style="display:none"></select>
+    </div>
+    <div id="panels"></div>
+    <p class="sub" style="margin-top:22px">All data local · served over Tailscale behind login · <span id="reconBadge"></span></p>
+  </main>
 </div>
 
 <script>
+const TABS=[["overview","🏠","Overview"],["cashflow","💸","Cash Flow"],["spending","🧾","Spending"],
+ ["networth","📈","Net Worth"],["subs","🔁","Subscriptions"],["accounts","🏦","Accounts"],["followups","🔎","Follow Ups"]];
 const K={url:"zazu_board_url",tok:"zazu_board_token"};
-const money=v=>(v<0?"-$":"$")+Math.abs(Math.round(v)).toLocaleString();
-let DATA=null, creds=null;
+const money=v=>(v<0?"−$":"$")+Math.abs(Math.round(v)).toLocaleString();
+const moShort=m=>m; let DATA=null,creds=null,TAB="overview";
 
 function boot(){
-  const u=localStorage.getItem(K.url)||location.origin, t=localStorage.getItem(K.tok)||"";
-  const p=sessionStorage.getItem("fin_pass");
-  if(t&&p){ creds={url:u,tok:t,pass:p}; load(); }
-  else { gUrl.value=u; gTok.value=t; document.getElementById("gate").style.display="block"; }
+  const u=localStorage.getItem(K.url)||location.origin,t=localStorage.getItem(K.tok)||"",p=sessionStorage.getItem("fin_pass");
+  if(t&&p){creds={url:u,tok:t,pass:p};load();}
+  else{gUrl.value=u;gTok.value=t;document.getElementById("gate").style.display="block";}
 }
+async function fin(){const r=await fetch(creds.url+"/api/finance",{headers:{"Authorization":"Bearer "+creds.tok,"X-Board-Pass":creds.pass}});if(!r.ok)throw r.status;return r.json();}
 async function unlock(){
-  const url=(gUrl.value||location.origin).replace(/\/$/,""), tok=gTok.value.trim(), pass=gPass.value;
-  try{
-    const r=await fetch(url+"/api/finance",{headers:{"Authorization":"Bearer "+tok,"X-Board-Pass":pass}});
-    if(!r.ok){ gErr.textContent="Wrong token or password"; return; }
-    localStorage.setItem(K.url,url); localStorage.setItem(K.tok,tok); sessionStorage.setItem("fin_pass",pass);
-    creds={url,tok,pass}; DATA=await r.json(); document.getElementById("gate").style.display="none"; render();
-  }catch(e){ gErr.textContent="Can't reach server"; }
+  const url=(gUrl.value||location.origin).replace(/\/$/,""),tok=gTok.value.trim(),pass=gPass.value;
+  try{const r=await fetch(url+"/api/finance",{headers:{"Authorization":"Bearer "+tok,"X-Board-Pass":pass}});
+    if(!r.ok){gErr.textContent="Wrong token or password";return;}
+    localStorage.setItem(K.url,url);localStorage.setItem(K.tok,tok);sessionStorage.setItem("fin_pass",pass);
+    creds={url,tok,pass};DATA=await r.json();document.getElementById("gate").style.display="none";start();
+  }catch(e){gErr.textContent="Can't reach server";}
 }
-async function load(){
-  try{
-    const r=await fetch(creds.url+"/api/finance",{headers:{"Authorization":"Bearer "+creds.tok,"X-Board-Pass":creds.pass}});
-    if(!r.ok) throw 0; DATA=await r.json(); render();
-  }catch(e){ sessionStorage.removeItem("fin_pass"); boot(); }
-}
-function opt(sel,vals,cur){ sel.innerHTML=vals.map(v=>`<option ${v===cur?'selected':''}>${v}</option>`).join(""); }
-function render(){
-  document.getElementById("app").style.display="block";
+async function load(){try{DATA=await fin();start();}catch(e){sessionStorage.removeItem("fin_pass");boot();}}
+
+function opt(sel,vals,cur){sel.innerHTML=vals.map(v=>`<option ${v===cur?'selected':''}>${v}</option>`).join("");}
+function start(){
+  document.getElementById("shell").style.display="flex";
+  document.getElementById("nav").innerHTML=TABS.map(([id,ic,lbl])=>`<a class="navlink" data-tab="${id}"><span class="ic">${ic}</span>${lbl}</a>`).join("");
+  document.querySelectorAll(".navlink").forEach(a=>a.onclick=()=>{location.hash="#/"+a.dataset.tab;});
   const persons=["All",...[...new Set(DATA.spend.map(r=>r.person))].sort()];
   const cats=["All",...[...new Set(DATA.spend.map(r=>r.category))].sort()];
-  const months=DATA.months;
-  opt(fPerson,persons,"All"); opt(fCat,cats,"All"); opt(fFrom,months,months[0]); opt(fTo,months,months[months.length-1]);
-  [fPerson,fCat,fFrom,fTo].forEach(s=>s.onchange=draw);
-  document.getElementById("sub").innerHTML=`${DATA.statements.reconciled}/${DATA.statements.total} statements reconciled &nbsp;<span class="badge">✓ to the penny</span>`;
-  draw(); renderExtras();
+  opt(fPerson,persons,"All");opt(fCat,cats,"All");opt(fFrom,DATA.months,DATA.months[0]);opt(fTo,DATA.months,DATA.months.at(-1));
+  [fPerson,fFrom,fTo,fCat].forEach(s=>s.onchange=draw);
+  reconBadge.innerHTML=`${DATA.statements.reconciled}/${DATA.statements.total} statements <span class="badge">✓ reconciled to the penny</span>`;
+  window.onhashchange=route;route();
 }
-function renderExtras(){
-  // net worth over time (global, not filtered)
-  const nw=DATA.networth||[];
-  const mx=Math.max(1,...nw.map(x=>Math.abs(x.net)));
-  tNW.innerHTML=nw.map(x=>`<tr><td style="font-size:12px;white-space:nowrap">${x.month}</td>
-    <td style="width:70%"><div class="barwrap"><div style="background:#0d1b2a;height:12px;width:${100*Math.abs(x.net)/mx}%"></div></div></td>
-    <td class="num" style="font-weight:600">${money(x.net)}</td></tr>`).join("");
-  // recurring / subscriptions
-  const rec=(DATA.recurring||[]).slice(0,18);
-  tRec.innerHTML=`<tr style="font-size:11px;color:var(--mut)"><td>Merchant</td><td class="num">~monthly</td><td class="num">per year</td><td></td></tr>`+
-    rec.map(r=>`<tr><td style="font-size:13px">${r.merchant}</td><td class="num" style="font-size:12px">${money(r.typical)}</td>
-    <td class="num" style="font-weight:600">${money(r.annualized)}</td>
-    <td style="font-size:10px;color:var(--mut)">${r.steady?'📌 steady':'~varies'} · ${r.category}</td></tr>`).join("");
+function route(){TAB=(location.hash.replace("#/","")||"overview");if(!TABS.find(t=>t[0]===TAB))TAB="overview";
+  document.querySelectorAll(".navlink").forEach(a=>a.classList.toggle("active",a.dataset.tab===TAB));
+  tabTitle.textContent=(TABS.find(t=>t[0]===TAB)||[])[2]||"";
+  fCat.style.display=(TAB==="spending")?"":"none";draw();}
+
+// ---- helpers ----
+const inR=(m,f,t)=>m>=f&&m<=t;
+function flt(){return {p:fPerson.value,f:fFrom.value,t:fTo.value,c:fCat.value};}
+function spendRows(f){return DATA.spend.filter(r=>inR(r.month,f.f,f.t)&&(f.p==="All"||r.person===f.p)&&(!f.c||f.c==="All"||r.category===f.c));}
+function incRows(f){return DATA.income.filter(r=>inR(r.month,f.f,f.t));}
+function sum(a){return a.reduce((x,y)=>x+y,0);}
+function bar(v,mx,col){return `<div class="barwrap"><div style="height:12px;background:${col};width:${mx?100*v/mx:0}%"></div></div>`;}
+function delta(cur,prev){if(prev===undefined||prev===null)return "";const d=cur-prev;const pct=prev?100*d/Math.abs(prev):0;
+  if(Math.abs(pct)<1)return `<span class="d-flat">▬ flat</span>`;
+  return `<span class="${d>0?'d-up':'d-dn'}">${d>0?'▲':'▼'} ${Math.abs(pct).toFixed(0)}%</span>`;}
+
+// ---- tab renderers ----
+function draw(){const f=flt();const P=document.getElementById("panels");P.innerHTML=({
+  overview:ovw, cashflow:cash, spending:spend, networth:nw, subs:subs, accounts:accts, followups:follow
+})[TAB](f);}
+
+function byMonth(rows,key){const o={};rows.forEach(r=>o[r.month]=(o[r.month]||0)+r[key]);return o;}
+function ovw(f){
+  const months=DATA.months.filter(m=>inR(m,f.f,f.t));const last=months.at(-1),prev=months.at(-2);
+  const sp=byMonth(spendRows(f),'amount'),ic=byMonth(incRows(f),'amount');
+  const kpi=(l,cur,pv,goodDown)=>`<div class="card"><div class="l">${l}</div><div class="v">${money(cur||0)}</div>${prev?delta(cur||0,pv||0):""}</div>`;
+  const nwl=DATA.networth.at(-1)||{net:0};
+  // top categories latest month
+  const catsLast={};DATA.spend.filter(r=>r.month===last&&(f.p==="All"||r.person===f.p)).forEach(r=>catsLast[r.category]=(catsLast[r.category]||0)+r.amount);
+  const tc=Object.entries(catsLast).sort((a,b)=>b[1]-a[1]).slice(0,5);const tcmx=Math.max(1,...tc.map(x=>x[1]));
+  const submo=sum(DATA.recurring.filter(r=>r.steady).map(r=>r.typical));
+  return `<div class="cards">
+     ${kpi("Income",ic[last],ic[prev])}${kpi("Spending",sp[last],sp[prev])}
+     <div class="card"><div class="l">Net (latest mo)</div><div class="v">${money((ic[last]||0)-(sp[last]||0))}</div></div></div>
+   <h2>Needs attention</h2><div class="attn">
+     • ${DATA.flags.length} possible duplicate charge(s) &nbsp; • ${reviewPct()}% of spend still uncategorized<br>
+     • ${anomalies(f).length} categor(y/ies) up sharply vs their 3-mo average &nbsp; • see <a href="#/followups" style="color:var(--accent);font-weight:600">Follow Ups →</a></div>
+   <div class="cards" style="margin-top:14px">
+     <div class="card"><div class="l">Net worth</div><div class="v">${money(nwl.net)}</div><div class="sub">assets ${money(nwl.assets)} · debt ${money(nwl.liabilities)}</div><a class="pill" href="#/networth">Net Worth →</a></div>
+     <div class="card"><div class="l">Subscriptions (steady)</div><div class="v">${money(submo)}/mo</div><a class="pill" href="#/subs">Subscriptions →</a></div></div>
+   <h2>Top categories — ${last}</h2><table>${tc.map(([c,v])=>`<tr><td style="width:30%">${c}</td><td>${bar(v,tcmx,'var(--accent)')}</td><td class="num">${money(v)}</td></tr>`).join("")}</table>
+   <p class="sub" style="margin-top:6px"><a href="#/spending" style="color:var(--accent)">All categories →</a></p>`;
 }
-function draw(){
-  const per=fPerson.value,cat=fCat.value,from=fFrom.value,to=fTo.value;
-  const inRange=m=>m>=from&&m<=to;
-  const sp=DATA.spend.filter(r=>inRange(r.month)&&(per==="All"||r.person===per)&&(cat==="All"||r.category===cat));
-  const inc=DATA.income.filter(r=>inRange(r.month));
-  const totSp=sp.reduce((a,r)=>a+r.amount,0), totIn=inc.reduce((a,r)=>a+r.amount,0);
-  kIn.textContent=money(totIn); kOut.textContent=money(totSp);
-  kNet.textContent=(per==="All"?money(totIn-totSp):"—"); kNet.style.color=(totIn-totSp)>=0?"#8fe0b0":"#f3a79f";
-  // monthly
-  const byM={}; months_in(from,to).forEach(m=>byM[m]={i:0,s:0});
-  inc.forEach(r=>byM[r.month]&&(byM[r.month].i+=r.amount)); sp.forEach(r=>byM[r.month]&&(byM[r.month].s+=r.amount));
-  const mx=Math.max(1,...Object.values(byM).flatMap(x=>[x.i,x.s]));
-  tMonth.innerHTML=Object.entries(byM).map(([m,x])=>`<tr><td style="font-size:12px">${m}</td>
-    <td style="width:42%"><div class="barwrap"><div style="background:var(--grn);height:12px;width:${100*x.i/mx}%"></div></div></td><td class="num" style="color:var(--grn);font-size:11px">${money(x.i)}</td>
-    <td style="width:42%"><div class="barwrap"><div style="background:var(--red);height:12px;width:${100*x.s/mx}%"></div></div></td><td class="num" style="color:var(--red);font-size:11px">${money(x.s)}</td></tr>`).join("");
-  // category
-  const byC={}; sp.forEach(r=>byC[r.category]=(byC[r.category]||0)+r.amount);
-  const cs=Object.entries(byC).sort((a,b)=>b[1]-a[1]); const cmx=Math.max(1,...cs.map(x=>x[1]));
-  tCat.innerHTML=cs.map(([c,v])=>`<tr><td style="width:34%">${c}</td><td><div class="barwrap"><div style="background:#44627d;height:12px;width:${100*v/cmx}%"></div></div></td><td class="num">${money(v)}</td></tr>`).join("");
-  // biggest
-  const big=DATA.biggest.filter(r=>inRange(r.date.slice(0,7))&&(per==="All"||r.person===per)&&(cat==="All"||r.category===cat)).slice(0,15);
-  tBig.innerHTML=big.map(r=>`<tr><td style="font-size:12px;white-space:nowrap">${r.date}</td><td style="font-size:12px;color:var(--mut)">${r.category}</td><td style="font-size:12px">${r.descr}</td><td class="num">${money(r.amount)}</td></tr>`).join("");
+function cash(f){
+  const months=DATA.months.filter(m=>inR(m,f.f,f.t));const sp=byMonth(spendRows(f),'amount'),ic=byMonth(incRows(f),'amount');
+  const mx=Math.max(1,...months.flatMap(m=>[ic[m]||0,sp[m]||0]));
+  return `<p class="sub">Income (green) vs spending (red) per month, with net &amp; savings rate.</p>
+   <table><tr class="sub"><td>Month</td><td>In</td><td>Out</td><td class="num">Net</td><td class="num">Saved</td></tr>
+   ${months.map(m=>{const i=ic[m]||0,s=sp[m]||0,net=i-s,sr=i?100*net/i:0;
+     return `<tr><td>${m}</td><td style="width:34%">${bar(i,mx,'var(--grn)')}</td><td style="width:34%">${bar(s,mx,'var(--red)')}</td>
+     <td class="num ${net>=0?'d-dn':'d-up'}">${money(net)}</td><td class="num sub">${sr.toFixed(0)}%</td></tr>`;}).join("")}</table>`;
 }
-function months_in(from,to){ return DATA.months.filter(m=>m>=from&&m<=to); }
+function spend(f){
+  const rows=spendRows(f);const byC={};rows.forEach(r=>byC[r.category]=(byC[r.category]||0)+r.amount);
+  const cs=Object.entries(byC).sort((a,b)=>b[1]-a[1]);const mx=Math.max(1,...cs.map(x=>x[1]));const tot=sum(cs.map(x=>x[1]));
+  const big=DATA.biggest.filter(r=>inR(r.date.slice(0,7),f.f,f.t)&&(f.p==="All"||r.person===f.p)&&(f.c==="All"||r.category===f.c)).slice(0,15);
+  return `<p class="sub">Total ${money(tot)} over selected range.</p>
+   <h2>By category</h2><table>${cs.map(([c,v])=>`<tr><td style="width:28%">${c}</td><td>${bar(v,mx,'var(--accent)')}</td><td class="num">${money(v)}</td><td class="num sub">${(100*v/tot).toFixed(0)}%</td></tr>`).join("")}</table>
+   <h2>Biggest expenses</h2><table><tr class="sub"><td>Date</td><td>Category</td><td>Merchant</td><td class="num">$</td></tr>
+   ${big.map(r=>`<tr><td style="white-space:nowrap">${r.date}</td><td class="sub">${r.category}</td><td style="font-size:12px">${r.descr}</td><td class="num">${money(r.amount)}</td></tr>`).join("")}</table>`;
+}
+function nw(f){
+  const nwd=DATA.networth.filter(x=>inR(x.month,f.f,f.t));const mx=Math.max(1,...nwd.map(x=>Math.abs(x.net)));const cur=nwd.at(-1)||{assets:0,liabilities:0,net:0};
+  return `<div class="cards"><div class="card"><div class="l">Net worth</div><div class="v">${money(cur.net)}</div></div>
+    <div class="card"><div class="l">Assets (cash)</div><div class="v">${money(cur.assets)}</div></div>
+    <div class="card"><div class="l">Card balances</div><div class="v">${money(cur.liabilities)}</div></div></div>
+   <h2>Net worth over time</h2><table>${nwd.map(x=>`<tr><td style="white-space:nowrap">${x.month}</td><td>${bar(Math.abs(x.net),mx,'var(--nav)')}</td><td class="num" style="font-weight:600">${money(x.net)}</td></tr>`).join("")}</table>`;
+}
+function subs(f){
+  const r=DATA.recurring;const tot=sum(r.filter(x=>x.steady).map(x=>x.annualized));
+  return `<p class="sub">Recurring charges by annual run-rate. 📌 = steady (true subscription). Steady total ≈ <b>${money(tot)}/yr</b>.</p>
+   <table><tr class="sub"><td>Merchant</td><td class="num">~monthly</td><td class="num">per year</td><td>type · category</td></tr>
+   ${r.slice(0,25).map(x=>`<tr><td>${x.merchant}</td><td class="num">${money(x.typical)}</td><td class="num" style="font-weight:600">${money(x.annualized)}</td><td class="sub">${x.steady?'📌 steady':'~varies'} · ${x.category}</td></tr>`).join("")}</table>`;
+}
+function accts(f){
+  return `<p class="sub">${DATA.accounts.length} accounts · ${DATA.statements.reconciled}/${DATA.statements.total} statements reconciled to the penny.</p>
+   <table><tr class="sub"><td>Institution</td><td>Type</td><td>••••</td><td>Owner</td></tr>
+   ${DATA.accounts.map(a=>`<tr><td>${a.institution}</td><td>${a.is_credit?'💳 '+a.type:'🏦 '+a.type}</td><td>${a.last4}</td><td><span class="pill">${a.owner}</span></td></tr>`).join("")}</table>`;
+}
+function reviewPct(){const t=sum(DATA.spend.map(r=>r.amount));const rev=sum(DATA.spend.filter(r=>r.category==='Review').map(r=>r.amount));return t?Math.round(100*rev/t):0;}
+function anomalies(f){
+  // categories whose latest month > 1.25x avg of prior 3 months (and > $150)
+  const out=[];const months=DATA.months;const last=months.at(-1);const prior=months.slice(-4,-1);
+  const cats=[...new Set(DATA.spend.map(r=>r.category))];
+  cats.forEach(c=>{const lv=sum(DATA.spend.filter(r=>r.month===last&&r.category===c).map(r=>r.amount));
+    const pv=prior.map(m=>sum(DATA.spend.filter(r=>r.month===m&&r.category===c).map(r=>r.amount)));const avg=pv.length?sum(pv)/pv.length:0;
+    if(lv>150&&avg>0&&lv>1.25*avg)out.push({c,lv,avg});});
+  return out.sort((a,b)=>b.lv-a.lv);
+}
+function follow(f){
+  const rev=[
+    ["MSPBNA ACH TRNSFR → savings","Is this external income (investment payout) or an internal transfer? Currently left OUT of income."],
+    ["GA DIR ACH CONTRIB (~$8k)","Tagged Utilities, but 'CONTRIB' looks like a 529 / investment contribution — confirm."],
+    ["WITHDRAWAL FROM CAPITAL ONE ONLINE ($8k)","Transfer to another account, or a real expense? Left in Review."],
+    ["Amazon card — per person","Statements don't break out cardholder, so Amazon spend shows as Joint."],
+  ];
+  const an=anomalies(f);
+  return `<h2>Odd / to research</h2><div class="attn">${rev.map(x=>`• <b>${x[0]}</b> — ${x[1]}`).join("<br>")}</div>
+   <h2>Spikes vs 3-month average (latest month)</h2>
+   ${an.length?`<table><tr class="sub"><td>Category</td><td class="num">latest</td><td class="num">3-mo avg</td><td class="num">Δ</td></tr>
+     ${an.map(a=>`<tr><td>${a.c}</td><td class="num">${money(a.lv)}</td><td class="num sub">${money(a.avg)}</td><td class="num d-up">▲ ${Math.round(100*(a.lv-a.avg)/a.avg)}%</td></tr>`).join("")}</table>`:'<p class="sub">Nothing unusual this month.</p>'}
+   <h2>Possible duplicate charges</h2>
+   ${DATA.flags.length?`<table><tr class="sub"><td class="num">$</td><td>Merchant</td><td>Dates</td></tr>
+     ${DATA.flags.map(x=>`<tr><td class="num">${money(x.amount)}</td><td style="font-size:12px">${x.merchant}</td><td class="sub">${(x.dates||[]).join(" & ")}</td></tr>`).join("")}</table>`:'<p class="sub">None flagged.</p>'}
+   <h2>Data health</h2><p class="sub">${reviewPct()}% of spend still in "Review" (long-tail merchants) — refining with Hermes.</p>`;
+}
 boot();
 </script>
 </body></html>
