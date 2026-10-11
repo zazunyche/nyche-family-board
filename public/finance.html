@@ -94,7 +94,10 @@ function start(){
   document.querySelectorAll(".navlink").forEach(a=>a.onclick=()=>{location.hash="#/"+a.dataset.tab;});
   const persons=["All",...[...new Set(DATA.spend.map(r=>r.person))].sort()];
   const cats=["All",...[...new Set(DATA.spend.map(r=>r.category))].sort()];
-  opt(fPerson,persons,"All");opt(fCat,cats,"All");opt(fFrom,DATA.months,DATA.months[0]);opt(fTo,DATA.months,DATA.months.at(-1));
+  // default the range to end at the last month that actually has spending (skip empty trailing months)
+  const withData=DATA.months.filter(m=>DATA.spend.some(r=>r.month===m&&r.amount));
+  const lastData=withData.at(-1)||DATA.months.at(-1);
+  opt(fPerson,persons,"All");opt(fCat,cats,"All");opt(fFrom,DATA.months,DATA.months[0]);opt(fTo,DATA.months,lastData);
   [fPerson,fFrom,fTo,fCat].forEach(s=>s.onchange=draw);
   reconBadge.innerHTML=`${DATA.statements.reconciled}/${DATA.statements.total} statements <span class="badge">✓ reconciled to the penny</span>`;
   window.onhashchange=route;route();
@@ -122,24 +125,24 @@ function draw(){const f=flt();const P=document.getElementById("panels");P.innerH
 
 function byMonth(rows,key){const o={};rows.forEach(r=>o[r.month]=(o[r.month]||0)+r[key]);return o;}
 function ovw(f){
-  const months=DATA.months.filter(m=>inR(m,f.f,f.t));const last=months.at(-1),prev=months.at(-2);
-  const sp=byMonth(spendRows(f),'amount'),ic=byMonth(incRows(f),'amount');
-  const kpi=(l,cur,pv,goodDown)=>`<div class="card"><div class="l">${l}</div><div class="v">${money(cur||0)}</div>${prev?delta(cur||0,pv||0):""}</div>`;
-  const nwl=DATA.networth.at(-1)||{net:0};
-  // top categories latest month
-  const catsLast={};DATA.spend.filter(r=>r.month===last&&(f.p==="All"||r.person===f.p)).forEach(r=>catsLast[r.category]=(catsLast[r.category]||0)+r.amount);
-  const tc=Object.entries(catsLast).sort((a,b)=>b[1]-a[1]).slice(0,5);const tcmx=Math.max(1,...tc.map(x=>x[1]));
+  const months=DATA.months.filter(m=>inR(m,f.f,f.t));const n=Math.max(1,months.length);
+  const totIn=sum(incRows(f).map(r=>r.amount)), totSp=sum(spendRows(f).map(r=>r.amount)), net=totIn-totSp;
+  const kpi=(l,v)=>`<div class="card"><div class="l">${l}</div><div class="v">${money(v)}</div><div class="sub">over ${n} mo · ~${money(v/n)}/mo</div></div>`;
+  const nwl=DATA.networth.at(-1)||{net:0,assets:0,liabilities:0};
+  // top categories over the selected range
+  const catsR={};spendRows(f).forEach(r=>catsR[r.category]=(catsR[r.category]||0)+r.amount);
+  const tc=Object.entries(catsR).sort((a,b)=>b[1]-a[1]).slice(0,6);const tcmx=Math.max(1,...tc.map(x=>x[1]));
   const submo=sum(DATA.recurring.filter(r=>r.steady).map(r=>r.typical));
-  return `<div class="cards">
-     ${kpi("Income",ic[last],ic[prev])}${kpi("Spending",sp[last],sp[prev])}
-     <div class="card"><div class="l">Net (latest mo)</div><div class="v">${money((ic[last]||0)-(sp[last]||0))}</div></div></div>
+  return `<p class="sub">${months[0]} → ${months.at(-1)} · ${f.p==="All"?"whole household":f.p}</p>
+   <div class="cards">${kpi("Income",totIn)}${kpi("Spending",totSp)}
+     <div class="card"><div class="l">Net</div><div class="v ${net>=0?'d-dn':'d-up'}">${money(net)}</div><div class="sub">over ${n} mo · ~${money(net/n)}/mo</div></div></div>
    <h2>Needs attention</h2><div class="attn">
      • ${DATA.flags.length} possible duplicate charge(s) &nbsp; • ${reviewPct()}% of spend still uncategorized<br>
-     • ${anomalies(f).length} categor(y/ies) up sharply vs their 3-mo average &nbsp; • see <a href="#/followups" style="color:var(--accent);font-weight:600">Follow Ups →</a></div>
+     • ${anomalies(f).length} categor(y/ies) up sharply vs 3-mo average &nbsp; • see <a href="#/followups" style="color:var(--accent);font-weight:600">Follow Ups →</a></div>
    <div class="cards" style="margin-top:14px">
-     <div class="card"><div class="l">Net worth</div><div class="v">${money(nwl.net)}</div><div class="sub">assets ${money(nwl.assets)} · debt ${money(nwl.liabilities)}</div><a class="pill" href="#/networth">Net Worth →</a></div>
+     <div class="card"><div class="l">Net worth (latest)</div><div class="v">${money(nwl.net)}</div><div class="sub">assets ${money(nwl.assets)} · debt ${money(nwl.liabilities)}</div><a class="pill" href="#/networth">Net Worth →</a></div>
      <div class="card"><div class="l">Subscriptions (steady)</div><div class="v">${money(submo)}/mo</div><a class="pill" href="#/subs">Subscriptions →</a></div></div>
-   <h2>Top categories — ${last}</h2><table>${tc.map(([c,v])=>`<tr><td style="width:30%">${c}</td><td>${bar(v,tcmx,'var(--accent)')}</td><td class="num">${money(v)}</td></tr>`).join("")}</table>
+   <h2>Top categories (selected range)</h2><table>${tc.map(([c,v])=>`<tr><td style="width:30%">${c}</td><td>${bar(v,tcmx,'var(--accent)')}</td><td class="num">${money(v)}</td></tr>`).join("")}</table>
    <p class="sub" style="margin-top:6px"><a href="#/spending" style="color:var(--accent)">All categories →</a></p>`;
 }
 function cash(f){
