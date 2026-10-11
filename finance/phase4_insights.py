@@ -15,16 +15,23 @@ def norm(desc):
     u=re.sub(r'[*#].*$','',u)           # drop after remaining * or #
     return re.sub(r'\s+',' ',u).strip(' -.') or (desc or "")[:20].upper()
 
+def acct_label(inst,typ,last4):
+    m={'checking':f'{inst} Checking','savings':f'{inst} Savings','amazon_cc':'Chase Amazon','venture_x_cc':'Venture X','venture_cc':'Venture','delta_cc':'Amex Delta'}
+    return m.get(typ,f'{inst} {typ}')
+
 rows=c.execute("""SELECT t.txn_date, t.description, t.category,
    CASE WHEN a.is_credit=1 THEN t.amount ELSE -t.amount END amt,
-   CASE WHEN a.is_credit=1 THEN COALESCE(t.person,'Joint') ELSE 'Joint' END person
+   CASE WHEN a.is_credit=1 THEN COALESCE(t.person,'Joint') ELSE 'Joint' END person,
+   a.institution, a.type, a.last4
    FROM transactions t JOIN accounts a ON a.id=t.account_id
    WHERE ((a.is_credit=1 AND t.direction='charge') OR (a.is_credit=0 AND t.amount<0 AND t.is_transfer=0))
    AND t.txn_date NOT LIKE 'None%' AND t.txn_date IS NOT NULL""").fetchall()
 
+from collections import Counter
+from datetime import date as _date
 groups={}
-for d,desc,cat,amt,person in rows:
-    groups.setdefault(norm(desc),[]).append((d,amt,cat,person))
+for d,desc,cat,amt,person,inst,typ,last4 in rows:
+    groups.setdefault(norm(desc),[]).append((d,amt,cat,person,acct_label(inst,typ,last4)))
 
 recurring=[]
 for m,txns in groups.items():
@@ -33,24 +40,23 @@ for m,txns in groups.items():
     amts=[t[1] for t in txns]
     annual=round(sum(amts)/len(months)*12)
     cv = (st.pstdev(amts)/st.mean(amts)) if st.mean(amts) else 1
+    acct=Counter(t[4] for t in txns).most_common(1)[0][0]
     recurring.append(dict(merchant=m, months=len(months), n=len(txns),
         typical=round(st.median(amts)), annualized=annual, category=txns[0][2],
-        steady=bool(cv<0.15)))
+        account=acct, steady=bool(cv<0.15)))
 recurring.sort(key=lambda r:-r["annualized"])
 
 # duplicate charges: same merchant + same rounded amount within 3 days
 flags=[]
 for m,txns in groups.items():
     seen={}
-    for d,amt,cat,person in txns:
-        key=(round(amt))
+    for d,amt,cat,person,acct in txns:
+        key=round(amt)
         for (pd,pa) in seen.get(key,[]):
-            try:
-                from datetime import date
-                dd=abs((date.fromisoformat(d)-date.fromisoformat(pd)).days)
+            try: dd=abs((_date.fromisoformat(d)-_date.fromisoformat(pd)).days)
             except: dd=99
             if dd<=3:
-                flags.append(dict(type="possible-duplicate", merchant=m, amount=round(amt), dates=[pd,d]))
+                flags.append(dict(type="possible-duplicate", merchant=m, amount=round(amt), dates=[pd,d], account=acct))
         seen.setdefault(key,[]).append((d,amt))
 
 # inject into summary json for the dashboard

@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nyche Finance</title>
+<title>EC Finance</title>
 <style>
   :root{--grn:#2e7d52;--red:#b3452f;--ink:#1f2328;--mut:#6b6860;--line:#e6e4e0;--nav:#0d1b2a;--accent:#44627d}
   *{box-sizing:border-box}
@@ -21,6 +21,8 @@
   .main{flex:1;padding:20px 24px;max-width:900px}
   .topbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
   .topbar select{padding:7px 10px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:#fff}
+  .flab{font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em;margin:0 2px 0 8px}
+  .fgrp{display:inline-flex;align-items:center}
   h1{font-size:20px;margin:0 0 2px}.sub{color:var(--mut);font-size:12px;margin:0 0 14px}
   h2{font-size:14px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;margin:20px 0 8px}
   .cards{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px}
@@ -49,15 +51,16 @@
 
 <div id="shell" class="shell" style="display:none">
   <nav class="side">
-    <div class="brand">💰 Nyche Finance</div>
+    <div class="brand">💰 EC Finance</div>
     <div id="nav"></div>
   </nav>
   <main class="main">
     <div class="topbar">
       <strong id="tabTitle" style="margin-right:auto"></strong>
-      <select id="fPerson" title="Person"></select>
-      <select id="fFrom" title="From"></select><span style="color:var(--mut)">→</span><select id="fTo" title="To"></select>
-      <select id="fCat" title="Category" style="display:none"></select>
+      <span class="fgrp"><span class="flab">Person</span><select id="fPerson"></select></span>
+      <span class="fgrp"><span class="flab">From</span><select id="fFrom"></select><span class="flab" style="margin:0 2px">→</span><select id="fTo"></select></span>
+      <span class="fgrp" id="catGrp" style="display:none"><span class="flab">Category</span><select id="fCat"></select></span>
+      <span class="fgrp" id="acctGrp" style="display:none"><span class="flab">Account</span><select id="fAcct"></select></span>
     </div>
     <div id="panels"></div>
     <p class="sub" style="margin-top:22px">All data local · served over Tailscale behind login · <span id="reconBadge"></span></p>
@@ -66,7 +69,7 @@
 
 <script>
 const TABS=[["overview","🏠","Overview"],["cashflow","💸","Cash Flow"],["spending","🧾","Spending"],
- ["networth","📈","Net Worth"],["subs","🔁","Subscriptions"],["accounts","🏦","Accounts"],["followups","🔎","Follow Ups"]];
+ ["networth","📈","Cash Position"],["subs","🔁","Subscriptions"],["accounts","🏦","Accounts"],["followups","🔎","Follow Ups"]];
 const K={url:"zazu_board_url",tok:"zazu_board_token"};
 const money=v=>(v<0?"−$":"$")+Math.abs(Math.round(v)).toLocaleString();
 const moShort=m=>m; let DATA=null,creds=null,TAB="overview";
@@ -97,20 +100,22 @@ function start(){
   // default the range to end at the last month that actually has spending (skip empty trailing months)
   const withData=DATA.months.filter(m=>DATA.spend.some(r=>r.month===m&&r.amount));
   const lastData=withData.at(-1)||DATA.months.at(-1);
-  opt(fPerson,persons,"All");opt(fCat,cats,"All");opt(fFrom,DATA.months,DATA.months[0]);opt(fTo,DATA.months,lastData);
-  [fPerson,fFrom,fTo,fCat].forEach(s=>s.onchange=draw);
+  const accts=["All",...[...new Set(DATA.spend.map(r=>r.account))].sort()];
+  opt(fPerson,persons,"All");opt(fCat,cats,"All");opt(fAcct,accts,"All");opt(fFrom,DATA.months,DATA.months[0]);opt(fTo,DATA.months,lastData);
+  [fPerson,fFrom,fTo,fCat,fAcct].forEach(s=>s.onchange=draw);
   reconBadge.innerHTML=`${DATA.statements.reconciled}/${DATA.statements.total} statements <span class="badge">✓ reconciled to the penny</span>`;
   window.onhashchange=route;route();
 }
 function route(){TAB=(location.hash.replace("#/","")||"overview");if(!TABS.find(t=>t[0]===TAB))TAB="overview";
   document.querySelectorAll(".navlink").forEach(a=>a.classList.toggle("active",a.dataset.tab===TAB));
   tabTitle.textContent=(TABS.find(t=>t[0]===TAB)||[])[2]||"";
-  fCat.style.display=(TAB==="spending")?"":"none";draw();}
+  const showSpendFilters=(TAB==="spending")?"inline-flex":"none";
+  catGrp.style.display=showSpendFilters;acctGrp.style.display=showSpendFilters;draw();}
 
 // ---- helpers ----
 const inR=(m,f,t)=>m>=f&&m<=t;
-function flt(){return {p:fPerson.value,f:fFrom.value,t:fTo.value,c:fCat.value};}
-function spendRows(f){return DATA.spend.filter(r=>inR(r.month,f.f,f.t)&&(f.p==="All"||r.person===f.p)&&(!f.c||f.c==="All"||r.category===f.c));}
+function flt(){return {p:fPerson.value,f:fFrom.value,t:fTo.value,c:fCat.value,a:fAcct.value};}
+function spendRows(f){return DATA.spend.filter(r=>inR(r.month,f.f,f.t)&&(f.p==="All"||r.person===f.p)&&(!f.c||f.c==="All"||r.category===f.c)&&(!f.a||f.a==="All"||r.account===f.a));}
 function incRows(f){return DATA.income.filter(r=>inR(r.month,f.f,f.t));}
 function sum(a){return a.reduce((x,y)=>x+y,0);}
 function bar(v,mx,col){return `<div class="barwrap"><div style="height:12px;background:${col};width:${mx?100*v/mx:0}%"></div></div>`;}
@@ -140,7 +145,7 @@ function ovw(f){
      • ${DATA.flags.length} possible duplicate charge(s) &nbsp; • ${reviewPct()}% of spend still uncategorized<br>
      • ${anomalies(f).length} categor(y/ies) up sharply vs 3-mo average &nbsp; • see <a href="#/followups" style="color:var(--accent);font-weight:600">Follow Ups →</a></div>
    <div class="cards" style="margin-top:14px">
-     <div class="card"><div class="l">Net worth (latest)</div><div class="v">${money(nwl.net)}</div><div class="sub">assets ${money(nwl.assets)} · debt ${money(nwl.liabilities)}</div><a class="pill" href="#/networth">Net Worth →</a></div>
+     <div class="card"><div class="l">Cash position</div><div class="v">${money(nwl.net)}</div><div class="sub">cash ${money(nwl.assets)} · cards ${money(nwl.liabilities)}</div><a class="pill" href="#/networth">Cash Position →</a></div>
      <div class="card"><div class="l">Subscriptions (steady)</div><div class="v">${money(submo)}/mo</div><a class="pill" href="#/subs">Subscriptions →</a></div></div>
    <h2>Top categories (selected range)</h2><table>${tc.map(([c,v])=>`<tr><td style="width:30%">${c}</td><td>${bar(v,tcmx,'var(--accent)')}</td><td class="num">${money(v)}</td></tr>`).join("")}</table>
    <p class="sub" style="margin-top:6px"><a href="#/spending" style="color:var(--accent)">All categories →</a></p>`;
@@ -148,10 +153,12 @@ function ovw(f){
 function cash(f){
   const months=DATA.months.filter(m=>inR(m,f.f,f.t));const sp=byMonth(spendRows(f),'amount'),ic=byMonth(incRows(f),'amount');
   const mx=Math.max(1,...months.flatMap(m=>[ic[m]||0,sp[m]||0]));
-  return `<p class="sub">Income (green) vs spending (red) per month, with net &amp; savings rate.</p>
-   <table><tr class="sub"><td>Month</td><td>In</td><td>Out</td><td class="num">Net</td><td class="num">Saved</td></tr>
+  return `<p class="sub">Income (green) vs spending (red) per month. Hover a bar for the exact figure.</p>
+   <table><tr class="sub"><td>Month</td><td colspan="2">In</td><td colspan="2">Out</td><td class="num">Net</td><td class="num">Saved</td></tr>
    ${months.map(m=>{const i=ic[m]||0,s=sp[m]||0,net=i-s,sr=i?100*net/i:0;
-     return `<tr><td>${m}</td><td style="width:34%">${bar(i,mx,'var(--grn)')}</td><td style="width:34%">${bar(s,mx,'var(--red)')}</td>
+     return `<tr><td>${m}</td>
+     <td style="width:28%" title="In ${m}: ${money(i)}">${bar(i,mx,'var(--grn)')}</td><td class="num" style="color:var(--grn);font-size:12px">${money(i)}</td>
+     <td style="width:28%" title="Out ${m}: ${money(s)}">${bar(s,mx,'var(--red)')}</td><td class="num" style="color:var(--red);font-size:12px">${money(s)}</td>
      <td class="num ${net>=0?'d-dn':'d-up'}">${money(net)}</td><td class="num sub">${sr.toFixed(0)}%</td></tr>`;}).join("")}</table>`;
 }
 function spend(f){
@@ -160,26 +167,28 @@ function spend(f){
   const big=DATA.biggest.filter(r=>inR(r.date.slice(0,7),f.f,f.t)&&(f.p==="All"||r.person===f.p)&&(f.c==="All"||r.category===f.c)).slice(0,15);
   return `<p class="sub">Total ${money(tot)} over selected range.</p>
    <h2>By category</h2><table>${cs.map(([c,v])=>`<tr><td style="width:28%">${c}</td><td>${bar(v,mx,'var(--accent)')}</td><td class="num">${money(v)}</td><td class="num sub">${(100*v/tot).toFixed(0)}%</td></tr>`).join("")}</table>
-   <h2>Biggest expenses</h2><table><tr class="sub"><td>Date</td><td>Category</td><td>Merchant</td><td class="num">$</td></tr>
-   ${big.map(r=>`<tr><td style="white-space:nowrap">${r.date}</td><td class="sub">${r.category}</td><td style="font-size:12px">${r.descr}</td><td class="num">${money(r.amount)}</td></tr>`).join("")}</table>`;
+   <h2>Biggest expenses</h2><table><tr class="sub"><td>Date</td><td>Category</td><td>Account</td><td>Merchant</td><td class="num">$</td></tr>
+   ${big.map(r=>`<tr><td style="white-space:nowrap">${r.date}</td><td class="sub">${r.category}</td><td class="sub">${r.account||''}</td><td style="font-size:12px">${r.descr}</td><td class="num">${money(r.amount)}</td></tr>`).join("")}</table>`;
 }
 function nw(f){
   const nwd=DATA.networth.filter(x=>inR(x.month,f.f,f.t));const mx=Math.max(1,...nwd.map(x=>Math.abs(x.net)));const cur=nwd.at(-1)||{assets:0,liabilities:0,net:0};
-  return `<div class="cards"><div class="card"><div class="l">Net worth</div><div class="v">${money(cur.net)}</div></div>
-    <div class="card"><div class="l">Assets (cash)</div><div class="v">${money(cur.assets)}</div></div>
-    <div class="card"><div class="l">Card balances</div><div class="v">${money(cur.liabilities)}</div></div></div>
-   <h2>Net worth over time</h2><table>${nwd.map(x=>`<tr><td style="white-space:nowrap">${x.month}</td><td>${bar(Math.abs(x.net),mx,'var(--nav)')}</td><td class="num" style="font-weight:600">${money(x.net)}</td></tr>`).join("")}</table>`;
+  return `<p class="sub">Cash in bank accounts minus credit-card balances. <b>Not full net worth</b> — excludes investments/529, home equity, and mortgage/auto-loan balances (we don't have those statements).</p>
+   <div class="cards"><div class="card"><div class="l">Cash position</div><div class="v">${money(cur.net)}</div></div>
+    <div class="card"><div class="l">Cash in accounts</div><div class="v">${money(cur.assets)}</div></div>
+    <div class="card"><div class="l">Card balances owed</div><div class="v">${money(cur.liabilities)}</div></div></div>
+   <h2>Cash position over time</h2><table>${nwd.map(x=>`<tr><td style="white-space:nowrap">${x.month}</td><td>${bar(Math.abs(x.net),mx,'var(--nav)')}</td><td class="num" style="font-weight:600">${money(x.net)}</td></tr>`).join("")}</table>`;
 }
 function subs(f){
   const r=DATA.recurring;const tot=sum(r.filter(x=>x.steady).map(x=>x.annualized));
   return `<p class="sub">Recurring charges by annual run-rate. 📌 = steady (true subscription). Steady total ≈ <b>${money(tot)}/yr</b>.</p>
-   <table><tr class="sub"><td>Merchant</td><td class="num">~monthly</td><td class="num">per year</td><td>type · category</td></tr>
-   ${r.slice(0,25).map(x=>`<tr><td>${x.merchant}</td><td class="num">${money(x.typical)}</td><td class="num" style="font-weight:600">${money(x.annualized)}</td><td class="sub">${x.steady?'📌 steady':'~varies'} · ${x.category}</td></tr>`).join("")}</table>`;
+   <table><tr class="sub"><td>Merchant</td><td>Account</td><td class="num">~monthly</td><td class="num">per year</td><td>type · category</td></tr>
+   ${r.slice(0,25).map(x=>`<tr><td>${x.merchant}</td><td class="sub">${x.account||''}</td><td class="num">${money(x.typical)}</td><td class="num" style="font-weight:600">${money(x.annualized)}</td><td class="sub">${x.steady?'📌 steady':'~varies'} · ${x.category}</td></tr>`).join("")}</table>`;
 }
 function accts(f){
-  return `<p class="sub">${DATA.accounts.length} accounts · ${DATA.statements.reconciled}/${DATA.statements.total} statements reconciled to the penny.</p>
-   <table><tr class="sub"><td>Institution</td><td>Type</td><td>••••</td><td>Owner</td></tr>
-   ${DATA.accounts.map(a=>`<tr><td>${a.institution}</td><td>${a.is_credit?'💳 '+a.type:'🏦 '+a.type}</td><td>${a.last4}</td><td><span class="pill">${a.owner}</span></td></tr>`).join("")}</table>`;
+  return `<p class="sub">${DATA.accounts.length} accounts · ${DATA.statements.reconciled}/${DATA.statements.total} statements reconciled to the penny. Cardholders show authorized users (e.g. Mom's cards).</p>
+   <table><tr class="sub"><td>Account</td><td>Type</td><td>••••</td><td>Owner</td><td>Cardholders</td></tr>
+   ${DATA.accounts.map(a=>{const ch=(a.cardholders||[]).map(x=>`${x.person} ••${x.last4}`).join(", ")||'—';
+     return `<tr><td>${a.label||a.institution}</td><td>${a.is_credit?'💳 credit':'🏦 '+a.type}</td><td>••${a.last4}</td><td><span class="pill">${a.owner}</span></td><td class="sub">${ch}</td></tr>`;}).join("")}</table>`;
 }
 function reviewPct(){const t=sum(DATA.spend.map(r=>r.amount));const rev=sum(DATA.spend.filter(r=>r.category==='Review').map(r=>r.amount));return t?Math.round(100*rev/t):0;}
 function anomalies(f){
@@ -193,10 +202,10 @@ function anomalies(f){
 }
 function follow(f){
   const rev=[
-    ["MSPBNA ACH TRNSFR → savings","Is this external income (investment payout) or an internal transfer? Currently left OUT of income."],
-    ["GA DIR ACH CONTRIB (~$8k)","Tagged Utilities, but 'CONTRIB' looks like a 529 / investment contribution — confirm."],
-    ["WITHDRAWAL FROM CAPITAL ONE ONLINE ($8k)","Transfer to another account, or a real expense? Left in Review."],
-    ["Amazon card — per person","Statements don't break out cardholder, so Amazon spend shows as Joint."],
+    ["MSPBNA ACH TRNSFR → Capital One Savings","Recurring deposit — external income (investment payout) or an internal transfer? Currently left OUT of income."],
+    ["WITHDRAWAL FROM CAPITAL ONE ONLINE — $8,000 (Capital One Checking, 2025-06-30)","Transfer to another account, or a real expense? Left in Review."],
+    ["Amazon card (Chase ••8188) — not split by person","Statements don't break out cardholder, so Amazon spend shows as Joint."],
+    ["✅ GA DIR ACH CONTRIB — resolved","You confirmed it's a 529 — now categorized under Savings & investments (out of Utilities)."],
   ];
   const an=anomalies(f);
   return `<h2>Odd / to research</h2><div class="attn">${rev.map(x=>`• <b>${x[0]}</b> — ${x[1]}`).join("<br>")}</div>
@@ -204,8 +213,8 @@ function follow(f){
    ${an.length?`<table><tr class="sub"><td>Category</td><td class="num">latest</td><td class="num">3-mo avg</td><td class="num">Δ</td></tr>
      ${an.map(a=>`<tr><td>${a.c}</td><td class="num">${money(a.lv)}</td><td class="num sub">${money(a.avg)}</td><td class="num d-up">▲ ${Math.round(100*(a.lv-a.avg)/a.avg)}%</td></tr>`).join("")}</table>`:'<p class="sub">Nothing unusual this month.</p>'}
    <h2>Possible duplicate charges</h2>
-   ${DATA.flags.length?`<table><tr class="sub"><td class="num">$</td><td>Merchant</td><td>Dates</td></tr>
-     ${DATA.flags.map(x=>`<tr><td class="num">${money(x.amount)}</td><td style="font-size:12px">${x.merchant}</td><td class="sub">${(x.dates||[]).join(" & ")}</td></tr>`).join("")}</table>`:'<p class="sub">None flagged.</p>'}
+   ${DATA.flags.length?`<table><tr class="sub"><td class="num">$</td><td>Merchant</td><td>Account</td><td>Dates</td></tr>
+     ${DATA.flags.map(x=>`<tr><td class="num">${money(x.amount)}</td><td style="font-size:12px">${x.merchant}</td><td class="sub">${x.account||''}</td><td class="sub">${(x.dates||[]).join(" & ")}</td></tr>`).join("")}</table>`:'<p class="sub">None flagged.</p>'}
    <h2>Data health</h2><p class="sub">${reviewPct()}% of spend still in "Review" (long-tail merchants) — refining with Hermes.</p>`;
 }
 boot();
