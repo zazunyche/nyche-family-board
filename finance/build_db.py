@@ -334,6 +334,52 @@ def load_capone_cc(con):
             rows.append((os.path.basename(f),typ,tag,f"charges {charges:,.0f} pays {pays:,.0f}",len(s["txns"]),s["note"] or ""))
     return rows
 
+# ── American Express (Delta Reserve) ──────────────────────────────────────────
+AX_PREV=re.compile(r'Previous Balance\s+\$([\d,]+\.\d{2})')
+AX_NEW =re.compile(r'New Balance\s+\$([\d,]+\.\d{2})')
+AX_PAY =re.compile(r'(?:Payments/Credits|Payments and Credits)\s*-?\$([\d,]+\.\d{2})')
+AX_ROW =re.compile(r'^(\d{2})/(\d{2})/(\d{2})\*?\s+(.*?)\s+(-?)\$([\d,]+\.\d{2})$')
+
+def parse_amex(path):
+    lines=plumber_lines(path); txt="\n".join(lines)
+    mp=AX_PREV.search(txt); mn=AX_NEW.search(txt)
+    if not mn: return None
+    prev=money(mp.group(1)) if mp else 0.0; newbal=money(mn.group(1))
+    txns=[]
+    for l in lines:
+        m=AX_ROW.match(l.strip())
+        if not m: continue
+        yy=2000+int(m.group(3)); mon=int(m.group(1)); day=int(m.group(2))
+        amt=money(m.group(6)); signed = -amt if m.group(5)=='-' else amt
+        txns.append(dict(date=f"{yy}-{mon:02d}-{day:02d}", desc=re.sub(r'\s+',' ',m.group(4)).strip(),
+            amount=signed, direction=('payment' if signed<0 else 'charge'),
+            cardholder="81003", person="DAD"))
+    recon=abs((prev+sum(t["amount"] for t in txns))-newbal)<0.01
+    return dict(prev=prev,newbal=newbal,txns=txns,recon=recon)
+
+def load_amex(con):
+    rows=[]
+    for f in sorted(glob.glob(os.path.join(DOCS,"amex - cc","*.pdf"))):
+        try: s=parse_amex(f)
+        except Exception as e: rows.append((os.path.basename(f),"ERROR",str(e)[:50])); continue
+        if not s: rows.append((os.path.basename(f),"NO-SUMMARY","skipped")); continue
+        aid=upsert_account(con,"Amex","delta_cc","81003",1,owner="DAD")
+        charges=sum(t["amount"] for t in s["txns"] if t["amount"]>0)
+        pays=sum(-t["amount"] for t in s["txns"] if t["amount"]<0)
+        con.execute("""INSERT OR REPLACE INTO statements
+          (account_id,period_start,period_end,begin_balance,end_balance,total_in,total_out,source_file,parsed_ok,reconciled,note)
+          VALUES(?,?,?,?,?,?,?,?,1,?,?)""",
+          (aid,None,None,s["prev"],s["newbal"],pays,charges,os.path.basename(f),
+           1 if s["recon"] else 0, None if s["recon"] else "prev+txns != newbal"))
+        sid=con.execute("SELECT id FROM statements WHERE account_id=? AND source_file=?",(aid,os.path.basename(f))).fetchone()[0]
+        con.execute("DELETE FROM transactions WHERE statement_id=?", (sid,))
+        for t in s["txns"]:
+            con.execute("""INSERT INTO transactions
+              (account_id,statement_id,txn_date,description,amount,direction,source_file,cardholder,person)
+              VALUES(?,?,?,?,?,?,?,?,?)""",(aid,sid,t["date"],t["desc"],t["amount"],t["direction"],os.path.basename(f),t["cardholder"],t["person"]))
+        rows.append((os.path.basename(f),"amex","OK" if s["recon"] else "RECON-FAIL",f"charges {charges:,.0f} pays {pays:,.0f}",len(s["txns"])))
+    return rows
+
 def main():
     con=db_connect()
     print(f"DOCS={DOCS}\nDB={DB}\n")
@@ -350,6 +396,9 @@ def main():
     print("\n=== Capital One credit cards (cardholder-aware) ===")
     ccrows=load_capone_cc(con); allrows+=ccrows
     for r in ccrows: print("  ", " | ".join(str(x) for x in r))
+    print("\n=== American Express ===")
+    axrows=load_amex(con); allrows+=axrows
+    for r in axrows: print("  ", " | ".join(str(x) for x in r))
     con.commit()
     ok=sum(1 for r in allrows if len(r)>2 and r[2]=="OK")
     fail=[r for r in allrows if len(r)>2 and r[2] in ("RECON-FAIL","ERROR","NO-BAL")]
