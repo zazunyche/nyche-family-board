@@ -205,6 +205,55 @@ def load_chase_deposit(con):
             rows.append((os.path.basename(f),typ,"OK" if recon else "RECON-FAIL",f"in {tin:,.0f} out {tout:,.0f}",len(s["txns"])))
     return rows
 
+# ── Chase Amazon credit card ──────────────────────────────────────────────────
+AZ_PREV=re.compile(r'Previous Balance\s+\$([\d,]+\.\d{2})')
+AZ_NEW =re.compile(r'New Balance\s+\$([\d,]+\.\d{2})')
+AZ_PER =re.compile(r'Opening/Closing Date\s+(\d{2})/(\d{2})/(\d{2})\s*-\s*(\d{2})/(\d{2})/(\d{2})')
+AZ_TXN =re.compile(r'^(\d{2})/(\d{2})\s+(.*?)\s+(-?[\d,]+\.\d{2})$')
+
+def parse_chase_amazon(path):
+    lines=plumber_lines(path); txt="\n".join(lines)
+    mp=AZ_PREV.search(txt); mn=AZ_NEW.search(txt); mper=AZ_PER.search(txt)
+    if not (mp and mn and mper): return None
+    prev=money(mp.group(1)); newbal=money(mn.group(1))
+    sm,sy,em,ey=int(mper.group(1)),2000+int(mper.group(3)),int(mper.group(4)),2000+int(mper.group(6))
+    def yfor(mon): return sy if mon==sm else ey
+    txns=[]
+    for l in lines:
+        m=AZ_TXN.match(l.strip())
+        if not m: continue
+        desc=m.group(3).strip()
+        if desc.upper().startswith(("PURCHASE","PAYMENT DUE","MINIMUM")): continue  # guard against stray summary rows
+        mon=int(m.group(1)); day=int(m.group(2)); amt=money(m.group(4))
+        txns.append(dict(date=f"{yfor(mon)}-{mon:02d}-{day:02d}", desc=re.sub(r'\s+',' ',desc),
+            amount=amt, direction=('payment' if amt<0 else 'charge')))
+    recon=abs((prev+sum(t["amount"] for t in txns))-newbal)<0.01
+    return dict(prev=prev,newbal=newbal,period_start=f"{sy}-{sm:02d}-{int(mper.group(2)):02d}",
+                period_end=f"{ey}-{em:02d}-{int(mper.group(5)):02d}",txns=txns,recon=recon)
+
+def load_chase_amazon(con):
+    rows=[]
+    for f in sorted(glob.glob(os.path.join(DOCS,"chase - AmzCc","*.pdf"))):
+        try: s=parse_chase_amazon(f)
+        except Exception as e: rows.append((os.path.basename(f),"ERROR",str(e)[:50])); continue
+        if not s: rows.append((os.path.basename(f),"NO-SUMMARY","skipped")); continue
+        aid=upsert_account(con,"Chase","amazon_cc","8188",1,owner="JOINT")
+        charges=sum(t["amount"] for t in s["txns"] if t["amount"]>0)
+        pays=sum(-t["amount"] for t in s["txns"] if t["amount"]<0)
+        con.execute("""INSERT OR REPLACE INTO statements
+          (account_id,period_start,period_end,begin_balance,end_balance,total_in,total_out,source_file,parsed_ok,reconciled,note)
+          VALUES(?,?,?,?,?,?,?,?,1,?,?)""",
+          (aid,s["period_start"],s["period_end"],s["prev"],s["newbal"],pays,charges,os.path.basename(f),
+           1 if s["recon"] else 0, None if s["recon"] else f"prev+txns != newbal"))
+        sid=con.execute("SELECT id FROM statements WHERE account_id=? AND source_file=?",(aid,os.path.basename(f))).fetchone()[0]
+        con.execute("DELETE FROM transactions WHERE statement_id=?", (sid,))
+        for t in s["txns"]:
+            con.execute("""INSERT INTO transactions
+              (account_id,statement_id,txn_date,description,amount,direction,source_file)
+              VALUES(?,?,?,?,?,?,?)""",(aid,sid,t["date"],t["desc"],t["amount"],t["direction"],os.path.basename(f)))
+        rows.append((os.path.basename(f),"amazon_cc","OK" if s["recon"] else "RECON-FAIL",f"charges {charges:,.0f} pays {pays:,.0f}",len(s["txns"])))
+    return rows
+
 def main():
     con=db_connect()
     print(f"DOCS={DOCS}\nDB={DB}\n")
@@ -215,6 +264,9 @@ def main():
     print("\n=== Chase checking + savings ===")
     crows=load_chase_deposit(con); allrows+=crows
     for r in crows: print("  ", " | ".join(str(x) for x in r))
+    print("\n=== Chase Amazon credit card ===")
+    arows=load_chase_amazon(con); allrows+=arows
+    for r in arows: print("  ", " | ".join(str(x) for x in r))
     con.commit()
     ok=sum(1 for r in allrows if len(r)>2 and r[2]=="OK")
     fail=[r for r in allrows if len(r)>2 and r[2] in ("RECON-FAIL","ERROR","NO-BAL")]
