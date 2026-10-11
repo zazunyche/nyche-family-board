@@ -12,11 +12,16 @@ import sqlite3, os, re
 DB=os.path.expanduser('~/Documents/Financial-Audit-2025-2026/finance.db')
 c=sqlite3.connect(DB)
 
-BANK_TRANSFER = [  # bank-side: paying our own cards, or moving between our accounts
+BANK_TRANSFER = [  # bank-side: paying our own cards, or moving between our OWN accounts
  'CAPITAL ONE MOBILE PMT','CAPITAL ONE CRCARDPMT','AMEX EPAYMENT','CHASE CREDIT CRD',
  'JPMORGAN CHASE  CHASE ACH','JPMORGAN CHASE CHASE ACH','ONLINE TRANSFER',
  'CAPITAL ONE TRANSFER','INSTANT TRANSFER','PAYPAL TO NANA','TRANSFER TO SAV','TRANSFER FROM CHK',
+ # moves to our own external accounts / between our accounts
+ 'WITHDRAWAL TO 360 CHECKING','WITHDRAWAL TO MASS. INST. OF TECH','WITHDRAWAL TO CHARLES SCHWAB',
+ 'PAL PAY DOWN - WITHDRAWAL TO 360',
 ]
+# NEVER tag as transfer even if they match a pattern above (they are real expenses):
+TRANSFER_EXCLUDE = ['AUTO LOAN']
 CC_PAYMENT = [  # card-side: the card being paid off (NOT merchant refunds)
  'MOBILE PYMT','AUTOPAY PYMT','AUTOMATIC PAYMENT','AUTOPAY PAYMENT RECEIVED','PAYMENT - THANK YOU',
 ]
@@ -28,11 +33,14 @@ def tag(where, params=()):
     return cur.rowcount
 
 n=0
-# bank side (is_credit=0)
+# bank side (is_credit=0), excluding real-expense rows that happen to match (e.g. auto loan)
+excl = " AND ".join(["UPPER(t.description) NOT LIKE ?"]*len(TRANSFER_EXCLUDE))
+excl_params = [f"%{x}%" for x in TRANSFER_EXCLUDE]
 for pat in BANK_TRANSFER:
-    n+=c.execute("""UPDATE transactions SET is_transfer=1 WHERE id IN (
+    n+=c.execute(f"""UPDATE transactions SET is_transfer=1 WHERE id IN (
         SELECT t.id FROM transactions t JOIN accounts a ON a.id=t.account_id
-        WHERE a.is_credit=0 AND UPPER(t.description) LIKE ?)""",(f"%{pat}%",)).rowcount
+        WHERE a.is_credit=0 AND UPPER(t.description) LIKE ? AND {excl})""",
+        [f"%{pat}%"]+excl_params).rowcount
 # card side payments only (is_credit=1 AND direction='payment')
 for pat in CC_PAYMENT:
     n+=c.execute("""UPDATE transactions SET is_transfer=1 WHERE id IN (
