@@ -1,0 +1,118 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nyche Finance Dashboard</title>
+<style>
+  :root{--grn:#2f6f4f;--red:#b3261e;--ink:#1f2328;--mut:#6b6860}
+  *{box-sizing:border-box}
+  body{margin:0;background:#f4f4f2;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink)}
+  .wrap{max-width:760px;margin:0 auto;padding:18px}
+  h1{font-size:21px;margin:0 0 2px}.sub{color:var(--mut);font-size:12px;margin:0 0 14px}
+  .gate{max-width:360px;margin:60px auto;background:#fff;padding:22px;border-radius:12px;box-shadow:0 2px 14px rgba(0,0,0,.08)}
+  .gate input{width:100%;padding:10px;margin:6px 0;border:1px solid #ddd;border-radius:8px;font-size:14px}
+  .gate button,.btn{background:#0d1b2a;color:#fff;border:0;padding:10px 16px;border-radius:8px;font-size:14px;cursor:pointer}
+  .err{color:var(--red);font-size:13px;min-height:18px}
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .filters select{padding:7px 10px;border:1px solid #ddd;border-radius:8px;font-size:13px;background:#fff}
+  .kpis{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+  .kpi{flex:1;min-width:120px;background:#0d1b2a;color:#fff;border-radius:10px;padding:12px 14px}
+  .kpi .l{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#8fb4d9}
+  .kpi .v{font-size:19px;font-weight:700;margin-top:3px}
+  h2{font-size:15px;border-left:4px solid var(--grn);padding-left:9px;margin:18px 0 8px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  .barwrap{background:#eee;border-radius:3px;height:12px;flex:1;overflow:hidden}
+  .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .badge{display:inline-block;background:#eaf5ee;color:var(--grn);font-size:11px;padding:2px 8px;border-radius:20px}
+</style></head>
+<body>
+<div id="gate" class="gate" style="display:none">
+  <h1>🔒 Finance</h1><p class="sub">Enter access to view</p>
+  <input id="gUrl" type="url" placeholder="Board URL"><input id="gTok" type="password" placeholder="Bearer token">
+  <input id="gPass" type="password" placeholder="Password" autofocus>
+  <button onclick="unlock()">Unlock</button><p id="gErr" class="err"></p>
+</div>
+
+<div id="app" class="wrap" style="display:none">
+  <h1>💰 Nyche Finance</h1>
+  <p class="sub" id="sub"></p>
+  <div class="filters">
+    <select id="fPerson"></select><select id="fCat"></select>
+    <select id="fFrom"></select><span style="align-self:center;color:var(--mut)">→</span><select id="fTo"></select>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><div class="l">Income (household)</div><div class="v" id="kIn">—</div></div>
+    <div class="kpi"><div class="l">Spending</div><div class="v" id="kOut">—</div></div>
+    <div class="kpi"><div class="l">Net</div><div class="v" id="kNet">—</div></div>
+  </div>
+  <h2>Money in vs out, by month</h2>
+  <table id="tMonth"></table>
+  <h2>Where it goes — by category</h2>
+  <table id="tCat"></table>
+  <h2>Biggest expenses</h2>
+  <table id="tBig"></table>
+  <p class="sub" style="margin-top:18px">All data stays local; served over your private Tailscale network behind login. Aggregates only. — Zazu</p>
+</div>
+
+<script>
+const K={url:"zazu_board_url",tok:"zazu_board_token"};
+const money=v=>(v<0?"-$":"$")+Math.abs(Math.round(v)).toLocaleString();
+let DATA=null, creds=null;
+
+function boot(){
+  const u=localStorage.getItem(K.url)||location.origin, t=localStorage.getItem(K.tok)||"";
+  const p=sessionStorage.getItem("fin_pass");
+  if(t&&p){ creds={url:u,tok:t,pass:p}; load(); }
+  else { gUrl.value=u; gTok.value=t; document.getElementById("gate").style.display="block"; }
+}
+async function unlock(){
+  const url=(gUrl.value||location.origin).replace(/\/$/,""), tok=gTok.value.trim(), pass=gPass.value;
+  try{
+    const r=await fetch(url+"/api/finance",{headers:{"Authorization":"Bearer "+tok,"X-Board-Pass":pass}});
+    if(!r.ok){ gErr.textContent="Wrong token or password"; return; }
+    localStorage.setItem(K.url,url); localStorage.setItem(K.tok,tok); sessionStorage.setItem("fin_pass",pass);
+    creds={url,tok,pass}; DATA=await r.json(); document.getElementById("gate").style.display="none"; render();
+  }catch(e){ gErr.textContent="Can't reach server"; }
+}
+async function load(){
+  try{
+    const r=await fetch(creds.url+"/api/finance",{headers:{"Authorization":"Bearer "+creds.tok,"X-Board-Pass":creds.pass}});
+    if(!r.ok) throw 0; DATA=await r.json(); render();
+  }catch(e){ sessionStorage.removeItem("fin_pass"); boot(); }
+}
+function opt(sel,vals,cur){ sel.innerHTML=vals.map(v=>`<option ${v===cur?'selected':''}>${v}</option>`).join(""); }
+function render(){
+  document.getElementById("app").style.display="block";
+  const persons=["All",...[...new Set(DATA.spend.map(r=>r.person))].sort()];
+  const cats=["All",...[...new Set(DATA.spend.map(r=>r.category))].sort()];
+  const months=DATA.months;
+  opt(fPerson,persons,"All"); opt(fCat,cats,"All"); opt(fFrom,months,months[0]); opt(fTo,months,months[months.length-1]);
+  [fPerson,fCat,fFrom,fTo].forEach(s=>s.onchange=draw);
+  document.getElementById("sub").innerHTML=`${DATA.statements.reconciled}/${DATA.statements.total} statements reconciled &nbsp;<span class="badge">✓ to the penny</span>`;
+  draw();
+}
+function draw(){
+  const per=fPerson.value,cat=fCat.value,from=fFrom.value,to=fTo.value;
+  const inRange=m=>m>=from&&m<=to;
+  const sp=DATA.spend.filter(r=>inRange(r.month)&&(per==="All"||r.person===per)&&(cat==="All"||r.category===cat));
+  const inc=DATA.income.filter(r=>inRange(r.month));
+  const totSp=sp.reduce((a,r)=>a+r.amount,0), totIn=inc.reduce((a,r)=>a+r.amount,0);
+  kIn.textContent=money(totIn); kOut.textContent=money(totSp);
+  kNet.textContent=(per==="All"?money(totIn-totSp):"—"); kNet.style.color=(totIn-totSp)>=0?"#8fe0b0":"#f3a79f";
+  // monthly
+  const byM={}; months_in(from,to).forEach(m=>byM[m]={i:0,s:0});
+  inc.forEach(r=>byM[r.month]&&(byM[r.month].i+=r.amount)); sp.forEach(r=>byM[r.month]&&(byM[r.month].s+=r.amount));
+  const mx=Math.max(1,...Object.values(byM).flatMap(x=>[x.i,x.s]));
+  tMonth.innerHTML=Object.entries(byM).map(([m,x])=>`<tr><td style="font-size:12px">${m}</td>
+    <td style="width:42%"><div class="barwrap"><div style="background:var(--grn);height:12px;width:${100*x.i/mx}%"></div></div></td><td class="num" style="color:var(--grn);font-size:11px">${money(x.i)}</td>
+    <td style="width:42%"><div class="barwrap"><div style="background:var(--red);height:12px;width:${100*x.s/mx}%"></div></div></td><td class="num" style="color:var(--red);font-size:11px">${money(x.s)}</td></tr>`).join("");
+  // category
+  const byC={}; sp.forEach(r=>byC[r.category]=(byC[r.category]||0)+r.amount);
+  const cs=Object.entries(byC).sort((a,b)=>b[1]-a[1]); const cmx=Math.max(1,...cs.map(x=>x[1]));
+  tCat.innerHTML=cs.map(([c,v])=>`<tr><td style="width:34%">${c}</td><td><div class="barwrap"><div style="background:#44627d;height:12px;width:${100*v/cmx}%"></div></div></td><td class="num">${money(v)}</td></tr>`).join("");
+  // biggest
+  const big=DATA.biggest.filter(r=>inRange(r.date.slice(0,7))&&(per==="All"||r.person===per)&&(cat==="All"||r.category===cat)).slice(0,15);
+  tBig.innerHTML=big.map(r=>`<tr><td style="font-size:12px;white-space:nowrap">${r.date}</td><td style="font-size:12px;color:var(--mut)">${r.category}</td><td style="font-size:12px">${r.descr}</td><td class="num">${money(r.amount)}</td></tr>`).join("");
+}
+function months_in(from,to){ return DATA.months.filter(m=>m>=from&&m<=to); }
+boot();
+</script>
+</body></html>

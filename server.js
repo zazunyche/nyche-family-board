@@ -128,6 +128,16 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // ── API: GET /api/finance (authenticated) — aggregate summary for the dashboard
+  if (method === "GET" && pathname === "/api/finance") {
+    if (!checkAuth(req, res)) return;
+    try {
+      const p = path.join(process.env.HOME, "Documents", "Financial-Audit-2025-2026", "finance-summary.json");
+      json(res, 200, JSON.parse(fs.readFileSync(p, "utf8")));
+    } catch (e) { json(res, 503, { error: "finance summary not generated yet — run finance/gen_summary_json.py" }); }
+    return;
+  }
+
   // ── API: GET /api/board ──────────────────────────────────────────────────
   if (method === "GET" && pathname === "/api/board") {
     if (!checkAuth(req, res)) return;
