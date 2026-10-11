@@ -114,6 +114,20 @@ const server = http.createServer(async (req, res) => {
 
   console.log(`[${new Date().toISOString()}] ${method} ${pathname}`);
 
+  // ── Health check (unauthenticated, tiny) — for the dead-man heartbeat,
+  //    the external prober, and the "Check Zazu" iPhone Shortcut ─────────────
+  if (method === "GET" && (pathname === "/healthz" || pathname === "/api/health")) {
+    let lastActivity = null;
+    try { lastActivity = fs.readFileSync(path.join(process.env.HOME, ".zazu-last-activity"), "utf8").trim(); } catch {}
+    json(res, 200, {
+      ok: true,
+      time: new Date().toISOString(),
+      serverUptimeSec: Math.round(process.uptime()),
+      lastAgentActivity: lastActivity,
+    });
+    return;
+  }
+
   // ── API: GET /api/board ──────────────────────────────────────────────────
   if (method === "GET" && pathname === "/api/board") {
     if (!checkAuth(req, res)) return;

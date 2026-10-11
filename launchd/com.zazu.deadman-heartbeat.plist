@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  com.zazu.deadman-heartbeat.plist
+  Runs scripts/deadman-heartbeat.sh every 5 minutes: pings Healthchecks.io so that
+  ABSENCE of a ping alerts Dad (dead-man's switch). Safe no-op until the ping URLs
+  are set in ~/.zazu-config.
+  Install: cp to ~/Library/LaunchAgents/ && launchctl load it.
+  (For pre-login/boot coverage, promote to /Library/LaunchDaemons with sudo later.)
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.zazu.deadman-heartbeat</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/zazunyche/Documents/src/family-board/scripts/deadman-heartbeat.sh</string>
+  </array>
+  <key>StartInterval</key>
+  <integer>300</integer>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>/Users/zazunyche/Documents/src/family-board/logs/deadman-heartbeat.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/zazunyche/Documents/src/family-board/logs/deadman-heartbeat.log</string>
+</dict>
+</plist>
