@@ -42,6 +42,26 @@ data={
  "accounts": [dict(institution=r["institution"],type=r["type"],last4=r["last4"],is_credit=r["is_credit"],owner=r["owner"]) for r in accts],
  "statements": {"total": recon[0], "reconciled": recon[1]},
 }
+# net worth over time: forward-fill each account's latest end-balance by month
+from collections import defaultdict
+bal=c.execute("""SELECT a.id,a.is_credit,substr(s.period_end,1,7) m,s.end_balance
+  FROM statements s JOIN accounts a ON a.id=s.account_id
+  WHERE s.end_balance IS NOT NULL AND s.period_end IS NOT NULL ORDER BY s.period_end""").fetchall()
+acctmonth=defaultdict(dict); iscred={}
+for r in bal: acctmonth[r["id"]][r["m"]]=r["end_balance"]; iscred[r["id"]]=r["is_credit"]
+allm=sorted({m for d in acctmonth.values() for m in d})
+networth=[]
+for m in allm:
+    assets=liab=0.0
+    for aid,md in acctmonth.items():
+        past=[mm for mm in md if mm<=m]
+        if not past: continue
+        b=md[max(past)]
+        if iscred[aid]: liab+=b
+        else: assets+=b
+    networth.append(dict(month=m,assets=round(assets),liabilities=round(liab),net=round(assets-liab)))
+data["networth"]=networth
+
 with open(OUT,"w") as f: json.dump(data,f)
 print("wrote",OUT,f"({len(data['spend'])} spend rows, {len(data['months'])} months)")
 c.close()

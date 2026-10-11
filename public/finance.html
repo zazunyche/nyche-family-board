@@ -49,6 +49,10 @@
   <table id="tCat"></table>
   <h2>Biggest expenses</h2>
   <table id="tBig"></table>
+  <h2>📈 Net worth over time <span style="font-size:11px;color:var(--mut);font-weight:400">(cash accounts − card balances)</span></h2>
+  <table id="tNW"></table>
+  <h2>🔁 Recurring &amp; subscriptions <span style="font-size:11px;color:var(--mut);font-weight:400">(annualized run-rate)</span></h2>
+  <table id="tRec"></table>
   <p class="sub" style="margin-top:18px">All data stays local; served over your private Tailscale network behind login. Aggregates only. — Zazu</p>
 </div>
 
@@ -87,7 +91,21 @@ function render(){
   opt(fPerson,persons,"All"); opt(fCat,cats,"All"); opt(fFrom,months,months[0]); opt(fTo,months,months[months.length-1]);
   [fPerson,fCat,fFrom,fTo].forEach(s=>s.onchange=draw);
   document.getElementById("sub").innerHTML=`${DATA.statements.reconciled}/${DATA.statements.total} statements reconciled &nbsp;<span class="badge">✓ to the penny</span>`;
-  draw();
+  draw(); renderExtras();
+}
+function renderExtras(){
+  // net worth over time (global, not filtered)
+  const nw=DATA.networth||[];
+  const mx=Math.max(1,...nw.map(x=>Math.abs(x.net)));
+  tNW.innerHTML=nw.map(x=>`<tr><td style="font-size:12px;white-space:nowrap">${x.month}</td>
+    <td style="width:70%"><div class="barwrap"><div style="background:#0d1b2a;height:12px;width:${100*Math.abs(x.net)/mx}%"></div></div></td>
+    <td class="num" style="font-weight:600">${money(x.net)}</td></tr>`).join("");
+  // recurring / subscriptions
+  const rec=(DATA.recurring||[]).slice(0,18);
+  tRec.innerHTML=`<tr style="font-size:11px;color:var(--mut)"><td>Merchant</td><td class="num">~monthly</td><td class="num">per year</td><td></td></tr>`+
+    rec.map(r=>`<tr><td style="font-size:13px">${r.merchant}</td><td class="num" style="font-size:12px">${money(r.typical)}</td>
+    <td class="num" style="font-weight:600">${money(r.annualized)}</td>
+    <td style="font-size:10px;color:var(--mut)">${r.steady?'📌 steady':'~varies'} · ${r.category}</td></tr>`).join("");
 }
 function draw(){
   const per=fPerson.value,cat=fCat.value,from=fFrom.value,to=fTo.value;
