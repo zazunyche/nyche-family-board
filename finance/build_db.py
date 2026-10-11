@@ -50,7 +50,8 @@ CREATE TABLE IF NOT EXISTS statements(
 CREATE TABLE IF NOT EXISTS transactions(
   id INTEGER PRIMARY KEY, account_id INTEGER, statement_id INTEGER,
   txn_date TEXT, description TEXT, amount REAL, direction TEXT,
-  category TEXT, is_transfer INTEGER, balance_after REAL, source_file TEXT);
+  category TEXT, is_transfer INTEGER, balance_after REAL, source_file TEXT,
+  cardholder TEXT, person TEXT);
 """
 
 def db_connect():
@@ -254,6 +255,85 @@ def load_chase_amazon(con):
         rows.append((os.path.basename(f),"amazon_cc","OK" if s["recon"] else "RECON-FAIL",f"charges {charges:,.0f} pays {pays:,.0f}",len(s["txns"])))
     return rows
 
+# ── Capital One credit cards (Venture X + Venture), cardholder-aware ──────────
+CARD_PERSON={"0666":"DAD","1168":"MOM","4336":"DAD"}  # others → MOM (authorized user)
+def person_for(last4): return CARD_PERSON.get(last4,"MOM")
+CC_HDR=re.compile(r'#(\d{4}):\s+(Payments, Credits and Adjustments|Transactions|Total Transactions \$[\d,]+\.\d{2})')
+CC_TOTAL=re.compile(r'#(\d{4}):\s+Total Transactions \$([\d,]+\.\d{2})')
+CC_ROW=re.compile(r'^([A-Z][a-z]{2}) (\d{1,2}) ([A-Z][a-z]{2}) (\d{1,2}) (.*?)\s+(-\s*)?\$([\d,]+\.\d{2})$')
+CC_PER=re.compile(r'([A-Z][a-z]{2}) (\d{1,2}), (\d{4})\s*-\s*([A-Z][a-z]{2}) (\d{1,2}), (\d{4})')
+CC_PREV=re.compile(r'Previous Balance\s+\$([\d,]+\.\d{2})')
+CC_NEWBAL=re.compile(r'New Balance\s+\$([\d,]+\.\d{2})')
+
+def parse_capone_cc(path):
+    lines=plumber_lines(path); txt="\n".join(lines)
+    mper=CC_PER.search(txt)
+    sm=sy=em=ey=None
+    if mper:
+        sm,sy,em,ey=MONTHS[mper.group(1)],int(mper.group(3)),MONTHS[mper.group(4)],int(mper.group(6))
+    def yfor(mon):
+        if sm is None: return ey
+        return sy if mon==sm else ey
+    totals={}
+    for m in CC_TOTAL.finditer(txt): totals[m.group(1)]=money(m.group(2))
+    holder=None; section=None; txns=[]
+    for l in lines:
+        h=CC_HDR.search(l)
+        if h:
+            holder=h.group(1)
+            section=('pay' if h.group(2).startswith("Payments") else
+                     'txn' if h.group(2)=="Transactions" else None)
+            continue
+        if holder is None or section is None: continue
+        m=CC_ROW.match(l.strip())
+        if not m: continue
+        mon=MONTHS.get(m.group(1));
+        if mon is None: continue
+        day=int(m.group(2)); amt=money(m.group(7))
+        signed = -amt if section=='pay' else amt
+        txns.append(dict(date=f"{yfor(mon)}-{mon:02d}-{day:02d}", desc=re.sub(r'\s+',' ',m.group(5)).strip(),
+            amount=signed, direction=('payment' if section=='pay' else 'charge'),
+            cardholder=holder, person=person_for(holder)))
+    # per-cardholder reconciliation: sum(charges) == that holder's Total Transactions
+    recon=True; notes=[]
+    bycard={}
+    for t in txns:
+        if t["direction"]=='charge': bycard[t["cardholder"]]=bycard.get(t["cardholder"],0)+t["amount"]
+    for last4,tot in totals.items():
+        got=round(bycard.get(last4,0),2)
+        if abs(got-tot)>=0.01: recon=False; notes.append(f"#{last4} {got}!={tot}")
+    mp=CC_PREV.search(txt); mn=CC_NEWBAL.search(txt)
+    return dict(prev=money(mp.group(1)) if mp else None, newbal=money(mn.group(1)) if mn else None,
+                period_start=f"{sy}-{sm:02d}-{int(mper.group(2)):02d}" if mper else None,
+                period_end=f"{ey}-{em:02d}-{int(mper.group(5)):02d}" if mper else None,
+                txns=txns, recon=recon, note="; ".join(notes) or None, totals=totals)
+
+def load_capone_cc(con):
+    specs=[("capone - XCc","venture_x_cc","0666"),("capone - VentCc","venture_cc","4336")]
+    rows=[]
+    for folder,typ,last4 in specs:
+        for f in sorted(glob.glob(os.path.join(DOCS,folder,"Statement_*.pdf"))):
+            try: s=parse_capone_cc(f)
+            except Exception as e: rows.append((os.path.basename(f),typ,"ERROR",str(e)[:50])); continue
+            aid=upsert_account(con,"Capital One",typ,last4,1,owner="JOINT")  # shared card; person is per-txn
+            charges=sum(t["amount"] for t in s["txns"] if t["direction"]=='charge')
+            pays=sum(-t["amount"] for t in s["txns"] if t["direction"]=='payment')
+            con.execute("""INSERT OR REPLACE INTO statements
+              (account_id,period_start,period_end,begin_balance,end_balance,total_in,total_out,source_file,parsed_ok,reconciled,note)
+              VALUES(?,?,?,?,?,?,?,?,1,?,?)""",
+              (aid,s["period_start"],s["period_end"],s["prev"],s["newbal"],pays,charges,os.path.basename(f),
+               1 if s["recon"] else 0, s["note"]))
+            sid=con.execute("SELECT id FROM statements WHERE account_id=? AND source_file=?",(aid,os.path.basename(f))).fetchone()[0]
+            con.execute("DELETE FROM transactions WHERE statement_id=?", (sid,))
+            for t in s["txns"]:
+                con.execute("""INSERT INTO transactions
+                  (account_id,statement_id,txn_date,description,amount,direction,source_file,cardholder,person)
+                  VALUES(?,?,?,?,?,?,?,?,?)""",
+                  (aid,sid,t["date"],t["desc"],t["amount"],t["direction"],os.path.basename(f),t["cardholder"],t["person"]))
+            tag="OK" if s["recon"] else "RECON-FAIL"
+            rows.append((os.path.basename(f),typ,tag,f"charges {charges:,.0f} pays {pays:,.0f}",len(s["txns"]),s["note"] or ""))
+    return rows
+
 def main():
     con=db_connect()
     print(f"DOCS={DOCS}\nDB={DB}\n")
@@ -267,6 +347,9 @@ def main():
     print("\n=== Chase Amazon credit card ===")
     arows=load_chase_amazon(con); allrows+=arows
     for r in arows: print("  ", " | ".join(str(x) for x in r))
+    print("\n=== Capital One credit cards (cardholder-aware) ===")
+    ccrows=load_capone_cc(con); allrows+=ccrows
+    for r in ccrows: print("  ", " | ".join(str(x) for x in r))
     con.commit()
     ok=sum(1 for r in allrows if len(r)>2 and r[2]=="OK")
     fail=[r for r in allrows if len(r)>2 and r[2] in ("RECON-FAIL","ERROR","NO-BAL")]
