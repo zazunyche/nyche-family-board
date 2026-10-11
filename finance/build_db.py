@@ -156,15 +156,16 @@ def parse_chase_deposit(path):
     mb=CH_BEGIN.search(txt); me=CH_END.search(txt)
     if not (mb and me): return None
     begin=money(mb.group(1)); end=money(me.group(1))
+    # Year from the filename's statement END date (YYYYMMDD) — deterministic, no
+    # dependence on the period-line regex. A txn month after the end month is a
+    # prior-year (Dec-in-a-Jan-statement) wrap → end_year-1.
+    fm=re.match(r'(\d{4})(\d{2})(\d{2})', os.path.basename(path))
+    end_y=int(fm.group(1)); end_m=int(fm.group(2))
     mp=CH_PERIOD.search(txt)
     sm=em=sy=ey=None
     if mp:
         sm,sy,em,ey = FULLMON[mp.group(1)],int(mp.group(2)),FULLMON[mp.group(3)],int(mp.group(4))
-    def year_for(mon):
-        if sm is None: return ey or sy
-        if mon==sm: return sy
-        if mon==em: return ey
-        return ey or sy
+    def year_for(mon): return end_y if mon<=end_m else end_y-1
     txns=[]
     for l in lines:
         m=CH_TXN.match(l.strip())
