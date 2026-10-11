@@ -25,7 +25,8 @@ TRANSFER_EXCLUDE = ['AUTO LOAN']
 CC_PAYMENT = [  # card-side: the card being paid off (NOT merchant refunds)
  'MOBILE PYMT','AUTOPAY PYMT','AUTOMATIC PAYMENT','AUTOPAY PAYMENT RECEIVED','PAYMENT - THANK YOU',
 ]
-AMBIGUOUS = ['MSPBNA ACH TRNSFR']  # possibly external (brokerage) — leave untagged, flag for review
+REVERSALS = ['RETURNED ACH CARD PAYMENT','RETURNED MOBILE ACH PAYMENT','RETURNED PAYMENT']  # bounced payments re-added to balance → not spending (any account/direction)
+AMBIGUOUS = ['MSPBNA ACH TRNSFR','WITHDRAWAL FROM CAPITAL ONE ONLINE']  # possibly external — leave untagged, flag for review
 
 c.execute("UPDATE transactions SET is_transfer=0")
 def tag(where, params=()):
@@ -41,6 +42,9 @@ for pat in BANK_TRANSFER:
         SELECT t.id FROM transactions t JOIN accounts a ON a.id=t.account_id
         WHERE a.is_credit=0 AND UPPER(t.description) LIKE ? AND {excl})""",
         [f"%{pat}%"]+excl_params).rowcount
+# reversals / returned payments — tag on ANY account & direction (they cancel a prior transfer)
+for pat in REVERSALS:
+    n+=c.execute("UPDATE transactions SET is_transfer=1 WHERE is_transfer=0 AND UPPER(description) LIKE ?",(f"%{pat}%",)).rowcount
 # card side payments only (is_credit=1 AND direction='payment')
 for pat in CC_PAYMENT:
     n+=c.execute("""UPDATE transactions SET is_transfer=1 WHERE id IN (

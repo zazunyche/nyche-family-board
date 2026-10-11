@@ -383,6 +383,9 @@ def load_amex(con):
 
 def main():
     con=db_connect()
+    # Idempotent: full clean rebuild every run (data is deterministic from the PDFs).
+    # Prevents duplicate transactions when re-run without deleting the DB file.
+    con.executescript("DELETE FROM transactions; DELETE FROM statements; DELETE FROM accounts;")
     print(f"DOCS={DOCS}\nDB={DB}\n")
     allrows=[]
     print("=== Capital One 360 bank ===")
