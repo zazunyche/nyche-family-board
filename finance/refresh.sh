@@ -8,5 +8,6 @@ echo "[1/5] extract + reconcile";   python3 finance/build_db.py 2>&1 | grep -E "
 echo "[2/5] tag internal transfers"; python3 finance/phase2_transfers.py 2>&1 | grep -E "Tagged" || true
 echo "[3/5] categorize spending";    python3 finance/phase2_categorize.py 2>&1 | grep -E "categorized" || true
 echo "[4/5] build dashboard summary"; python3 finance/gen_summary_json.py
-echo "[5/5] build HTML snapshot";     python3 finance/gen_snapshot.py
+echo "[5/6] insights (recurring/dupes)"; python3 finance/phase4_insights.py 2>&1 | grep -E "Recurring|injected" || true
+echo "[6/6] build HTML snapshot";     python3 finance/gen_snapshot.py
 echo "Done. Dashboard: http://100.90.94.15:3000/finance.html (refresh the page)."
