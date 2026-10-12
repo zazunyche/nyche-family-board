@@ -47,7 +47,10 @@ trap 'rm -f "$REMINDERS_FILE"' EXIT
 REMINDER_COUNT=$(node -e "
 const fs = require('fs');
 const b  = JSON.parse(fs.readFileSync('$BOARD_DIR/board-data.json', 'utf8'));
-const due = (b.pendingReminders || []).filter(r => !r.sent && r.sendDate === '$TODAY');
+// RECONCILIATION: never send a reminder for a task that's already DONE/completed.
+const doneTasks = new Set((b.tasks || []).filter(t => t.stage === 'DONE' || t.completedAt).map(t => t.id));
+const due = (b.pendingReminders || []).filter(r =>
+  !r.sent && r.sendDate === '$TODAY' && !(r.taskId && doneTasks.has(r.taskId)));
 const lines = due.map(r => JSON.stringify({
   id: r.id,
   handle: r.handle,
