@@ -1,6 +1,6 @@
-# Stage Funnel — Oct 10, 2026, 6:45 AM
+# Stage Funnel — Oct 11, 2026, 6:45 AM
 
-_53 total tasks_
+_54 total tasks_
 
 ## Stage Distribution
 
@@ -8,22 +8,22 @@ _53 total tasks_
 |-------|-------|------------|
 | IDEA | 3 | 6% |
 | RESEARCH | 0 | 0% |
-| ACTIVE | 5 | 9% |
-| DONE | 44 | 83% |
+| ACTIVE | 6 | 11% |
+| DONE | 44 | 81% |
 | ASSIGNED | 1 | 2% |
 
 ## Funnel Conversion (top-of-funnel → done)
 
-- IDEA → moved forward: **94%** (50/53)
-- Entered ACTIVE or DONE: **92%** (49/53)
-- Reached DONE: **83%** (44/53)
-- ACTIVE → DONE (of those that went ACTIVE): **90%** (44/49)
+- IDEA → moved forward: **94%** (51/54)
+- Entered ACTIVE or DONE: **93%** (50/54)
+- Reached DONE: **81%** (44/54)
+- ACTIVE → DONE (of those that went ACTIVE): **88%** (44/50)
 
 ## Stage Distribution by Category
 
 | Category | IDEA | RESEARCH | ACTIVE | DONE | Total | Done% |
 |----------|------|----------|--------|------|-------|-------|
-| ADMIN | 3 | 0 | 3 | 13 | 19 | 68% |
+| ADMIN | 3 | 0 | 4 | 13 | 20 | 65% |
 | FAMILY | 0 | 0 | 1 | 21 | 22 | 95% |
 | GOALS | 0 | 0 | 0 | 6 | 6 | 100% |
 | HOME | 0 | 0 | 1 | 4 | 6 | 67% |
@@ -33,7 +33,7 @@ _53 total tasks_
 | Owner | IDEA | RESEARCH | ACTIVE | DONE | Total | Done% |
 |-------|------|----------|--------|------|-------|-------|
 | BOTH | 0 | 0 | 0 | 14 | 14 | 100% |
-| DAD | 3 | 0 | 3 | 17 | 24 | 71% |
+| DAD | 3 | 0 | 4 | 17 | 25 | 68% |
 | MOM | 0 | 0 | 2 | 7 | 9 | 78% |
 | ZAZU | 0 | 0 | 0 | 6 | 6 | 100% |
 
@@ -50,12 +50,12 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **39%** of done tasks_
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Review Acrisure home insurance renewal | 5 | 98 | ACTIVE |
-| Property Medics: schedule return visit + s… | 5 | 98 | ASSIGNED |
-| 15 Sigourney — follow up with neighbor on … | 5 | 98 | ACTIVE |
-| Renew British passport — Dad | 5 | 67 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 67 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 67 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 67 | IDEA |
-| Check Ghana nanny availability — Dec 14–Jan 9 | 5 | 38 | ACTIVE |
-| Complete any open financial planning docs | 1 | 7 | ACTIVE |
+| Review Acrisure home insurance renewal | 5 | 99 | ACTIVE |
+| Property Medics: schedule return visit + s… | 5 | 99 | ASSIGNED |
+| 15 Sigourney — follow up with neighbor on … | 5 | 99 | ACTIVE |
+| Renew British passport — Dad | 5 | 68 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 68 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 68 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 68 | IDEA |
+| Check Ghana nanny availability — Dec 14–Jan 9 | 5 | 39 | ACTIVE |
+| Complete any open financial planning docs | 1 | 8 | ACTIVE |

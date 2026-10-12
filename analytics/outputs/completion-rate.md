@@ -1,6 +1,6 @@
-# Completion Rate Report — Oct 10, 2026, 6:45 AM
+# Completion Rate Report — Oct 11, 2026, 6:45 AM
 
-_53 total tasks (excl. archived), 44 done — overall rate: **83%**_
+_54 total tasks (excl. archived), 44 done — overall rate: **81%**_
 
 Lead time (creation → done): median **13.65 days**, min 0d, max 110.5d (n=44)
 
@@ -10,8 +10,8 @@ Lead time (creation → done): median **13.65 days**, min 0d, max 110.5d (n=44)
 |---------|------|-------|------|--------------------|
 | GOALS | 6 | 6 | 100% | 56.5 |
 | FAMILY | 21 | 22 | 95% | 13.5 |
-| ADMIN | 13 | 19 | 68% | 0.4 |
 | HOME | 4 | 6 | 67% | 79.05 |
+| ADMIN | 13 | 20 | 65% | 0.4 |
 
 ## By Owner
 
@@ -20,7 +20,7 @@ Lead time (creation → done): median **13.65 days**, min 0d, max 110.5d (n=44)
 | BOTH | 14 | 14 | 100% | 15 |
 | ZAZU | 6 | 6 | 100% | 0.2 |
 | MOM | 7 | 9 | 78% | 35.9 |
-| DAD | 17 | 24 | 71% | 13.8 |
+| DAD | 17 | 25 | 68% | 13.8 |
 
 ## By Source
 
@@ -28,7 +28,7 @@ Lead time (creation → done): median **13.65 days**, min 0d, max 110.5d (n=44)
 |---------|------|-------|------|--------------------|
 | manual | 13 | 13 | 100% | 3 |
 | email | 20 | 22 | 91% | 15 |
-| imessage | 11 | 18 | 61% | 35.9 |
+| imessage | 11 | 19 | 58% | 35.9 |
 
 ## By Task Type
 
@@ -40,14 +40,14 @@ Lead time (creation → done): median **13.65 days**, min 0d, max 110.5d (n=44)
 | EVENT | 3 | 3 | 100% | 36.6 |
 | ERRAND | 14 | 16 | 88% | 8 |
 | RESEARCH | 5 | 6 | 83% | 13.8 |
-| unknown | 5 | 11 | 45% | 35.9 |
+| unknown | 5 | 12 | 42% | 35.9 |
 
 ## By Priority
 
 | Priority | Done | Total | Rate | Median Lead (days) |
 |---------|------|-------|------|--------------------|
 | LOW | 3 | 3 | 100% | 13.8 |
-| HIGH | 29 | 35 | 83% | 13.5 |
+| HIGH | 29 | 36 | 81% | 13.5 |
 | MEDIUM | 12 | 15 | 80% | 13.25 |
 
 ## Notes

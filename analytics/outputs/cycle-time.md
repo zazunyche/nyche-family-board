@@ -1,6 +1,6 @@
-# Cycle Time Report — Oct 10, 2026, 6:45 AM
+# Cycle Time Report — Oct 11, 2026, 6:45 AM
 
-_44 completed tasks analyzed. 9 active tasks (age shown)._
+_44 completed tasks analyzed. 10 active tasks (age shown)._
 
 ## Overall Lead Time (creation → done)
 
@@ -44,15 +44,16 @@ _44 completed tasks analyzed. 9 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 125.4d | M |
-| Property Medics: schedule return visit + s… | HOME | DAD | ASSIGNED | 117.5d | L |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 116.3d | M |
-| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 75.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 75.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 75.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 75.3d | — |
-| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 46.8d | — |
-| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 7.7d | — |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 126.4d | M |
+| Property Medics: schedule return visit + s… | HOME | DAD | ASSIGNED | 118.6d | L |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 117.3d | M |
+| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 76.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 76.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 76.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 76.3d | — |
+| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 47.8d | — |
+| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 8.7d | — |
+| Check 11646 mortgage payment went through | ADMIN | DAD | ACTIVE | 0.9d | — |
 
 ## Stage Dwell Time (tasks with stageHistory)
 
