@@ -150,16 +150,13 @@ def main():
         except: pass
     # audit trail: log what was skipped as non-actionable
     for s in skipped_subj: print(f"[skip] {s}", file=sys.stderr)
-    # digest
-    if created or needs:
-        if created:
-            print(f"Added {len(created)} item(s) to the board/calendar:")
-            for kind,title,when,tid in created: print(f"  • [{kind}] {title} — {when} ({tid})")
-        if needs:
-            print(f"\n❓ {len(needs)} item(s) I'm unsure about — reply and I'll add or drop:")
-            for n in needs: print(f"  • {n['subject']}  (from {n['from'].split('<')[0].strip()})")
-        print(f"\n(auto-skipped {skipped} clearly non-actionable; logged for audit)")
-    else:
-        print(f"Scanned {len(cands)} household email(s): {skipped} clearly non-actionable, 0 uncertain. parse_ok={ok}")
+    # Machine-delimited output so the wrapper sends TWO separate digests
+    # (auto-added vs needs-confirmation). Dad wants these as distinct messages.
+    print("===ADDED===")
+    for kind,title,when,tid in created: print(f"• [{kind}] {title} — {when}")
+    print("===CONFIRM===")
+    for n in needs: print(f"• {n['subject']}  (from {n['from'].split('<')[0].strip()})")
+    print("===META===")
+    print(f"added={len(created)} confirm={len(needs)} skipped={skipped} parse_ok={ok}")
 
 if __name__=="__main__": main()

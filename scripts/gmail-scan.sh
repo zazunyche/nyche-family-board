@@ -26,11 +26,17 @@ log_ts "gmail-scan.sh (deterministic) started" "$LOG" 2>/dev/null || echo "[$(da
 DIGEST=$(/usr/bin/env python3 "$BOARD_DIR/scripts/email-scan.py" 2>>"$LOG")
 printf '%s\n' "$DIGEST" >> "$LOG"
 
-if printf '%s' "$DIGEST" | grep -qE "Added [1-9]|unsure about"; then
-  MSG="📬 Zazu — household email update:
-$DIGEST"
-  if declare -f send_imessage >/dev/null 2>&1 && [ -n "${DAD_NUMBER:-}" ]; then
-    send_imessage "$DAD_NUMBER" "$MSG" >> "$LOG" 2>&1 || log_ts "WARNING: gmail-scan iMessage send failed" "$LOG"
+# Split the digest into TWO separate messages: auto-added vs needs-confirmation.
+ADDED=$(printf '%s\n' "$DIGEST" | sed -n '/===ADDED===/,/===CONFIRM===/p' | sed '1d;$d')
+CONFIRM=$(printf '%s\n' "$DIGEST" | sed -n '/===CONFIRM===/,/===META===/p' | sed '1d;$d')
+if declare -f send_imessage >/dev/null 2>&1 && [ -n "${DAD_NUMBER:-}" ]; then
+  if [ -n "$ADDED" ]; then
+    send_imessage "$DAD_NUMBER" "📬 Added to your board/calendar from email:
+$ADDED" >> "$LOG" 2>&1 || log_ts "WARNING: gmail-scan 'added' iMessage failed" "$LOG"
+  fi
+  if [ -n "$CONFIRM" ]; then
+    send_imessage "$DAD_NUMBER" "❓ A few emails I'm unsure about — reply to add or drop:
+$CONFIRM" >> "$LOG" 2>&1 || log_ts "WARNING: gmail-scan 'confirm' iMessage failed" "$LOG"
   fi
 fi
 log_ts "gmail-scan.sh (deterministic) complete" "$LOG" 2>/dev/null || echo "[$(date -u +%FT%TZ)] complete" >> "$LOG"
