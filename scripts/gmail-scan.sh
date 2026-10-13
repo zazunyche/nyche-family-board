@@ -26,8 +26,8 @@ log_ts "gmail-scan.sh (deterministic) started" "$LOG" 2>/dev/null || echo "[$(da
 DIGEST=$(/usr/bin/env python3 "$BOARD_DIR/scripts/email-scan.py" 2>>"$LOG")
 printf '%s\n' "$DIGEST" >> "$LOG"
 
-if printf '%s' "$DIGEST" | grep -qE "created [1-9]"; then
-  MSG="📬 Zazu processed new household email and added these to the board/calendar:
+if printf '%s' "$DIGEST" | grep -qE "Added [1-9]|unsure about"; then
+  MSG="📬 Zazu — household email update:
 $DIGEST"
   if declare -f send_imessage >/dev/null 2>&1 && [ -n "${DAD_NUMBER:-}" ]; then
     send_imessage "$DAD_NUMBER" "$MSG" >> "$LOG" 2>&1 || log_ts "WARNING: gmail-scan iMessage send failed" "$LOG"

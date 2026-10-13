@@ -64,11 +64,13 @@ def classify(cands):
     blob="\n\n".join(f"EMAIL {c['i']}:\nFrom: {c['from']}\nSubject: {c['subject']}\nBody: {c['body'][:900]}" for c in cands)
     prompt=(f"Today is {TODAY.isoformat()}. You are a family household assistant. For EACH email below decide if it needs a "
       f"household action. Return STRICT JSON: an array of "
-      f'{{"i":<email number>,"action":"event|task|skip","title":"short action title","category":"HOME|VEHICLES|FAMILY|ADMIN|YARD|GOALS",'
+      f'{{"i":<email number>,"action":"event|task|maybe|skip","title":"short action title","category":"HOME|VEHICLES|FAMILY|ADMIN|YARD|GOALS",'
       f'"owner":"DAD|MOM|BOTH","due":"YYYY-MM-DD or null","date":"YYYY-MM-DD or null","time":"H:MMpm or null","notes":"1-line context"}}. '
-      f'Rules: action="event" if there is a specific date to show up / attend / do something; "task" if actionable but no hard date; '
-      f'"skip" if informational, marketing, a receipt, or already-handled. Be conservative — prefer "skip" over inventing work. '
-      f"Output ONLY the JSON array.\n\n"+blob)
+      f'Rules: "event" = clearly needs action AND has a specific date to attend/do something. '
+      f'"task" = clearly needs action, no hard date. '
+      f'"maybe" = MIGHT need an action or follow-up but you are not sure — use "maybe" (never "skip") for anything that could matter. '
+      f'"skip" = ONLY clearly no-action mail: marketing/promos, receipts for completed purchases, social notifications, newsletters. '
+      f'When in any doubt, choose "maybe" so a human can confirm. Output ONLY the JSON array.\n\n'+blob)
     try:
         r=subprocess.run([HERMES,"-z",prompt,"-t","todo","-m","qwen3:4b","--provider","ollama","--in","/tmp"],
                          capture_output=True,text=True,timeout=600)
@@ -129,21 +131,35 @@ def main():
         if not DRY: save_processed(processed)
         return
     cls,ok=classify(cands)
-    created=[]; skipped=0; byi={c["i"]:c for c in cls if isinstance(c,dict) and "i" in c}
+    created=[]; needs=[]; skipped=0; skipped_subj=[]
+    byi={c["i"]:c for c in cls if isinstance(c,dict) and "i" in c}
     for idx,cand in enumerate(cands):
-        c=byi.get(idx)
-        if not c or c.get("action")=="skip": skipped+=1
-        elif c.get("action")=="event":
+        c=byi.get(idx); act=(c or {}).get("action")
+        if act=="event":
             tid=add_task(c); add_event(c); created.append(("event",c.get("title"),c.get("date"),tid))
-        elif c.get("action")=="task":
+        elif act=="task":
             tid=add_task(c); created.append(("task",c.get("title"),c.get("due") or "no date",tid))
+        elif act=="skip":
+            skipped+=1; skipped_subj.append(cand["subject"])
+        else:  # "maybe", missing, or unparseable -> SURFACE for confirmation, never silently drop
+            needs.append({"subject":cand["subject"],"from":cand["from"],"why":(c or {}).get("notes") or (c or {}).get("title") or "unclassified"})
         if idx in raw: processed.add(raw[idx])
-    if not DRY: save_processed(processed)
+    if not DRY:
+        save_processed(processed)
+        try: json.dump({"at":TODAY.isoformat(),"needs":needs},open(os.path.expanduser("~/.zazu-email-pending.json"),"w"))
+        except: pass
+    # audit trail: log what was skipped as non-actionable
+    for s in skipped_subj: print(f"[skip] {s}", file=sys.stderr)
     # digest
-    if created:
-        print(f"Processed {len(cands)} household email(s) — created {len(created)} item(s), skipped {skipped}:")
-        for kind,title,when,tid in created: print(f"  • [{kind}] {title} — {when}  ({tid})")
+    if created or needs:
+        if created:
+            print(f"Added {len(created)} item(s) to the board/calendar:")
+            for kind,title,when,tid in created: print(f"  • [{kind}] {title} — {when} ({tid})")
+        if needs:
+            print(f"\n❓ {len(needs)} item(s) I'm unsure about — reply and I'll add or drop:")
+            for n in needs: print(f"  • {n['subject']}  (from {n['from'].split('<')[0].strip()})")
+        print(f"\n(auto-skipped {skipped} clearly non-actionable; logged for audit)")
     else:
-        print(f"Scanned {len(cands)} household email(s); nothing actionable (all skipped). parse_ok={ok}")
+        print(f"Scanned {len(cands)} household email(s): {skipped} clearly non-actionable, 0 uncertain. parse_ok={ok}")
 
 if __name__=="__main__": main()
