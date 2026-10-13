@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  com.zazu.newsletter-scan.plist
+  Runs scripts/newsletter-scan.sh daily at 7:38am — deterministic Primrose
+  newsletter reader (IMAP + local-model extraction → Family calendar → iMessage
+  Dad on new events). Already-processed newsletters are skipped, so most runs are
+  a quick IMAP check with no model call. Replaces the hung gmail-scan path for newsletters.
+  Install: cp to ~/Library/LaunchAgents/ && launchctl load it.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.zazu.newsletter-scan</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/zazunyche/Documents/src/family-board/scripts/newsletter-scan.sh</string>
+  </array>
+  <key>StartCalendarInterval</key>
+  <dict><key>Hour</key><integer>7</integer><key>Minute</key><integer>38</integer></dict>
+  <key>StandardOutPath</key><string>/Users/zazunyche/Documents/src/family-board/logs/newsletter-scan.log</string>
+  <key>StandardErrorPath</key><string>/Users/zazunyche/Documents/src/family-board/logs/newsletter-scan.log</string>
+</dict>
+</plist>
