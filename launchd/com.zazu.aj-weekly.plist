@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  com.zazu.aj-weekly.plist
+  Runs scripts/aj-weekly.sh every Sunday 6:05pm — "AJ this week" digest from the
+  week's ProCare daily summaries (local-model summary → iMessage Dad + Mom, rolling
+  interests profile). Sibling of the newsletter reader; shares the engine, separate job.
+  Install: cp to ~/Library/LaunchAgents/ && launchctl load it.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.zazu.aj-weekly</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/zazunyche/Documents/src/family-board/scripts/aj-weekly.sh</string>
+  </array>
+  <key>StartCalendarInterval</key>
+  <dict><key>Weekday</key><integer>0</integer><key>Hour</key><integer>18</integer><key>Minute</key><integer>5</integer></dict>
+  <key>StandardOutPath</key><string>/Users/zazunyche/Documents/src/family-board/logs/aj-weekly.log</string>
+  <key>StandardErrorPath</key><string>/Users/zazunyche/Documents/src/family-board/logs/aj-weekly.log</string>
+</dict>
+</plist>
