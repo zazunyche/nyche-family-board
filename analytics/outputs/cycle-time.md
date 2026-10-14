@@ -1,4 +1,4 @@
-# Cycle Time Report — Oct 12, 2026, 6:45 AM
+# Cycle Time Report — Oct 13, 2026, 6:45 AM
 
 _44 completed tasks analyzed. 10 active tasks (age shown)._
 
@@ -44,16 +44,16 @@ _44 completed tasks analyzed. 10 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 127.4d | M |
-| Property Medics: schedule return visit + s… | HOME | DAD | ASSIGNED | 119.5d | L |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 118.3d | M |
-| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 77.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 77.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 77.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 77.3d | — |
-| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 48.8d | — |
-| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 9.7d | — |
-| Check 11646 mortgage payment went through | ADMIN | DAD | ACTIVE | 1.9d | — |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 128.4d | M |
+| Property Medics: schedule return visit + s… | HOME | DAD | ASSIGNED | 120.5d | L |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 119.3d | M |
+| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 78.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 78.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 78.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 78.3d | — |
+| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 49.8d | — |
+| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 10.7d | — |
+| Check 11646 mortgage payment went through | ADMIN | DAD | ACTIVE | 2.9d | — |
 
 ## Stage Dwell Time (tasks with stageHistory)
 
