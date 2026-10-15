@@ -24,6 +24,7 @@
 
 const fs   = require("fs");
 const path = require("path");
+const { execFileSync } = require("child_process");
 
 const DATA_FILE  = path.join(__dirname, "..", "board-data.json");
 const INDEX_FILE = path.join(__dirname, "..", "logs", "brief-index.json");
@@ -52,6 +53,55 @@ const addDays = (iso, n) => {
   return d.toISOString().split("T")[0];
 };
 const WEEK_AHEAD = addDays(TODAY, 7);
+
+// ── Family calendar (today + tomorrow) ────────────────────────────────────────────
+// Deterministic osascript read of the shared Apple "Family" calendar. Surfacing these
+// in the brief closes the gap where events I put on the calendar (e.g. daycare spirit
+// days like "wear orange") sat there silently with no heads-up. Including TOMORROW
+// gives ~24h notice so prep-type events reach the family the night before.
+function familyCalendarEvents() {
+  const osa = `
+set d0 to (current date)
+set hours of d0 to 0
+set minutes of d0 to 0
+set seconds of d0 to 0
+set dTom to d0 + (1 * days)
+set dEnd to d0 + (2 * days)
+set out to ""
+tell application "Calendar"
+  try
+    tell calendar "Family"
+      repeat with ev in (every event whose start date ≥ d0 and start date < dEnd)
+        set s to start date of ev
+        set lbl to "today"
+        if s ≥ dTom then set lbl to "tomorrow"
+        set hh to (hours of s)
+        set mm to (minutes of s)
+        set tm to "ALLDAY"
+        if (hh is not 0) or (mm is not 0) then set tm to (hh as string) & ":" & (text -2 thru -1 of ("0" & (mm as string)))
+        set out to out & lbl & tab & tm & tab & (summary of ev) & linefeed
+      end repeat
+    end tell
+  end try
+end tell
+return out`;
+  try {
+    const raw = execFileSync("osascript", ["-e", osa], { encoding: "utf8", timeout: 45000 });
+    return raw.split("\n").map(l => l.trim()).filter(Boolean).map(l => {
+      const [when, time, ...rest] = l.split("\t");
+      return { when, time, summary: rest.join("\t").trim() };
+    });
+  } catch (e) {
+    process.stderr.write(`WARNING: could not read Family calendar: ${e.message}\n`);
+    return [];
+  }
+}
+function fmtEvent(ev) {
+  const whenLabel = ev.when === "tomorrow" ? "Tomorrow" : "Today";
+  const t = ev.time && ev.time !== "ALLDAY" ? ` ${ev.time}` : "";
+  return `• ${whenLabel}${t}: ${ev.summary}`;
+}
+const CAL_EVENTS = familyCalendarEvents();
 
 // ── Load board ──────────────────────────────────────────────────────────────────
 const board = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
@@ -108,6 +158,14 @@ function buildFor(owner, friendlyName) {
   const lines = [`☀️ Morning, ${friendlyName} — ${WEEKDAY_LABEL}`, ""];
   const index = {}; // number -> {id, title}
   let n = 0;
+
+  // Shared Family-calendar events (today + tomorrow) — bullets, not numbered, so they
+  // don't interfere with the task reply-index. Prep events show first so they're seen.
+  if (CAL_EVENTS.length) {
+    lines.push("📅 On the calendar");
+    for (const ev of CAL_EVENTS) lines.push(fmtEvent(ev));
+    lines.push("");
+  }
 
   const emit = (header, group, suffixFn) => {
     if (!group.length) return;
