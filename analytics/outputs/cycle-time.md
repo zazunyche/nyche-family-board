@@ -1,4 +1,4 @@
-# Cycle Time Report — Oct 15, 2026, 6:45 AM
+# Cycle Time Report — Oct 16, 2026, 6:45 AM
 
 _44 completed tasks analyzed. 10 active tasks (age shown)._
 
@@ -44,16 +44,16 @@ _44 completed tasks analyzed. 10 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 130.4d | M |
-| Property Medics: schedule return visit + s… | HOME | DAD | ASSIGNED | 122.6d | L |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 121.3d | M |
-| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 80.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 80.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 80.3d | — |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 80.3d | — |
-| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 51.8d | — |
-| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 12.7d | — |
-| Check 11646 mortgage payment went through | ADMIN | DAD | ACTIVE | 4.9d | — |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 131.4d | M |
+| Property Medics: schedule return visit + s… | HOME | DAD | ASSIGNED | 123.6d | L |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 122.3d | M |
+| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 81.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 81.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 81.3d | — |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 81.3d | — |
+| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 52.8d | — |
+| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 13.7d | — |
+| Check 11646 mortgage payment went through | ADMIN | DAD | ACTIVE | 5.9d | — |
 
 ## Stage Dwell Time (tasks with stageHistory)
 
