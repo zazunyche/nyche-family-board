@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  com.zazu.connectivity-watchdog.plist
+  Runs scripts/connectivity-watchdog.sh every 600s (10 min) from its OWN launchd job
+  — intentionally independent of zazu-scheduler.js and the Anthropic API, so it keeps
+  watching even when those are down. Messages Dad only on an outage transition.
+  Install: cp to ~/Library/LaunchAgents/ && launchctl load it.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.zazu.connectivity-watchdog</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/zazunyche/Documents/src/family-board/scripts/connectivity-watchdog.sh</string>
+  </array>
+  <key>StartInterval</key><integer>600</integer>
+  <key>RunAtLoad</key><true/>
+  <key>StandardOutPath</key><string>/Users/zazunyche/Documents/src/family-board/logs/connectivity-watchdog.launchd.log</string>
+  <key>StandardErrorPath</key><string>/Users/zazunyche/Documents/src/family-board/logs/connectivity-watchdog.launchd.log</string>
+</dict>
+</plist>
