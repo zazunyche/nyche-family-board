@@ -217,6 +217,32 @@ alert_failure() {
 
   export ZAZU_ALERT_IN_PROGRESS=1
 
+  # ── Content-keyed throttle ──────────────────────────────────────────────────
+  # The 30-min send_imessage dedup compares exact text, but our alert body embeds a
+  # unique timestamp ($ts) so identical failures never matched — a recurring failure
+  # (e.g. API unreachable, retried every ~2h) would spam Dad indefinitely. Throttle
+  # on a hash of (script_name + message) WITHOUT the timestamp: suppress a repeat of
+  # the SAME failure within THROTTLE_SECS, but let it re-alert after that so a still-
+  # broken thing isn't silent forever, and let a genuinely DIFFERENT error through now.
+  local throttle_dir="$BOARD_DIR/logs/.alert-throttle"
+  local throttle_secs="${ZAZU_ALERT_THROTTLE_SECS:-21600}"  # 6h default
+  mkdir -p "$throttle_dir" 2>/dev/null || true
+  local akey afile
+  akey=$(md5 -q -s "${script_name}|${message}" 2>/dev/null || printf '%s' "${script_name}|${message}" | shasum | awk '{print $1}')
+  afile="$throttle_dir/$akey"
+  if [[ -f "$afile" ]]; then
+    local last_mod now_s age
+    last_mod=$(stat -f %m "$afile" 2>/dev/null || echo 0)
+    now_s=$(date +%s)
+    age=$(( now_s - last_mod ))
+    if (( age < throttle_secs )); then
+      log_ts "INFO: Failure alert throttled — same failure alerted ${age}s ago (< ${throttle_secs}s): [$script_name] $message" "$logfile"
+      export ZAZU_ALERT_IN_PROGRESS=0
+      return
+    fi
+  fi
+  : > "$afile"  # stamp this alert's send time
+
   # Build the alert message text
   local alert_msg
   alert_msg="Zazu alert — $script_name failed at $ts.

@@ -78,7 +78,7 @@ NOW=$(date '+%Y-%m-%d %H:%M ET')
 # the outer bash string (fixed: "Analytics Scripts Roadmap" was closing the
 # double-quoted PROMPT= assignment on line 120, making bash try to execute
 # 'Scripts' as a command every heartbeat run).
-PROMPT=$(cat << PROMPT_EOF
+IFS= read -r -d '' PROMPT <<PROMPT_EOF || true
 You are Zazu, the Nyche family house manager AI running on a Mac mini at /Users/zazunyche. This is an automated heartbeat check — it fires every 4.5 hours to ensure no work falls through the cracks.
 
 Current time: $NOW
@@ -147,7 +147,6 @@ If analytics infra is genuinely exhausted (check the above first), fall back to:
 
 Proceed. Do the work. Log it. Clean up WIP when done.
 PROMPT_EOF
-)
 
 # ── Run the claude work session ───────────────────────────────────────────────
 log_ts "Launching claude -p work session" "$LOG"
