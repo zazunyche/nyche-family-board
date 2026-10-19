@@ -1064,3 +1064,39 @@ Board health is now clean: 0 missing fields, active count 23 → 21.
 [2026-10-17T22:00:26Z] heartbeat.sh started
 [2026-10-18T02:30:27Z] heartbeat.sh started
 [2026-10-18T04:00:27Z] heartbeat.sh started
+[2026-10-18T08:30:28Z] heartbeat.sh started
+[2026-10-18T13:00:29Z] heartbeat.sh started
+[2026-10-18T17:30:00Z] heartbeat.sh started
+[2026-10-18T22:00:01Z] heartbeat.sh started
+[2026-10-18T22:00:01Z] Launching claude -p work session
+[2026-10-18T22:00:55Z] [WIP] Starting backfill of taskType/effortTag on 7 tasks (board-health data-quality gap)
+[DONE] Backfill taskType/effortTag — inferred + wrote fields on 7 tasks flagged by board-health.js (t_r1908t7, t_f7smuoh, t_yxb8crl, t_4i3duz1, t_7n4uaqd, t_q5wnyq5, t_a4e526n). Rules per plan-v1.md L337: ADMIN "renew"/recurring tax -> MAINTENANCE; contact/verify -> ERRAND. Board-health Data Quality now 0 missing fields (was 14). History entries note these are inferred — Dad/Mom can override.
+Done. Here's what this heartbeat accomplished:
+
+**Task: Backfill missing `taskType`/`effortTag`** (documented fallback (a) — fixing real data-quality gaps flagged by `board-health.js`)
+
+board-health.js was reporting **14 missing fields** across 7 tasks that were created after the original schema backfill and never got these fields inferred. I filled them using the inference rules in `analytics/plan-v1.md` (L337):
+
+| Task | taskType | effortTag | Reasoning |
+|------|----------|-----------|-----------|
+| Renew British passport | MAINTENANCE | M | ADMIN + "renew" rule; multi-step |
+| TX sales tax Q4/Q1/Q2 (×3) | MAINTENANCE | S | recurring regulatory payment |
+| Check Ghana nanny availability | ERRAND | S | reach-out/confirm action |
+| Complete financial planning docs | ERRAND | M | finish outstanding paperwork |
+| Check 11646 mortgage cleared | ERRAND | XS | quick verification |
+
+Each got a `history` entry marking the values as **inferred** so Dad/Mom can override. Re-ran board-health: **Data Quality now 0 missing fields** (was 14).
+
+Notes:
+- `board-data.json` is gitignored (live data, not version-controlled directly), so there's no diff to commit — the change is live in the file.
+- No iMessage sent — this is internal data hygiene, not noteworthy enough to interrupt the family.
+- WIP and temp files cleaned up; completion logged to `heartbeat.log`.
+
+The overdue/stale items the health report flagged (passport, mortgage check, Ghana nanny, financial docs) all need Mom/Dad action — `board-reminders.sh` already surfaces those on its own schedule, so I didn't duplicate that.
+[2026-10-18T22:01:42Z] heartbeat.sh complete
+[2026-10-19T02:30:01Z] heartbeat.sh started
+[2026-10-19T02:30:01Z] Launching claude -p work session
+API Error: Unable to connect to API (FailedToOpenSocket)
+[2026-10-19T02:33:09Z] heartbeat claude session failed — exit 1
+[2026-10-19T02:33:09Z] heartbeat.sh complete
+[2026-10-19T04:00:01Z] heartbeat.sh started
