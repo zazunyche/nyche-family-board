@@ -1,4 +1,4 @@
-# Completion Rate Report — Oct 18, 2026, 6:45 AM
+# Completion Rate Report — Oct 19, 2026, 6:45 AM
 
 _54 total tasks (excl. archived), 44 done — overall rate: **81%**_
 
@@ -35,12 +35,12 @@ Lead time (creation → done): median **13.65 days**, min 0d, max 110.5d (n=44)
 | Task Type | Done | Total | Rate | Median Lead (days) |
 |---------|------|-------|------|--------------------|
 | PROJECT | 13 | 13 | 100% | 12 |
-| MAINTENANCE | 1 | 1 | 100% | 15.5 |
 | DECISION | 3 | 3 | 100% | 36.6 |
 | EVENT | 3 | 3 | 100% | 36.6 |
-| ERRAND | 14 | 16 | 88% | 8 |
+| unknown | 5 | 5 | 100% | 35.9 |
 | RESEARCH | 5 | 6 | 83% | 13.8 |
-| unknown | 5 | 12 | 42% | 35.9 |
+| ERRAND | 14 | 19 | 74% | 8 |
+| MAINTENANCE | 1 | 5 | 20% | 15.5 |
 
 ## By Priority
 
