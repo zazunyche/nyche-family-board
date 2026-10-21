@@ -1130,3 +1130,31 @@ API Error: Unable to connect to API (FailedToOpenSocket)
 [2026-10-20T02:33:02Z] heartbeat claude session failed — exit 1
 [2026-10-20T02:33:03Z] heartbeat.sh complete
 [2026-10-20T04:00:05Z] heartbeat.sh started
+[2026-10-20T04:00:06Z] Launching claude -p work session
+API Error: Unable to connect to API (FailedToOpenSocket)
+[2026-10-20T04:03:09Z] heartbeat claude session failed — exit 1
+[2026-10-20T04:03:09Z] heartbeat.sh complete
+[2026-10-20T08:30:06Z] heartbeat.sh started
+[2026-10-20T08:30:07Z] Launching claude -p work session
+API Error: Unable to connect to API (ConnectionRefused)
+[2026-10-20T08:33:06Z] heartbeat claude session failed — exit 1
+[2026-10-20T08:33:06Z] heartbeat.sh complete
+[2026-10-20T13:00:07Z] heartbeat.sh started
+[2026-10-20T13:00:07Z] Launching claude -p work session
+API Error: Unable to connect to API (FailedToOpenSocket)
+[2026-10-20T13:03:13Z] heartbeat claude session failed — exit 1
+[2026-10-20T13:03:13Z] heartbeat.sh complete
+[2026-10-20T17:30:08Z] heartbeat.sh started
+[2026-10-20T17:30:08Z] Launching claude -p work session
+API Error: Unable to connect to API (ConnectionRefused)
+[2026-10-20T17:33:11Z] heartbeat claude session failed — exit 1
+[2026-10-20T17:33:11Z] heartbeat.sh complete
+[2026-10-20T22:00:09Z] heartbeat.sh started
+[2026-10-20T22:00:09Z] Launching claude -p work session
+[2026-10-20T22:08:10Z] heartbeat claude session failed — exit 143
+[2026-10-20T22:08:10Z] heartbeat.sh complete
+[2026-10-21T02:30:10Z] heartbeat.sh started
+[2026-10-21T02:30:10Z] Launching claude -p work session
+[2026-10-21T02:38:10Z] heartbeat claude session failed — exit 143
+[2026-10-21T02:38:10Z] heartbeat.sh complete
+[2026-10-21T04:00:10Z] heartbeat.sh started
