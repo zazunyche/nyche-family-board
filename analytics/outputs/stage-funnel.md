@@ -1,4 +1,4 @@
-# Stage Funnel — Oct 21, 2026, 6:45 AM
+# Stage Funnel — Oct 22, 2026, 6:45 AM
 
 _54 total tasks_
 
@@ -50,13 +50,13 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **39%** of done tasks_
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Review Acrisure home insurance renewal | 5 | 109 | ACTIVE |
-| Property Medics: schedule return visit + s… | 5 | 109 | ASSIGNED |
-| 15 Sigourney — follow up with neighbor on … | 5 | 109 | ACTIVE |
-| Renew British passport — Dad | 5 | 78 | ACTIVE |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 78 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 78 | IDEA |
-| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 78 | IDEA |
-| Check Ghana nanny availability — Dec 14–Jan 9 | 5 | 49 | ACTIVE |
-| Complete any open financial planning docs | 2 | 18 | ACTIVE |
-| Check 11646 mortgage payment went through | 1 | 10 | ACTIVE |
+| Review Acrisure home insurance renewal | 5 | 110 | ACTIVE |
+| Property Medics: schedule return visit + s… | 5 | 110 | ASSIGNED |
+| 15 Sigourney — follow up with neighbor on … | 5 | 110 | ACTIVE |
+| Renew British passport — Dad | 5 | 79 | ACTIVE |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 79 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 79 | IDEA |
+| Pay Texas Comptroller sales tax — Nyche LL… | 5 | 79 | IDEA |
+| Check Ghana nanny availability — Dec 14–Jan 9 | 5 | 50 | ACTIVE |
+| Complete any open financial planning docs | 2 | 19 | ACTIVE |
+| Check 11646 mortgage payment went through | 1 | 11 | ACTIVE |
