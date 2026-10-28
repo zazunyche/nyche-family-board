@@ -1,4 +1,4 @@
-# Cycle Time Report — Oct 26, 2026, 6:45 AM
+# Cycle Time Report — Oct 27, 2026, 6:45 AM
 
 _44 completed tasks analyzed. 10 active tasks (age shown)._
 
@@ -44,16 +44,16 @@ _44 completed tasks analyzed. 10 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 141.4d | M |
-| Property Medics: schedule return visit + s… | HOME | DAD | ASSIGNED | 133.5d | L |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 132.3d | M |
-| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 91.3d | M |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 91.3d | S |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 91.3d | S |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 91.3d | S |
-| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 62.8d | S |
-| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 23.7d | M |
-| Check 11646 mortgage payment went through | ADMIN | DAD | ACTIVE | 15.9d | XS |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 142.4d | M |
+| Property Medics: schedule return visit + s… | HOME | DAD | ASSIGNED | 134.5d | L |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 133.3d | M |
+| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 92.3d | M |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 92.3d | S |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 92.3d | S |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 92.3d | S |
+| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 63.8d | S |
+| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 24.7d | M |
+| Check 11646 mortgage payment went through | ADMIN | DAD | ACTIVE | 16.9d | XS |
 
 ## Stage Dwell Time (tasks with stageHistory)
 
