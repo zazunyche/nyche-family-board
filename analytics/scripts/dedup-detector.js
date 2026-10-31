@@ -57,6 +57,40 @@ function similarity(a, b) {
   return union === 0 ? 0 : intersection / union;
 }
 
+const MONTHS = [
+  'jan', 'feb', 'mar', 'apr', 'may', 'jun',
+  'jul', 'aug', 'sep', 'oct', 'nov', 'dec',
+];
+
+// Extract period/recurrence markers from a title: quarters (Q1–Q4), 4-digit
+// years, and month names. Recurring tasks (quarterly sales tax, monthly bills)
+// have near-identical titles that differ ONLY by the period, so without this
+// they get flagged as duplicates every run. See periodsDiffer().
+function periodSignature(title) {
+  const s = (title || '').toLowerCase();
+  const markers = new Set();
+  const quarters = s.match(/\bq[1-4]\b/g);
+  if (quarters) quarters.forEach(m => markers.add(m));
+  const spelledQuarters = s.match(/\bquarter\s*([1-4])\b/g);
+  if (spelledQuarters) spelledQuarters.forEach(m => markers.add('q' + m.replace(/\D/g, '')));
+  const years = s.match(/\b20\d{2}\b/g);
+  if (years) years.forEach(m => markers.add(m));
+  for (const mo of MONTHS) {
+    if (new RegExp('\\b' + mo + '[a-z]*\\b').test(s)) markers.add(mo);
+  }
+  return markers;
+}
+
+// Two tasks are distinct recurring instances (NOT duplicates) when both titles
+// carry period markers and those marker sets are not identical — e.g. "(Q4 2026)"
+// vs "(Q1 2027)". If either title has no period marker, we don't suppress.
+function periodsDiffer(a, b) {
+  if (a.size === 0 || b.size === 0) return false;
+  if (a.size !== b.size) return true;
+  for (const m of a) if (!b.has(m)) return true;
+  return false;
+}
+
 function run() {
   const args = process.argv.slice(2);
   const asJson = args.includes('--json');
@@ -78,6 +112,9 @@ function run() {
       if (a.task.category !== b.task.category) continue;
       const sim = similarity(a.tokens, b.tokens);
       if (sim < SIMILARITY_THRESHOLD) continue;
+      // Skip recurring-series instances (e.g. quarterly tax filings) that
+      // differ only by a quarter/year/month marker — these are not duplicates.
+      if (periodsDiffer(periodSignature(a.task.title), periodSignature(b.task.title))) continue;
 
       const aCluster = assigned.get(a.task.id);
       const bCluster = assigned.get(b.task.id);

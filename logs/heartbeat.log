@@ -1436,3 +1436,117 @@ API Error: Unable to connect to API (ConnectionRefused)
 [2026-10-31T00:38:19Z] heartbeat.sh started
 [2026-10-31T00:38:19Z] heartbeat.sh started
 [2026-10-31T00:38:19Z] heartbeat.sh started
+[2026-10-31T00:38:24Z] Launching claude -p work session
+[2026-10-31T00:38:24Z] Launching claude -p work session
+[2026-10-31T00:38:24Z] Launching claude -p work session
+[2026-10-31T00:38:24Z] Launching claude -p work session
+[2026-10-31T00:38:24Z] Launching claude -p work session
+[2026-10-31T00:39:34Z] [START] dedup-detector.js recurring-period false-positive fix — quarterly TX sales-tax tasks flagged as dupes every run
+[2026-10-30T20:40 ET] Starting: dedup-detector.js period-awareness fix (quarterly tax tasks falsely clustered)
+[2026-10-31T00:41:22Z] heartbeat: board-health clean (0 missing fields), dedup cluster = false positive (distinct quarterly tax tasks). Found 3 future-dated 2027 TX tax tasks (t_f7smuoh/t_yxb8crl/t_4i3duz1) wrongly surfacing in daily brief at resistance 5/5, 88 briefings. Snoozing to ~2wk before due.
+[2026-10-31T00:40:00Z] ZAZU heartbeat: infra exhausted + board clean (board-health 0 gaps, snooze gate still 0, dedup cluster false-positive). Starting staleness/moot-task triage.
+[2026-10-31T00:42:33Z] 20:38 heartbeat (ZAZU): API recovered after multi-day ConnectionRefused outage. Board-health clean (0 missing fields). Starting friction-removal walkthrough for t_r1908t7 British passport (HIGH, 14d overdue, 88 briefs, no movement).
+[DONE] Passport renewal friction-removal (t_r1908t7) — wrote docs/guides/passport-renewal-dad.md, a ~20-min do-it-in-one-sitting walkthrough (phone-photo how-to, exact gov.uk overseas form path, payment, and the key "clock only starts when old passport arrives in UK" point). Updated task zazuNotes to point to it so it surfaces in the morning brief. Chose friction removal over an 89th reminder (board-reminders.sh already owns the reminder channel). Board-health was clean (0 missing fields); analytics infra complete. Left files for nightly sync; did not send iMessage (late + avoids duplicating reminder channel).
+[DONE] Board hygiene: snooze future-dated tax tasks + fix board-health flags — First successful session after a full day of API ConnectionRefused failures (02:30–22:00 UTC all failed). board-health data quality clean (0 missing fields); dedup cluster confirmed false positive (distinct quarterly TX tax tasks). Snoozed 3 future-dated 2027 Texas Comptroller tax tasks (t_f7smuoh→2027-01-01, t_yxb8crl→2027-04-01, t_4i3duz1→2027-07-01) that were wrongly briefed daily at resistance 5/5 across 88 briefings each — they'll resurface ~2wk before due. Made board-health.js snooze-aware: added isSnoozed guard to highBrief/resistanceCandidates/resistanceFlagged filters (stale already had it), so deferred tasks no longer appear as problems. High-brief & resistance-flagged counts dropped 10→7, now showing only genuinely-active items.
+Done. Summary of this heartbeat session:
+
+**Context:** This was the first session to connect all day — the heartbeat log shows API `ConnectionRefused` failures on every prior attempt (02:30–22:00 UTC). No WIP to resume.
+
+**What I found (via board-health + dedup):**
+- Data quality clean — 0 missing fields across all tasks.
+- The dedup "cluster" is a false positive: the four Texas Comptroller tax entries are legitimately distinct quarters (Q3 done, Q4/Q1/Q2 pending), not duplicates.
+- The real signal: all 10 active tasks pinned at max resistance with huge brief counts (88–120) — but 3 of them were **future-dated 2027 tax tasks** being nagged daily for no reason.
+
+**What I did (self-contained board hygiene, within ZAZU's authority):**
+1. Snoozed the three future-dated Texas tax tasks to ~2 weeks before each due date (`t_f7smuoh`→2027‑01‑01, `t_yxb8crl`→2027‑04‑01, `t_4i3duz1`→2027‑07‑01). The snooze mechanism already suppresses briefing + resistance accumulation, so they'll resurface with ample lead time instead of cluttering daily briefs.
+2. Made `board-health.js` snooze-aware: added an `isSnoozed` guard to the `highBrief`, `resistanceCandidates`, and `resistanceFlagged` filters (the `stale` filter already had it). Previously snoozed tasks still showed up as "problems," which was misleading. Counts dropped 10→7, now reflecting only genuinely-active items.
+
+WIP cleaned up, work logged to `logs/heartbeat.log`. I did not send an iMessage — this is internal hygiene, not something that warrants interrupting Dad. The remaining 7 flagged tasks all need Mom/Dad action and are handled by the existing reminder schedule.
+
+One thing worth flagging for a human later: the heartbeat log showed **5 concurrent `heartbeat.sh` starts** at 00:38:19Z — likely queued-up retries firing at once after the API recovered. Worth checking the launchd/cron config isn't stacking sessions.
+Done. Work complete and verified.
+
+## Summary
+
+This heartbeat ran after a **multi-day API outage** (every scheduled run from Oct 30 02:30–22:00 UTC failed with `ConnectionRefused`). Five heartbeat processes launched at once on recovery; a sibling session grabbed board hygiene (snoozing future-dated 2027 tax tasks), so I picked distinct work.
+
+**Checks:** Board-health was clean (0 missing fields, no dedup issues) and analytics infra is complete per the roadmap — nothing to fix there.
+
+**Task completed — British passport renewal (t_r1908t7):** HIGH priority, 14 days overdue, briefed **88 times with zero movement**. The blocker was never awareness — it was activation energy. So instead of a 89th reminder (the reminder channel is already owned by `board-reminders.sh`), I removed the friction:
+
+- Wrote `docs/guides/passport-renewal-dad.md` — a ~20-minute, follow-the-numbers walkthrough: how to take the photo with a phone, the exact gov.uk overseas form path, payment, and the key insight that the processing clock only starts once the **old passport physically arrives in the UK** (so mail it tracked, promptly).
+- Flagged honestly that fees/processing times are from prior research and the live gov.uk page is authoritative.
+- Updated the task's `zazuNotes` to point at the guide so it surfaces in the next morning brief (verified it persisted past the concurrent write).
+
+**Housekeeping:** WIP cleared, DONE logged to `heartbeat.log`. Did **not** send an iMessage — it's late (8:40pm ET) and would duplicate the reminder channel; the guide reaches Dad through the normal brief. Left files for the nightly sync commit.
+[2026-10-30T20:43 ET] [DONE] dedup-detector.js period-awareness — Added periodSignature()/periodsDiffer() so recurring-series tasks (quarterly TX sales tax Q4'26/Q1'27/Q2'27) are no longer falsely clustered as duplicates. Verified: genuine + same-period dups still flagged; different-period instances suppressed. Report now shows "No likely duplicate clusters found." NOTE: 5 heartbeats fired concurrently (queued after all-day API ConnectionRefused outages); multiple sessions raced on this same file causing transient duplicate-decl breakage — resolved to a single clean version.
+[2026-10-31T00:44:29Z] [DONE] dedup-detector recurring-period fix — added periodSignature()/periodsDiffer() guard so recurring-series tasks (quarterly TX sales tax Q4/Q1/Q2, monthly bills) that differ only by quarter/year/month are no longer flagged as duplicates every run. Dedup report now clean (0 clusters). Logic tested: suppresses period-only diffs, still catches genuine dups. Note: reconciled a concurrent edit that had duplicated the helper block.
+Done. Here's what I accomplished this heartbeat:
+
+**Task: Fixed a standing false positive in `dedup-detector.js`**
+
+The board's data quality was clean (0 missing fields, all backlog items need Mom/Dad action and are already handled by `board-reminders.sh`), so the one genuine ZAZU-ownable issue was that the dedup detector flagged the four quarterly Texas sales-tax tasks (Q3 done, Q4/Q1/Q2 pending) as a duplicate cluster on **every run** — noise that could eventually mask a real duplicate.
+
+**Fix:** Added `periodSignature()` + `periodsDiffer()` helpers. Before clustering two high-similarity, same-category tasks, the detector now extracts period markers (quarters `Q1–Q4`, 4-digit years, month names) and skips the pair when both titles carry markers that differ — i.e. they're recurring instances of the same task, not duplicates.
+
+**Verified:**
+- `node -c` passes; dedup report now shows **0 clusters** (was 1 false positive).
+- Logic tested against the real functions:
+  - Q4 2026 vs Q1 2027 → suppressed ✓
+  - identical title (same quarter) → still flagged ✓
+  - genuine reworded dup with no period marker → still flagged ✓
+  - monthly rent Oct vs Nov → suppressed ✓
+
+Mid-task I hit a concurrent edit that had duplicated the helper block (two `MONTHS` declarations → `SyntaxError`); I reconciled to a single clean copy and kept the cleaner title-based approach.
+
+Saved `analytics/outputs/dedup-report.md`, cleared the WIP file, and logged `[DONE]` to `heartbeat.log`. Changes are in the working tree (unstaged), consistent with the nightly-sync commit pattern.
+[2026-10-31T00:44:44Z] INFO: iMessage suppressed (duplicate within 30 min window) for [heartbeat summary to Dad]
+[2026-10-31T00:44:44Z] heartbeat.sh complete
+[2026-10-31T00:44:44Z] heartbeat.sh complete
+Done. Final state is clean and stable (syntax OK, exactly one copy of each helper).
+
+## Summary
+
+Data quality on the board is clean (board-health reports 0 missing fields; Tier 1/2 analytics complete), so I took the recommended fallback and fixed a real tooling defect in **`dedup-detector.js`**.
+
+**The bug:** The detector was flagging the three future quarterly Texas sales-tax tasks (Q4 2026 / Q1 2027 / Q2 2027, plus the done Q3) as a duplicate cluster at 0.8 similarity — every single run. They're legitimately distinct recurring instances, so this was a standing false positive that wasted review cycles.
+
+**The fix:** Added `periodSignature()` (extracts quarter/year/month markers from a title) and `periodsDiffer()`. When two titles are highly similar but carry *different* period markers, they're treated as distinct recurring instances and skipped. Verified:
+- Genuine duplicates (no period markers) → still flagged ✓
+- Same-period duplicates → still flagged ✓
+- Different-period recurring instances → correctly suppressed ✓
+- Detector now reports "No likely duplicate clusters found."
+
+**One thing worth flagging to you:** This heartbeat fired **5 times simultaneously** at 00:38 UTC — a queue that drained after an all-day string of `API Error: ConnectionRefused` failures (every scheduled run from ~02:30 through 22:00 UTC failed to connect). All 5 concurrent sessions independently picked this same task and raced on the same file, briefly producing duplicate-declaration syntax errors before converging. The file is correct now, but you may want to look at why the API was unreachable all day and whether `heartbeat.sh` should guard against concurrent launches (e.g. a lockfile). WIP cleared, completion logged.
+[2026-10-31T00:42:00Z] [DONE] Staleness/moot-task triage — wrote analytics/outputs/staleness-triage.md. Infra/analytics confirmed exhausted (board-health 0 gaps, snooze gate still 0 tasks, dedup cluster = false positive quarterly-tax tasks). Triage of 10 active items: 3 likely closeable (t_insure01 Acrisure 5mo past renewal, t_a4e526n mortgage check 18d past, t_q5wnyq5 fin-planning docs 26d past), 3 need status confirm (t_6aj3ogq Property Medics visit was Oct 19, t_r1908t7 passport submitted?, t_7n4uaqd Ghana nanny = only real forward urgency w/ Dec 14 trip), 4 correctly waiting. Flagged board-health over-counting future-dated IDEA tax tasks as "stale". Held off on iMessage (non-urgent night-time close-decision) — belongs in next morning brief.
+[2026-10-31T00:45:07Z] INFO: iMessage suppressed (duplicate within 30 min window) for [heartbeat summary to Dad]
+[2026-10-31T00:45:08Z] heartbeat.sh complete
+[2026-10-31T00:45:59Z] heartbeat.sh complete
+Done. Clean completion.
+
+## Summary
+
+The API was down most of today (multiple `ConnectionRefused` heartbeat failures), and five sessions fired at once after it recovered — this one did the work.
+
+**Confirmed infra/analytics is exhausted** (not re-derived from the stale punch list — verified live):
+- `board-health.js`: 0 missing fields, no new data-quality gaps
+- `snooze-pattern.js` correctly still deferred — 0 tasks use `snoozedUntil`
+- `dedup-detector.js` "cluster" is a false positive (distinct Q3/Q4/Q1/Q2 tax tasks)
+
+**Delivered** (`analytics/outputs/staleness-triage.md`) — the thing board-reminders.sh *can't* do: instead of nudging, it recommends state decisions on the 10 active tasks:
+- **3 likely closeable** — Acrisure renewal (5 months past window), 11646 mortgage check (18d past, one-time), financial-planning docs (26d past, vague/open-ended)
+- **3 need status confirm** — Property Medics (visit was scheduled Oct 19), passport (research done, only "Dad submits" remains), **Ghana nanny** (the one item with real forward urgency — Dec 14 trip, nanny may book up)
+- **4 correctly waiting** — 15 Sigourney + three future-dated quarterly tax tasks
+- **Bonus finding:** board-health over-counts future-dated IDEA tasks as "stale" (noted for the roadmap, not built without go-ahead)
+
+**Held off on a late-night iMessage** — this is a non-urgent close-decision, and the resistance data (tasks briefed up to 119× at max resistance) shows more nudges aren't the bottleneck. The triage belongs in the next morning brief.
+
+WIP cleaned up, `[DONE]` logged.
+[2026-10-31T00:46:29Z] INFO: iMessage suppressed (duplicate within 30 min window) for [heartbeat summary to Dad]
+[2026-10-31T00:46:29Z] heartbeat.sh complete
+[2026-10-31T02:30:24Z] heartbeat.sh started
+[2026-10-31T02:30:25Z] Launching claude -p work session
+[2026-10-31T02:31:30Z] Picked infra fix: add concurrency lock to heartbeat.sh (prior session documented 5 simultaneous heartbeats racing on board-data.json after a day of ConnectionRefused-drained queue). Board-health confirmed clean; analytics exhausted.
+[2026-10-31T02:38:25Z] heartbeat claude session failed — exit 143
+[2026-10-31T02:38:25Z] heartbeat.sh complete
+[2026-10-31T04:00:25Z] heartbeat.sh started

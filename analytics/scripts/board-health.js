@@ -63,10 +63,15 @@ function run() {
   const activeByStage = {};
   active.forEach(t => { activeByStage[t.stage] = (activeByStage[t.stage] || 0) + 1; });
 
+  // Snoozed tasks are intentionally deferred — exclude them from problem flags
+  // (stale / high-brief / resistance) so the health report doesn't nag about
+  // tasks we've deliberately parked until a future date.
+  const isSnoozed = t => t.snoozedUntil && new Date(t.snoozedUntil) > now;
+
   // Stale: non-snoozed active tasks whose current stage has been unchanged for > STALE_DAYS.
   // Uses stageHistory enteredAt (not updatedAt) so escalation/resistance writes don't hide staleness.
   const stale = active.filter(t => {
-    if (t.snoozedUntil && new Date(t.snoozedUntil) > now) return false;
+    if (isSnoozed(t)) return false;
     return stageAgeDays(t, now) > STALE_DAYS;
   }).map(t => ({
     id: t.id,
@@ -88,7 +93,7 @@ function run() {
 
   // High brief count: briefed >= threshold and still open
   const highBrief = active
-    .filter(t => (t.briefCount || 0) >= HIGH_BRIEF_THRESHOLD)
+    .filter(t => !isSnoozed(t) && (t.briefCount || 0) >= HIGH_BRIEF_THRESHOLD)
     .map(t => ({ id: t.id, title: t.title, briefCount: t.briefCount, owner: t.owner }));
 
   // Missing analytics fields on active tasks
@@ -100,6 +105,7 @@ function run() {
   // Mirrors priority-escalation.sh criteria so the two agree on what's "pending."
   const resistanceCandidates = active
     .filter(t =>
+      !isSnoozed(t) &&
       (t.briefCount || 0) >= HIGH_BRIEF_THRESHOLD &&
       stageAgeDays(t, now) >= RESISTANCE_STALE_DAYS &&
       (t.resistanceScore || 0) === 0
@@ -108,7 +114,7 @@ function run() {
 
   // Resistance flagged: have an active resistanceScore > 0
   const resistanceFlagged = active
-    .filter(t => (t.resistanceScore || 0) > 0)
+    .filter(t => !isSnoozed(t) && (t.resistanceScore || 0) > 0)
     .map(t => ({ id: t.id, title: t.title, score: t.resistanceScore, briefCount: t.briefCount || 0, owner: t.owner }));
 
   // Category distribution (active)

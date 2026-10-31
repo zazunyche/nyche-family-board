@@ -44,6 +44,34 @@ fi
 
 log_ts "heartbeat.sh started" "$LOG"
 
+# ── Concurrency guard ─────────────────────────────────────────────────────────
+# A day of ConnectionRefused failures can drain a queued backlog of scheduler
+# ticks all at once, firing several heartbeats within seconds of each other.
+# Without a lock they run concurrently and race on board-data.json / the WIP
+# file — which has produced duplicate work and transient syntax errors. Allow
+# only one heartbeat at a time. mkdir is atomic across processes, so it's a
+# race-free lock. Reclaim a lock older than the 8-min work cap + margin, which
+# can only mean a prior run crashed without releasing it.
+LOCK_DIR="$HOME/.zazu-heartbeat.lock"
+LOCK_STALE_SECS=900   # 15 min > 8-min claude work cap
+if ! mkdir "$LOCK_DIR" 2>/dev/null; then
+  LOCK_AGE=$(( $(date +%s) - $(stat -f %m "$LOCK_DIR" 2>/dev/null || echo 0) ))
+  if [ "$LOCK_AGE" -lt "$LOCK_STALE_SECS" ]; then
+    log_ts "heartbeat.sh: another run holds the lock (age ${LOCK_AGE}s) — exiting to avoid concurrent sessions" "$LOG"
+    exit 0
+  fi
+  log_ts "heartbeat.sh: stale lock (age ${LOCK_AGE}s) — reclaiming" "$LOG"
+  rm -rf "$LOCK_DIR"
+  if ! mkdir "$LOCK_DIR" 2>/dev/null; then
+    log_ts "heartbeat.sh: failed to reclaim lock — exiting" "$LOG"
+    exit 1
+  fi
+fi
+# Release the lock on any exit (normal end, error, or signal-handler exit).
+release_lock() { rm -rf "$LOCK_DIR" 2>/dev/null; }
+trap release_lock EXIT
+echo "$$ $(date '+%Y-%m-%d %H:%M:%S %Z')" > "$LOCK_DIR/owner" 2>/dev/null
+
 # ── Daytime check (08:00–22:00 ET) ──────────────────────────────────────────
 HOUR=$(date +%H)
 DAYTIME=false

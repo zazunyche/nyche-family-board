@@ -1,4 +1,4 @@
-# Board Health — Oct 30, 2026, 6:45 AM
+# Board Health — Oct 30, 2026, 8:38 PM
 
 ## Summary
 
@@ -33,41 +33,41 @@
 
 | ID | Title | Due | Days Overdue | Owner |
 |----|-------|-----|-------------|-------|
-| t_6aj3ogq | Property Medics: schedule return visit + send gara | 2026-10-19 | 11 | DAD |
-| t_r1908t7 | Renew British passport — Dad | 2026-10-17 | 13 | DAD |
-| t_7n4uaqd | Check Ghana nanny availability — Dec 14–Jan 9 | 2026-09-30 | 30 | MOM |
-| t_q5wnyq5 | Complete any open financial planning docs | 2026-10-05 | 25 | MOM |
-| t_a4e526n | Check 11646 mortgage payment went through | 2026-10-13 | 17 | DAD |
+| t_6aj3ogq | Property Medics: schedule return visit + send gara | 2026-10-19 | 12 | DAD |
+| t_r1908t7 | Renew British passport — Dad | 2026-10-17 | 14 | DAD |
+| t_7n4uaqd | Check Ghana nanny availability — Dec 14–Jan 9 | 2026-09-30 | 31 | MOM |
+| t_q5wnyq5 | Complete any open financial planning docs | 2026-10-05 | 26 | MOM |
+| t_a4e526n | Check 11646 mortgage payment went through | 2026-10-13 | 18 | DAD |
 
 ## Stale Tasks — no update in 14+ days (10)
 
 | ID | Title | Stage | Age (days) | Owner |
 |----|-------|-------|-----------|-------|
-| t_insure01 | Review Acrisure home insurance renewal | ACTIVE | 145 | DAD |
+| t_insure01 | Review Acrisure home insurance renewal | ACTIVE | 146 | DAD |
 | t_6aj3ogq | Property Medics: schedule return visit + send gara | ASSIGNED | 22 | DAD |
-| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | ACTIVE | 136 | DAD |
-| t_r1908t7 | Renew British passport — Dad | ACTIVE | 95 | DAD |
-| t_f7smuoh | Pay Texas Comptroller sales tax — Nyche LLC (Q4 20 | IDEA | 95 | DAD |
-| t_yxb8crl | Pay Texas Comptroller sales tax — Nyche LLC (Q1 20 | IDEA | 95 | DAD |
-| t_4i3duz1 | Pay Texas Comptroller sales tax — Nyche LLC (Q2 20 | IDEA | 95 | DAD |
+| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | ACTIVE | 137 | DAD |
+| t_r1908t7 | Renew British passport — Dad | ACTIVE | 96 | DAD |
+| t_f7smuoh | Pay Texas Comptroller sales tax — Nyche LLC (Q4 20 | IDEA | 96 | DAD |
+| t_yxb8crl | Pay Texas Comptroller sales tax — Nyche LLC (Q1 20 | IDEA | 96 | DAD |
+| t_4i3duz1 | Pay Texas Comptroller sales tax — Nyche LLC (Q2 20 | IDEA | 96 | DAD |
 | t_7n4uaqd | Check Ghana nanny availability — Dec 14–Jan 9 | ACTIVE | 67 | MOM |
 | t_q5wnyq5 | Complete any open financial planning docs | ACTIVE | 28 | MOM |
-| t_a4e526n | Check 11646 mortgage payment went through | ACTIVE | 20 | DAD |
+| t_a4e526n | Check 11646 mortgage payment went through | ACTIVE | 21 | DAD |
 
 ## High Brief Count — briefed 3+ times with no completion (10)
 
 | ID | Title | Brief Count | Owner |
 |----|-------|-------------|-------|
-| t_insure01 | Review Acrisure home insurance renewal | 118 | DAD |
-| t_6aj3ogq | Property Medics: schedule return visit + send gara | 118 | DAD |
-| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | 118 | DAD |
-| t_r1908t7 | Renew British passport — Dad | 87 | DAD |
-| t_f7smuoh | Pay Texas Comptroller sales tax — Nyche LLC (Q4 20 | 87 | DAD |
-| t_yxb8crl | Pay Texas Comptroller sales tax — Nyche LLC (Q1 20 | 87 | DAD |
-| t_4i3duz1 | Pay Texas Comptroller sales tax — Nyche LLC (Q2 20 | 87 | DAD |
-| t_7n4uaqd | Check Ghana nanny availability — Dec 14–Jan 9 | 58 | MOM |
-| t_q5wnyq5 | Complete any open financial planning docs | 27 | MOM |
-| t_a4e526n | Check 11646 mortgage payment went through | 19 | DAD |
+| t_insure01 | Review Acrisure home insurance renewal | 119 | DAD |
+| t_6aj3ogq | Property Medics: schedule return visit + send gara | 119 | DAD |
+| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | 119 | DAD |
+| t_r1908t7 | Renew British passport — Dad | 88 | DAD |
+| t_f7smuoh | Pay Texas Comptroller sales tax — Nyche LLC (Q4 20 | 88 | DAD |
+| t_yxb8crl | Pay Texas Comptroller sales tax — Nyche LLC (Q1 20 | 88 | DAD |
+| t_4i3duz1 | Pay Texas Comptroller sales tax — Nyche LLC (Q2 20 | 88 | DAD |
+| t_7n4uaqd | Check Ghana nanny availability — Dec 14–Jan 9 | 59 | MOM |
+| t_q5wnyq5 | Complete any open financial planning docs | 28 | MOM |
+| t_a4e526n | Check 11646 mortgage payment went through | 20 | DAD |
 
 ## Data Quality (0 missing fields)
 
@@ -81,13 +81,13 @@
 
 | ID | Title | Score | Briefings | Owner |
 |----|-------|-------|-----------|-------|
-| t_insure01 | Review Acrisure home insurance renewal | 5/5 | 118 | DAD |
-| t_6aj3ogq | Property Medics: schedule return visit + send gara | 5/5 | 118 | DAD |
-| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | 5/5 | 118 | DAD |
-| t_r1908t7 | Renew British passport — Dad | 5/5 | 87 | DAD |
-| t_f7smuoh | Pay Texas Comptroller sales tax — Nyche LLC (Q4 20 | 5/5 | 87 | DAD |
-| t_yxb8crl | Pay Texas Comptroller sales tax — Nyche LLC (Q1 20 | 5/5 | 87 | DAD |
-| t_4i3duz1 | Pay Texas Comptroller sales tax — Nyche LLC (Q2 20 | 5/5 | 87 | DAD |
-| t_7n4uaqd | Check Ghana nanny availability — Dec 14–Jan 9 | 5/5 | 58 | MOM |
-| t_q5wnyq5 | Complete any open financial planning docs | 3/5 | 27 | MOM |
-| t_a4e526n | Check 11646 mortgage payment went through | 2/5 | 19 | DAD |
+| t_insure01 | Review Acrisure home insurance renewal | 5/5 | 119 | DAD |
+| t_6aj3ogq | Property Medics: schedule return visit + send gara | 5/5 | 119 | DAD |
+| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | 5/5 | 119 | DAD |
+| t_r1908t7 | Renew British passport — Dad | 5/5 | 88 | DAD |
+| t_f7smuoh | Pay Texas Comptroller sales tax — Nyche LLC (Q4 20 | 5/5 | 88 | DAD |
+| t_yxb8crl | Pay Texas Comptroller sales tax — Nyche LLC (Q1 20 | 5/5 | 88 | DAD |
+| t_4i3duz1 | Pay Texas Comptroller sales tax — Nyche LLC (Q2 20 | 5/5 | 88 | DAD |
+| t_7n4uaqd | Check Ghana nanny availability — Dec 14–Jan 9 | 5/5 | 59 | MOM |
+| t_q5wnyq5 | Complete any open financial planning docs | 3/5 | 28 | MOM |
+| t_a4e526n | Check 11646 mortgage payment went through | 2/5 | 20 | DAD |

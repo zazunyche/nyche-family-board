@@ -1,4 +1,4 @@
-# Cycle Time Report — Oct 30, 2026, 6:45 AM
+# Cycle Time Report — Oct 30, 2026, 8:38 PM
 
 _44 completed tasks analyzed. 10 active tasks (age shown)._
 
@@ -44,16 +44,16 @@ _44 completed tasks analyzed. 10 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 145.4d | M |
-| Property Medics: schedule return visit + s… | HOME | DAD | ASSIGNED | 137.6d | L |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 136.3d | M |
-| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 95.3d | M |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 95.3d | S |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 95.3d | S |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 95.3d | S |
-| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 66.8d | S |
-| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 27.7d | M |
-| Check 11646 mortgage payment went through | ADMIN | DAD | ACTIVE | 19.9d | XS |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 146d | M |
+| Property Medics: schedule return visit + s… | HOME | DAD | ASSIGNED | 138.1d | L |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 136.9d | M |
+| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 95.9d | M |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 95.9d | S |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 95.9d | S |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 95.9d | S |
+| Check Ghana nanny availability — Dec 14–Jan 9 | FAMILY | MOM | ACTIVE | 67.4d | S |
+| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 28.2d | M |
+| Check 11646 mortgage payment went through | ADMIN | DAD | ACTIVE | 20.5d | XS |
 
 ## Stage Dwell Time (tasks with stageHistory)
 
