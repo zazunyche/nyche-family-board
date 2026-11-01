@@ -1,34 +1,34 @@
-# Completion Rate Report — Oct 30, 2026, 8:38 PM
+# Completion Rate Report — Oct 31, 2026, 10:31 PM
 
-_54 total tasks (excl. archived), 44 done — overall rate: **81%**_
+_55 total tasks (excl. archived), 48 done — overall rate: **87%**_
 
-Lead time (creation → done): median **13.65 days**, min 0d, max 110.5d (n=44)
+Lead time (creation → done): median **14.15 days**, min 0d, max 138.8d (n=48)
 
 ## By Category
 
 | Category | Done | Total | Rate | Median Lead (days) |
 |---------|------|-------|------|--------------------|
+| FAMILY | 23 | 23 | 100% | 13.5 |
 | GOALS | 6 | 6 | 100% | 56.5 |
-| FAMILY | 21 | 22 | 95% | 13.5 |
-| HOME | 4 | 6 | 67% | 79.05 |
-| ADMIN | 13 | 20 | 65% | 0.4 |
+| HOME | 5 | 6 | 83% | 110.5 |
+| ADMIN | 14 | 20 | 70% | 5.3500000000000005 |
 
 ## By Owner
 
 | Owner | Done | Total | Rate | Median Lead (days) |
 |---------|------|-------|------|--------------------|
-| BOTH | 14 | 14 | 100% | 15 |
+| BOTH | 15 | 15 | 100% | 14.5 |
 | ZAZU | 6 | 6 | 100% | 0.2 |
-| MOM | 7 | 9 | 78% | 35.9 |
-| DAD | 17 | 25 | 68% | 13.8 |
+| MOM | 8 | 9 | 89% | 40.349999999999994 |
+| DAD | 19 | 25 | 76% | 21.2 |
 
 ## By Source
 
 | Source | Done | Total | Rate | Median Lead (days) |
 |---------|------|-------|------|--------------------|
 | manual | 13 | 13 | 100% | 3 |
-| email | 20 | 22 | 91% | 15 |
-| imessage | 11 | 19 | 58% | 35.9 |
+| email | 22 | 23 | 96% | 15 |
+| imessage | 13 | 19 | 68% | 35.9 |
 
 ## By Task Type
 
@@ -37,9 +37,9 @@ Lead time (creation → done): median **13.65 days**, min 0d, max 110.5d (n=44)
 | PROJECT | 13 | 13 | 100% | 12 |
 | DECISION | 3 | 3 | 100% | 36.6 |
 | EVENT | 3 | 3 | 100% | 36.6 |
-| unknown | 5 | 5 | 100% | 35.9 |
+| unknown | 6 | 6 | 100% | 35.9 |
+| ERRAND | 17 | 19 | 89% | 11 |
 | RESEARCH | 5 | 6 | 83% | 13.8 |
-| ERRAND | 14 | 19 | 74% | 8 |
 | MAINTENANCE | 1 | 5 | 20% | 15.5 |
 
 ## By Priority
@@ -47,11 +47,11 @@ Lead time (creation → done): median **13.65 days**, min 0d, max 110.5d (n=44)
 | Priority | Done | Total | Rate | Median Lead (days) |
 |---------|------|-------|------|--------------------|
 | LOW | 3 | 3 | 100% | 13.8 |
-| MEDIUM | 12 | 14 | 86% | 13.25 |
-| HIGH | 29 | 37 | 78% | 13.5 |
+| MEDIUM | 13 | 15 | 87% | 12 |
+| HIGH | 32 | 37 | 86% | 15.9 |
 
 ## Notes
 
 - Lead time is measured from `createdAt` to `completedAt` and includes waiting time.
 - ARCHIVED tasks are excluded (they were removed, not completed).
-- Dataset is small (44 completed tasks). Rates will become meaningful at 25+ completions.
+- Dataset is small (48 completed tasks). Rates will become meaningful at 25+ completions.

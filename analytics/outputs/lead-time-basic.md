@@ -1,27 +1,27 @@
-# Lead Time Report — Oct 30, 2026, 8:38 PM
+# Lead Time Report — Oct 31, 2026, 10:31 PM
 
-_44 completed tasks with valid timestamps. Median lead time: **13.6 days** (min 0d, max 110.5d)_
+_48 completed tasks with valid timestamps. Median lead time: **14.1 days** (min 0d, max 138.8d)_
 
 ## Distribution
 
 | Bucket | Count |
 |--------|-------|
 | <1 hour | 4 ████ |
-| 1-24 hours | 6 ██████ |
+| 1-24 hours | 7 ███████ |
 | 1-3 days | 4 ████ |
 | 3-7 days | 2 ██ |
-| 1-4 weeks | 11 ███████████ |
-| 1-3 months | 14 ██████████████ |
-| 3+ months | 3 ███ |
+| 1-4 weeks | 12 ████████████ |
+| 1-3 months | 15 ███████████████ |
+| 3+ months | 4 ████ |
 
 ## Median Lead Time by Category
 
 | Category | Count | Median Days |
 |----------|-------|-------------|
-| HOME | 4 | 79.1 |
+| HOME | 5 | 110.5 |
 | GOALS | 6 | 56.5 |
-| FAMILY | 21 | 13.5 |
-| ADMIN | 13 | 0.4 |
+| FAMILY | 23 | 13.5 |
+| ADMIN | 14 | 5.4 |
 
 ## Notes
 

@@ -1,62 +1,58 @@
-# Stage Funnel — Oct 30, 2026, 8:38 PM
+# Stage Funnel — Oct 31, 2026, 10:31 PM
 
-_54 total tasks_
+_55 total tasks_
 
 ## Stage Distribution
 
 | Stage | Count | % of total |
 |-------|-------|------------|
-| IDEA | 3 | 6% |
+| IDEA | 3 | 5% |
 | RESEARCH | 0 | 0% |
-| ACTIVE | 6 | 11% |
-| DONE | 44 | 81% |
-| ASSIGNED | 1 | 2% |
+| ACTIVE | 4 | 7% |
+| DONE | 48 | 87% |
 
 ## Funnel Conversion (top-of-funnel → done)
 
-- IDEA → moved forward: **94%** (51/54)
-- Entered ACTIVE or DONE: **93%** (50/54)
-- Reached DONE: **81%** (44/54)
-- ACTIVE → DONE (of those that went ACTIVE): **88%** (44/50)
+- IDEA → moved forward: **95%** (52/55)
+- Entered ACTIVE or DONE: **95%** (52/55)
+- Reached DONE: **87%** (48/55)
+- ACTIVE → DONE (of those that went ACTIVE): **92%** (48/52)
 
 ## Stage Distribution by Category
 
 | Category | IDEA | RESEARCH | ACTIVE | DONE | Total | Done% |
 |----------|------|----------|--------|------|-------|-------|
-| ADMIN | 3 | 0 | 4 | 13 | 20 | 65% |
-| FAMILY | 0 | 0 | 1 | 21 | 22 | 95% |
+| ADMIN | 3 | 0 | 3 | 14 | 20 | 70% |
+| FAMILY | 0 | 0 | 0 | 23 | 23 | 100% |
 | GOALS | 0 | 0 | 0 | 6 | 6 | 100% |
-| HOME | 0 | 0 | 1 | 4 | 6 | 67% |
+| HOME | 0 | 0 | 1 | 5 | 6 | 83% |
 
 ## Stage Distribution by Owner
 
 | Owner | IDEA | RESEARCH | ACTIVE | DONE | Total | Done% |
 |-------|------|----------|--------|------|-------|-------|
-| BOTH | 0 | 0 | 0 | 14 | 14 | 100% |
-| DAD | 3 | 0 | 4 | 17 | 25 | 68% |
-| MOM | 0 | 0 | 2 | 7 | 9 | 78% |
+| BOTH | 0 | 0 | 0 | 15 | 15 | 100% |
+| DAD | 3 | 0 | 3 | 19 | 25 | 76% |
+| MOM | 0 | 0 | 1 | 8 | 9 | 89% |
 | ZAZU | 0 | 0 | 0 | 6 | 6 | 100% |
 
 ## Completion Quality (DONE tasks)
 
 | Quality | Count | % of done |
 |---------|-------|-----------|
-| FULL | 17 | 39% |
+| FULL | 17 | 35% |
 | PARTIAL | 1 | 2% |
 
-_Genuine completion rate (FULL + DELEGATED_OUT): **39%** of done tasks_
+_Genuine completion rate (FULL + DELEGATED_OUT): **35%** of done tasks_
 
 ## Resistance Signals (non-zero resistanceScore)
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Review Acrisure home insurance renewal | 5 | 119 | ACTIVE |
-| Property Medics: schedule return visit + s… | 5 | 119 | ASSIGNED |
-| 15 Sigourney — follow up with neighbor on … | 5 | 119 | ACTIVE |
-| Renew British passport — Dad | 5 | 88 | ACTIVE |
+| Review Acrisure home insurance renewal | 5 | 121 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 5 | 121 | ACTIVE |
+| Renew British passport — Dad | 5 | 90 | ACTIVE |
 | Pay Texas Comptroller sales tax — Nyche LL… | 5 | 88 | IDEA |
 | Pay Texas Comptroller sales tax — Nyche LL… | 5 | 88 | IDEA |
 | Pay Texas Comptroller sales tax — Nyche LL… | 5 | 88 | IDEA |
-| Check Ghana nanny availability — Dec 14–Jan 9 | 5 | 59 | ACTIVE |
-| Complete any open financial planning docs | 4 | 28 | ACTIVE |
-| Check 11646 mortgage payment went through | 3 | 20 | ACTIVE |
+| Complete any open financial planning docs | 4 | 30 | ACTIVE |

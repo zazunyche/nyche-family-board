@@ -1550,3 +1550,115 @@ WIP cleaned up, `[DONE]` logged.
 [2026-10-31T02:38:25Z] heartbeat claude session failed — exit 143
 [2026-10-31T02:38:25Z] heartbeat.sh complete
 [2026-10-31T04:00:25Z] heartbeat.sh started
+[2026-10-31T04:00:25Z] WIP file found (age: 82min): {"task": "Add concurrency lock to heartbeat.sh", "nextStep": "Add mkdir-based atomic lock + EXIT-trap release, with stale-lock reclaim at 15min; test acquire/contend/reclaim", "boardTaskId": null, "startedAt": "2026-10-30 22:30 ET", "agent": "ZAZU"}
+[2026-10-31T04:00:25Z] Launching claude -p work session
+[DONE] Add concurrency lock to heartbeat.sh — Lock impl (lines 47-73) was already written by the interrupted 22:30 run (killed, exit 143); this session completed the remaining nextStep: verification. `bash -n` clean. Wrote isolated test harness (/tmp/zazu-lock-test.sh) replicating the mkdir-atomic lock verbatim: 7/7 pass across acquire (fresh mkdir→rc0), contend (fresh lock→back off, exit 0), reclaim (>900s stale→rm+remkdir, fresh mtime), and EXIT-trap release. Confirmed the real lock dir is held by THIS run's pid (35986 @ 00:00:25), not a stale orphan — the crashed run's EXIT trap released correctly.
+  Note: stale-reclaim path has a theoretical double-reclaim race, but realistic burst contention (drained scheduler queue) always hits the fresh-lock back-off path, which is race-free via atomic mkdir. Heartbeats are 4.5h apart so simultaneous stale reclaim can't occur. Left as-is — adding flock-style complexity isn't warranted.
+Done. Summary of this heartbeat session:
+
+**Task: Add concurrency lock to heartbeat.sh** — completed and verified.
+
+- The lock implementation (atomic `mkdir`-based lock, EXIT-trap release, 15-min stale-lock reclaim) was already written into `scripts/heartbeat.sh` lines 47–73 by the 22:30 run that got killed (exit 143). The code half was done; the outstanding `nextStep` was **testing**.
+- `bash -n scripts/heartbeat.sh` → clean.
+- Wrote an isolated test harness replicating the lock block verbatim and ran it: **7/7 pass** across all three scenarios the WIP called for —
+  - **acquire**: first caller gets the lock
+  - **contend**: a second caller sees a fresh lock and backs off (the `exit 0` path that prevents concurrent sessions)
+  - **reclaim**: a lock backdated to 16 min old is correctly treated as stale, removed, and re-created fresh
+  - plus EXIT-trap release.
+- Confirmed the live `.zazu-heartbeat.lock` is held by *this* run's pid (35986 @ 00:00:25), not a stale orphan — proving the crashed 22:30 run's EXIT trap released correctly in practice.
+
+No iMessage sent — it's 00:00 ET (night, silent-run window) and this is infra plumbing, not noteworthy for a late-night text. WIP file removed, `[DONE]` logged to `heartbeat.log`.
+
+One note left in the log for the record: the stale-reclaim path has a theoretical double-reclaim race, but it can't occur in practice (heartbeats are 4.5h apart; realistic burst contention always hits the race-free fresh-lock back-off path), so I left it as-is rather than adding `flock` complexity.
+[2026-10-31T04:06:27Z] heartbeat.sh complete
+[2026-10-31T08:30:25Z] heartbeat.sh started
+[2026-10-31T08:30:26Z] Launching claude -p work session
+[2026-10-31T08:32:52Z] Picked ZAZU task: friction-removal for Ghana nanny (t_7n4uaqd) — highest forward-urgency item per triage. Board healthy, analytics exhausted. Drafting copy-paste outreach msg + checklist for Mom (passport-guide pattern).
+[DONE] Ghana nanny outreach friction-removal (t_7n4uaqd) — Wrote docs/guides/ghana-nanny-outreach-mom.md: 2 copy-paste message templates (fill 3 blanks) + 4-point checklist (dates/hours/rate/confirm-back) + an "if unavailable" reframe path. Pointed task zazuNotes to it. Turns the 68-day-stalled "reach out to nanny" into a 30-sec send for Mom — proven passport-guide pattern applied to the boards highest forward-urgency item (Dec 14 trip). No iMessage: 04:30 ET night window, non-urgent; surfaces via morning brief + zazuNotes.
+WIP is gone (the exit 1 is just the confirming `ls` on the now-absent file). Done.
+
+## Summary
+
+Board was healthy (board-health clean, analytics infra complete), so I picked the highest-value **ZAZU-progressable** backlog item rather than another nudge: friction-removal on the **Ghana nanny** task (`t_7n4uaqd`) — the triage's one item with real forward urgency (Dec 14–Jan 9 trip, nanny books up over holidays; stalled 68 days).
+
+**What I did**, applying the proven passport-guide pattern:
+- Wrote `docs/guides/ghana-nanny-outreach-mom.md` — two copy-paste message templates (fill 3 blanks and send), a 4-point checklist (dates / hours / rate / confirm-back), and an "if she's unavailable" reframe path so a *no* still moves the task forward.
+- Pointed the task's `zazuNotes` at the guide via `board-tools/update.js` (atomic write + history entry) so it surfaces in the morning brief line for Mom.
+
+Turns a 68-day-stuck "reach out to the nanny" into a ~30-second send instead of a 61st reminder.
+
+**No iMessage** — it's 04:30 ET (night/silent-run window) and this is non-urgent; it surfaces naturally via the 7am brief and the updated zazuNotes. WIP cleaned up, `[DONE]` logged to `heartbeat.log`.
+[2026-10-31T08:33:31Z] heartbeat.sh complete
+[2026-10-31T13:00:26Z] heartbeat.sh started
+[2026-10-31T13:00:26Z] Launching claude -p work session
+[DONE] 15 Sigourney neighbor cost-share friction-removal (t_15sig01) — Wrote docs/guides/15-sigourney-neighbor-dad.md: 3 copy-paste message options (friendly / firmer / one-line nudge) + 3-point checklist (exact amount, attach invoice, name payment method) + escalation path. Pointed task zazuNotes at it. Turns the 137-day-stalled awkward "ask neighbor for money" into a 30-sec send — proven passport/Ghana-nanny guide pattern applied to the boards longest-stalled genuinely-open item. No iMessage: non-urgent, surfaces via morning brief + zazuNotes. Board healthy, analytics complete.
+Done (the exit 1 is just the confirming `ls` on the now-absent WIP file).
+
+## Summary
+
+Board was healthy (board-health clean, 11 active tasks, analytics infra complete), so I picked the highest-value **ZAZU-progressable** item rather than another nudge: friction-removal on **15 Sigourney** (`t_15sig01`) — the longest-stalled genuinely-open task (137 days) and a classic high-social-friction "ask a neighbor for money" item that stalls precisely because the message is awkward to compose.
+
+**What I did**, applying the proven passport/Ghana-nanny guide pattern:
+- Wrote `docs/guides/15-sigourney-neighbor-dad.md` — three copy-paste message options (friendly / firmer / one-line nudge), a 3-point checklist (state the exact amount, attach the invoice, name a payment method — the three things that get a shared cost actually paid), and an escalation path if the neighbor goes silent or disputes the split.
+- Pointed the task's `zazuNotes` at the guide via `board-tools/update.js` (atomic write + history entry) so it surfaces in the morning brief line for Dad.
+
+Turns a 137-day-stuck "follow up with neighbor" into a ~30-second send.
+
+**No iMessage** — consistent with the other friction-removal guides: non-urgent, surfaces naturally via the morning brief and updated zazuNotes rather than a standalone text. WIP cleaned up, `[DONE]` logged to `heartbeat.log`.
+
+One standing observation for Dad/Mom (already captured in yesterday's `analytics/outputs/staleness-triage.md`): the bulk of the backlog is now blocked on one-word human decisions (close/confirm), not on anything Zazu can advance — the three remaining guide-able items (passport, Ghana nanny, Sigourney) now all have ready-to-send scripts.
+[2026-10-31T13:01:55Z] heartbeat.sh complete
+[2026-10-31T17:30:27Z] heartbeat.sh started
+[2026-10-31T17:30:27Z] Launching claude -p work session
+[2026-10-31T17:31:39Z] Picked ZAZU infra fix: board-health stale flag counts future-dated IDEA tasks as stale (relies on manual snooze). Implementing exclusion for IDEA tasks with dueDate >30d out — the refinement flagged in Oct 30 triage. Board healthy, guides done, backlog blocked on human decisions.
+[DONE] board-health stale false-positive fix — Added isDormantFutureIdea guard (board-health.js): IDEA-stage tasks with dueDate >30d out no longer count as stale. Was relying on manual snooze to suppress the 3 quarterly TX-tax tasks; now dormant-by-design is explicit in code and robust if a future-dated IDEA is created without snoozing. Verified: live run unchanged (6 genuinely-stale), and the 3 TX tasks register dormant even with snooze stripped. Implements the refinement flagged in Oct 30 triage. No iMessage (infra change, nothing for family to act on).
+[2026-10-31T17:32:18Z] heartbeat work session complete
+Done this cycle.
+
+**What I did:** Fixed a real data-quality bug in `analytics/scripts/board-health.js` — its "stale" flag was counting future-dated IDEA tasks (the three quarterly TX-sales-tax items, due Jan/Apr/Jul 2027) as stalled. They aren't stalled; they're dormant until their quarter opens. The report had only been suppressing them because someone manually snoozed them last night.
+
+Added an `isDormantFutureIdea` guard: an IDEA-stage task with a `dueDate` more than 30 days out is excluded from the stale list. Now "dormant-by-design" is explicit in code and robust — the false-positive can't recur even if a future-dated IDEA task is created without a snooze.
+
+**Verified:** live run unchanged (6 stale tasks, all genuinely stale/overdue and needing a human decision); and with the snooze stripped in a test, the three TX tasks correctly register as dormant. No regression.
+
+**Why this and not another nudge/guide:** Board is healthy, analytics infra is complete, and all three guide-able backlog items (passport, Ghana nanny, 15 Sigourney) already have ready-to-send scripts. The rest of the backlog is blocked on one-word human decisions (close/confirm) that `board-reminders.sh` and the morning brief already surface — duplicating those would just be noise. This was the one concrete, ZAZU-progressable improvement on the table (fallback option a, implementing the refinement the Oct 30 triage itself flagged).
+
+No iMessage sent — it's an infra change with nothing for the family to act on. WIP clean, `[DONE]` logged to `heartbeat.log`. Leaving the commit to the nightly sync.
+[2026-10-31T17:32:28Z] heartbeat.sh complete
+[2026-10-31T22:00:27Z] heartbeat.sh started
+[2026-10-31T22:00:28Z] Launching claude -p work session
+[2026-10-31T22:01:00Z] Picked ZAZU infra: converting hand-written staleness-triage.md into a repeatable analytics/scripts/staleness-triage.js (CLOSE/CONFIRM/KEEP decision digest). The md is already stale (dated Oct 30, refs 3 now-closed tasks, says 10 active vs current 8). Board healthy, guides+board-health-fix done.
+[DONE] staleness-triage.js — Converted the hand-written (and already-stale) analytics/outputs/staleness-triage.md into a repeatable script: analytics/scripts/staleness-triage.js. Classifies every active task into CLOSE / CONFIRM / KEEP with reasons, mirroring board-health.js conventions (stageHistory age, snooze + dormant-future-IDEA guards). Tightened the heuristic so CLOSE requires a concrete passed due-window (strong moot signal); no-due-date staleness routes to CONFIRM (a standing debt like 15 Sigourney is never "moot" on age alone). Ran --save; current board: 8 active → 2 close (passport, financial docs — overdue), 2 confirm (Acrisure, 15 Sigourney), 4 waiting (3 snoozed TX-tax + fresh school chat). Verified md + --json both correct. No iMessage: infra, and the decisions it surfaces are already nudged by board-reminders.sh + morning brief.
+[2026-10-31T22:04:00Z] heartbeat work session complete
+Done this cycle. (The exit 1 is just the confirming `ls` on the now-absent WIP file — removal succeeded.)
+
+## Summary
+
+Board was healthy (board-health clean, 8 active tasks, analytics infra complete, guides done), so I took fallback option (a/b): a concrete, ZAZU-progressable improvement rather than another nudge.
+
+**What I did:** The `staleness-triage.md` decision digest was **hand-written and already stale** — dated Oct 30, still saying "10 active tasks" and referencing three items (mortgage check, Property Medics, Ghana nanny) that have since been closed. Hand-authoring it fresh every heartbeat is exactly the repetitive analysis that should be a script.
+
+Built **`analytics/scripts/staleness-triage.js`**:
+- Classifies every active task into **CLOSE / CONFIRM / KEEP** with a reason, reusing board-health.js conventions (stageHistory-based stage age, snooze + dormant-future-IDEA guards — so the three snoozed TX-tax tasks correctly read as "waiting," not stalled).
+- Tightened the heuristic after a first pass over-reached: **CLOSE now requires a concrete passed due-window** (the one strong "window closed" signal computable from task structure). Mere age with no due date routes to **CONFIRM** instead — a standing debt like the 15 Sigourney neighbor cost-share is never "moot" just because it's old. The CLOSE wording asks for a decision ("close if done, reschedule if the need stands") rather than asserting the task is dead, since a script can't know whether the underlying need persists.
+- Supports `--save` (writes the md) and `--json`. Verified both.
+
+Current refreshed triage (8 active): **2 to close** (passport, financial-planning docs — both overdue), **2 to confirm** (Acrisure insurance, 15 Sigourney — long-stale, no due date), **4 correctly waiting** (3 snoozed TX-tax + the 1-day-old school-chat task).
+
+**No iMessage** — it's an infra change, and the human decisions it surfaces are already nudged by `board-reminders.sh` and the morning brief; a standalone text would just be noise. WIP cleaned up, `[DONE]` logged to `heartbeat.log`. Leaving the commit to the nightly sync.
+[2026-10-31T22:04:02Z] heartbeat.sh complete
+[2026-11-01T02:30:28Z] heartbeat.sh started
+[2026-11-01T02:30:28Z] Launching claude -p work session
+[DONE] Wire staleness-triage.js into nightly refresh — Added the script (built last session) to scripts/analytics-refresh.sh so it regenerates with the other 7 analytics outputs at 06:45 nightly, incl. in the exit-code failure check. It was orphaned: output would have silently gone stale again, the exact hand-maintenance problem it was built to fix. Verified: bash -n clean, full refresh runs exit 0 all 8 scripts, triage md regenerated 22:31. No iMessage (infra). Commit left to nightly sync.
+[2026-11-01T02:31:57Z] heartbeat work session complete
+Done this cycle.
+
+**What I did:** Wired `staleness-triage.js` into the nightly analytics pipeline. The script was built two sessions ago (22:04) but never added to `scripts/analytics-refresh.sh` — so while the other 7 analytics scripts regenerate nightly at 06:45, this one was orphaned and its output (`staleness-triage.md`) would have silently gone stale again. That's the exact hand-maintenance problem it was built to eliminate. Added its `--save` invocation plus its exit code to the failure check, matching the existing pattern.
+
+**Verified:** `bash -n` clean; full `analytics-refresh.sh` runs exit 0 across all 8 scripts; `staleness-triage.md` regenerated at 22:31.
+
+**Why this and not a nudge:** Board is healthy (board-health clean, 0 missing fields), guides are done, and the backlog's stale items are all blocked on one-word human decisions that `board-reminders.sh` + the morning brief already surface. This was the one concrete, non-duplicative infra gap on the table — and it directly completes the prior session's work rather than inventing new scope.
+
+No iMessage — infra change, nothing for the family to act on. WIP clean, `[DONE]` logged. Commit left to nightly sync.
+[2026-11-01T02:32:03Z] heartbeat.sh complete
+[2026-11-01T04:00:28Z] heartbeat.sh started

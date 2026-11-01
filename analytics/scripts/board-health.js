@@ -22,6 +22,9 @@ const OUTPUTS_DIR = path.join(__dirname, '../outputs');
 const STALE_DAYS = 14;
 const HIGH_BRIEF_THRESHOLD = 3;
 const RESISTANCE_STALE_DAYS = 7; // must match priority-escalation.sh threshold
+// An IDEA-stage task whose dueDate is further out than this is dormant-by-design
+// (e.g. a quarterly tax task waiting for its quarter), not forgotten — don't flag stale.
+const DORMANT_IDEA_LEAD_DAYS = 30;
 
 function loadBoard() {
   return JSON.parse(fs.readFileSync(BOARD_PATH, 'utf8'));
@@ -68,10 +71,18 @@ function run() {
   // tasks we've deliberately parked until a future date.
   const isSnoozed = t => t.snoozedUntil && new Date(t.snoozedUntil) > now;
 
+  // A future-dated IDEA task is waiting for its trigger window to open, not stalled.
+  // Catches quarterly-tax-style tasks even when no one has manually snoozed them, so
+  // the stale list doesn't over-count dormant-by-design work. (Snooze still wins above.)
+  const isDormantFutureIdea = t =>
+    t.stage === 'IDEA' &&
+    t.dueDate &&
+    msDays(new Date(t.dueDate).getTime() - now) > DORMANT_IDEA_LEAD_DAYS;
+
   // Stale: non-snoozed active tasks whose current stage has been unchanged for > STALE_DAYS.
   // Uses stageHistory enteredAt (not updatedAt) so escalation/resistance writes don't hide staleness.
   const stale = active.filter(t => {
-    if (isSnoozed(t)) return false;
+    if (isSnoozed(t) || isDormantFutureIdea(t)) return false;
     return stageAgeDays(t, now) > STALE_DAYS;
   }).map(t => ({
     id: t.id,
