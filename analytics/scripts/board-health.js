@@ -92,14 +92,26 @@ function run() {
     ageDays: stageAgeDays(t, now),
   }));
 
-  // Overdue: has dueDate in the past and not DONE/ARCHIVED
-  const overdue = active.filter(t => t.dueDate && new Date(t.dueDate) < now)
+  // Overdue: due DATE strictly before today (ET), not DONE/ARCHIVED.
+  // Compared at calendar-date granularity in America/New_York so a task due
+  // *today* is never flagged (it's due, not overdue) and time-of-day can't tip
+  // it over. calDaysBetween uses Date.UTC on the date-only components, so the
+  // count is always a whole number of calendar days — no DST drift and none of
+  // the Math.round over-count that previously reported due-today as "1 day
+  // overdue" (and every overdue task one day too high).
+  const todayET = new Date(now).toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
+  const calDaysBetween = (fromStr, toStr) => {
+    const [fy, fm, fd] = fromStr.split('-').map(Number);
+    const [ty, tm, td] = toStr.split('-').map(Number);
+    return Math.round((Date.UTC(ty, tm - 1, td) - Date.UTC(fy, fm - 1, fd)) / 86400000);
+  };
+  const overdue = active.filter(t => t.dueDate && calDaysBetween(t.dueDate, todayET) > 0)
     .map(t => ({
       id: t.id,
       title: t.title,
       dueDate: t.dueDate,
       owner: t.owner,
-      overdueDays: msDays(now - new Date(t.dueDate)),
+      overdueDays: calDaysBetween(t.dueDate, todayET),
     }));
 
   // High brief count: briefed >= threshold and still open

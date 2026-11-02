@@ -1,4 +1,4 @@
-# Cycle Time Report — Oct 31, 2026, 10:31 PM
+# Cycle Time Report — Nov 1, 2026, 6:45 AM
 
 _48 completed tasks analyzed. 7 active tasks (age shown)._
 
@@ -44,13 +44,13 @@ _48 completed tasks analyzed. 7 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 147.1d | M |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 138d | M |
-| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 97d | M |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 97d | S |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 97d | S |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 97d | S |
-| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 29.3d | M |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 147.5d | M |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 138.4d | M |
+| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 97.3d | M |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 97.3d | S |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 97.3d | S |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 97.3d | S |
+| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 29.7d | M |
 
 ## Stage Dwell Time (tasks with stageHistory)
 

@@ -1662,3 +1662,110 @@ Done this cycle.
 No iMessage — infra change, nothing for the family to act on. WIP clean, `[DONE]` logged. Commit left to nightly sync.
 [2026-11-01T02:32:03Z] heartbeat.sh complete
 [2026-11-01T04:00:28Z] heartbeat.sh started
+[2026-11-01T04:00:29Z] Launching claude -p work session
+[DONE] Acrisure insurance renewal guide — Built docs/guides/acrisure-insurance-renewal-dad.md for t_insure01, the single stalest open item (147d, briefed 121×) and the only stale actionable task lacking a friction-removal guide (15-sigourney/passport/ghana-nanny already have theirs). Reframes it around the key fact: the May-31 pre-renewal notice means the policy almost certainly already renewed (~June/July) and is in force, so the window is past — it's now a 5-min cleanup, not a pre-deadline shop. Guide = confirm-premium → decision gate (fine=close / big jump=shop / unsure=one email) + Acrisure confirmation email template + explicit honest-close option. Updated task zazuNotes to point to it (+history entry). No iMessage — friction-removal doc; the human call is already nudged by board-reminders.sh + morning brief. board-data.json is gitignored (live state); commit left to nightly sync.
+[2026-11-01T04:06:00Z] heartbeat work session complete
+Done this cycle.
+
+**What I did:** Built `docs/guides/acrisure-insurance-renewal-dad.md` — a decision-ready friction-removal guide for the Acrisure home-insurance task (`t_insure01`).
+
+**Why this one:** Board is healthy (board-health clean, 0 missing fields), analytics infra complete, and staleness-triage runs nightly. Of the two tasks triage flags for CONFIRM, 15 Sigourney already has a guide — **Acrisure was the single stalest open item (147 days, briefed 121×) and the only stale actionable task with no friction-removal guide.** That's the proven, non-duplicative pattern (passport, 15-sigourney, ghana-nanny), so I filled the gap rather than inventing new scope or firing a 122nd nudge.
+
+**The guide's angle:** It leads with the fact that matters most — the May-31 pre-renewal notice means the policy almost certainly **already renewed (~June/July) and is in force**, so the "shop before the deadline" framing is stale. It reframes the task as a 5-minute cleanup: confirm the new premium → decision gate (flat = close / big jump = shop / unsure = one email), plus an Acrisure confirmation-email template and an explicit **honest-close option** (121 unheeded briefs is itself a signal it may just need closing). Updated the task's `zazuNotes` to point at the guide, with a history entry.
+
+**No iMessage** — it's a friction-removal doc, and the human decision it surfaces is already nudged by `board-reminders.sh` + the morning brief. `board-data.json` is gitignored (live state); commit left to nightly sync. WIP cleaned up, `[DONE]` logged.
+[2026-11-01T04:02:32Z] heartbeat.sh complete
+[2026-11-01T09:30:29Z] heartbeat.sh started
+[2026-11-01T09:30:29Z] Launching claude -p work session
+[2026-11-01T09:31:26Z] Starting: add guide links to staleness-triage.js digest (derive from zazuNotes)
+[DONE] Guide links in staleness-triage digest — Added a Guide column to staleness-triage.js so each CLOSE/CONFIRM row links to its friction-removal guide. Path is derived live from the task's zazuNotes (regex /docs\/guides\/*.md/) and existence-checked on disk, so no hand-kept task→guide map can drift and no dead link ships. Turns the digest from diagnostic into one-click actionable: 3 of 4 stale tasks (passport, acrisure, 15-sigourney) now link straight to their decision flow; guide-less tasks show "—". Verified: node -c clean, full analytics-refresh.sh exit 0 all 8 scripts, digest regenerated 04:32. No iMessage (infra). Commit left to nightly sync.
+Done this cycle.
+
+**What I did:** Added a **Guide** column to `staleness-triage.js`. Each stale task in the CLOSE/CONFIRM digest now links directly to its friction-removal guide under `docs/guides/`.
+
+**Why this one:** Board is healthy (board-health clean, 0 missing fields), analytics infra is complete and runs nightly, and all the backlog's stale items are blocked on one-word human decisions that `board-reminders.sh` + the morning brief already surface. The one concrete, non-duplicative gap: the triage digest *recommended* "confirm this" but didn't point to the decision-flow guides that already exist for those exact tasks — so it stayed diagnostic instead of actionable.
+
+**How it's built to not rot:** The guide path is derived live from each task's `zazuNotes` (regex match on `docs/guides/*.md`) and existence-checked on disk — no hand-maintained task→guide map to drift (the exact anti-pattern flagged in recent cycles), and dead links can't ship. 3 of the 4 stale tasks (passport, Acrisure, 15 Sigourney) now link straight to their one-click decision flow; the guide-less financial-planning task correctly shows "—".
+
+**Verified:** `node -c` clean; full `analytics-refresh.sh` exits 0 across all 8 scripts; digest regenerated 04:32 with the new column.
+
+No iMessage — infra change, nothing for the family to act on. WIP cleaned up, `[DONE]` logged. Commit left to nightly sync.
+[2026-11-01T09:32:13Z] heartbeat.sh complete
+[2026-11-01T14:00:01Z] heartbeat.sh started
+[2026-11-01T14:00:01Z] Launching claude -p work session
+[2026-11-01T14:01:51Z] Starting: surface due-today Primrose invoice (t_3to63zt, $2,085) — missed by 7am brief, no reminder queued, + backfill taskType/effortTag
+[DONE] Surface Primrose invoice (t_3to63zt) — $2,085 due TODAY (Nov 1), created ~8:33am after the 7am brief with briefCount 0 and no pending reminder queued, so nothing would have caught it before the due date. Sent a concise heads-up iMessage to Dad+Mom (both "sent"), recorded briefCount=1/lastBriefed. Also backfilled the board-health data gap it flagged: taskType none->ERRAND, effortTag none->S (+history). board-health now 0 missing fields. board-data.json gitignored; commit left to nightly sync.
+[2026-11-01T14:02:19Z] heartbeat work session complete
+Done — and the non-zero exit is just the final `ls` confirming the WIP file is gone (as intended).
+
+**What I did this cycle:** Caught a bill about to fall through the cracks and closed the data gap it exposed.
+
+- **t_3to63zt — Pay Primrose School Invoice ($2,085, due today Nov 1).** It was created via email ~8:33am, *after* today's 7am brief, so it had `briefCount: 0`, no pending reminder queued, and nothing scheduled would have surfaced it before the due date. Tomorrow's brief would've been too late.
+- **Surfaced it directly:** concise heads-up iMessage to Dad and Mom (both returned `sent`), with a "reply 'paid'" close-out prompt. Recorded `briefCount=1`/`lastBriefed` + a history entry so it won't get re-nudged redundantly.
+- **Fixed the board-health data gap it flagged:** backfilled `taskType none→ERRAND`, `effortTag none→S` (matching the established backfill pattern, with history). Board-health now reports **0 missing fields**.
+
+**Why this over another staleness-triage tweak:** the last three cycles were incremental polish on that script — diminishing returns. This was the one concrete, time-sensitive, non-duplicative gap on the board: a new due-today bill that the existing brief/reminder machinery provably missed. That's exactly what the heartbeat exists to catch.
+
+WIP cleaned, `[DONE]` logged. `board-data.json` is gitignored (live state) — commit left to nightly sync.
+[2026-11-01T14:02:28Z] heartbeat.sh complete
+[2026-11-01T18:30:01Z] heartbeat.sh started
+[2026-11-01T18:30:01Z] Launching claude -p work session
+[2026-11-01T18:32:53Z] Starting: write proposal-04 (resistance-cap/batch-triage) for 4 maxed-resistance stuck tasks + refresh staleness digest to 8 tasks
+[DONE] Resistance-cap/batch-triage proposal — Wrote docs/proposals/04-resistance-cap-batch-triage.md. The one real unaddressed signal on the board: 4 tasks at max resistance (3 at 5/5), ~460 combined briefings, 0 movement — the system is nagging into a void and no channel offers to CLOSE them, only re-nudge. Proposed (A) resistance cap: board-reminders drops resistance=5 & briefCount>60 tasks from daily to weekly digest; (B) one batch-triage message with DONE/CLOSE/KEEP one-word replies. Both reversible, no schema change, no task ever auto-closed. Left for Dad's go-ahead (it changes what Zazu sends, so not unilateral). Also refreshed staleness-triage digest (was 7 tasks @6:45am, now correctly 8 incl. today's Primrose invoice). No iMessage — the proposal's whole point is reducing message volume; sending it now would be self-defeating, and Primrose already messaged today. board-data gitignored; commit left to nightly sync.
+The non-zero exit is just the final `ls` confirming the WIP file is gone — as intended.
+
+## Done this cycle
+
+**What I did:** Wrote `docs/proposals/04-resistance-cap-batch-triage.md` and refreshed the staleness digest.
+
+**Why this, and not another nudge or guide:** I checked everything first — board data quality is clean (0 missing fields), analytics infra is complete, and the learning subsystem's stale-looking fields are vestigial and unused. Every backlog item is human-blocked with a friction-guide already written and daily reminders already running. ZAZU genuinely *cannot advance* any of them this session (they need Dad/Mom's personal action, a premium figure, a neighbor's name — none on file).
+
+The one real, unaddressed signal: **4 tasks at max resistance, ~460 combined briefings, zero movement.** Every channel re-nudges "do it"; none offers to *close* it. That's an operating-policy question I'm explicitly not allowed to change unilaterally — so the correct, non-duplicative, completable step is a proposal for Dad:
+- **Part A — resistance cap:** demote `resistance=5 & briefCount>60` tasks from daily nudges to a weekly digest (reversible, no schema change, nothing auto-closed).
+- **Part B — one batch-triage message:** DONE / CLOSE / KEEP one-word replies to actually clear the four.
+
+**Also:** regenerated the staleness digest — it was generated at 6:45 AM showing 7 tasks and missed today's $2,085 Primrose invoice; now correctly shows 8.
+
+**No iMessage sent** — deliberately. The proposal's entire thesis is *reducing* message volume; pushing it as a third same-day touch (after today's Primrose heads-up and the 12:01 automated nudge) would be self-defeating. It lives in `docs/proposals/` for Dad's review, same as proposals 01/03. WIP cleaned, `[DONE]` logged, `board-data.json` commit left to nightly sync.
+[2026-11-01T18:33:44Z] heartbeat.sh complete
+[2026-11-01T23:00:02Z] heartbeat.sh started
+[2026-11-01T23:00:02Z] Launching claude -p work session
+[2026-11-01T23:01:00Z] Starting: fix board-health.js overdue off-by-one (due-today mis-flagged as overdue; Math.round over-counts days)
+[DONE] Fix overdue date-math off-by-one in board-health.js + staleness-triage.js — Both used `new Date("YYYY-MM-DD") < now` (UTC-midnight vs live timestamp) and `Math.round`, so every overdue task read one day too high and a task due *today* was mis-flagged as overdue. Replaced with ET calendar-day comparison (calDaysBetween on date-only UTC components + etToday). Result: Primrose ($2,085, due today Nov 1) correctly drops off the overdue/CONFIRM lists; passport 16→15d, financial-planning 28→27d. Regenerated daily-health.md + staleness-triage.md with --save; both scripts run clean. Chose this over another proposal/nudge: it's a concrete correctness bug in ZAZU-owned infra (fallback-a), non-duplicative, fully completable this session. No iMessage (internal fix). board-data.json untouched; output .md are gitignored-or-tracked, commit left to nightly sync.
+[2026-11-01T23:03:00Z] heartbeat.sh work complete
+Done. The non-zero exit is just the final `ls` confirming the WIP file is gone.
+
+## Summary
+
+I found and fixed a real correctness bug in ZAZU-owned analytics infra — not a nudge or a new proposal (the prior cycle already covered those).
+
+**The bug:** Both `board-health.js` and `staleness-triage.js` computed overdue days as `new Date("YYYY-MM-DD") < now` — comparing a UTC-midnight date parse against a live timestamp — then ran the difference through `Math.round`. Two symptoms:
+- Every overdue task read **one day too high** (passport showed 16, actually 15; financial planning 28, actually 27).
+- Today's **$2,085 Primrose invoice** (due Nov 1) was flagged as "1 day overdue" / bucketed CONFIRM at 6pm ET — it's due *today*, not overdue.
+
+**The fix:** Replaced the timestamp math with ET calendar-date semantics — `etToday(now)` via `en-CA` locale + `calDaysBetween()` operating on date-only UTC components, so the count is always a whole number of calendar days with no DST drift or time-of-day rounding. A task is overdue only once its due *date* is strictly before today's ET date.
+
+**Verified:** Regenerated both saved reports (`daily-health.md`, `staleness-triage.md`) with `--save`. Primrose correctly drops off the overdue list and now reads "Fresh — on track"; passport/financial-planning show correct 15/27 days. Both scripts run clean.
+
+No iMessage sent (internal fix, nothing family-facing). `board-data.json` untouched; commit left to nightly sync. WIP cleaned, `[DONE]` logged.
+[2026-11-01T23:02:41Z] heartbeat.sh complete
+[2026-11-02T03:30:03Z] heartbeat.sh started
+[2026-11-02T03:30:03Z] Launching claude -p work session
+[2026-11-02T03:31:43Z] Starting: staleness-triage.js CLOSE-bucket refinement — exclude recently human-escalated tasks (passport was escalated to HIGH by DAD Oct 12, wrongly bucketed CLOSE 'likely moot')
+[DONE] staleness-triage.js CLOSE-bucket refinement — CLOSE fired purely on overdue>14d, so the passport task (DAD escalated to HIGH + pulled due date in on Oct 12, only 21d ago) was mislabeled "likely moot/CLOSE" — a recommendation that could nudge Dad to drop work he'd just prioritized. Added lastHumanTouchDays() (most recent non-ZAZU history entry) and a HUMAN_TOUCH_RECENT_DAYS=30 guard: a wide-overdue task touched by a human in the last 30d routes to CONFIRM ("still wanted, just overdue, reschedule") instead of CLOSE. Financial-planning (no human edit since creation) correctly stays CLOSE. CLOSE list 2→1. Regenerated staleness-triage.md with --save; script runs clean. Chose this over a new proposal/nudge: concrete correctness bug in ZAZU-owned infra (fallback-a), non-duplicative with prior cycles, fully completable. No iMessage (internal fix). board-data.json untouched; .md commit left to nightly sync.
+[$(date -u +%Y-%m-%dT%H:%M:%SZ)] heartbeat.sh work complete
+Done. One task this cycle, completed and verified.
+
+**What I did:** Fixed a classification flaw in `analytics/scripts/staleness-triage.js` (ZAZU-owned infra — fallback path a).
+
+**The bug:** The CLOSE bucket ("likely moot") fired purely on `overdue > 14 days`. That mislabeled the **passport renewal** — Dad had *escalated it to HIGH, pulled the due date in to Oct 17, and edited the notes on Oct 12* (only 21 days ago). Recommending Dad CLOSE something he'd just personally prioritized is exactly backwards; it could clear wanted work off the board.
+
+**The fix:** Added `lastHumanTouchDays()` (most recent non-ZAZU history entry — Zazu's own resistance/backfill writes don't count) and a `HUMAN_TOUCH_RECENT_DAYS = 30` guard. A wide-overdue task a human engaged within 30 days now routes to **CONFIRM** ("still wanted, just overdue — reschedule or knock it out") instead of CLOSE. Tasks with no human engagement (the financial-planning doc, created from Mom's request but never touched since) correctly stay CLOSE.
+
+**Result:** CLOSE list 2→1; the one removed is precisely the one with active human intent. Regenerated `staleness-triage.md`, script runs clean.
+
+**Why this and not another nudge/proposal:** I verified first — board data quality is clean (0 missing fields), the prior cycle's date-math fix is complete (the other scripts measure elapsed duration between two full timestamps, not the calendar-day-vs-now pattern, so no analogous bug), and Proposal 04 is already written and awaiting Dad. This was a concrete, non-duplicative correctness bug fully completable in one session.
+
+No iMessage sent (internal logic fix, nothing family-facing). `board-data.json` untouched; the tracked `.md` commit is left to nightly sync. WIP cleaned, `[DONE]` logged.
+[2026-11-02T03:32:33Z] heartbeat.sh complete
+[2026-11-02T05:00:03Z] heartbeat.sh started
