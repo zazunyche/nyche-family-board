@@ -28,6 +28,7 @@ const { execFileSync } = require("child_process");
 
 const DATA_FILE  = path.join(__dirname, "..", "board-data.json");
 const INDEX_FILE = path.join(__dirname, "..", "logs", "brief-index.json");
+const PIN_FILE   = path.join(__dirname, "..", "logs", "brief-pin.json");
 const BOARD_URL  = "http://100.90.94.15:3000"; // Tailscale IP of the Mac
 
 const args    = process.argv.slice(2);
@@ -103,6 +104,31 @@ function fmtEvent(ev) {
 }
 const CAL_EVENTS = familyCalendarEvents();
 
+// ── Pinned notes (one-off asks / decisions that aren't board tasks) ───────────────
+// The brief is otherwise a pure task list, so a proposal or a "should I close these?"
+// decision had no channel to reach anyone except being manually texted — they died in
+// unread markdown. A pin is a single plain line (not numbered, so it never touches the
+// reply-index) surfaced to a target owner until it expires. Entirely fail-closed: any
+// read/parse error yields zero pins and the brief renders exactly as it would without.
+// Schema (logs/brief-pin.json):
+//   { "pins": [ { "to": "DAD"|"MOM"|"BOTH", "text": "...", "expires": "YYYY-MM-DD" } ] }
+// `expires` is optional and inclusive (shown through that date); omit for no expiry.
+function pinnedNotes(owner) {
+  try {
+    if (!fs.existsSync(PIN_FILE)) return [];
+    const raw = JSON.parse(fs.readFileSync(PIN_FILE, "utf8"));
+    const pins = Array.isArray(raw?.pins) ? raw.pins : [];
+    return pins.filter(p =>
+      p && typeof p.text === "string" && p.text.trim() &&
+      (p.to === owner || p.to === "BOTH") &&
+      (!p.expires || p.expires >= TODAY)
+    );
+  } catch (e) {
+    process.stderr.write(`WARNING: could not read brief pins: ${e.message}\n`);
+    return [];
+  }
+}
+
 // ── Load board ──────────────────────────────────────────────────────────────────
 const board = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
 const PRIORITY_RANK = { HIGH: 0, MEDIUM: 1, LOW: 2 };
@@ -158,6 +184,15 @@ function buildFor(owner, friendlyName) {
   const lines = [`☀️ Morning, ${friendlyName} — ${WEEKDAY_LABEL}`, ""];
   const index = {}; // number -> {id, title}
   let n = 0;
+
+  // Pinned notes first — a one-off ask/decision deserves to be seen before the daily
+  // list. Plain lines (not numbered) so they don't interfere with the reply-index.
+  const pins = pinnedNotes(owner);
+  if (pins.length) {
+    lines.push("📌 Note from Zazu");
+    for (const p of pins) lines.push(p.text.trim());
+    lines.push("");
+  }
 
   // Shared Family-calendar events (today + tomorrow) — bullets, not numbered, so they
   // don't interfere with the task reply-index. Prep events show first so they're seen.

@@ -38,6 +38,30 @@ fi
 # DO NOT use 'git add .' here — it would commit any untracked file not in .gitignore
 git add -u
 
+# Also stage newly-generated / newly-authored source files. `git add -u` above
+# only re-stages ALREADY-tracked files, so any brand-new file accumulates
+# uncommitted and unbacked-up until someone notices. This bit us repeatedly:
+#   - learning/snippets/: daily-learning.sh writes a new pair every day (days
+#     15+ were silently never committed).
+#   - docs/proposals/: proposals 01 & 03 sat unbacked-up on local disk from
+#     Jul 23 onward; analytics/scripts/staleness-triage.js and the run-*.sh
+#     scripts fell through the same way.
+# These are the source directories that hold committable content. A scoped
+# `git add <dir>/` STILL RESPECTS .gitignore (so finance *.db, hermes queues,
+# *.local.json, .env, board-data.json, logs/, guides/ etc. remain excluded),
+# giving us the junk-safety of a whitelist without a bare `git add .`. Add a
+# directory here when a new source tree is introduced.
+git add learning/snippets/ analytics/ docs/ scripts/ board-tools/
+
+# Safety net: the whitelist above only backs up directories we remembered to
+# list. If a new source tree appears outside it, surface that within a day
+# instead of discovering months of un-backed-up files later. This logs (does not
+# commit) any remaining untracked, non-ignored files so the gap is visible.
+UNTRACKED_LEFT=$(git ls-files --others --exclude-standard)
+if [ -n "$UNTRACKED_LEFT" ]; then
+  log_ts "WARNING: untracked non-ignored files NOT backed up (add their dir to midnight-commit.sh): $(echo "$UNTRACKED_LEFT" | tr '\n' ' ')" "$LOG"
+fi
+
 if ! git diff --cached --quiet; then
   if git commit -m "nightly sync $DATE" >> "$LOG" 2>&1; then
     log_ts "Committed changes for $DATE" "$LOG"

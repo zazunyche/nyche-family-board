@@ -1769,3 +1769,123 @@ Done. One task this cycle, completed and verified.
 No iMessage sent (internal logic fix, nothing family-facing). `board-data.json` untouched; the tracked `.md` commit is left to nightly sync. WIP cleaned, `[DONE]` logged.
 [2026-11-02T03:32:33Z] heartbeat.sh complete
 [2026-11-02T05:00:03Z] heartbeat.sh started
+[2026-11-02T05:00:03Z] Launching claude -p work session
+[2026-11-02T05:03:25Z] Starting: pinned-note channel in compose-brief.js (fail-closed) + seed Proposal 04 decision-ask to Dad via 7am brief. Rationale: brief has no channel for one-off decision asks, so proposals/staleness recs die in unread .md files; board clean (0 data gaps), declined a 4th analytics micro-fix as make-work.
+[DONE] Pinned-note channel in morning brief + seeded Proposal 04 decision-ask to Dad — compose-brief.js had NO channel for a one-off ask/decision (pure task list), so proposals + staleness CLOSE/CONFIRM recs died in unread .md files while 4 tasks absorbed 460+ nudges with zero movement. Added fail-closed pinnedNotes(owner) reading logs/brief-pin.json ({pins:[{to:DAD|MOM|BOTH,text,expires?}]}), rendered as a non-numbered "📌 Note from Zazu" block above the task list (reply-index untouched). Verified: pin shows for Dad not Mom; index still starts at task 1; malformed JSON + missing file both render the brief normally (exit 0) — any read/parse error = zero pins. Seeded one pin asking Dad to approve Proposal 04 (A/B/both/no), expires 2026-11-16. Delivery rides the already-approved 7am brief — NO midnight send, no unilateral behavior change (it only ASKS for the go-ahead the proposal requires). Deliberately did NOT manufacture a 4th analytics micro-fix (board-health clean, 0 data gaps); the real bottleneck is a human decision with no channel — this builds the channel. compose-brief.js commits via nightly sync; brief-pin.json is logs/-gitignored runtime state (like brief-index.json).
+The exit 1 is just the final `ls` confirming the WIP file is gone. Done.
+
+## Summary
+
+The board is healthy (0 data-quality gaps), and the last three heartbeats each manufactured a small analytics tweak into reports nobody opens — diminishing-returns make-work the plan explicitly warns against. So I stepped back and fixed the *actual* bottleneck.
+
+**The real problem:** The morning brief (`compose-brief.js`) is a pure task list. It had **no channel** for a one-off ask or decision to reach anyone — so Proposal 04, the staleness-triage CLOSE/CONFIRM recommendations, and every "want me to clear this dead work?" offer died in unread markdown. Meanwhile four tasks have absorbed **460+ reminders with zero movement**, and the louder the nagging gets, the more it trains the family to tune out *all* of Zazu's messages.
+
+**What I built:** A fail-closed **pinned-note channel** in the brief.
+- `pinnedNotes(owner)` reads `logs/brief-pin.json` and renders a non-numbered `📌 Note from Zazu` block above the task list, targeted per owner (`DAD`/`MOM`/`BOTH`) with an optional `expires` date.
+- The reply-index is untouched (pins aren't numbered, same pattern as calendar events).
+- Any read/parse error → zero pins and the brief renders exactly as today. **Verified** against malformed JSON and a missing file (both exit 0, brief intact), and confirmed the pin shows for Dad, not Mom.
+
+**First use:** Seeded one pin asking Dad to approve Proposal 04 (reply **A** / **B** / both / no), expiring Nov 16. This rides the **already-approved 7am brief** — no midnight send, and no unilateral behavior change: it only *asks* for the go-ahead the proposal itself requires.
+
+`compose-brief.js` is tracked and commits via nightly sync; `brief-pin.json` is `logs/`-gitignored runtime state (like `brief-index.json`). WIP cleaned, `[DONE]` logged. No iMessage sent.
+[2026-11-02T05:08:03Z] heartbeat.sh complete
+[2026-11-02T09:30:04Z] heartbeat.sh started
+[2026-11-02T09:30:04Z] Launching claude -p work session
+[2026-11-02T09:31:00Z] Starting: verify Proposal-04 pin renders in real 7am brief (the channel for the actual bottleneck, built last cycle). Declined a 5th consecutive analytics micro-fix as make-work; board healthy, guides exist, 15-Sigourney blanks unfillable from repo data.
+[DONE] Verified Proposal-04 decision-pin is live in the real brief — ran compose-brief.js and confirmed: 📌 pin renders in Dad's brief above the task list, correctly ABSENT from Mom's (per-owner targeting works), reply-index intact (pin non-numbered, Dad's task 1 still = passport), expiry filter active (2026-11-16 >= today), script exits 0. Only stderr is the expected calendar osascript ETIMEDOUT (fail-soft, brief renders fully without it). Bonus confirm: Primrose invoice now shows correctly as "1d overdue" in both briefs. Last cycle's bottleneck-fix will reach Dad in today's 7am brief as intended. Deliberately did NOT manufacture a 5th analytics tweak: board clean, friction-removal guides exist for every stalled item, 15-Sigourney blanks (neighbor name/amount/repair) are unfillable from any repo source data, decision-channel is live. No WIP (short session), no iMessage (internal verification; the pin is the family-facing message, riding the already-approved 7am brief). board-data.json untouched.
+[2026-11-02T09:32:00Z] heartbeat.sh complete
+Done. One focused task this cycle, completed and verified.
+
+**What I did:** Verified that last cycle's bottleneck-fix — the Proposal-04 decision-pin in the morning brief — is actually live in the real brief output, rather than manufacturing a fifth consecutive analytics micro-tweak.
+
+**Why this and not more infra:** The last four heartbeats each built a small analytics/brief feature, and the work-status note explicitly warns against diminishing-returns make-work. The board is healthy (0 data gaps, confirmed repeatedly), friction-removal guides exist for every stalled item, and I checked whether I could *progress* the 15 Sigourney task by filling its guide's blanks — but the neighbor name, amount, and which-repair don't exist in any repo source data, so that's genuinely blocked on Dad. The real bottleneck is human decisions, and the channel for those was just built. The one thing worth a cycle was confirming that channel actually fires.
+
+**Result:** Ran `compose-brief.js` against live board data —
+- 📌 pin renders in **Dad's** brief, correctly **absent** from Mom's (per-owner targeting works)
+- Reply-index intact (pin is non-numbered; Dad's task 1 is still the passport)
+- Expiry filter active, script exits 0
+- Only stderr is the expected calendar `osascript` timeout, which fails soft — brief renders fully
+- Bonus: the Primrose invoice ($2,085) now correctly shows **1d overdue** in both briefs
+
+So the fix that addresses the actual bottleneck will reach Dad in today's 7am brief as intended. WIP cleared (none needed — short session), `[DONE]` logged, no iMessage sent (the pin itself is the family-facing message), `board-data.json` untouched.
+[2026-11-02T09:33:14Z] heartbeat.sh complete
+[2026-11-02T14:00:04Z] heartbeat.sh started
+[2026-11-02T14:00:05Z] Launching claude -p work session
+[2026-11-02T14:02:00Z] Starting: fix midnight-commit.sh so daily-generated learning snippets get backed up. Found 186 untracked snippet files (days 15-107) referenced as 'delivered' in tracked curriculum.json but never committed — `git add -u` only re-stages tracked files, so daily new snippets accumulate unbacked-up on local disk only. Declined a 6th consecutive analytics micro-fix; this is a real data-durability gap.
+[DONE] Fixed learning-snippet backup gap in midnight-commit.sh — daily-learning.sh generates a new snippet .md pair every day, but the nightly sync used only `git add -u` (re-stages tracked files only), so 186 untracked files (days 15-107), all referenced as "delivered" with file pointers in the TRACKED curriculum.json, had silently never been committed or pushed — 93 days of delivered curriculum content living only on this Mac mini's disk with no backup. Added a scoped `git add learning/snippets/` line (dir contains only snippet .md files — verified 0 non-md, 0 ignored; no bare `git add .` junk risk). Verified: staging catches exactly 186 snippet files and nothing outside the dir; `bash -n` passes. Restored clean working tree (unstaged snippets, left only the script edit); tonight's now-fixed sync commits+pushes all 186 backlog files + every future day's snippet via the established channel — the fix backs itself up on its first run. Declined a 6th consecutive analytics micro-fix as make-work; this is a real data-durability gap. No WIP, no iMessage (internal infra fix).
+[2026-11-02T14:04:00Z] heartbeat.sh complete
+Done. One focused task this cycle, completed and verified.
+
+**What I found:** The board is healthy (0 data gaps, confirmed again) and Proposal 04 is correctly pending Dad's decision via the brief pin that fires today — so no new analytics work was warranted. Instead I checked something the last five cycles hadn't: the learning-snippet pipeline.
+
+**The real gap:** `daily-learning.sh` writes a new snippet `.md` pair every day, but the nightly sync (`midnight-commit.sh`) staged changes with only `git add -u`, which re-stages *already-tracked* files and never picks up new ones. Result: **186 snippet files (days 15–107)** — all referenced as "delivered" with file pointers in the **tracked** `curriculum.json` — had silently never been committed or pushed. That's 93 days of generated curriculum content living only on this Mac mini's disk, with no backup, while the state file that points to them *is* backed up (a dangling-pointer durability risk).
+
+**The fix:** Added a scoped `git add learning/snippets/` line after `git add -u`. Safe because the directory contains only snippet `.md` files (verified: 0 non-md, 0 gitignored) — no bare `git add .` junk risk, which the existing comment rightly warns against.
+
+**Verified:**
+- Staging catches *exactly* 186 files, all under `learning/snippets/`, nothing outside it
+- `bash -n` passes on the edited script
+- Restored a clean working tree (unstaged the snippets, left only the one-file script edit)
+
+Tonight's now-fixed nightly sync will commit + push all 186 backlog files plus every future day's snippet through the established channel — the fix backs itself up on its first run. I deliberately didn't commit/push manually (this repo commits via the automated nightly sync, not ad-hoc pushes) and sent no iMessage (internal infra, nothing family-facing). WIP cleared, `[DONE]` logged.
+[2026-11-02T14:04:12Z] heartbeat.sh complete
+[2026-11-02T18:30:05Z] heartbeat.sh started
+[2026-11-02T18:30:05Z] Launching claude -p work session
+[2026-11-02T18:33:00Z] Starting: generalize the midnight-commit.sh source-backup gap. Last cycle fixed learning/snippets/ narrowly; same bug still drops 7 other untracked source files.
+[DONE] Generalized nightly-sync backup gap in midnight-commit.sh — last cycle's `git add learning/snippets/` fixed one symptom, but `git add -u` still silently dropped every OTHER new source file: docs/proposals/01 & 03 unbacked-up since Jul 23, plus staleness-triage.js/.md, run-board-server.sh, run-scheduler.sh (7 files, local-disk-only, no backup). Broadened the scoped add to `learning/snippets/ analytics/ docs/ scripts/ board-tools/` (scoped adds still respect .gitignore — finance *.db, hermes queues, *.local.json, .env, board-data.json, logs/, guides/ all stay excluded; junk-safe, no bare `git add .`). Added a root-cause safety net: after staging, logs a WARNING listing any remaining untracked non-ignored files, so a future new source tree surfaces within a day instead of after months of silent fall-through. Verified: bash -n OK; dry-run stages exactly the 7 files + nothing gitignored; post-stage safety net reports 0 left. Restored clean working tree (only the script edit staged for tonight) — the now-fixed sync commits+pushes all 7 backlog files tonight and backs itself up on first run. No WIP, no iMessage (internal infra fix).
+[2026-11-02T18:35:00Z] heartbeat.sh complete
+Done. One focused task this cycle, completed and verified.
+
+**What I found:** Board is healthy (0 data gaps, 8 active tasks all blocked on human decisions — correctly surfaced via the brief pin and friction-removal guides, nothing for Zazu to *progress*). So no new board work was warranted. Instead I checked whether last cycle's backup fix actually covered the root cause — it didn't.
+
+**The real gap:** Last cycle patched `midnight-commit.sh` to back up `learning/snippets/`, but that was one symptom. The nightly sync's `git add -u` only re-stages *already-tracked* files, so **7 other new source files were still silently dropped and living on local disk only:**
+- `docs/proposals/01-tailscale-remote-access.md` & `03-google-service-accounts.md` — unbacked-up since **July 23**
+- `docs/proposals/04-resistance-cap-batch-triage.md`
+- `analytics/scripts/staleness-triage.js` + its output `.md`
+- `scripts/run-board-server.sh`, `scripts/run-scheduler.sh`
+
+**The fix (two parts):**
+1. Broadened the scoped add to `learning/snippets/ analytics/ docs/ scripts/ board-tools/`. Scoped `git add <dir>/` **still respects `.gitignore`**, so all the sensitive/runtime stuff (`board-data.json`, `logs/`, `finance/*.db`, hermes queues, `*.local.json`, `.env`, `guides/`) stays excluded — junk-safe, no bare `git add .` (honoring the author's explicit warning).
+2. **Root-cause safety net:** after staging, the script now logs a WARNING listing any remaining untracked non-ignored files. So the next time a new source tree appears outside the whitelist, it surfaces in the log within a day instead of rotting unnoticed for months — turning a silent fall-through into a visible one.
+
+**Verified:** `bash -n` passes; dry-run stages exactly the 7 files and nothing gitignored; post-stage safety net reports 0 left. Restored a clean working tree (only the one-file script edit), so tonight's now-fixed sync commits + pushes all 7 backlog files through the established channel and backs itself up on first run. No WIP, no iMessage (internal infra). WIP cleared, `[DONE]` logged.
+[2026-11-02T18:33:00Z] heartbeat.sh complete
+[2026-11-02T23:00:06Z] heartbeat.sh started
+[2026-11-02T23:00:06Z] Launching claude -p work session
+[2026-11-02T23:05:00Z] Pre-flight verification of tonight's unattended nightly-sync backup fix (no new build work — declined make-work per work-status guidance). The prior two cycles broadened midnight-commit.sh's scoped `git add` to cover all source trees; that ships tonight with NO human watching, so I verified it's safe before it runs. Confirmed: dry-run stages exactly 202 legitimate source files (186 learning/snippets + 8 analytics/outputs + 1 analytics/scripts + 3 docs/proposals + 3 scripts + 1 board-tools); grep for sensitive patterns (board-data.json, *.db, .env, *.local.json, guides/, logs/, secret/token/key) returns ZERO matches — scoped add correctly honors .gitignore. board-health.js runs clean: 0 missing fields (taskType/effortTag/stageHistory all complete). Board's one real dysfunction remains the 4 resistance-maxed tasks (460+ combined reminders) — the fix is Proposal 04, correctly pending Dad's go-ahead; not implementing unilaterally. No WIP, no iMessage (internal diligence, nothing family-facing).
+[DONE] Verified tonight's unattended backup fix is safe to ship — 202 source files, 0 sensitive, scripts clean, board healthy. No new build work warranted this cycle (declined make-work); board's only real issue (4 nag-saturated tasks) is blocked on Dad's Proposal-04 decision.
+[2026-11-02T23:05:00Z] heartbeat.sh complete
+Done. One focused cycle, completed and verified.
+
+**What I checked first (to avoid repeating work):** The last two heartbeats both fixed `midnight-commit.sh`'s backup gap — `git add -u` silently dropped every *new* source file, so 186 learning snippets plus 7 other files (proposals, analytics scripts, run-*.sh) were living on local disk only. That fix is intact and staged for tonight's sync. Proposal 04 (the resistance-cap/batch-triage fix for the nag-saturated tasks) is correctly pending Dad's decision — I won't implement it unilaterally, as the proposal itself states.
+
+**Why I didn't build anything new:** The board is healthy (board-health.js: 0 missing fields), analytics scripts run clean, and every backlog item is blocked on human action. The work-status guidance explicitly warns against manufacturing a "6th consecutive analytics micro-fix as make-work" — so I declined to.
+
+**What I actually did — real diligence, not busywork:** The broadened backup fix ships **tonight unattended**, so I pre-flighted it before it runs with no one watching:
+- Dry-run stages **exactly 202 legitimate source files** (186 snippets, 8 analytics outputs, 3 proposals, 3 scripts, 1 analytics script, 1 board-tool).
+- Grepped the staged set for sensitive patterns (`board-data.json`, `*.db`, `.env`, `*.local.json`, `guides/`, `logs/`, secret/token/key) → **zero matches**. The scoped `git add <dir>/` correctly honors `.gitignore`, so nothing sensitive leaks into the public GitHub Pages repo.
+- `board-health.js` executes cleanly; data quality is intact.
+
+**The board's one real dysfunction** remains the 4 resistance-maxed tasks (460+ combined reminders, zero movement) — and the fix for that is Proposal 04, which is Dad's one-word call to make, not mine.
+
+No WIP was created, `[DONE]` logged, no iMessage sent (internal infra diligence, nothing family-facing or newly actionable).
+[2026-11-02T23:01:56Z] heartbeat.sh complete
+[2026-11-03T03:30:07Z] heartbeat.sh started
+[2026-11-03T03:30:07Z] Launching claude -p work session
+[DONE] State-confirm + disciplined stand-down (no new build work). Verified the ONE thing that matters: the Proposal-04 decision-pin (logs/brief-pin.json) is intact, un-expired (exp 2026-11-16), and renders ONLY in Dad's brief (exit 0) — so the bottleneck fix is live and reaching the one person who can unblock it. Board otherwise healthy; every backlog item is blocked on a human decision already handled by board-reminders.sh + the pin. Deliberately did NOT manufacture a 9th consecutive micro-fix: the last ~8 cycles each confirmed board-health clean and declined make-work, which is correct behavior, but re-verifying already-verified infra is itself the waste those logs flag. Marker for next heartbeat: nothing to progress until Dad replies A/B/both/no to the pin (or a human edits a task). Re-confirming board-health / brief-pin again before then adds no value — stand down unless state changes. No WIP, no iMessage (any send tonight = the exact noise Proposal 04 exists to cut).
+[2026-11-03T03:30:30Z] heartbeat.sh complete
+Done. One focused cycle, completed honestly.
+
+**What I did:** Confirmed the single thing that actually matters and then stood down — no make-work.
+
+**State verified:**
+- The Proposal-04 decision-pin (`logs/brief-pin.json`) is **intact, un-expired** (exp 2026-11-16), and renders **only in Dad's brief** (exit 0, correctly absent for Mom). That pin *is* the entire bottleneck fix — it routes the one blocked decision (what to do about 4 tasks that have absorbed 460+ reminders with zero movement) to the one person who can unblock it, riding the already-approved 7am brief. It's live and working.
+- The board is otherwise healthy; every backlog item is blocked on a human decision that `board-reminders.sh` + the pin already handle.
+
+**Why I built nothing:** The last ~8 heartbeats each confirmed board-health is clean and declined make-work — which was correct — but the pattern has turned into re-verifying already-verified infra every cycle, which is itself the waste those logs keep flagging. The work-status guidance is explicit: don't manufacture a 9th consecutive analytics micro-fix. The real bottleneck is a human decision, and it's properly queued.
+
+**Marker left for the next heartbeat:** Nothing is progressable until Dad replies to the pin (A / B / both / no) or a human edits a task. Re-confirming board-health or the pin again before then adds no value — stand down unless state changes.
+
+No WIP (short session, cleared anyway), no iMessage — any send tonight would be the exact noise Proposal 04 exists to cut.
+[2026-11-03T03:33:05Z] heartbeat.sh complete
+[2026-11-03T05:00:07Z] heartbeat.sh started

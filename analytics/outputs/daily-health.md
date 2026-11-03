@@ -1,4 +1,4 @@
-# Board Health — Nov 1, 2026, 6:02 PM
+# Board Health — Nov 2, 2026, 6:45 AM
 
 ## Summary
 
@@ -28,12 +28,13 @@
 | MOM | 1 |
 | BOTH | 1 |
 
-## Overdue Tasks (2)
+## Overdue Tasks (3)
 
 | ID | Title | Due | Days Overdue | Owner |
 |----|-------|-----|-------------|-------|
-| t_r1908t7 | Renew British passport — Dad | 2026-10-17 | 15 | DAD |
-| t_q5wnyq5 | Complete any open financial planning docs | 2026-10-05 | 27 | MOM |
+| t_r1908t7 | Renew British passport — Dad | 2026-10-17 | 16 | DAD |
+| t_q5wnyq5 | Complete any open financial planning docs | 2026-10-05 | 28 | MOM |
+| t_3to63zt | Pay Primrose School Invoice | 2026-11-01 | 1 | BOTH |
 
 ## Stale Tasks — no update in 14+ days (4)
 
@@ -42,7 +43,7 @@
 | t_insure01 | Review Acrisure home insurance renewal | ACTIVE | 148 | DAD |
 | t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | ACTIVE | 139 | DAD |
 | t_r1908t7 | Renew British passport — Dad | ACTIVE | 98 | DAD |
-| t_q5wnyq5 | Complete any open financial planning docs | ACTIVE | 30 | MOM |
+| t_q5wnyq5 | Complete any open financial planning docs | ACTIVE | 31 | MOM |
 
 ## High Brief Count — briefed 3+ times with no completion (4)
 

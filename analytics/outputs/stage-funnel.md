@@ -1,6 +1,6 @@
-# Stage Funnel — Nov 1, 2026, 6:45 AM
+# Stage Funnel — Nov 2, 2026, 6:45 AM
 
-_55 total tasks_
+_56 total tasks_
 
 ## Stage Distribution
 
@@ -8,15 +8,15 @@ _55 total tasks_
 |-------|-------|------------|
 | IDEA | 3 | 5% |
 | RESEARCH | 0 | 0% |
-| ACTIVE | 4 | 7% |
-| DONE | 48 | 87% |
+| ACTIVE | 5 | 9% |
+| DONE | 48 | 86% |
 
 ## Funnel Conversion (top-of-funnel → done)
 
-- IDEA → moved forward: **95%** (52/55)
-- Entered ACTIVE or DONE: **95%** (52/55)
-- Reached DONE: **87%** (48/55)
-- ACTIVE → DONE (of those that went ACTIVE): **92%** (48/52)
+- IDEA → moved forward: **95%** (53/56)
+- Entered ACTIVE or DONE: **95%** (53/56)
+- Reached DONE: **86%** (48/56)
+- ACTIVE → DONE (of those that went ACTIVE): **91%** (48/53)
 
 ## Stage Distribution by Category
 
@@ -25,13 +25,13 @@ _55 total tasks_
 | ADMIN | 3 | 0 | 3 | 14 | 20 | 70% |
 | FAMILY | 0 | 0 | 0 | 23 | 23 | 100% |
 | GOALS | 0 | 0 | 0 | 6 | 6 | 100% |
-| HOME | 0 | 0 | 1 | 5 | 6 | 83% |
+| HOME | 0 | 0 | 2 | 5 | 7 | 71% |
 
 ## Stage Distribution by Owner
 
 | Owner | IDEA | RESEARCH | ACTIVE | DONE | Total | Done% |
 |-------|------|----------|--------|------|-------|-------|
-| BOTH | 0 | 0 | 0 | 15 | 15 | 100% |
+| BOTH | 0 | 0 | 1 | 15 | 16 | 94% |
 | DAD | 3 | 0 | 3 | 19 | 25 | 76% |
 | MOM | 0 | 0 | 1 | 8 | 9 | 89% |
 | ZAZU | 0 | 0 | 0 | 6 | 6 | 100% |
@@ -49,10 +49,10 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **35%** of done tasks_
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Review Acrisure home insurance renewal | 5 | 121 | ACTIVE |
-| 15 Sigourney — follow up with neighbor on … | 5 | 121 | ACTIVE |
-| Renew British passport — Dad | 5 | 90 | ACTIVE |
+| Review Acrisure home insurance renewal | 5 | 122 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 5 | 122 | ACTIVE |
+| Renew British passport — Dad | 5 | 91 | ACTIVE |
 | Pay Texas Comptroller sales tax — Nyche LL… | 5 | 88 | IDEA |
 | Pay Texas Comptroller sales tax — Nyche LL… | 5 | 88 | IDEA |
 | Pay Texas Comptroller sales tax — Nyche LL… | 5 | 88 | IDEA |
-| Complete any open financial planning docs | 4 | 30 | ACTIVE |
+| Complete any open financial planning docs | 4 | 31 | ACTIVE |
