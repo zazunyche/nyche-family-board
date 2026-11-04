@@ -30,9 +30,10 @@ Net effect: the louder we get on dead tasks, the less signal every live task car
 ## Proposed change (two small, independent parts)
 
 ### Part A — Resistance cap (volume control)
-When a task hits `resistanceScore === 5` **and** `briefCount > 60`, `board-reminders.sh` stops including it in the *daily* nudge and moves it to a **weekly** digest line instead. It stays fully active on the board; it just stops shouting daily. Any human edit (stage change, note, snooze) resets it to normal cadence.
+When a task hits `resistanceScore === 5` **and** `briefCount > 60`, Zazu stops surfacing it in the *daily* channels and moves it to a **weekly** digest line instead. It stays fully active on the board; it just stops shouting daily. Any human edit (stage change, note, snooze) resets it to normal cadence.
 
-- Implementation: a filter in `board-reminders.sh` + a once-weekly digest block. ~30 lines, no schema change (`resistanceScore`/`briefCount` already exist).
+- Implementation — **primary target is `board-tools/compose-brief.js`, not `board-reminders.sh`.** Verified Nov 3: the daily volume on these tasks comes from the **7am morning brief**, which via `compose-brief.js` `isBriefWorthy()` includes *every* ACTIVE/ASSIGNED task with **zero** resistance awareness. `board-reminders.sh` is only a dumb sender of pre-queued `pendingReminders` — and 3 of the 4 stuck tasks have **zero** pending reminders (Acrisure 0, Mom-docs 0, Sigourney 1/already-sent; only passport has 4 unsent). So a filter in `board-reminders.sh` alone would leave the dominant nag source untouched and the fix would appear to fail.
+  - **Correct scope:** add the `resistanceScore === 5 && briefCount > 60` filter in `compose-brief.js` (pull capped tasks out of the daily lists into a single weekly-digest line), and secondarily in `board-reminders.sh`'s existing taskId-join (lines 50–53, same place the DONE-reconciliation already lives) so the passport reminders also respect the cap. ~30–40 lines total, no schema change (`resistanceScore`/`briefCount` already exist). Note `compose-brief.js` also persists `brief-index.json` for numbered replies — keep the capped tasks out of that numbering so reply resolution stays stable.
 
 ### Part B — Batch triage (the decision that actually clears them)
 Once, Zazu sends **one** message with the table above and asks for a one-word reply per item:

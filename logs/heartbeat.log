@@ -1889,3 +1889,86 @@ Done. One focused cycle, completed honestly.
 No WIP (short session, cleared anyway), no iMessage — any send tonight would be the exact noise Proposal 04 exists to cut.
 [2026-11-03T03:33:05Z] heartbeat.sh complete
 [2026-11-03T05:00:07Z] heartbeat.sh started
+[2026-11-03T05:00:07Z] Launching claude -p work session
+[2026-11-03T05:00:30Z] State-change check only, then stand down (honoring marker left by 03:30 cycle). Confirmed the single signal that matters: board-data.json mtime is Nov 2 07:00 (morning brief) — UNCHANGED since last heartbeat, so no human edited/added a task. Proposal-04 decision-pin (logs/brief-pin.json) intact: to DAD, expires 2026-11-16, un-expired, text routes the 460+-reminder bottleneck decision to the one person who can unblock it. No reply yet. Deliberately did NOT re-run board-health.js (clean 8+ cycles straight) — re-verifying already-verified infra is the exact waste these logs flag. Nothing is progressable until Dad replies A/B/both/no to the pin or a human edits a task.
+[DONE] Stand-down — state unchanged since 03:30 (board-data mtime Nov 2 07:00, pin live & un-expired, no pin reply). Checked only what could have changed; declined redundant re-verification and make-work. No WIP, no iMessage.
+[2026-11-03T05:00:30Z] heartbeat.sh complete
+Done. One focused cycle, honest stand-down.
+
+**What I did:** Checked the only thing that could have changed since the 03:30 cycle, confirmed it hadn't, logged it, and stopped.
+
+**State (unchanged since last heartbeat):**
+- `board-data.json` mtime is **Nov 2 07:00** — the morning brief run, not a new edit. No human has touched the board, no new task, no task moved.
+- The **Proposal-04 decision-pin** is intact: routed to Dad, `expires 2026-11-16`, un-expired. It's carrying the real bottleneck decision (4 tasks, 460+ reminders, zero movement) to the one person who can unblock it, riding the already-approved 7am brief. No reply yet.
+
+**Why I built nothing:** The prior ~8 heartbeats each confirmed the board is healthy and declined make-work — correctly — and the 03:30 cycle left an explicit marker: nothing is progressable until Dad replies (A/B/both/no) or a human edits a task, and re-running `board-health.js` yet again is the exact waste these logs keep flagging. I honored that rather than manufacturing a 9th consecutive micro-fix.
+
+No WIP (none was created; cleared regardless), no iMessage — any send tonight would be the precise noise Proposal 04 exists to cut.
+
+**For the next heartbeat:** still blocked on Dad's pin reply or a human board edit. If `board-data.json` mtime is still Nov 2 07:00 and the pin is unanswered, stand down again — don't re-verify.
+[2026-11-03T05:01:02Z] heartbeat.sh complete
+[2026-11-03T09:30:08Z] heartbeat.sh started
+[2026-11-03T09:30:08Z] Launching claude -p work session
+[2026-11-03T09:31:00Z] State-change check: board-data.json mtime moved to Nov 3 00:30 ET but `git status` shows it CLEAN and the 00:00 nightly-sync commit did not touch it — i.e. an automated same-content rewrite, NOT a human edit or task move. Pin (logs/brief-pin.json) live, un-expired (exp 2026-11-16), to DAD, still unanswered. No content change since last heartbeat. Honored prior marker: did not re-run board-health.js (clean 9+ cycles) — re-verifying verified infra is the waste these logs flag. Overdue Primrose invoice (Nov 1, $2085, BOTH) needs human payment, already surfaced Nov 1, rides 7am brief — no 04:30 ET text.
+[DONE] Stand-down — board content unchanged (clean git, same-content mtime bump), pin live & unanswered. State-change check only; declined redundant re-verification and make-work. No WIP, no iMessage. Next heartbeat: still blocked on Dad's pin reply or a human board edit — stand down again if board-data stays git-clean and pin unanswered.
+Done. One focused cycle, honest stand-down.
+
+**What changed vs. what didn't:** The board-data.json mtime ticked to Nov 3 00:30 ET — but `git status` shows the file clean and the 00:00 nightly-sync commit never touched it. That's an automated same-content rewrite, not a human edit or task move. **Content is unchanged.**
+
+**State:**
+- **Proposal-04 pin** (`logs/brief-pin.json`) — live, un-expired (exp 2026-11-16), routed to Dad, still unanswered. That pin carries the real bottleneck decision (4 tasks, 460+ reminders, zero movement) to the one person who can unblock it.
+- Overdue **Primrose invoice** ($2,085, due Nov 1, owner BOTH) — needs a human payment, already surfaced Nov 1, will ride the 7am brief. Texting at 04:30 ET would be noise.
+
+**Why I built nothing:** The prior marker was explicit — nothing is progressable until Dad replies to the pin or a human edits a task, and re-running `board-health.js` a 10th time is the exact make-work these logs keep flagging. I honored it.
+
+No WIP, no iMessage. **Next heartbeat:** if board-data.json is still git-clean and the pin unanswered, stand down again.
+[2026-11-03T09:31:10Z] heartbeat.sh complete
+[2026-11-03T14:00:08Z] heartbeat.sh started
+[2026-11-03T14:00:09Z] Launching claude -p work session
+[2026-11-03T14:01:00Z] [STAND-DOWN] Board-data.json git-clean (only auto-gen outputs/curriculum/log modified; mtime Nov 3 07:00 = morning-brief run, not a human edit). Proposal-04 pin to DAD live & unanswered (exp 2026-11-16). No progressable work: stuck tasks have guides+pin done, rest need human action handled by board-reminders/7am brief. Did NOT re-run board-health (clean 10+ cycles) or text (would be noise). No WIP. Next heartbeat: stand down again unless board-data goes dirty via human edit or pin gets a reply. Keeping log entries short from here.
+Stand-down complete. No WIP file was created (none needed), no iMessage sent.
+
+**Summary:** Board is blocked on Dad's reply to the Proposal-04 pin (live, unanswered, expires Nov 16). `board-data.json` is git-clean — no human edits or task movement since the last heartbeat; only automated outputs changed. All stuck tasks already have decision-ready guides and the pin carries the real bottleneck decision to Dad. Nothing is progressable this cycle, so I declined redundant re-verification and make-work, and logged a concise entry (breaking the prior pattern of verbose essays).
+
+Next heartbeat: stand down again unless the board goes dirty via a human edit or the pin gets a reply.
+[2026-11-03T14:01:02Z] heartbeat.sh complete
+[2026-11-03T18:30:09Z] heartbeat.sh started
+[2026-11-03T18:30:09Z] Launching claude -p work session
+[2026-11-03T18:35:00Z] [DONE] Corrected Proposal-04 Part A scope — diligence on the pin's promise to Dad. Verified: the daily "full volume" nag on the 4 stuck tasks comes from the 7am brief (compose-brief.js isBriefWorthy includes every ACTIVE task, zero resistance awareness), NOT board-reminders.sh (which sends 0 reminders for 3 of the 4 — Acrisure 0, Mom-docs 0, Sigourney 1-sent; only passport has 4 unsent). So Part A as written (filter in board-reminders.sh) would leave the dominant nag source firing and appear to fail. Edited docs/proposals/04-*.md: primary implementation target is compose-brief.js (+ keep capped tasks out of brief-index.json numbering), board-reminders.sh secondary. No live behavior changed, Dad's A/B/both/no decision intact, no nag sent. Pin still live/unanswered (exp 2026-11-16). Next heartbeat: stand down unless board goes dirty or pin answered.
+[2026-11-03T18:35:05Z] heartbeat.sh complete
+Done. One focused cycle — and this one wasn't a stand-down.
+
+**What I found (and fixed):** Instead of a 11th redundant re-verification, I did diligence I'd never actually done: checked whether the pin's promise to Dad was *true*. Proposal-04's Part A says the resistance cap is "a filter in `board-reminders.sh`." It isn't — I verified:
+
+- The daily "full volume" nag on the 4 stuck tasks comes from the **7am morning brief**. `compose-brief.js` `isBriefWorthy()` includes *every* ACTIVE/ASSIGNED task with **zero** resistance awareness.
+- `board-reminders.sh` is just a dumb sender of pre-queued reminders — and **3 of the 4 stuck tasks have zero pending reminders** (Acrisure 0, Mom-docs 0, Sigourney already-sent; only passport has 4 unsent).
+- So Part A as written would have left the dominant nag source firing. If Dad approved "A" and I implemented it literally, the fix would have appeared to fail.
+
+**What I did:** Corrected `docs/proposals/04-resistance-cap-batch-triage.md` — primary implementation target is now `compose-brief.js` (with a note to keep capped tasks out of `brief-index.json` numbering so numbered replies stay stable), `board-reminders.sh` secondary for the passport reminders. No live behavior changed, no message sent, Dad's A/B/both/no decision intact.
+
+**State unchanged:** board-data.json git-clean, Proposal-04 pin live and unanswered (exp Nov 16). WIP cleared, logged concisely.
+
+Next heartbeat: stand down unless the board goes dirty via a human edit or the pin gets a reply.
+[2026-11-03T18:37:33Z] heartbeat.sh complete
+[2026-11-03T23:00:10Z] heartbeat.sh started
+[2026-11-03T23:00:10Z] Launching claude -p work session
+[2026-11-03T18:00:00Z] [STAND-DOWN] Board git-clean (mtime 07:00=morning brief). Proposal-04 pin live/unanswered to DAD (exp Nov 16). board-health: 0 data gaps, no new dups. 18:35 session's compose-brief.js target correction intact. Blocked on Dad's A/B/both/no reply; building ahead would break pin's "every call stays yours" promise. No progressable work. No WIP, no iMessage.
+[2026-11-03T18:00:30Z] heartbeat work session complete (stand-down)
+Done — stand-down cycle, logged.
+
+**Summary:** Board is blocked on Dad's reply to the Proposal-04 pin (live, unanswered, expires Nov 16). `board-data.json` is git-clean since the 07:00 morning brief — no human edits or task movement. board-health reports zero data-quality gaps and no new duplicate clusters. The last session's correction of Proposal-04's implementation target (compose-brief.js) is intact. Nothing is progressable without either a human edit to the board or Dad's A/B/both/no decision — and manufacturing work or sending another message would be the exact noise the proposal exists to eliminate. No WIP created, no iMessage sent.
+
+Next heartbeat: stand down again unless the board goes dirty via a human edit or the pin gets answered.
+[2026-11-03T23:01:02Z] heartbeat.sh complete
+[2026-11-04T03:30:11Z] heartbeat.sh started
+[2026-11-04T03:30:11Z] Launching claude -p work session
+[2026-11-04T03:31:12Z] [STAND-DOWN] Board git-clean (board-data.json mtime 07:00 = morning brief, no human edit/task movement). Verified brief-pin.json: Proposal-04 pin live/unanswered to DAD, expires 2026-11-16. Analytics infra complete; board-health clean 10+ cycles (not re-run). Blocked on Dad A/B/both/no reply; pre-building impl would break pin promise + risk waste, no urgency (13d runway). No progressable non-noise work. No WIP, no iMessage.
+Stand-down cycle complete — logged, no WIP, no message sent.
+
+**Summary:** Board is blocked on Dad's reply to the Proposal-04 pin (verified live in `logs/brief-pin.json`, unanswered, expires 2026-11-16). `board-data.json` is git-clean — mtime 07:00:23 confirms the only change was this morning's brief run, no human edits or task movement. Analytics infra is complete and board-health has been clean 10+ cycles, so I did not re-run it. Every stuck backlog item already has a decision-ready guide; the rest need human action that the 7am brief and board-reminders.sh already cover.
+
+Nothing is progressable without either a human edit to the board or Dad's A/B/both/no decision. Pre-building the Proposal-04 fix would break the pin's "every call stays yours / want me to go ahead?" promise and risks being wasted work, with no urgency given 13 days of runway. Manufacturing make-work or sending another message would be the exact noise the proposal exists to kill.
+
+Next heartbeat: stand down again unless the board goes dirty via a human edit or the pin gets a reply.
+[2026-11-04T03:31:19Z] heartbeat.sh complete
+[2026-11-04T05:00:11Z] heartbeat.sh started
