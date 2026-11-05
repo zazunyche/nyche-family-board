@@ -1,4 +1,4 @@
-# Staleness Triage — Nov 3, 2026, 6:45 AM
+# Staleness Triage — Nov 4, 2026, 6:45 AM
 
 **Purpose:** The daily brief and board-reminders only *nudge* stalled tasks. This pass flags tasks whose trigger/due window is far enough past that the task is probably **moot or already done in real life**, and recommends a state decision (close / confirm / keep). None of these can be advanced by Zazu — they need a one-word call from Dad or Mom.
 
@@ -8,16 +8,16 @@
 
 | ID | Title | Owner | Why | Guide |
 |----|-------|-------|-----|-------|
-| t_q5wnyq5 | Complete any open financial planning docs | MOM | Due 2026-10-05, now 29d past (briefed 32×). Window closed — confirm the real-world outcome: close if done/moot, reschedule if the need still stands. | — |
+| t_q5wnyq5 | Complete any open financial planning docs | MOM | Due 2026-10-05, now 30d past (briefed 33×). Window closed — confirm the real-world outcome: close if done/moot, reschedule if the need still stands. | — |
 
 ## Recommend CONFIRM (real, but status almost certainly changed)
 
 | ID | Title | Owner | Why | Guide |
 |----|-------|-------|-----|-------|
-| t_insure01 | Review Acrisure home insurance renewal | DAD | No due date; no movement in 149d (briefed 123×). That much unheeded nudging is itself a signal — confirm whether it's still live or should be closed. | [acrisure-insurance-renewal-dad.md](../../docs/guides/acrisure-insurance-renewal-dad.md) |
-| t_15sig01 | 15 Sigourney — follow up with neighbor on repair | DAD | No due date; no movement in 140d (briefed 123×). That much unheeded nudging is itself a signal — confirm whether it's still live or should be closed. | [15-sigourney-neighbor-dad.md](../../docs/guides/15-sigourney-neighbor-dad.md) |
-| t_r1908t7 | Renew British passport — Dad | DAD | Due 2026-10-17, 17d past (briefed 92×), but you updated it 22d ago — still wanted, just overdue. Reschedule the date or knock it out. | [passport-renewal-dad.md](../../docs/guides/passport-renewal-dad.md) |
-| t_3to63zt | Pay Primrose School Invoice | BOTH | Due 2026-11-01, 2d past. Recently due — status has probably changed. One update unblocks it. | — |
+| t_insure01 | Review Acrisure home insurance renewal | DAD | No due date; no movement in 150d (briefed 124×). That much unheeded nudging is itself a signal — confirm whether it's still live or should be closed. | [acrisure-insurance-renewal-dad.md](../../docs/guides/acrisure-insurance-renewal-dad.md) |
+| t_15sig01 | 15 Sigourney — follow up with neighbor on repair | DAD | No due date; no movement in 141d (briefed 124×). That much unheeded nudging is itself a signal — confirm whether it's still live or should be closed. | [15-sigourney-neighbor-dad.md](../../docs/guides/15-sigourney-neighbor-dad.md) |
+| t_r1908t7 | Renew British passport — Dad | DAD | Due 2026-10-17, 18d past (briefed 93×), but you updated it 23d ago — still wanted, just overdue. Reschedule the date or knock it out. | [passport-renewal-dad.md](../../docs/guides/passport-renewal-dad.md) |
+| t_3to63zt | Pay Primrose School Invoice | BOTH | Due 2026-11-01, 3d past (briefed 3×). Recently due — status has probably changed. One update unblocks it. | — |
 
 ## Keep as-is (correctly waiting)
 

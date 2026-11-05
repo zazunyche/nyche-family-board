@@ -155,9 +155,10 @@ Scripts Roadmap" section. Status as of 2026-06-30:
 - Tier 1 (no schema changes): COMPLETE — board-health.js, completion-rate.js,
   lead-time-basic.js, dedup-detector.js built; brief-pressure.js superseded by
   board-health.js (not building).
-- Tier 2 (needs stageHistory): COMPLETE except snooze-pattern.js, which is
-  intentionally deferred — 0 tasks currently use snoozedUntil, so output would be
-  empty. Re-check task count before building it.
+- Tier 2 (needs stageHistory): COMPLETE. snooze-pattern.js was deferred while 0 tasks
+  used snoozedUntil; built 2026-11-04 once 3 tasks (the recurring TX sales-tax set)
+  started using the field. All current snoozes are ZAZU auto-parks of future-dated
+  tasks, so its "do they come back?" signal stays dormant until a parked window reopens.
 - Tier 3 (needs 30+ days of reflection data) and Tier 4 (dashboard feeds): NOT YET
   ELIGIBLE — gated on time/data that doesn't exist yet. Do not start these early.
 - Reflection layer (plan-v1.md "Reflection Layer Design"): the full parse-and-write
