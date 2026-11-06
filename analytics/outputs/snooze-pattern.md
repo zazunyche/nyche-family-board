@@ -1,4 +1,4 @@
-# Snooze Pattern — Nov 4, 2026, 1:32 PM
+# Snooze Pattern — Nov 5, 2026, 4:31 AM
 
 **Purpose:** A snooze is the only *explicit* "not now" signal on the board. This pass answers: **when** do deferrals happen (by owner, by day-of-week) and **do they come back** — i.e. once the snooze window reopens, does the task actually move, or lapse into silent staleness? Read-only reflection; nothing here mutates the board.
 

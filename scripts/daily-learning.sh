@@ -73,6 +73,69 @@ MINI_MODULE=$(node -e "
   exit 1
 }
 
+# ── Guardrail: halt cleanly if we've run past the end of the curriculum ───────
+# BUG this prevents: the curriculum update below does NEXT_DAY=$((DAY_NUM+1)) and
+# NEXT_SNIPPET_ID="module1-day${NEXT_DAY}" with no bound against the planned
+# curriculum length. Once DAY_NUM passed 50 (the plan's total_snippets), the job
+# kept incrementing forever and fabricating a "Day N of 50" Module-1 lesson every
+# morning — it ran ~60 days past the end, silently re-teaching June content and
+# never reaching Module 2. (See learning/snippets/module1-day110-email.md, the
+# escalation sent to Dad 2026-11-05 with options A/B/C.)
+#
+# This check makes an over-run a clean, logged halt instead of unbounded noise.
+# It exits 0 (not a failure) so health-check.sh's auto-retry treats it as handled
+# and does NOT escalate. A one-time marker file (written by this guard, or
+# pre-seeded when the loop is first caught) ensures Dad is alerted only once, not
+# every morning — the alert_failure throttle is only 6h, shorter than the daily
+# cadence. Clear the marker (rm) when the curriculum is re-anchored per Dad's
+# choice, and delivery resumes automatically.  (Added 2026-11-05.)
+TOTAL_SNIPPETS=$(node -e "
+  const d=JSON.parse(require('fs').readFileSync('$LEARNING_DIR/curriculum.json'));
+  console.log(d.curriculum_meta && d.curriculum_meta.total_snippets || '');
+" 2>/dev/null || echo "")
+
+HALT_MARKER="$LEARNING_DIR/.curriculum-halted"
+
+if [ -n "$TOTAL_SNIPPETS" ] && [ "$DAY_NUM" -gt "$TOTAL_SNIPPETS" ]; then
+  if [ ! -f "$HALT_MARKER" ]; then
+    log_ts "HALT: Day $DAY_NUM exceeds curriculum length ($TOTAL_SNIPPETS). Refusing to fabricate a lesson; alerting Dad once and pausing." "$LOG"
+    alert_failure "daily-learning.sh" "AI learning curriculum has run past its end (Day $DAY_NUM of $TOTAL_SNIPPETS planned). Daily delivery is now PAUSED to stop re-teaching old material. See learning/snippets/module1-day110-email.md for options A/B/C. This alert fires once; the job stays paused silently until the curriculum is re-anchored and the halt marker is cleared." "$LOG"
+    {
+      echo "halted_at=$(date '+%Y-%m-%dT%H:%M:%S%z')"
+      echo "reason=current_day_number ($DAY_NUM) exceeded curriculum_meta.total_snippets ($TOTAL_SNIPPETS)"
+      echo "clear_when=curriculum re-anchored per Dad's A/B/C choice; then delete this file to resume delivery"
+    } > "$HALT_MARKER"
+  else
+    log_ts "HALT (already flagged): Day $DAY_NUM > $TOTAL_SNIPPETS; staying paused, no delivery, no re-alert." "$LOG"
+  fi
+  exit 0
+fi
+
+# ── Guardrail: halt cleanly if the curriculum is already complete ─────────────
+# Complement to the over-run guard above. Once the advancement logic below has
+# marked progress.status = 'complete' (no pending snippets remain), stop — do NOT
+# re-deliver the final snippet in a loop. This is the symmetric end-of-curriculum
+# case to the over-run guard: both end in a clean, once-alerted pause that resumes
+# only when re-anchored and the marker is cleared. (Added 2026-11-05.)
+STATUS=$(node -e "
+  const d=JSON.parse(require('fs').readFileSync('$LEARNING_DIR/curriculum.json'));
+  console.log(d.progress.status || '');
+" 2>/dev/null || echo "")
+if [ "$STATUS" = "complete" ]; then
+  if [ ! -f "$HALT_MARKER" ]; then
+    log_ts "HALT: curriculum complete (all planned snippets delivered). Pausing delivery; alerting Dad once." "$LOG"
+    alert_failure "daily-learning.sh" "AI learning curriculum is COMPLETE — all planned snippets delivered. Daily delivery is now paused. Reply with a next course, or clear the halt marker to restart. This alert fires once." "$LOG"
+    {
+      echo "halted_at=$(date '+%Y-%m-%dT%H:%M:%S%z')"
+      echo "reason=curriculum complete (progress.status=complete, no pending snippets remain)"
+      echo "clear_when=a new course is anchored; then delete this file to resume delivery"
+    } > "$HALT_MARKER"
+  else
+    log_ts "HALT (already flagged): curriculum complete; staying paused, no delivery, no re-alert." "$LOG"
+  fi
+  exit 0
+fi
+
 log_ts "Delivering $SNIPPET_ID (Day $DAY_NUM)" "$LOG"
 
 # ── Determine snippet source ──────────────────────────────────────────────────
@@ -175,38 +238,55 @@ fi
 log_ts "iMessage delivered successfully for $SNIPPET_ID" "$LOG"
 
 # ── Update curriculum.json (shell handles this — no Claude needed) ────────────
-NEXT_DAY=$((DAY_NUM + 1))
-NEXT_SNIPPET_ID="module1-day${NEXT_DAY}"
-
+# Advance by walking the curriculum structure for the next *pending* snippet,
+# NOT by blindly computing module1-day${DAY+1}. The old hardcoded
+#   NEXT_SNIPPET_ID="module1-day${NEXT_DAY}"
+# never consulted d.modules[] and never left Module 1 — that is the ROOT CAUSE of
+# the 60-day re-teach loop (the over-run guardrail above only caps the damage; it
+# does not fix progression). Deriving the next snippet from modules[] means any
+# re-anchor (e.g. to module2-day20) actually sticks, and Module 2 is reached.
+# When no pending snippet remains, mark the curriculum complete; the completion
+# guardrail above then halts delivery cleanly. (Fixed 2026-11-05.)
 CURRICULUM_UPDATE_RESULT=$(node -e "
 const fs = require('fs');
 const path = '$LEARNING_DIR/curriculum.json';
 const d = JSON.parse(fs.readFileSync(path));
 
-// Mark current snippet delivered
-let found = false;
+// Flatten snippets in delivery order, tagging each with its module/mini-module.
+const seq = [];
 for (const mod of d.modules) {
   for (const mm of mod.mini_modules) {
     for (const s of mm.snippets) {
-      if (s.snippet_id === '$SNIPPET_ID') {
-        s.delivery_status = 'delivered';
-        s.delivered_at = new Date().toISOString();
-        s.imessage_file = 'snippets/${SNIPPET_ID}-imessage.md';
-        s.email_file = 'snippets/${SNIPPET_ID}-email.md';
-        found = true;
-        break;
-      }
+      seq.push({ s: s, moduleId: mod.module_id, miniId: mm.mini_module_id });
     }
-    if (found) break;
   }
-  if (found) break;
 }
 
-// Advance progress to next sequential day
+// Mark the delivered snippet.
+let found = false;
+for (const e of seq) {
+  if (e.s.snippet_id === '$SNIPPET_ID') {
+    e.s.delivery_status = 'delivered';
+    e.s.delivered_at = new Date().toISOString();
+    e.s.imessage_file = 'snippets/${SNIPPET_ID}-imessage.md';
+    e.s.email_file = 'snippets/${SNIPPET_ID}-email.md';
+    found = true;
+    break;
+  }
+}
+
+// Advance to the next snippet still pending (first non-delivered in sequence).
+const next = seq.find(function(e){ return e.s.delivery_status !== 'delivered'; });
 d.progress.last_delivered_date = '$TODAY';
-d.progress.status = 'in_progress';
-d.progress.current_day_number = $NEXT_DAY;
-d.progress.current_snippet_id = '$NEXT_SNIPPET_ID';
+if (next) {
+  d.progress.status = 'in_progress';
+  d.progress.current_module = Number(next.moduleId.slice(1));
+  d.progress.current_mini_module = next.miniId;
+  d.progress.current_day_number = next.s.day_number;
+  d.progress.current_snippet_id = next.s.snippet_id;
+} else {
+  d.progress.status = 'complete';
+}
 if (d.engagement_summary) {
   d.engagement_summary.total_snippets_delivered = (d.engagement_summary.total_snippets_delivered || 0) + 1;
 }
@@ -215,7 +295,7 @@ if (d.engagement_summary) {
 const tmp = path + '.tmp';
 fs.writeFileSync(tmp, JSON.stringify(d, null, 2));
 fs.renameSync(tmp, path);
-console.log('updated:day=$NEXT_DAY');
+console.log(next ? ('updated:day=' + next.s.day_number + ':snippet=' + next.s.snippet_id) : 'updated:complete');
 " 2>&1)
 CURRICULUM_EXIT=$?
 
@@ -226,4 +306,4 @@ if [ $CURRICULUM_EXIT -ne 0 ] || [[ "$CURRICULUM_UPDATE_RESULT" != *"updated:"* 
   exit 1
 fi
 
-log_ts "daily-learning.sh complete — delivered $SNIPPET_ID, advanced to Day $NEXT_DAY" "$LOG"
+log_ts "daily-learning.sh complete — delivered $SNIPPET_ID; next: $CURRICULUM_UPDATE_RESULT" "$LOG"
