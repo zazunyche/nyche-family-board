@@ -2193,3 +2193,113 @@ Consequence: Dad's recommended **Option B** (re-anchor to `module2-day20`, clear
 No `curriculum.json` edits, no re-anchor, no iMessage (internal infra prep; Dad already has the morning escalation — nothing new for the family to act on tonight). Updated the repair-readiness guide and memory note so B is now a true fix-and-forget. Logged to `heartbeat.log`; WIP cleared. Nightly sync will commit the tracked script + guide.
 [2026-11-06T03:36:26Z] heartbeat.sh complete
 [2026-11-06T05:00:19Z] heartbeat.sh started
+[2026-11-06T05:00:19Z] Launching claude -p work session
+[2026-11-06T05:06:00Z] [WORK] 00:00 ET heartbeat. Curriculum loop is gated on Dad's A/B/C decision (his call, root-cause fix already landed last night) — did NOT re-touch it (wasted-cycle trap). Ran board-health.js for real data-quality gaps instead.
+[2026-11-06T05:06:00Z] [DONE] Backfill missing fields on t_0485p92 (Review Aiden's daily summary) — board-data.json. New email-sourced task created 00:34 ET was the only one missing taskType/effortTag (automated backfill hadn't reached it). Inferred taskType=ERRAND, effortTag=XS (quick read of a daily Procare report), matching prior backfill convention + history-entry format. JSON validated; board-health.js now reports 0 missing fields (was 2). No iMessage (internal data hygiene, nothing for family to act on). No WIP (single-pass). Nightly sync will commit.
+Done. One task this cycle, completed and verified.
+
+## What I did
+Backfilled the missing `taskType` / `effortTag` fields on `t_0485p92` ("Review Aiden's daily summary") in `board-data.json`.
+
+## Why this task
+The only open loop — Dad's AI-curriculum decision — is gated on his A/B/C choice, and the root-cause fix already landed last night. Re-touching it would be the exact wasted-cycle trap the work-status warns against, so I ran `board-health.js` for genuine data-quality gaps instead (fallback path a). It flagged one: a new email-sourced task created at 00:34 ET that the automated backfill hadn't yet reached — the board's only field gap.
+
+## The fix
+- `taskType: ERRAND`, `effortTag: XS` — a quick read of a daily Procare activity report, consistent with how prior heartbeats classified similar light-touch review tasks.
+- Added the standard `"inferred backfill, confirm/override welcome"` history entry and bumped `updatedAt`, matching existing convention.
+
+## Verified
+- JSON re-parses cleanly.
+- `board-health.js` now reports **0 missing fields** (was 2: `taskType` + `effortTag` on this task).
+
+## Left alone
+No curriculum edits (Dad's call), no iMessage (internal data hygiene — nothing for the family to act on), no WIP (single-pass). Nightly sync will commit the change.
+[2026-11-06T05:01:34Z] heartbeat.sh complete
+[2026-11-06T09:30:20Z] heartbeat.sh started
+[2026-11-06T09:30:20Z] Launching claude -p work session
+[2026-11-06T09:35:00Z] [WORK] 04:30 ET heartbeat. Board clean (board-health: 0 missing fields; dedup: 0 clusters). Curriculum loop still gated on Dad's A/B/C — did NOT re-touch (wasted-cycle trap). Found the real gap: the 6 friction-removal guides in docs/guides/ are WRITE-ONLY — dir is gitignored and compose-brief.js (7am brief) never surfaces zazuNotes/guide paths, so a "guide prepared: docs/guides/X.md" line is a dead path the family can't open from a phone.
+[2026-11-06T09:35:00Z] [DONE] Close write-only-guides gap — built scripts/deliver-guide.sh <task-id> [--send]. Reads guide path from a task's zazuNotes, resolves owner email from ~/.zazu-config (DAD->WORK, MOM->MOM_EMAIL, BOTH->both), emails the guide inline via send-email.js --body-file. DRY-RUN by default (sends nothing); needs --send to fire. Verified in dry-run across DAD(passport)/MOM(financial)/BOTH-no-guide(Primrose)/bad-id cases; bash -n clean. Added docs/guides/README.md documenting the gap + the open follow-up (wire a 'send X guide' reply into the brief — needs Dad's go-ahead). Memory note recorded. No iMessage/email sent (internal infra; nothing for family to act on, and auto-blasting guides would be spam). Nightly sync commits the tracked script; guides+README stay gitignored. WIP cleared.
+Done. One task this cycle, completed and verified.
+
+## What I did
+Built `scripts/deliver-guide.sh` to close a genuine **write-only guides** gap.
+
+## Why this task
+Board data was clean (`board-health.js`: 0 missing fields; `dedup-detector.js`: 0 clusters), and the curriculum loop is correctly gated on Dad's A/B/C decision — re-touching it is the documented wasted-cycle trap. So I looked for a real, ZAZU-progressable gap and found one: prior heartbeats wrote **6 friction-removal guides** into `docs/guides/`, but that dir is gitignored and the 7am brief (`compose-brief.js`) renders only a numbered task list — it never surfaces `zazuNotes` or the guide path. A line like *"guide prepared: docs/guides/passport-renewal-dad.md"* is a dead path the family can't open from a phone. The guides reached nobody. More guides without a delivery path is the same wasted motion.
+
+## The fix
+`scripts/deliver-guide.sh <task-id> [--send]` — extracts the guide path from a task's `zazuNotes`, resolves the owner's email from `~/.zazu-config` (DAD→`$DAD_EMAIL_WORK`, MOM→`$MOM_EMAIL`, BOTH→both), and emails the guide inline via `send-email.js --body-file`. **Dry-run by default** (prints what it would send, sends nothing); `--send` is required to actually fire — so zero spam risk.
+
+## Verified
+- Dry-run across all paths: DAD (passport, 85-line guide), MOM (financial docs), BOTH-with-no-guide (Primrose → clean "nothing to deliver"), bad-id (clean error). Owner→email resolution correct in each.
+- Caught and fixed a real bug mid-build: `read` was tripping its EOF exit status on newline-less node output and falsely reporting failure — restructured to capture node's actual exit code.
+- `bash -n` clean.
+
+## Left alone / notes
+- No email or iMessage sent — auto-blasting 6 guides would be spam and would duplicate `board-reminders.sh`. Delivery is now **on-demand**.
+- Documented the gap + a bigger follow-up (make the brief *offer* delivery via a `send X guide` reply) in `docs/guides/README.md` — flagged as needing Dad's go-ahead, not a heartbeat drive-by.
+- Memory note recorded so future heartbeats don't re-write undeliverable guides.
+- The script is tracked (nightly sync will commit it); guides + README stay gitignored. WIP cleared.
+[2026-11-06T09:35:16Z] heartbeat.sh complete
+[2026-11-06T14:00:21Z] heartbeat.sh started
+[2026-11-06T14:00:21Z] Launching claude -p work session
+[2026-11-06T14:05:00Z] [WORK] 09:00 ET heartbeat. No WIP. Board clean: board-health 0 missing fields, dedup 0 clusters. 4 resistance flags (insure/15sig/passport/financial) are all human-owned + already guided; board-reminders.sh handles nudges — did NOT add a 97th. Curriculum still gated on Dad's A/B/C (escalated 11-05, one-time alert — not re-pinging). Analytics infra exhausted per plan-v1 status: Tier 3/4 gated on reflection data+time that don't exist; reflection layer needs Dad go-ahead.
+[2026-11-06T14:05:00Z] [DONE] Verify deliver-guide.sh delivery-path integrity — cross-checked all docs/guides/*.md paths referenced in board-data.json zazuNotes against files on disk. All 5 present (15-sigourney, acrisure, financial-planning, ghana-nanny, passport) → delivery path sound, won't fail on missing files when a guide is finally requested. No new infra built (wasted-cycle trap). No iMessage (nothing new for family; two real decisions — curriculum A/B/C + wiring guide-delivery into brief — already sit with Dad). WIP never opened (single-pass).
+[2026-11-06T14:05:16Z] heartbeat.sh complete
+Done. Clean, disciplined cycle — no new infra invented.
+
+## What I did
+Verified the **delivery-path integrity** of `deliver-guide.sh` (the one piece of infra built earlier this morning). Cross-checked every `docs/guides/*.md` path referenced in `board-data.json` zazuNotes against the files actually on disk — all 5 resolve (15-sigourney, acrisure, financial-planning, ghana-nanny, passport). So the new on-demand delivery tool won't fail silently on a missing guide when the family finally requests one.
+
+## Why just that
+Everything substantive is either clean or correctly gated:
+- **Board data**: `board-health.js` → 0 missing fields; `dedup-detector.js` → 0 clusters.
+- **Resistance flags** (insurance 127×, passport 96×, 15 Sigourney 127×, financial 36×): all human-owned, all already have friction-removal guides, and `board-reminders.sh` owns the nudge schedule. A 97th nudge is the documented anti-pattern — skipped.
+- **Analytics infra**: exhausted per `plan-v1.md` — Tier 3/4 are gated on reflection data + elapsed time that don't exist yet (explicit "do not start early"); the full reflection layer needs Dad's go-ahead.
+- **Curriculum runaway**: still gated on Dad's A/B/C choice, escalated yesterday as a deliberate one-time alert — not re-pinging.
+
+## Left for Dad (already in his court, not re-raised today)
+1. Curriculum A/B/C re-anchoring decision.
+2. Whether to wire a "send me X guide" reply into the 7am brief — the real way to close the guide discovery gap, flagged last cycle as needing his go-ahead.
+
+No iMessage/email sent (nothing new for the family to act on). No WIP opened — single-pass. Logged to `heartbeat.log`.
+[2026-11-06T14:02:52Z] heartbeat.sh complete
+[2026-11-06T18:30:21Z] heartbeat.sh started
+[2026-11-06T18:30:21Z] Launching claude -p work session
+[2026-11-06T18:38:22Z] heartbeat claude session failed — exit 143
+[2026-11-06T18:38:22Z] heartbeat.sh complete
+[2026-11-06T23:00:22Z] heartbeat.sh started
+[2026-11-06T23:00:22Z] WIP file found (age: 265min): {"task":"Revive dead watchdog launchd jobs (deadman-heartbeat + connectivity-watchdog, both EX_CONFIG/78, not run since Oct 30)","nextStep":"bootout+bootstrap connectivity-watchdog, verify .connectivity-state mtime updates, then apply to deadman","boardTaskId":null,"startedAt":"2026-11-06 13:34 ET","agent":"ZAZU"}
+[2026-11-06T23:00:22Z] Launching claude -p work session
+
+[18:00 ET 2026-11-06] Resuming interrupted WIP (watchdog revival, 265min old). Root cause found: prior session's "exec script directly" fix still fails EX_CONFIG(78) because scripts live in TCC-protected ~/Documents and launchd rejects them at managed-LWCR check (empty logs = script never execs). Working jobs (scheduler/board-server) exec a wrapper in ~/.claude. Applying same pattern to both watchdogs.
+[DONE 18:06 ET 2026-11-06] Revived dead watchdog launchd jobs (connectivity-watchdog + deadman-heartbeat). Both now exit 0 and run on schedule; connectivity-state refreshing (UP), deadman pinging Healthchecks (config present).
+  ROOT CAUSE: EX_CONFIG(78) since Oct-30 reboot was NOT the ProgramArguments form (prior session's two theories — direct-exec, then ~/.claude wrapper — both still failed). launchd opens StandardOut/ErrPath BEFORE exec; those pointed into TCC-protected ~/Documents, which launchd lost access to at the reboot, killing the job before the script ran (empty logs). FIX: logs -> /tmp (matching scheduler/board-server). Reverted ProgramArguments to proven ["/bin/bash",<script>]. Synced fixed plists to repo launchd/. Removed throwaway ~/.claude wrappers.
+  FOLLOW-UP (not done this session): com.zazu.newsletter-scan + com.zazu.aj-weekly STILL log to ~/Documents and will hit the same TCC/EX_CONFIG wall on their next scheduled fire — repoint their StandardOut/ErrPath to /tmp too.
+[2026-11-06T23:08:23Z] heartbeat claude session failed — exit 143
+[2026-11-06T23:08:23Z] heartbeat.sh complete
+[2026-11-07T03:30:23Z] heartbeat.sh started
+[2026-11-07T03:30:23Z] Launching claude -p work session
+
+[22:30 ET 2026-11-06] Cleared the last-session follow-up: newsletter-scan + aj-weekly TCC/EX_CONFIG risk.
+[DONE 22:34 ET 2026-11-06] Repointed com.zazu.newsletter-scan + com.zazu.aj-weekly StandardOut/ErrPath from TCC-protected ~/Documents to /tmp (zazu-newsletter-scan.log / zazu-aj-weekly.log) — same fix as the watchdogs. aj-weekly was already dead at exit 78; both now bootout+bootstrap clean (status 0). Edited both ~/Library/LaunchAgents copies AND repo launchd/ copies (kept identical; nightly sync will commit repo). Did NOT force-run — both scripts send unsolicited iMessages (newsletter->Dad on events, aj-weekly->Dad+Mom digest); off-schedule 22:30 send not warranted. They prove clean at next natural fire (newsletter 7:38am tomorrow, aj-weekly next Fri 21:00). aj-weekly missed tonight's 21:00 digest while dead — not reconstructed. Memory launchd-tcc-stdout-ex-config.md updated: follow-up CLOSED, no Zazu agents still log into ~/Documents.
+Done. Single task, completed and verified.
+
+## What I did
+
+Cleared the one concrete follow-up the previous session left behind: the last two Zazu launchd jobs still logging into TCC-protected `~/Documents`.
+
+**Fixed `com.zazu.newsletter-scan` + `com.zazu.aj-weekly`** — repointed `StandardOut/ErrPath` to `/tmp/zazu-newsletter-scan.log` and `/tmp/zazu-aj-weekly.log`, the same fix that revived the two watchdogs 4 hours ago.
+
+- `aj-weekly` was **already dead at exit 78** (EX_CONFIG) — it had hit the wall. `newsletter-scan` was primed to fail on its next 7:38am fire.
+- Edited both the installed `~/Library/LaunchAgents/` copies **and** the repo `launchd/` copies, kept identical. `bootout` + `bootstrap` on both → status now **0, not 78**.
+- Since EX_CONFIG is a launchd-level failure to open the log path *before* exec, the 78→0 transition is exactly the fix landing. `/tmp` is already proven writable by launchd here (scheduler, board-server, both watchdogs).
+
+**Deliberately did not force-run them** — both send unsolicited iMessages (newsletter → Dad on new events; aj-weekly → Dad+Mom digest), so kickstarting at 22:30 off-schedule would be an unexpected outward send. They'll verify clean at their next natural fire (newsletter tomorrow 7:38am; aj-weekly next Fri 21:00). Note: aj-weekly missed tonight's 21:00 digest while dead — not reconstructed.
+
+**Housekeeping:** memory `launchd-tcc-stdout-ex-config.md` updated — follow-up marked CLOSED; no Zazu launchd agents remain logging into `~/Documents`. Repo `launchd/` changes left uncommitted for the nightly sync to pick up. WIP cleared, heartbeat logged.
+
+No iMessage/email sent — nothing for the family to act on.
+[2026-11-07T03:32:29Z] heartbeat.sh complete
+[2026-11-07T05:00:23Z] heartbeat.sh started
+[2026-11-07T05:00:23Z] Launching claude -p work session

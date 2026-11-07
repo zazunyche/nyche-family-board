@@ -18,7 +18,7 @@
   </array>
   <key>StartCalendarInterval</key>
   <dict><key>Hour</key><integer>7</integer><key>Minute</key><integer>38</integer></dict>
-  <key>StandardOutPath</key><string>/Users/zazunyche/Documents/src/family-board/logs/newsletter-scan.log</string>
-  <key>StandardErrorPath</key><string>/Users/zazunyche/Documents/src/family-board/logs/newsletter-scan.log</string>
+  <key>StandardOutPath</key><string>/tmp/zazu-newsletter-scan.log</string>
+  <key>StandardErrorPath</key><string>/tmp/zazu-newsletter-scan.log</string>
 </dict>
 </plist>

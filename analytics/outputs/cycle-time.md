@@ -1,6 +1,6 @@
-# Cycle Time Report — Nov 5, 2026, 6:45 AM
+# Cycle Time Report — Nov 6, 2026, 6:45 AM
 
-_49 completed tasks analyzed. 10 active tasks (age shown)._
+_49 completed tasks analyzed. 11 active tasks (age shown)._
 
 ## Overall Lead Time (creation → done)
 
@@ -44,16 +44,17 @@ _49 completed tasks analyzed. 10 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 151.5d | M |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 142.4d | M |
-| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 101.3d | M |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 101.3d | S |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 101.3d | S |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 101.3d | S |
-| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 33.7d | M |
-| Pay Primrose School Invoice | HOME | BOTH | ACTIVE | 4d | S |
-| Safe School Evacuation | HOME | BOTH | ACTIVE | 0.6d | XS |
-| Family catchup | FAMILY | BOTH | ACTIVE | 0.6d | XS |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 152.5d | M |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 143.4d | M |
+| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 102.3d | M |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 102.3d | S |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 102.3d | S |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 102.3d | S |
+| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 34.7d | M |
+| Pay Primrose School Invoice | HOME | BOTH | ACTIVE | 5d | S |
+| Safe School Evacuation | HOME | BOTH | ACTIVE | 1.6d | XS |
+| Family catchup | FAMILY | BOTH | ACTIVE | 1.6d | XS |
+| Review Aiden's daily summary | HOME | MOM | ACTIVE | 0.5d | XS |
 
 ## Stage Dwell Time (tasks with stageHistory)
 

@@ -17,7 +17,7 @@
   </array>
   <key>StartCalendarInterval</key>
   <dict><key>Weekday</key><integer>5</integer><key>Hour</key><integer>21</integer><key>Minute</key><integer>0</integer></dict>
-  <key>StandardOutPath</key><string>/Users/zazunyche/Documents/src/family-board/logs/aj-weekly.log</string>
-  <key>StandardErrorPath</key><string>/Users/zazunyche/Documents/src/family-board/logs/aj-weekly.log</string>
+  <key>StandardOutPath</key><string>/tmp/zazu-aj-weekly.log</string>
+  <key>StandardErrorPath</key><string>/tmp/zazu-aj-weekly.log</string>
 </dict>
 </plist>

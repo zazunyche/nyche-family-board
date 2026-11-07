@@ -10,6 +10,17 @@
 <plist version="1.0">
 <dict>
   <key>Label</key><string>com.zazu.connectivity-watchdog</string>
+  <!-- ROOT CAUSE of the Oct-30 2026 EX_CONFIG(78) breakage (found 2026-11-06):
+       StandardOut/ErrPath pointed into ~/Documents, which is TCC-protected.
+       launchd OPENS the stdout/stderr files BEFORE exec'ing the program; after
+       the Oct-30 reboot it could no longer open them there, so the whole job
+       failed with EX_CONFIG(78) and the script NEVER ran (that's why the log
+       files stayed empty). THE FIX: log to /tmp (not TCC-protected), matching
+       the working com.zazu.scheduler / board-server daemons. See below.
+       NOTE: the ProgramArguments form was a RED HERRING — all three forms
+       (["/bin/bash",<script>], bare script, ~/.claude wrapper) fail identically
+       while the log path is in ~/Documents, and all succeed once it is /tmp.
+       Keeping ["/bin/bash", <script>] to match the sibling interval agents. -->
   <key>ProgramArguments</key>
   <array>
     <string>/bin/bash</string>
@@ -17,7 +28,7 @@
   </array>
   <key>StartInterval</key><integer>600</integer>
   <key>RunAtLoad</key><true/>
-  <key>StandardOutPath</key><string>/Users/zazunyche/Documents/src/family-board/logs/connectivity-watchdog.launchd.log</string>
-  <key>StandardErrorPath</key><string>/Users/zazunyche/Documents/src/family-board/logs/connectivity-watchdog.launchd.log</string>
+  <key>StandardOutPath</key><string>/tmp/zazu-connectivity-watchdog.log</string>
+  <key>StandardErrorPath</key><string>/tmp/zazu-connectivity-watchdog.log</string>
 </dict>
 </plist>
