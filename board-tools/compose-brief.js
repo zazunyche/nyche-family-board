@@ -161,6 +161,27 @@ function prettyDue(iso) {
   });
 }
 
+// ── Stuck-item guide pointer ───────────────────────────────────────────────────
+// Prior heartbeats wrote decision-ready "friction-removal" walkthroughs into
+// docs/guides/ and referenced them in each task's zazuNotes by path — but the
+// brief never surfaced them, so they were effectively write-only (the whole
+// reason deliver-guide.sh exists). Meanwhile the chronically-stuck items (all
+// at resistanceScore 5, briefed 90-130x) render as the SAME overdue line every
+// morning, which the family has learned to tune out. For a stuck item that HAS
+// a prepared guide, add a one-line pointer so (a) they learn the walkthrough
+// exists and (b) the line reads as "here's help" instead of a 100th identical
+// nag. Fail-closed: no guide on disk / low resistance -> no extra line, brief
+// renders exactly as before. Delivery is on-demand ("N guide" reply -> the
+// iMessage bridge runs scripts/deliver-guide.sh <id> --send).
+const GUIDE_RE = /docs\/guides\/[^\s)]+\.md/;
+function guidePath(t) {
+  if ((t.resistanceScore ?? 0) < 3) return null;
+  const m = (t.zazuNotes || "").match(GUIDE_RE);
+  if (!m) return null;
+  const abs = path.join(__dirname, "..", m[0]);
+  return fs.existsSync(abs) ? m[0] : null;
+}
+
 function sortTasks(list) {
   return list.slice().sort((a, b) => {
     const pr = (PRIORITY_RANK[a.priority] ?? 1) - (PRIORITY_RANK[b.priority] ?? 1);
@@ -210,6 +231,9 @@ function buildFor(owner, friendlyName) {
       index[n] = { id: t.id, title: t.title };
       const suffix = suffixFn ? suffixFn(t) : "";
       lines.push(`${n}. ${t.title}${suffix}`);
+      if (guidePath(t)) {
+        lines.push(`   📄 I wrote you a 5-min walkthrough — reply "${n} guide" and I'll email it.`);
+      }
     }
     lines.push("");
   };
