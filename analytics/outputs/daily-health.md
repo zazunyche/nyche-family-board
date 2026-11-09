@@ -1,16 +1,16 @@
-# Board Health — Nov 7, 2026, 6:45 AM
+# Board Health — Nov 8, 2026, 6:45 AM
 
 ## Summary
 
 | Total | Active | Done | Archived |
 |-------|--------|------|----------|
-| 59 | 9 | 50 | 0 |
+| 60 | 10 | 50 | 0 |
 
 ## Active Tasks by Stage
 
 | Stage | Count |
 |-------|-------|
-| ACTIVE | 6 |
+| ACTIVE | 7 |
 | IDEA | 3 |
 
 ## Active Tasks by Category
@@ -19,12 +19,13 @@
 |----------|-------|
 | ADMIN | 6 |
 | HOME | 3 |
+| GOALS | 1 |
 
 ## Active Tasks by Owner
 
 | Owner | Count |
 |-------|-------|
-| DAD | 6 |
+| DAD | 7 |
 | MOM | 2 |
 | BOTH | 1 |
 
@@ -32,27 +33,28 @@
 
 | ID | Title | Due | Days Overdue | Owner |
 |----|-------|-----|-------------|-------|
-| t_r1908t7 | Renew British passport — Dad | 2026-10-17 | 21 | DAD |
-| t_q5wnyq5 | Complete any open financial planning docs | 2026-10-05 | 33 | MOM |
-| t_0485p92 | Review Aiden's daily summary | 2026-11-05 | 2 | MOM |
+| t_r1908t7 | Renew British passport — Dad | 2026-10-17 | 22 | DAD |
+| t_q5wnyq5 | Complete any open financial planning docs | 2026-10-05 | 34 | MOM |
+| t_0485p92 | Review Aiden's daily summary | 2026-11-05 | 3 | MOM |
 
 ## Stale Tasks — no update in 14+ days (4)
 
 | ID | Title | Stage | Age (days) | Owner |
 |----|-------|-------|-----------|-------|
-| t_insure01 | Review Acrisure home insurance renewal | ACTIVE | 153 | DAD |
-| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | ACTIVE | 144 | DAD |
-| t_r1908t7 | Renew British passport — Dad | ACTIVE | 103 | DAD |
-| t_q5wnyq5 | Complete any open financial planning docs | ACTIVE | 36 | MOM |
+| t_insure01 | Review Acrisure home insurance renewal | ACTIVE | 154 | DAD |
+| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | ACTIVE | 145 | DAD |
+| t_r1908t7 | Renew British passport — Dad | ACTIVE | 104 | DAD |
+| t_q5wnyq5 | Complete any open financial planning docs | ACTIVE | 37 | MOM |
 
-## High Brief Count — briefed 3+ times with no completion (4)
+## High Brief Count — briefed 3+ times with no completion (5)
 
 | ID | Title | Brief Count | Owner |
 |----|-------|-------------|-------|
-| t_insure01 | Review Acrisure home insurance renewal | 127 | DAD |
-| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | 127 | DAD |
-| t_r1908t7 | Renew British passport — Dad | 96 | DAD |
-| t_q5wnyq5 | Complete any open financial planning docs | 36 | MOM |
+| t_insure01 | Review Acrisure home insurance renewal | 128 | DAD |
+| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | 128 | DAD |
+| t_r1908t7 | Renew British passport — Dad | 97 | DAD |
+| t_q5wnyq5 | Complete any open financial planning docs | 37 | MOM |
+| t_stnk0sf | Safe School Evacuation | 3 | BOTH |
 
 ## Data Quality (0 missing fields)
 
@@ -66,7 +68,7 @@
 
 | ID | Title | Score | Briefings | Owner |
 |----|-------|-------|-----------|-------|
-| t_insure01 | Review Acrisure home insurance renewal | 5/5 | 127 | DAD |
-| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | 5/5 | 127 | DAD |
-| t_r1908t7 | Renew British passport — Dad | 5/5 | 96 | DAD |
-| t_q5wnyq5 | Complete any open financial planning docs | 5/5 | 36 | MOM |
+| t_insure01 | Review Acrisure home insurance renewal | 5/5 | 128 | DAD |
+| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | 5/5 | 128 | DAD |
+| t_r1908t7 | Renew British passport — Dad | 5/5 | 97 | DAD |
+| t_q5wnyq5 | Complete any open financial planning docs | 5/5 | 37 | MOM |

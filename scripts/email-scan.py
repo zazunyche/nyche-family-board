@@ -31,6 +31,10 @@ RELEVANT=re.compile(r'(school|daycare|primrose|procare|hoa|homeowner|association
   r'georgiapower|ga power|natgas|water|utility|comcast|xfinity|at&t|'
   r'invoice|statement|bill|dmv|county|school|teacher|classroom)', re.I)
 NOISE=re.compile(r'(no-?reply.*(promo|marketing|deals)|unsubscribe-only|newsletter@|marketing@)', re.I)
+# ProCare informational FYI mail (newsletters + daily childcare summaries/reports) — never an action item.
+# Matched only against procaresoftware senders (see main()). Actionable ProCare mail (incident, evacuation,
+# payment, permission slip) won't match these and still flows through to classification.
+PROCARE_FYI=re.compile(r'(newsletter|daily (summary|report|snapshot)|childcare summary|summary for|activity report)', re.I)
 
 def hdr(m,k):
     v=m.get(k,"")
@@ -119,7 +123,7 @@ def main():
         mid=msg.get("Message-ID","").strip()
         if not mid or mid in processed: continue
         frm=hdr(msg,"From"); subj=hdr(msg,"Subject")
-        if "procaresoftware" in frm.lower() and "newsletter" in subj.lower(): processed.add(mid); continue  # handled by newsletter-scan
+        if "procaresoftware" in frm.lower() and PROCARE_FYI.search(subj): processed.add(mid); continue  # ProCare FYI (newsletter/daily summary) — informational, not a task; newsletters also handled by newsletter-scan
         fwd=bool(re.match(r'\s*(fwd?|fw):',subj,re.I))
         if not (fwd or RELEVANT.search(frm+" "+subj)) or NOISE.search(frm):
             processed.add(mid); continue

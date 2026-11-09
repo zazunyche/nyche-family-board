@@ -2445,3 +2445,105 @@ Board-health came back clean (0 missing fields, analytics infra complete), and t
 I deliberately did **not** touch the running comms channel: it's Dad's call, and my own understanding shifted twice while digging — a clear signal not to mutate live infra autonomously. Logged to `heartbeat.log`.
 [2026-11-08T03:34:04Z] heartbeat.sh complete
 [2026-11-08T05:00:27Z] heartbeat.sh started
+[2026-11-08T05:00:27Z] Launching claude -p work session
+[2026-11-08T05:00 ET heartbeat] [DONE] Fix Procare daily-summary mis-ingestion — root-cause data-quality fix in scripts/email-scan.py.
+  Found: two near-dup tasks auto-created from Procare childcare FYI emails (t_x8atspk "Childcare summary for Aiden" DONE, t_0485p92 "Review Aiden's daily summary" ACTIVE). These are informational daily reports, not action items, but were becoming ACTIVE MOM tasks that accrue briefs.
+  Cause: email-scan.py:122 only skipped Procare mail whose subject contained "newsletter"; daily/childcare summaries fell through to the LLM classifier and got labeled "task".
+  Fix: added PROCARE_FYI regex (newsletter|daily summary/report/snapshot|childcare summary|summary for|activity report); procaresoftware senders matching it are now skipped as FYI. Validated 10/10 cases — FYI summaries skip; actionable Procare mail (incident/evacuation/payment/permission slip) still flows through. Syntax + clean-import checked.
+  Left existing t_0485p92 untouched (MOM's task; staleness-triage.js already flags it for confirm — didn't mutate a person's board state autonomously). No iMessage sent (internal infra fix, not noteworthy at midnight).
+Done. No WIP file existed and none was needed (single surgical change), so nothing to clean up. The uncommitted edit will be picked up by the nightly sync, consistent with the repo's commit pattern.
+
+## Summary
+
+**Task: fixed Procare daily-summary mis-ingestion** — a root-cause data-quality fix.
+
+**What was wrong:** The board had two near-duplicate tasks auto-created from Procare childcare emails — `t_x8atspk` "Childcare summary for Aiden" (DONE) and `t_0485p92` "Review Aiden's daily summary" (ACTIVE). These are informational daily reports (photos/meals/naps), not action items, but they were landing on the board as ACTIVE MOM tasks that accrue briefs.
+
+**Root cause:** `scripts/email-scan.py:122` only skipped Procare mail whose subject contained "newsletter." Daily/childcare summaries don't say "newsletter," so they fell through to the LLM classifier, which reasonably labeled them "task."
+
+**Fix:** Added a `PROCARE_FYI` regex (`newsletter | daily summary/report/snapshot | childcare summary | summary for | activity report`). Procare senders matching it are now skipped as FYI at ingestion. Validated 10/10 cases: FYI summaries skip; genuinely actionable Procare mail (incident report, school evacuation, payment due, permission slip) still flows through to classification — so nothing like the existing Safe School Evacuation task would be lost. Syntax and clean-import both verified.
+
+**Deliberately did not:** close the existing `t_0485p92` — it's MOM's task, `staleness-triage.js` already flags it for a confirm/close, and I don't mutate a person's board state autonomously. No iMessage sent — this is internal infra cleanup, not worth a midnight text.
+
+Board-health and staleness-triage both ran clean otherwise (0 missing fields, analytics infra complete), so this ingestion gap was the highest-value ZAZU-ownable work available this cycle.
+[2026-11-08T05:03:04Z] heartbeat.sh complete
+[2026-11-08T09:30:28Z] heartbeat.sh started
+[2026-11-08T09:30:28Z] Launching claude -p work session
+[2026-11-08 04:30 ET heartbeat] [DONE] Surface stalled AI-curriculum A/B/C decision onto the board.
+  Board clean (board-health 0 missing fields, dedup clean, analytics complete); 2 prior sessions tonight already shipped root-cause fixes. The one genuinely open ZAZU-flagged item not already handled by board-reminders: the 2026-11-05 curriculum over-run escalation (A=stop / B=resume Module 2 / C=curate M1). It was a ONE-SHOT email+iMessage with no re-surface path — 3 days, no reply, at risk of being forgotten.
+  Verified first: daily-learning.sh DOES honor .curriculum-halted + the >50 over-run guard, so the 9am job is safely paused (no stray delivery). Confirmed the fixed advancement logic is schema-compatible (modules[] have module_id/mini_module_id/snippet_id/day_number/delivery_status) and that structured state is Module1=19/19 delivered, first-pending=module2-day20 — only the progress pointer is corrupt.
+  Created board task t_curric01 (GOALS / DECISION / HIGH / owner DAD / XS) so board-reminders + daily-brief re-raise the decision. Notes point Dad at the full writeup (module1-day110-email.md) and record that resume is mechanical (set progress→module2-day20, rm halt marker). board-data.json appended atomically, valid JSON (60 tasks). Updated memory + MEMORY.md index. No iMessage (internal; escalation already reached Dad, board channel will re-surface).
+Done. Single focused task completed this cycle.
+
+## What I did
+
+The board was clean (board-health: 0 missing fields, dedup clean, analytics infra complete) and two earlier sessions tonight already shipped root-cause fixes. The one genuinely open ZAZU-flagged item **not** already covered by board-reminders was the **AI-curriculum A/B/C decision** — escalated to Dad once on 2026-11-05 as a one-shot email+iMessage, with no mechanism to re-surface it. Three days later, no reply, at real risk of being forgotten. Closing that crack is exactly this heartbeat's job.
+
+**Verified before acting:**
+- `daily-learning.sh` genuinely honors `.curriculum-halted` + the `day_num > 50` over-run guard → the 9am job is safely paused, no risk of another looped snippet.
+- The 11-05 advancement fix is schema-compatible (modules[] carry `module_id`/`mini_module_id`/`snippet_id`/`day_number`/`delivery_status`), and structured state shows **Module 1 = 19/19 delivered, first-pending = `module2-day20`** — only the `progress` pointer is corrupt. So resume (option B) is mechanical.
+
+**Delivered:**
+- Created board task **`t_curric01`** — "Decide AI Agents curriculum: reply A / B / C" (GOALS / DECISION / HIGH / owner DAD / XS). Now it rides board-reminders + the daily brief instead of being a lost email. Notes point Dad at the full writeup and record the exact resume steps. Appended atomically; JSON valid (60 tasks).
+- Updated the `ai-curriculum-runaway-loop` memory + `MEMORY.md` index to reflect tracking.
+- Logged to `heartbeat.log`, removed WIP.
+
+No iMessage sent — the escalation already reached Dad, and the board channel is the right place to re-surface it (not a 04:30 text). Uncommitted edits will be picked up by the nightly sync, per the repo's pattern.
+[2026-11-08T09:35:16Z] heartbeat.sh complete
+[2026-11-08T14:00:29Z] heartbeat.sh started
+[2026-11-08T14:00:29Z] Launching claude -p work session
+[DONE] Stand-down — state unchanged since last cycle. Board clean (0 data gaps), analytics infra complete, no human board edit since Nov 6 (Primrose DONE), no reply to Proposal-04 pin or curriculum A/B/C. Both decision channels verified live: brief-pin.json un-expired (exp 11-16), t_curric01 on board riding the brief. Curriculum delivery still safely halted. Checked only what could change (replies/edits/pin validity); declined an Nth make-work micro-fix per the established discipline. Noted but did NOT touch: t_0485p92 has dueDate(11-05)<createdAt(11-06) — symptom of informational Procare dailies spawning uncompletable ACTIVE tasks in email-scan.py; an ingestion-pattern question, not a heartbeat-unilateral fix. No WIP, no iMessage.
+Done. Logged the honest stand-down and confirmed no WIP file lingering.
+
+**Summary:** No ZAZU-progressable work this cycle. Board is clean, analytics infra complete, and both open decisions (Proposal-04 batch-triage pin and the curriculum A/B/C via `t_curric01`) are live in Dad's brief awaiting his reply — not blocked on me. No human board activity since Nov 6, so nothing changed that warrants action. Declined to manufacture a make-work micro-fix, which the last several cycles correctly establish as the waste to avoid. No message sent.
+[2026-11-08T14:02:09Z] heartbeat.sh complete
+[2026-11-08T18:30:29Z] heartbeat.sh started
+[2026-11-08T18:30:30Z] Launching claude -p work session
+[2026-11-08 13:30 ET heartbeat] [DONE] Stand-down — no ZAZU-progressable work; state unchanged.
+  Verified only what could change since the 09:00 cycle: board-health clean (0 missing fields, 60 tasks), no human board edit since Nov 6 13:11Z (t_3to63zt DONE), no reply to curriculum A/B/C (t_curric01) or Proposal-04 pin, no WIP file. All 4 resistance-flagged items DAD/MOM-owned, already on board-reminders. email-scan.py PROCARE_FYI fix (05:03 cycle) still in working tree for nightly sync. Declined to manufacture a micro-fix per established discipline. No iMessage.
+[2026-11-08T18:31:30Z] heartbeat.sh complete
+Stand-down logged. No WIP file existed, so nothing to clean up.
+
+**Summary:** No ZAZU-progressable work this cycle. The board is clean (board-health: 0 missing fields, analytics infra complete), nothing has changed since the last cycle (no human board edit since Nov 6, no reply to the curriculum A/B/C decision or the Proposal-04 pin), and both open decisions are already live in Dad's brief awaiting his reply — not blocked on me. The four stalled items are all DAD/MOM-owned and handled by board-reminders on its own schedule. Consistent with the last two cycles, I declined to manufacture a make-work micro-fix. No message sent.
+[2026-11-08T18:31:22Z] heartbeat.sh complete
+[2026-11-08T23:00:00Z] heartbeat.sh started
+[2026-11-08T23:00:00Z] Launching claude -p work session
+[2026-11-08 18:00 ET heartbeat] [DONE] Verified the uncommitted email-scan.py PROCARE_FYI ingestion fix before it ships in tonight's 23:00 nightly sync.
+  The change had sat UNVERIFIED through 3 prior stand-down cycles (each only noted "still in working tree"). Ran fixture tests: all 7 informational subjects (daily summary/report/snapshot, newsletter, childcare summary, activity report) correctly DROP; all 7 actionable subjects (incident report, safe school evacuation, payment due, permission slip, urgent pickup, reminder, invoice) correctly PASS THROUGH. Confirmed sender-gating at line 126 — filter only reaches ProCare mail (`procaresoftware` in From), so non-ProCare senders (school/HOA/utilities/DMV) are untouched. Fix is sound and safe to ship. No code change needed; verification only. Did NOT touch MOM-owned t_0485p92 (the one noise task the pre-fix code already spawned) — closing it is Mom's call, not a heartbeat-unilateral edit. No WIP, no iMessage.
+Done.
+
+**This cycle — verified the uncommitted `email-scan.py` ingestion fix before it ships tonight.**
+
+The `PROCARE_FYI` filter had sat **unverified** in the working tree through three prior stand-down cycles — each only noted "still in working tree for nightly sync," none actually tested it. It ships in tonight's 23:00 nightly sync, so verifying it now was timely, not make-work.
+
+Results:
+- **All 7 informational subjects drop correctly** — daily summary/report/snapshot, newsletter, childcare summary, activity report.
+- **All 7 actionable subjects pass through** — incident report, safe school evacuation, payment due, permission slip, urgent pickup, reminder, invoice. No risk of silently swallowing real action items.
+- **Sender-gated** (line 126): the filter only reaches mail where `procaresoftware` is in the From header, so school-district, HOA, utility, and DMV mail never touch this branch. Limited blast radius.
+
+Conclusion: the fix is sound and safe to ship — no code change needed, verification only.
+
+I did **not** touch MOM-owned `t_0485p92` ("Review Aiden's daily summary"), the one noise task the pre-fix code already spawned. The root-cause fix prevents *future* such tasks; closing the existing one is Mom's call, not a heartbeat-unilateral edit. Logged, no WIP, no iMessage.
+[2026-11-08T23:01:28Z] heartbeat.sh complete
+[2026-11-09T03:30:01Z] heartbeat.sh started
+[2026-11-09T03:30:01Z] Launching claude -p work session
+[2026-11-08 22:30 ET heartbeat] [DONE] Verified the AI-curriculum halt is genuinely holding — the live ZAZU-owned infra that t_curric01 depends on, not re-checked since Nov 5.
+  Confirmed end-to-end: halt marker present (learning/.curriculum-halted, Nov 5); over-run guard in daily-learning.sh:99-112 fires on the stuck pointer (DAY_NUM 111 > total_snippets 50), hits the already-flagged else branch, logs "staying paused, no delivery", exits 0. Belt-and-suspenders real: even if marker were deleted, guard re-creates it + re-alerts once instead of delivering. So daily delivery is actually paused ahead of Dad's A/B/C call, not just presumed. Also: board-health clean (0 missing fields, 60 tasks); checked the one fresh guide-less item (t_stnk0sf Safe School Evacuation, due Nov 18) — no source email retained, only the one-line note, so a parent-action guide would be speculation (likely just an FYI drill), declined to manufacture. All 4 resistance-5 items DAD/MOM-owned with guides already shipped + on board-reminders. No WIP, no code change, no iMessage.
+Done this cycle.
+
+**Verified the AI-curriculum halt is genuinely holding** — the one piece of live, ZAZU-owned infrastructure that `t_curric01` (Dad's pending A/B/C decision) depends on, and which hadn't actually been re-checked since Nov 5. Confirmed end-to-end rather than assumed:
+- Halt marker present (`learning/.curriculum-halted`, Nov 5).
+- The over-run guard (`daily-learning.sh:99–112`) fires on the stuck pointer (`DAY_NUM 111 > total_snippets 50`), takes the already-flagged branch, logs "staying paused, no delivery," and exits 0.
+- Belt-and-suspenders is real: even if the marker were deleted, the guard re-creates it and re-alerts **once** instead of delivering a fabricated lesson.
+
+So daily delivery is genuinely paused ahead of Dad's decision — not just presumed paused.
+
+**Also scanned for progressable work and found none I can act on unilaterally:**
+- board-health clean (0 missing fields, 60 tasks).
+- Checked the one fresh, guide-less item — `t_stnk0sf` "Safe School Evacuation" (HIGH, due Nov 18). No source email was retained, only the one-line note, so a parent-action guide would be speculation (a school "evacuation notification" is commonly just an FYI drill). Declined to manufacture it.
+- All four resistance-5 items are DAD/MOM-owned, already have guides shipped, and are handled by board-reminders on its own schedule.
+
+No code change, no WIP file (none existed), no iMessage — nothing noteworthy enough to interrupt at 22:30 ET. Logged to `heartbeat.log`.
+[2026-11-09T03:31:42Z] heartbeat.sh complete
+[2026-11-09T05:00:01Z] heartbeat.sh started
+[2026-11-09T05:00:01Z] Launching claude -p work session
