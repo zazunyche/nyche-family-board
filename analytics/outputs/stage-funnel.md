@@ -1,4 +1,4 @@
-# Stage Funnel — Nov 8, 2026, 6:45 AM
+# Stage Funnel — Nov 9, 2026, 6:45 AM
 
 _60 total tasks_
 
@@ -8,15 +8,15 @@ _60 total tasks_
 |-------|-------|------------|
 | IDEA | 3 | 5% |
 | RESEARCH | 0 | 0% |
-| ACTIVE | 7 | 12% |
-| DONE | 50 | 83% |
+| ACTIVE | 6 | 10% |
+| DONE | 51 | 85% |
 
 ## Funnel Conversion (top-of-funnel → done)
 
 - IDEA → moved forward: **95%** (57/60)
 - Entered ACTIVE or DONE: **95%** (57/60)
-- Reached DONE: **83%** (50/60)
-- ACTIVE → DONE (of those that went ACTIVE): **88%** (50/57)
+- Reached DONE: **85%** (51/60)
+- ACTIVE → DONE (of those that went ACTIVE): **89%** (51/57)
 
 ## Stage Distribution by Category
 
@@ -25,7 +25,7 @@ _60 total tasks_
 | ADMIN | 3 | 0 | 3 | 14 | 20 | 70% |
 | FAMILY | 0 | 0 | 0 | 24 | 24 | 100% |
 | GOALS | 0 | 0 | 1 | 6 | 7 | 86% |
-| HOME | 0 | 0 | 3 | 6 | 9 | 67% |
+| HOME | 0 | 0 | 2 | 7 | 9 | 78% |
 
 ## Stage Distribution by Owner
 
@@ -33,26 +33,26 @@ _60 total tasks_
 |-------|------|----------|--------|------|-------|-------|
 | BOTH | 0 | 0 | 1 | 17 | 18 | 94% |
 | DAD | 3 | 0 | 4 | 19 | 26 | 73% |
-| MOM | 0 | 0 | 2 | 8 | 10 | 80% |
+| MOM | 0 | 0 | 1 | 9 | 10 | 90% |
 | ZAZU | 0 | 0 | 0 | 6 | 6 | 100% |
 
 ## Completion Quality (DONE tasks)
 
 | Quality | Count | % of done |
 |---------|-------|-----------|
-| FULL | 17 | 34% |
+| FULL | 17 | 33% |
 | PARTIAL | 1 | 2% |
 
-_Genuine completion rate (FULL + DELEGATED_OUT): **34%** of done tasks_
+_Genuine completion rate (FULL + DELEGATED_OUT): **33%** of done tasks_
 
 ## Resistance Signals (non-zero resistanceScore)
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Review Acrisure home insurance renewal | 5 | 128 | ACTIVE |
-| 15 Sigourney — follow up with neighbor on … | 5 | 128 | ACTIVE |
-| Renew British passport — Dad | 5 | 97 | ACTIVE |
+| Review Acrisure home insurance renewal | 5 | 129 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 5 | 129 | ACTIVE |
+| Renew British passport — Dad | 5 | 98 | ACTIVE |
 | Pay Texas Comptroller sales tax — Nyche LL… | 5 | 88 | IDEA |
 | Pay Texas Comptroller sales tax — Nyche LL… | 5 | 88 | IDEA |
 | Pay Texas Comptroller sales tax — Nyche LL… | 5 | 88 | IDEA |
-| Complete any open financial planning docs | 5 | 37 | ACTIVE |
+| Complete any open financial planning docs | 5 | 38 | ACTIVE |

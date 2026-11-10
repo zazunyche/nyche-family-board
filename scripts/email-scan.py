@@ -32,9 +32,14 @@ RELEVANT=re.compile(r'(school|daycare|primrose|procare|hoa|homeowner|association
   r'invoice|statement|bill|dmv|county|school|teacher|classroom)', re.I)
 NOISE=re.compile(r'(no-?reply.*(promo|marketing|deals)|unsubscribe-only|newsletter@|marketing@)', re.I)
 # ProCare informational FYI mail (newsletters + daily childcare summaries/reports) — never an action item.
-# Matched only against procaresoftware senders (see main()). Actionable ProCare mail (incident, evacuation,
-# payment, permission slip) won't match these and still flows through to classification.
+# A matching subject is gated on a ProCare/Primrose context signal (see main()) so an unrelated
+# third party's "summary for ..." mail is never silently dropped. The signal is checked against the
+# From header AND the body, because these daily summaries arrive forwarded/center-branded: the From is
+# then the forwarder (not procaresoftware), but the original procare/primrose sender stays in the body.
+# Actionable ProCare mail (incident, evacuation, payment, permission slip) won't match PROCARE_FYI and
+# still flows through to classification.
 PROCARE_FYI=re.compile(r'(newsletter|daily (summary|report|snapshot)|childcare summary|summary for|activity report)', re.I)
+PROCARE_CTX=re.compile(r'(procaresoftware|procare|primrose)', re.I)
 
 def hdr(m,k):
     v=m.get(k,"")
@@ -55,6 +60,15 @@ def body_text(msg):
                 h=re.sub(r'(?is)<style.*?</style>|<script.*?</script>|<head.*?</head>',' ',h)
                 txt=re.sub(r'(?s)<[^>]+>',' ',h); break
     return re.sub(r'\s+',' ',txt).strip()
+
+def is_procare_fyi(subj, frm, body):
+    """True iff this is informational ProCare/Primrose FYI mail to skip: the SUBJECT
+    matches PROCARE_FYI (newsletter/daily summary/activity report) AND a ProCare/Primrose
+    context signal appears in (From header + body). The body check catches forwarded /
+    center-branded copies whose From is the forwarder, not procaresoftware. Kept pure and
+    importable so scripts/tests/test_email_scan_fyi.py exercises the REAL drop decision
+    (not a reimplementation), catching breakage to this combination — not just the regexes."""
+    return bool(PROCARE_FYI.search(subj) and PROCARE_CTX.search(frm + " " + body))
 
 def load_processed():
     try: return set(json.load(open(PROCESSED)))
@@ -123,7 +137,7 @@ def main():
         mid=msg.get("Message-ID","").strip()
         if not mid or mid in processed: continue
         frm=hdr(msg,"From"); subj=hdr(msg,"Subject")
-        if "procaresoftware" in frm.lower() and PROCARE_FYI.search(subj): processed.add(mid); continue  # ProCare FYI (newsletter/daily summary) — informational, not a task; newsletters also handled by newsletter-scan
+        if is_procare_fyi(subj, frm, body_text(msg)): processed.add(mid); continue  # ProCare FYI (newsletter/daily summary) incl. forwarded/center-branded copies — informational, not a task; newsletters also handled by newsletter-scan
         fwd=bool(re.match(r'\s*(fwd?|fw):',subj,re.I))
         if not (fwd or RELEVANT.search(frm+" "+subj)) or NOISE.search(frm):
             processed.add(mid); continue

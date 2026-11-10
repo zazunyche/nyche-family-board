@@ -2547,3 +2547,126 @@ No code change, no WIP file (none existed), no iMessage — nothing noteworthy e
 [2026-11-09T03:31:42Z] heartbeat.sh complete
 [2026-11-09T05:00:01Z] heartbeat.sh started
 [2026-11-09T05:00:01Z] Launching claude -p work session
+[2026-11-09 00:00 ET heartbeat] [DONE] Fixed ProCare daily-summary FYI leak in email ingestion — real root-cause bug, not a re-verify.
+  Symptom: ProCare's daily "Daily summary for <date> - Aiden" childcare notifications (pure FYI) kept being mis-ingested as actionable board tasks/events (t_x8atspk as an EVENT w/ calendar entry, t_0485p92 as a task), inflating the overdue/stale/resistance lists with daily noise.
+  Root cause: scripts/email-scan.py PROCARE_FYI filter was gated on a literal "procaresoftware" From-header. These summaries arrive forwarded (nconduah2 Gmail -> zazunyche, per t_4tk7tnn) / center-branded (Primrose), so From is NOT procaresoftware -> FYI filter bypassed -> LLM classifies them as tasks.
+  Fix: added PROCARE_CTX regex (procaresoftware|procare|primrose) and now gate the FYI skip on subject-match AND context-match against From + body (forwarded mail keeps the original procare/primrose sender in the body). Short-circuits body parse to only when subject already matches FYI. Updated the comment to document the forwarded-mail case.
+  Verified: python syntax OK; 7/7 behavior tests pass — leaked daily/childcare summaries (forwarded + center-branded + direct) now filtered; actionable ProCare/Primrose mail (evacuation, invoice, office-chat) still flows through; an unrelated third-party "summary for ..." email is NOT dropped (no procare/primrose context).
+  Cleanup: closed the one still-active bug-leaked FYI t_0485p92 (ACTIVE->DONE, actor ZAZU, full audit zazuNote) mirroring how its Nov-4 twin t_x8atspk was already resolved. Overdue count 3 -> 2. board-health clean. No commit (nightly midnight-commit.sh will pick up the email-scan.py change). No iMessage (infra fix, not noteworthy enough to interrupt at midnight).
+Done. This heartbeat found and fixed a real bug rather than re-verifying known state.
+
+## What I did
+
+**Fixed the ProCare daily-summary FYI leak in email ingestion** (`scripts/email-scan.py`)
+
+- **Symptom:** ProCare's daily *"Daily summary for \<date\> – Aiden"* childcare notifications — pure FYI — kept being mis-ingested as actionable board items (`t_x8atspk` even got a calendar event; `t_0485p92` became a task), polluting the overdue/stale/resistance lists with daily noise.
+- **Root cause:** the `PROCARE_FYI` skip filter was gated on a literal `procaresoftware` in the `From:` header. But these summaries arrive **forwarded** (nconduah2 Gmail → zazunyche, per the long-standing forward-filter task) or **center-branded** (Primrose), so the `From:` isn't procaresoftware → the FYI filter was bypassed → the local classifier turned them into tasks.
+- **Fix:** added a `PROCARE_CTX` regex (`procaresoftware|procare|primrose`) and now skip on *subject matches FYI* **AND** *context matches against `From` + body* (forwarded mail keeps the original procare/primrose sender in the body). Body parse is short-circuited to only run when the subject already matches.
+- **Verified:** syntax OK; **7/7 behavior tests pass** — forwarded/center-branded/direct daily summaries now filtered; actionable ProCare/Primrose mail (evacuation, invoice, office-chat) still flows through; an unrelated third-party *"summary for…"* email is **not** dropped.
+
+**Cleanup:** closed the one still-active bug-leaked FYI `t_0485p92` (ACTIVE→DONE, full audit note), mirroring how its Nov-4 twin was already resolved. **Overdue count 3 → 2**, board-health clean.
+
+No commit (nightly `midnight-commit.sh` will sync the change), no iMessage (an infra fix isn't worth a midnight interrupt). WIP marker written at start and removed on completion; logged to `heartbeat.log`.
+[2026-11-09T05:04:27Z] heartbeat.sh complete
+[2026-11-09T09:30:02Z] heartbeat.sh started
+[2026-11-09T09:30:02Z] Launching claude -p work session
+[2026-11-09T09:40:00Z] [DONE] Resistance-reset on snooze-reopen (board-tools/mark-briefed.js) — Fixed a latent false signal: parked/snoozed tasks (the 3 recurring TX sales-tax tasks sit at resistanceScore 5) keep that stale score frozen because priority-escalation only increments, never resets. On snooze expiry they'd reopen pre-flagged as maximally-resisted before the family saw them once that cycle. Now the first post-snooze briefing resets resistanceScore→0 (logged to history) and clears the spent snoozedUntil; fires once. briefCount (lifetime) untouched. 10/10 isolated behavior tests pass; real board-data.json NOT touched (live mark-briefed runs at 7am). No commit (midnight-commit.sh picks it up, alongside prior session's email-scan.py). No iMessage (internal infra).
+[2026-11-09T09:40:05Z] heartbeat.sh complete
+Done. One focused task, completed and verified.
+
+## What I did
+
+**Fixed a latent false-signal bug in `board-tools/mark-briefed.js`** — resistance score now resets when a parked task reopens.
+
+**The problem:** `resistanceScore` is meant to measure family avoidance *within a task's current active window*. But `priority-escalation.sh` only ever *increments* it — nothing resets it. The 3 recurring TX sales-tax tasks are correctly snoozed to 2027, yet still carry `resistanceScore: 5` frozen from last August's briefing run. When each snooze expires (Q4 task reopens Jan 1 2027), the task would reappear **pre-flagged as maximally resisted** — before the family has seen it even once that cycle — polluting board-health's resistance list and any resistance analytics with a cycle-old signal. Nothing cleared the expired `snoozedUntil` either.
+
+**The fix:** The moment an expired-snooze task falls through to be re-briefed is the natural "reopen" event. On that first post-snooze briefing, the script now resets `resistanceScore → 0` (logged to task history) and clears the spent `snoozedUntil`. Fires exactly once (clearing the field prevents re-fire). `briefCount` is lifetime-cumulative, so it's left alone.
+
+**Verification:** Syntax OK; **10/10 isolated behavior tests pass** (reopen-with-score resets + logs; reopen-at-zero clears snooze without a spurious history line; still-snoozed untouched; normal-active untouched; DONE skipped; correct count). The live `board-data.json` was **never touched** — I tested against a temp copy, and I deliberately did *not* run `mark-briefed` out-of-band (that would falsely bump `briefCount`/`lastBriefed` as if a 4:30am brief were sent). The fix takes effect on the next real 7am run.
+
+**Housekeeping:** WIP written at start, removed on completion. Logged to `heartbeat.log`. No commit (midnight-commit.sh will pick this up alongside the prior session's `email-scan.py` fix). No iMessage — internal infra, not worth a pre-dawn interrupt.
+
+Along the way I confirmed the board is genuinely clean (0 missing fields, no duplicate clusters, all referenced guides present on disk; the 2 overdue / 4 stale items are all Mom/Dad-owned and handled by `board-reminders.sh`) and that analytics Tier 3/4 remain gated on data that doesn't exist yet — so I didn't manufacture busywork there.
+[2026-11-09T09:33:30Z] heartbeat.sh complete
+[2026-11-09T14:00:02Z] heartbeat.sh started
+[2026-11-09T14:00:03Z] Launching claude -p work session
+[2026-11-09T14:15:00Z] [DONE] Regression test for email-scan.py ProCare FYI filter — Added scripts/tests/test_email_scan_fyi.py (new, first test under scripts/). Locks in the ad-hoc-verified-then-discarded FYI fix using the ACTUAL production leak subjects that had to be hand-closed (t_x8atspk "Childcare summary for Aiden", t_0485p92 "Review Aiden's daily summary", plus gmail-scan log's "Daily summary for 11/03 - Aiden"). Imports the live PROCARE_FYI/PROCARE_CTX regexes so loosening either fails the test. 12/12 pass: 6 real-leak subjects (direct/forwarded/Primrose-branded) correctly dropped; 4 actionable (incl. the real Nov-18 Safe School Evacuation, invoice, permission slip, incident) flow through; 2 over-filter guards (unrelated "summary for" w/o procare context) NOT dropped. Also confirmed board clean (0 missing fields, no dupes), both prior uncommitted fixes sound, both leaked FYI tasks DONE. No commit (midnight-commit.sh). No iMessage (internal infra).
+[2026-11-09T14:15:05Z] heartbeat.sh complete (work session)
+Done. One focused task, completed and verified.
+
+## What I did
+
+Scanned WIP (none), the board, and analytics — all genuinely healthy, so I didn't manufacture busywork. Instead I closed a real durability gap on **about-to-ship uncommitted code**.
+
+**Added `scripts/tests/test_email_scan_fyi.py`** — the first committed test in the repo — locking in the ProCare "FYI leak" fix that two prior heartbeats made but only verified with ad-hoc tests that were then thrown away.
+
+**Why it matters:** ProCare childcare summaries are pure FYI but repeatedly leaked onto the board as actionable tasks/events (two had to be hand-closed: `t_x8atspk` "Childcare summary for Aiden", `t_0485p92` "Review Aiden's daily summary"), polluting the overdue/stale/resistance lists with daily noise. The fix lives in `email-scan.py` and was correct — but nothing guarded it from silently regressing.
+
+**The test:**
+- Imports the **live** `PROCARE_FYI`/`PROCARE_CTX` regexes, so loosening either pattern fails the test.
+- Uses the **actual production leak subjects** pulled from the closed tasks and the gmail-scan log — not synthetic strings.
+- **12/12 pass**: 6 real-leak subjects (direct / forwarded / Primrose-branded) correctly dropped; 4 actionable kept flowing — including the **real Nov-18 "Safe School Evacuation"** item, plus invoice / permission slip / incident; 2 over-filter guards (unrelated "summary for…" with no ProCare context) correctly *not* dropped.
+
+**Along the way, confirmed (not re-derived):** board-health clean (0 missing fields, no dup clusters), both uncommitted fixes sound, both leaked FYI tasks properly `DONE`, no lingering leaks, analytics Tier 3/4 still gated.
+
+**Housekeeping:** WIP written at start, removed on completion. Logged to `heartbeat.log`. No commit — `midnight-commit.sh` will sync `scripts/tests/` alongside the two prior fixes. No iMessage (internal infra, not worth an interrupt).
+[2026-11-09T14:04:08Z] heartbeat.sh complete
+[2026-11-09T18:30:03Z] heartbeat.sh started
+[2026-11-09T18:30:03Z] Launching claude -p work session
+[2026-11-09T18:34:00Z] [DONE] Backfill classification on t_5gccs1n — board-health flagged the only data-quality gap: the day-new task "Check school conference options" (FAMILY, BOTH, created 16:31Z via email) had null taskType/effortTag. Classified as ERRAND / S (quick in-app action to review/select conference slots), matching the established inferred-backfill pattern (atomic tmp+rename write, history entry "confirm/override welcome"). board-health now reports 0 missing fields; JSON validated. No commit (midnight-commit.sh). No iMessage (internal data hygiene). Board otherwise clean — 2 overdue / 4 stale items all Mom/Dad-owned, handled by board-reminders.sh; analytics Tier 3/4 still gated.
+[2026-11-09T18:34:05Z] heartbeat.sh complete (work session)
+Done. One focused task, completed and verified.
+
+## What I did
+
+Scanned WIP (none), the board, and analytics. Everything was healthy **except one real gap** that `board-health.js` flagged — so I fixed that rather than manufacture busywork.
+
+**Backfilled classification on `t_5gccs1n` "Check school conference options"** — the only task missing fields. It was created today (16:31Z, via email, FAMILY/BOTH) with null `taskType` and `effortTag`, which is the one thing board-health's Data Quality check was complaining about.
+
+- Classified as **ERRAND / S** — a quick in-app action to review/select parent-teacher conference slots.
+- Applied the way prior backfills were (`update.js` doesn't write these fields): atomic `tmp → rename`, with a history entry `"taskType: none -> ERRAND | effortTag: none -> S (inferred backfill, confirm/override welcome)"` — matching the exact format of the 2026-10-18 batch, and leaving it open for Mom/Dad to override.
+- Verified: JSON parses clean, board-health now reports **0 missing fields**.
+
+**Confirmed (not re-derived):** board is otherwise clean — the 2 overdue / 4 stale / high-brief-count items are all Mom/Dad-owned and handled by `board-reminders.sh` on its own schedule (not mine to duplicate); analytics Tier 3/4 still gated on data that doesn't exist yet.
+
+**Housekeeping:** No WIP file needed (sub-minute task). Logged to `heartbeat.log`. No commit — `midnight-commit.sh` will sync `board-data.json` tonight alongside the already-pending changes. No iMessage (internal data hygiene, not worth an interrupt).
+[2026-11-09T18:31:46Z] heartbeat.sh complete
+[2026-11-09T23:00:04Z] heartbeat.sh started
+[2026-11-09T23:00:04Z] Launching claude -p work session
+[2026-11-09T23:08:00Z] [DONE] Test coverage for mark-briefed.js snooze-reopen reset — a prior session's uncommitted branch (reset resistanceScore→0 + clear snoozedUntil on first briefing after a snooze expires) was sound but untested, and won't actually fire until the TX-Q4 tax task un-snoozes 2027-01-01 — a bug would sit latent ~2mo then silently mishandle a HIGH-pri tax task. Minimal refactor: extracted pure markBriefed(board,nowIso) + module.exports, guarded file I/O behind require.main===module (production path via board-briefing.sh unchanged). Added scripts/tests/test_mark_briefed.js (20 assertions, 6 cases incl. real TX-tax score-5 reopen, score-already-0, future-snooze, snoozedUntil===today boundary, plain active, DONE) — clock passed in, no mocking, no file I/O. 20/20 pass; node --check clean; import side-effect-free; board-data.json untouched. No commit (midnight-commit.sh). No iMessage (internal infra).
+[2026-11-09T23:08:05Z] heartbeat.sh complete (work session)
+Done. One focused, completed task.
+
+## What I did
+
+Scanned WIP (none), the board, and infra. Board-health was **clean** (0 missing fields, no dup clusters), the FYI test suite passed 12/12, and analytics Tier 3/4 are still gated — so I didn't manufacture busywork. The real gap was in the **uncommitted working tree**: a prior session added a snooze-reopen branch to `mark-briefed.js` (resets `resistanceScore→0` and clears `snoozedUntil` on the first briefing after a snooze expires). It was logically sound but **untested**, and it won't actually fire on the live board until the first TX-sales-tax task un-snoozes on **2027-01-01** — so a bug would sit latent ~2 months, then silently mishandle a real HIGH-priority tax task.
+
+**Closed that gap:**
+- **Minimal refactor** of `board-tools/mark-briefed.js` — extracted the per-board mutation into a pure, exported `markBriefed(board, nowIso)` (clock passed in, no hidden `Date.now()`), and guarded the file read/atomic-write behind `require.main === module`. Production path (board-briefing.sh → `node mark-briefed.js`) is byte-for-byte unchanged.
+- **New `scripts/tests/test_mark_briefed.js`** — 20 assertions across 6 cases, matching the pattern the earlier session established (imports live production code, no mocking, no file I/O): the real TX-tax `resistanceScore 5` reopen, score-already-0, still-future-snoozed, the `snoozedUntil === today` boundary (pins the off-by-one so a refactor can't flip it to a double-reset), plain active, and DONE.
+
+**Verified:** 20/20 pass · `node --check` clean · import is side-effect-free (no board write) · `board-data.json` untouched and valid.
+
+**Housekeeping:** WIP written at start, removed on completion. Logged to `heartbeat.log`. No commit — `midnight-commit.sh` will sync the refactor + new test alongside the already-pending changes. No iMessage (internal infra, not worth an interrupt).
+[2026-11-09T23:02:58Z] heartbeat.sh complete
+[2026-11-10T03:30:05Z] heartbeat.sh started
+[2026-11-10T03:30:05Z] Launching claude -p work session
+[2026-11-10T03:38:00Z] [DONE] Harden email-scan ProCare-FYI test to exercise real drop logic — the uncommitted FYI filter change (PROCARE_CTX + From/body context check for forwarded/center-branded ProCare summaries) was sound & compiled, but its test REIMPLEMENTED the drop boolean rather than calling production. It imported live regexes, so a loosened regex failed it — but an AND->OR flip or dropped body-check in main() would pass while production silently mis-filtered (same latent-gap class as the mark-briefed inline-logic fix). Extracted pure importable is_procare_fyi(subj,frm,body) in email-scan.py, wired main() to call it (behavior byte-identical), and switched test_email_scan_fyi.py to call the REAL fn. Verified: py_compile clean; 12/12 pass (incl. forwarded, center-branded Primrose, and over-filter guard cases); forwarded=True / unrelated-bank=False sanity confirmed. No commit (midnight-commit.sh). No iMessage (internal infra).
+[2026-11-10T03:38:05Z] heartbeat.sh complete (work session)
+Done. One focused, completed task.
+
+## What I did
+
+Scanned WIP (none), the board, and infra. Everything was healthy — **board-health clean** (0 missing fields, no dup clusters), both test suites green, analytics Tier 3/4 still gated. So I didn't manufacture busywork. The board's stale/overdue/high-brief items are all Mom/Dad-owned and handled by `board-reminders.sh`.
+
+The real gap was in the **uncommitted working tree**. A prior session added a good `email-scan.py` change (the `PROCARE_CTX` From+body context check that drops *forwarded/center-branded* ProCare childcare summaries while protecting unrelated "summary for" mail from silent data-loss). It compiled and its test passed 12/12 — but the test **reimplemented** the drop boolean instead of calling production. It imported the live regexes, so a loosened regex failed it, but an `and`→`or` flip or a dropped body-check in `main()` would have passed the suite while production silently mis-filtered. That's the **same latent-gap class** the prior session fixed for `mark-briefed.js` (inline decision logic a test can't reach).
+
+**Closed it with the same pattern:**
+- Extracted a pure, importable **`is_procare_fyi(subj, frm, body)`** in `email-scan.py`; wired `main()` to call it (behavior byte-identical — same `processed.add(mid); continue`).
+- Switched `test_email_scan_fyi.py` to call the **real** `es.is_procare_fyi()` instead of its own copy of the boolean, and updated both docstrings to match.
+
+**Verified:** `py_compile` clean · **12/12 pass** (real production leaks incl. forwarded + Primrose-branded, actionable mail passes through, and the over-filter guard) · sanity: forwarded→`True`, unrelated-bank→`False`. A future break to the AND/body combination — not just a regex — now fails the suite.
+
+**Housekeeping:** WIP written at start, removed on completion. Logged to `heartbeat.log`. No commit — `midnight-commit.sh` syncs it alongside the pending changes. No iMessage (internal infra).
+[2026-11-10T03:32:28Z] heartbeat.sh complete
+[2026-11-10T05:00:05Z] heartbeat.sh started
