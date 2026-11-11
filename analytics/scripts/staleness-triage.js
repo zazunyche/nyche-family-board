@@ -86,7 +86,7 @@ function lastHumanTouchDays(task, now) {
 // so escalation/resistance writes don't reset the clock). Same source as board-health.js.
 function stageAgeDays(task, now) {
   const entry = (task.stageHistory || [])
-    .filter(s => s.stage === task.stage && s.exitedAt === null)
+    .filter(s => s.stage === task.stage && (s.exitedAt === null || s.exitedAt === undefined))
     .slice(-1)[0];
   const enteredAt = entry ? entry.enteredAt : (task.createdAt || new Date(now).toISOString());
   return msDays(now - new Date(enteredAt).getTime());
@@ -236,4 +236,11 @@ function run() {
   console.log(out);
 }
 
-run();
+// Export the pure (no-I/O) classification helpers so scripts/tests can exercise
+// them directly; guard the CLI entry so `require()` is side-effect-free. Same
+// pattern as board-tools/update.js (require.main-guarded CLI + exported logic).
+module.exports = { stageAgeDays, classify, lastHumanTouchDays, calDaysBetween, etToday, msDays };
+
+if (require.main === module) {
+  run();
+}

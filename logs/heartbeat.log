@@ -2670,3 +2670,118 @@ The real gap was in the **uncommitted working tree**. A prior session added a go
 **Housekeeping:** WIP written at start, removed on completion. Logged to `heartbeat.log`. No commit — `midnight-commit.sh` syncs it alongside the pending changes. No iMessage (internal infra).
 [2026-11-10T03:32:28Z] heartbeat.sh complete
 [2026-11-10T05:00:05Z] heartbeat.sh started
+[2026-11-10T05:00:05Z] Launching claude -p work session
+[2026-11-10T05:02:51Z] [WIP] auto-close-events.js taskType bug — filter checks EXTERNAL_EVENT but inference assigns EVENT; past-due events never auto-close (t_m2rnhvo briefed 33x as false stall, hand-closed 22d late). Fixing + adding test.
+[DONE] Fix auto-close-events.js EVENT/EXTERNAL_EVENT taskType mismatch — real bug: the nightly auto-close (wired into priority-escalation.sh --apply) filtered taskType==='EXTERNAL_EVENT', but Zazu's inference backfill only ever assigns 'EVENT'. So it matched NOTHING on the live board — past-due EVENT tasks never auto-closed and lingered as false "stalls" (proof: t_m2rnhvo "Ally's Birthday" EVENT due Jul 15 was briefed 33x, resistanceScore driven to 5, hand-closed Aug 6 — 22 days late; all 3 past EVENTs were closed manually, never by this script). Same bug would hit the live Safe School Evacuation (t_stnk0sf, due Nov 18) on Nov 19. Fix: accept both EVENT + EXTERNAL_EVENT (EVENT_TYPES set); refactored to pure importable selectClosable()/isEventType()/closeTask()/todayLocal(injected clock), guarded file I/O behind require.main===module (production path behavior-identical apart from the fix). Added scripts/tests/test_auto_close_events.js (20 assertions calling REAL production fns, incl. regression anchor "EVENT past dueDate IS selected", dueDate===today boundary, future/DONE/non-event/no-dueDate exclusions, mixed-board order). Verified: node --check clean; 20/20 pass; all 3 suites green; dry-run closes nothing today (Safe School Evacuation correctly excluded, future-dated); board-data.json untouched & valid. No commit (midnight-commit.sh). No iMessage (internal infra).
+The exit 1 is just `ls` confirming the WIP file is gone (expected). Done.
+
+## Summary
+
+Scanned WIP (none), board, and infra — all healthy (board-health clean, 0 missing fields, tests green, analytics Tier 3/4 still gated). So no manufactured busywork. Instead I found and fixed a **real latent bug** with documented historical harm.
+
+**The bug:** `board-tools/auto-close-events.js` — which runs nightly `--apply` via `priority-escalation.sh` to archive passed events — filtered on `taskType === 'EXTERNAL_EVENT'`. But Zazu's taskType inference backfill only ever assigns `'EVENT'`. All 5 event tasks on the board are `EVENT`; **zero** are `EXTERNAL_EVENT`. So the script matched nothing and silently closed no events, ever.
+
+**The proof it bit:** `t_m2rnhvo "Ally's Birthday"` (EVENT, due Jul 15) was never auto-closed — it sat on the active board accruing resistanceScore 2→3→4→5, **briefed 33 times as a false "stall,"** until hand-closed Aug 6, 22 days late. All three past EVENTs were closed manually (IOS_APP / ZAZU), never by this script. The live **Safe School Evacuation** (t_stnk0sf, due Nov 18) would have met the same fate on Nov 19.
+
+**The fix:** Accept both `EVENT` and `EXTERNAL_EVENT` (an `EVENT_TYPES` set). Refactored to pure, importable `selectClosable()` / `isEventType()` / `closeTask()` / `todayLocal(injected clock)`, with file I/O guarded behind `require.main === module` — production path behavior-identical apart from the fix. Added `scripts/tests/test_auto_close_events.js` (20 assertions calling the **real** production functions, including a regression anchor pinning "EVENT past dueDate IS selected," the `dueDate === today` boundary, and future/DONE/non-event/no-dueDate exclusions).
+
+**Verified:** `node --check` clean · 20/20 pass · all 3 suites green · dry-run closes nothing today (Safe School Evacuation correctly excluded as future-dated) · `board-data.json` untouched & valid.
+
+**Housekeeping:** WIP written at start, removed on completion; logged to heartbeat.log. No commit (midnight-commit.sh syncs it). No iMessage (internal infra, not worth an interrupt).
+[2026-11-10T05:04:23Z] heartbeat.sh complete
+[2026-11-10T09:30:06Z] heartbeat.sh started
+[2026-11-10T09:30:06Z] Launching claude -p work session
+[2026-11-10T09:32:52Z] [WIP] stage-funnel.js silent-undercount: ASSIGNED stage (valid per add.js/update.js VALID_STAGES, treated active by compose-brief) is invisible in by-category/by-owner tables (hardcoded IDEA|RESEARCH|ACTIVE|DONE cols) so rows do not sum to Total, and omitted from funnel "Entered ACTIVE" bucket. Generalizing columns to full stage vocabulary + adding test.
+[DONE] Fix stage-funnel.js silent stage-undercount (same class as the auto-close EVENT bug) — the by-category and by-owner breakdown tables hardcoded columns IDEA|RESEARCH|ACTIVE|DONE, but ASSIGNED is a first-class stage (VALID_STAGES in add.js/update.js; grouped with ACTIVE as "open" by compose-brief.js). An ASSIGNED task would inflate a group's Total while landing in NO column, so row counts silently didn't sum to Total — a hidden undercount that would appear the moment any task is marked ASSIGNED. Funnel conversion had the matching gap: "Entered ACTIVE" excluded ASSIGNED. Fix: derive table columns from the full stage vocabulary (STAGE_ORDER = IDEA|RESEARCH|ACTIVE|ASSIGNED|DONE, ∪ any observed stage — defensive, mirrors the existing Stage Distribution section) so every task lands in a column and columns always sum; broadened the funnel bucket to ACTIVE/ASSIGNED/DONE (WORKING_PLUS). Refactored to pure importable fns (stageColumns/countByStage/breakdownTable/pct) guarded behind require.main===module, matching the auto-close test pattern. Added scripts/tests/test_stage_funnel.js (14 assertions on REAL production fns: ASSIGNED in columns, every breakdown row sums to Total incl. the HOME ACTIVE+ASSIGNED case, defensive catch-all for an unexpected stage, empty-board graceful). Verified: node --check clean; 14/14 pass; all suites green (auto-close 20/20, mark-briefed pass); board-data.json untouched & valid; live + --save output correct (rows sum, ADMIN 3+0+3+0+14=20). No commit (midnight-commit.sh). No iMessage (internal infra).
+Done. WIP cleaned up, summary logged.
+
+## Summary
+
+Fresh heartbeat, no WIP. Board-health was clean (0 missing fields) and every stale/overdue backlog item is DAD/MOM-owned — already covered by `board-reminders.sh`, so no busywork there. Instead I continued the productive vein the prior two sessions opened: **auditing infra for logic that silently doesn't match live data**.
+
+**The bug:** `analytics/scripts/stage-funnel.js` — the by-category and by-owner breakdown tables hardcoded columns `IDEA|RESEARCH|ACTIVE|DONE`. But **`ASSIGNED` is a first-class stage** (in `VALID_STAGES` of both `add.js` and `update.js`; grouped with ACTIVE as "open" by `compose-brief.js`). An ASSIGNED task would inflate a group's `Total` while appearing in **no column** — so the row counts silently wouldn't sum to Total. Same class as the EVENT/EXTERNAL_EVENT bug the last session fixed: a valid enum value a script doesn't handle, invisible until it bites. The funnel conversion had the matching gap ("Entered ACTIVE" excluded ASSIGNED).
+
+Currently prophylactic (zero ASSIGNED tasks today) rather than fixing active harm — but it's a real correctness bug that activates the first time any task is marked ASSIGNED, and hardening a source-of-truth analytics script is squarely ZAZU-ownable.
+
+**The fix:** Derive columns from the full stage vocabulary (`STAGE_ORDER` ∪ any observed stage — defensive, mirroring the existing Stage Distribution section) so every task lands in a column and columns always sum; broadened the funnel bucket to `ACTIVE/ASSIGNED/DONE`. Refactored to pure importable functions guarded behind `require.main === module`, matching the auto-close test pattern.
+
+**Test:** `scripts/tests/test_stage_funnel.js` — 14 assertions against the **real** production functions, anchored on "every breakdown row sums to Total" (incl. a HOME group with ACTIVE+ASSIGNED), plus a defensive catch-all for an unexpected stage and empty-board handling.
+
+**Verified:** `node --check` clean · 14/14 pass · all suites green (auto-close 20/20, mark-briefed pass) · `board-data.json` untouched & valid · live + `--save` output correct (ADMIN 3+0+3+0+14=20). No commit (midnight-commit.sh syncs it alongside the prior session's pending auto-close fix). No iMessage (internal infra).
+[2026-11-10T09:34:36Z] heartbeat.sh complete
+[2026-11-10T14:00:06Z] heartbeat.sh started
+[2026-11-10T14:00:07Z] Launching claude -p work session
+[DONE] Fix wait-ratio.js phantom "wait" from post-completion DONE time — same bug class as the auto-close EVENT and stage-funnel ASSIGNED fixes (a valid terminal stage a script mishandles), but this one was actively corrupting live output. taskStageMs() bucketed EVERY non-work stage into waitMs, including terminal DONE/ARCHIVED. DONE is terminal and its stageHistory entry stays OPEN (exitedAt:null), so end=now — every completed task accrued post-completion sitting-time as "wait," growing with each run and pushing its ratio spuriously toward 100%. Proof on live board: 36 of 51 DONE tasks had an open DONE entry; oldest charged 42+ phantom days. Fix: skip TERMINAL_STAGES={DONE,ARCHIVED} in taskStageMs so the ratio reflects only the task's pre-completion life; fixed stale header comments + report label (cycle=ACTIVE/ASSIGNED, terminal excluded); made module importable (module.exports) with run() guarded behind require.main===module, matching the prior two fixes' pattern. Added scripts/tests/test_wait_ratio.js (13 assertions on the REAL fn: terminal DONE/ARCHIVED excluded from total, ASSIGNED=work, IDEA/RESEARCH=wait, open non-terminal accrues to now, all-terminal/empty history -> null). Impact: DONE median wait ratio 68.1%->0%, overall median 49.3%->0%, avg 56.6%->23.2% (old numbers were artifact; most completed tasks went IDEA->ACTIVE->DONE with ~0 pre-completion wait). Verified: node --check clean; 13/13 pass; all 4 suites green; wait-ratio.md regenerated via --save; board-data.json untouched & valid. No commit (midnight-commit.sh). No iMessage (internal infra).
+[2026-11-10T14:00Z] heartbeat.sh complete
+Done. One task, complete and verified.
+
+## Summary
+
+Fresh heartbeat, no WIP. Board-health clean (0 missing fields), all test suites green, every stale backlog item is DAD/MOM-owned (already handled by `board-reminders.sh`). So no busywork — instead I systematized the vein the prior two heartbeats opened. Rather than hunt a third one-off "valid enum a script mishandles" bug, I audited **all** analytics/board scripts against the canonical stage vocabulary. Most handle stages dynamically and safely; `ARCHIVED` is consistently treated as a forward-looking terminal stage. One script had a **real, actively-firing bug**.
+
+**The bug:** `analytics/scripts/wait-ratio.js` — `taskStageMs()` bucketed every non-work stage into `waitMs`, *including terminal `DONE`*. `DONE` is terminal, so its `stageHistory` entry stays open (`exitedAt: null`) → `end = now`. Every completed task therefore accrued its **post-completion sitting-time as "wait,"** growing with each run and pushing its ratio spuriously toward 100%.
+
+**Proof it bit:** 36 of 51 DONE tasks had an open DONE entry; the oldest had charged **42+ phantom days** of idle. The headline numbers were artifact: DONE median wait ratio **68.1% → 0%**, overall median **49.3% → 0%**, average **56.6% → 23.2%** after the fix. (The real picture: most tasks went IDEA→ACTIVE→DONE with ~0 pre-completion wait — the bug had been painting the family's workflow as ~50% idle when it isn't.) This is also why `wait-ratio.md` kept showing churn in `git diff` every night — the phantom wait grew daily.
+
+**The fix:** Skip `TERMINAL_STAGES = {DONE, ARCHIVED}` in the time budget (post-completion time is neither cycle nor wait); corrected the stale header comments and report label (`cycle = ACTIVE/ASSIGNED`, terminal excluded); made the module importable with `run()` guarded behind `require.main === module` — matching the prior two fixes' pattern exactly.
+
+**Test:** `scripts/tests/test_wait_ratio.js` — 13 assertions on the **real** function, anchored on "terminal DONE/ARCHIVED excluded from total" plus ASSIGNED=work, IDEA/RESEARCH=wait, open non-terminal accrues to now, and all-terminal/empty history → null.
+
+**Verified:** `node --check` clean · 13/13 pass · all 4 suites green · `wait-ratio.md` regenerated · `board-data.json` untouched & valid. No commit (midnight-commit.sh syncs it). No iMessage (internal infra). WIP removed, logged to heartbeat.log.
+[2026-11-10T14:03:42Z] heartbeat.sh complete
+[2026-11-10T18:30:07Z] heartbeat.sh started
+[2026-11-10T18:30:07Z] Launching claude -p work session
+[DONE] Wire unit tests into automation — close the write-only test gap. The 5 suites in scripts/tests/ (test_stage_funnel, test_wait_ratio, test_auto_close_events, test_mark_briefed, test_email_scan_fyi.py) were run once at authoring time then NEVER again — nothing in launchd or the commit pipeline executed them, so a regression in the analytics/board scripts they guard would commit silently (same write-only failure mode as docs/guides). Fix: (1) new scripts/run-tests.sh — one command that auto-discovers every test_*.{js,py}, runs node/python3 per convention (exit 0 pass / 1 fail), prints PASS/FAIL per suite + summary, exits 1 if any fail; new suites are auto-picked-up, no edit needed. (2) Wired into scripts/midnight-commit.sh as a nightly regression gate: runs before staging, logs green, and on failure alert_failure's Dad but is NON-fatal (still commits so source backups keep flowing — alert-don't-block, same posture as the push-failure path). Verified: both paths — all-pass->exit 0 (5/5 green), injected failing suite->exit 1 naming the suite (throwaway removed); bash -n clean on both scripts; run-tests.sh is in midnight-commit's scripts/ backup whitelist and not PII-blocked. board-data.json untouched. No commit (midnight-commit.sh syncs it tonight, and will self-run the new gate). No iMessage (internal infra). Memory: added test-regression-gate.md so future heartbeats don't re-discover this gap.
+[2026-11-10T18:33Z] heartbeat.sh work session complete
+Done. One task, complete and verified.
+
+## Summary
+
+Fresh heartbeat, no WIP. Board-health was clean (0 missing fields), all backlog items are DAD/MOM-owned (already covered by `board-reminders.sh`), and `t_curric01` is still awaiting Dad's A/B/C call. The last three heartbeats today each fixed a "valid-enum a script mishandles" bug and **added a test file** — so before manufacturing a 4th micro-fix, I checked whether those tests actually run.
+
+**The gap:** They didn't. The five suites in `scripts/tests/` (`test_stage_funnel`, `test_wait_ratio`, `test_auto_close_events`, `test_mark_briefed`, `test_email_scan_fyi.py`) were executed once by hand at authoring time, then **never again** — nothing in launchd or the commit pipeline ran them. The only reference to "scripts/tests" anywhere was a comment. That's **write-only tests = false safety**: a regression in the analytics/board scripts they guard would commit silently — the same failure mode as the guides-write-only gap in memory.
+
+**The fix (two parts):**
+1. **`scripts/run-tests.sh`** — one command that auto-discovers every `test_*.{js,py}`, runs node/python3 (convention: exit 0 pass / 1 fail), prints PASS/FAIL per suite + a summary, exits 1 if any fail. Drop in a new `test_<name>` and it's picked up automatically — no edit needed.
+2. **Wired into `midnight-commit.sh`** as a nightly regression gate: runs before staging, logs when green, and on failure `alert_failure`'s Dad but is **non-fatal** — it still commits so source backups keep flowing (alert-don't-block, mirroring the existing push-failure posture). So the gate now runs every night on the already-scheduled job.
+
+**Verified:** both paths — all-pass → exit 0 (5/5 green); an injected failing suite → exit 1 naming the suite (throwaway removed). `bash -n` clean on both scripts. `run-tests.sh` sits in midnight-commit's `scripts/` backup whitelist and isn't PII-blocked, so it'll be committed tonight. `board-data.json` untouched. No commit (midnight-commit.sh syncs it tonight — and will self-run the new gate). No iMessage (internal infra).
+
+**Memory:** added `test-regression-gate.md` + MEMORY.md index line so future heartbeats don't re-discover this as a "new" gap. Noted as an unfixed observation (left as Dad's call, not scope-crept): `smoke-test.sh` itself isn't scheduled by any launchd job.
+[2026-11-10T18:34:11Z] heartbeat.sh complete
+[2026-11-10T23:00:08Z] heartbeat.sh started
+[2026-11-10T23:00:08Z] Launching claude -p work session
+[2026-11-10T23:01:21Z] heartbeat: found real bug in update.js openEntry detection (=== null misses undefined exitedAt); fixing + adding test_update_stage.js
+[DONE] Fix stageHistory open-entry detection bug class (4 scripts) — Live board stores the active stage two ways: {stage,enteredAt,exitedAt:null} AND {stage,enteredAt} with NO exitedAt key. Four scripts detected the open entry with strict `s.exitedAt === null`, silently missing the keyless shape. MUTATION paths (update.js transitionStage, auto-close-events.js closeTask) would push a 2nd open entry → two concurrently-open stages, corrupting cycle-time/wait-ratio/stage-funnel analytics. READ paths (board-health.js, staleness-triage.js stageAgeDays) fell back to createdAt, inflating stage-age (e.g. t_insure01 157d→150d corrected). Fixed all 4 to `=== null || === undefined`. Refactored update.js to export transitionStage/findOpenStage (CLI guarded by require.main; move.js subprocess path verified intact). Added scripts/tests/test_update_stage.js (18 cases, non-vacuous — old predicate proven to fail it) + extended test_auto_close_events.js with a keyless-open-row case. Full suite 6/6 green via run-tests.sh (nightly gate picks up new test automatically). board-data.json untouched. No commit (midnight-commit syncs tonight).
+Done. Summary of this heartbeat:
+
+**Found and fixed a latent bug class across 4 scripts** — the kind that corrupts data silently rather than crashing.
+
+**Root cause:** `board-data.json` stores a task's *active* stageHistory row in two shapes — `{stage, enteredAt, exitedAt: null}` (newer tasks) and `{stage, enteredAt}` with **no `exitedAt` key** (older tasks like `t_insure01`, `t_15sig01`). Four scripts detected the open entry with strict `s.exitedAt === null`, which silently misses the keyless shape.
+
+**Impact, by severity:**
+- **Mutation paths** (`update.js` stage transitions, `auto-close-events.js` auto-close — both run on real board writes) would fail to close the old row and push a *second* open entry → two concurrently-open stages, corrupting the cycle-time / wait-ratio / stage-funnel analytics that assume one.
+- **Read paths** (`board-health.js`, `staleness-triage.js` `stageAgeDays`) silently fell back to `createdAt`, inflating stage-age for every keyless task — e.g. `t_insure01` showed 157 days, truly 150.
+
+**Fix:** all four now use `=== null || === undefined`. Refactored `update.js` to export `transitionStage`/`findOpenStage` (CLI guarded by `require.main`; verified `move.js`'s subprocess call still works and `board-data.json` was never touched).
+
+**Tests:** added `scripts/tests/test_update_stage.js` (18 cases — proven non-vacuous: the old predicate fails it) and extended `test_auto_close_events.js` with a keyless-open-row case. Full suite **6/6 green** via `run-tests.sh`; the nightly regression gate auto-discovers the new file.
+
+No commit — `midnight-commit.sh` syncs tonight (and will self-run the gate). Memory updated with the two-shapes gotcha so future stageHistory code reuses the right predicate. WIP cleaned, heartbeat logged.
+[2026-11-10T23:05:15Z] heartbeat.sh complete
+[2026-11-11T03:30:09Z] heartbeat.sh started
+[2026-11-11T03:30:09Z] Launching claude -p work session
+[DONE] Guard staleness-triage read-path fix with a regression test — The 2026-11-10 stageHistory open-entry fix touched 4 scripts but only added tests for the 2 MUTATION paths (update.js, auto-close-events.js). The 2 READ paths (staleness-triage.js stageAgeDays, board-health.js) were left unguarded. Refactored analytics/scripts/staleness-triage.js to export its pure helpers (stageAgeDays, classify, lastHumanTouchDays, calDaysBetween, etToday, msDays) + guarded the CLI behind require.main===module (same pattern as update.js) — require is now side-effect-free, CLI output unchanged. Added scripts/tests/test_staleness_triage.js: 10 cases. Regression anchor (Case 1) is non-vacuous — proved the OLD `exitedAt === null`-only predicate returns 60d (createdAt fallback) where the fixed predicate returns 10d, so the test would FAIL under the bug. Covers both open-row shapes (keyless + explicit null), current-stage-vs-closed-prior-stage selection, createdAt fallback, plus 5 classify-bucket cases (CLOSE/CONFIRM/KEEP incl. human-touch protection + age-alone-never-CLOSE). Full gate now 7/7 green via run-tests.sh (nightly regression gate auto-discovers the new suite). board-data.json untouched. No commit (midnight-commit.sh syncs tonight). No iMessage (internal infra).
+[2026-11-11T03:32:50Z] heartbeat work complete
+Done. One focused, completable task this heartbeat.
+
+**What I did:** Closed a test-coverage gap left by the prior heartbeat. The 2026-11-10 `stageHistory` open-entry bugfix (`exitedAt === null` missing the keyless `{stage, enteredAt}` shape) touched 4 scripts, but regression tests were only added for the two **mutation** paths. The two **read** paths — `staleness-triage.js`'s `stageAgeDays` and `board-health.js` — were left unguarded, meaning a future edit could silently reintroduce the `createdAt`-fallback stage-age inflation on exactly the oldest, most-briefed tasks (`t_insure01`, `t_15sig01`).
+
+**Change:**
+- Refactored `analytics/scripts/staleness-triage.js` to export its pure helpers and guard the CLI behind `require.main === module` (the same pattern already applied to `update.js`). Verified `require()` is now side-effect-free and CLI output is unchanged.
+- Added `scripts/tests/test_staleness_triage.js` — 10 cases. The regression anchor is **non-vacuous**: I proved the old `=== null`-only predicate returns 60d (createdAt fallback) where the fixed one returns 10d, so the test genuinely fails under the bug. It also covers both open-row shapes, current-stage-vs-closed-stage selection, createdAt fallback, and 5 `classify` bucket cases (including the human-touch protection and the "age-alone never CLOSE" rule that produce the Dad/Mom-facing recommendations).
+
+**Verified:** full gate now **7/7 green** via `run-tests.sh`; the nightly regression gate auto-discovers the new suite. `board-data.json` untouched. No commit (midnight-commit syncs tonight), no iMessage (internal infra). WIP cleaned, heartbeat logged.
+[2026-11-11T03:32:58Z] heartbeat.sh complete
+[2026-11-11T05:00:09Z] heartbeat.sh started
+[2026-11-11T05:00:09Z] Launching claude -p work session

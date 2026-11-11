@@ -34,6 +34,25 @@ if [ -x "$BOARD_DIR/infra/hermes/snapshot-hermes-config.sh" ]; then
   "$BOARD_DIR/infra/hermes/snapshot-hermes-config.sh" >> "$LOG" 2>&1 || log_ts "WARNING: hermes config snapshot failed" "$LOG"
 fi
 
+# ── Regression gate ───────────────────────────────────────────────────────────
+# Run every unit suite before committing. These guard the analytics/board scripts
+# staged just below (stage-funnel, wait-ratio, auto-close-events, mark-briefed,
+# email-scan). Without this the suites were write-only — run once at authoring
+# time, then never again — so a regression in a staged script would commit
+# silently. A failure here is ALERTED but NON-fatal: we still commit so source
+# backups keep flowing — a known-and-alerted failing test beats a missed nightly
+# backup. Same alert-don't-block posture as the push-failure path below.
+if [ -x "$BOARD_DIR/scripts/run-tests.sh" ]; then
+  if bash "$BOARD_DIR/scripts/run-tests.sh" >> "$LOG" 2>&1; then
+    log_ts "run-tests.sh: all unit suites green" "$LOG"
+  else
+    alert_failure "midnight-commit.sh" "unit test suite FAILED — a tracked script has a regression. See logs/git.log; re-run: bash scripts/run-tests.sh" "$LOG"
+    # Intentional: do not exit 1 — continue so backups are not blocked.
+  fi
+else
+  log_ts "WARNING: scripts/run-tests.sh missing or not executable — regression gate skipped" "$LOG"
+fi
+
 # Stage only already-tracked file changes (respects .gitignore; never picks up new untracked files)
 # DO NOT use 'git add .' here — it would commit any untracked file not in .gitignore
 git add -u

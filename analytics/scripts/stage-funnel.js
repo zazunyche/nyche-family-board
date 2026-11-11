@@ -18,7 +18,14 @@ const fs   = require('fs');
 const BOARD_PATH  = path.join(__dirname, '../../board-data.json');
 const OUTPUTS_DIR = path.join(__dirname, '../outputs');
 
-const STAGE_ORDER = ['IDEA', 'RESEARCH', 'ACTIVE', 'DONE'];
+// Full canonical stage vocabulary (matches VALID_STAGES in board-tools/add.js
+// and update.js). ASSIGNED and RESEARCH are first-class stages — ASSIGNED is
+// grouped with ACTIVE as an open/working stage by compose-brief.js. Keeping this
+// list complete is what prevents a valid stage from going invisible in the
+// per-group tables below (an undercount that leaves row columns not summing to
+// Total). "Entered working" counts any stage at or past ACTIVE.
+const STAGE_ORDER  = ['IDEA', 'RESEARCH', 'ACTIVE', 'ASSIGNED', 'DONE'];
+const WORKING_PLUS = ['ACTIVE', 'ASSIGNED', 'DONE'];
 
 function loadBoard() {
   return JSON.parse(fs.readFileSync(BOARD_PATH, 'utf8'));
@@ -27,6 +34,40 @@ function loadBoard() {
 function pct(n, d) {
   if (!d) return '—';
   return `${Math.round((n / d) * 100)}%`;
+}
+
+// Column set for the per-group breakdown tables: the canonical vocabulary, plus
+// any stage actually present in the data that isn't already listed (defensive,
+// mirrors the Stage Distribution section). Guarantees every task lands in a
+// column, so per-stage counts always sum to the group total.
+function stageColumns(tasks) {
+  const seen = new Set();
+  for (const t of tasks) if (t && t.stage) seen.add(t.stage);
+  return [...new Set([...STAGE_ORDER, ...seen])];
+}
+
+function countByStage(tasks) {
+  const counts = {};
+  for (const t of tasks) counts[t.stage] = (counts[t.stage] || 0) + 1;
+  return counts;
+}
+
+// One breakdown table (by category or by owner). Columns are the full stage
+// vocabulary so no valid stage is ever dropped; returns markdown lines.
+function breakdownTable(tasks, keyFn, keyHeader, columns) {
+  const lines = [];
+  lines.push(`| ${keyHeader} | ${columns.join(' | ')} | Total | Done% |`);
+  lines.push(`|${'----|'.repeat(columns.length + 3)}`);
+  const keys = [...new Set(tasks.map(t => keyFn(t) || 'UNKNOWN'))].sort();
+  for (const key of keys) {
+    const groupTasks = tasks.filter(t => (keyFn(t) || 'UNKNOWN') === key);
+    const counts = countByStage(groupTasks);
+    const cells  = columns.map(s => counts[s] || 0).join(' | ');
+    const total  = groupTasks.length;
+    const done   = counts['DONE'] || 0;
+    lines.push(`| ${key} | ${cells} | ${total} | ${pct(done, total)} |`);
+  }
+  return lines;
 }
 
 function run() {
@@ -66,47 +107,27 @@ function run() {
   lines.push('');
   const total   = tasks.length;
   const notIdea = tasks.filter(t => t.stage !== 'IDEA').length;
-  const active  = tasks.filter(t => ['ACTIVE', 'DONE'].includes(t.stage)).length;
+  const active  = tasks.filter(t => WORKING_PLUS.includes(t.stage)).length;
   const done    = tasks.filter(t => t.stage === 'DONE').length;
 
   lines.push(`- IDEA → moved forward: **${pct(notIdea, total)}** (${notIdea}/${total})`);
-  lines.push(`- Entered ACTIVE or DONE: **${pct(active, total)}** (${active}/${total})`);
+  lines.push(`- Entered ACTIVE/ASSIGNED or DONE: **${pct(active, total)}** (${active}/${total})`);
   lines.push(`- Reached DONE: **${pct(done, total)}** (${done}/${total})`);
-  lines.push(`- ACTIVE → DONE (of those that went ACTIVE): **${pct(done, active)}** (${done}/${active})`);
+  lines.push(`- Working → DONE (of those that went ACTIVE/ASSIGNED): **${pct(done, active)}** (${done}/${active})`);
   lines.push('');
+
+  const columns = stageColumns(tasks);
 
   // ── By category funnel ────────────────────────────────────────────────────────
   lines.push('## Stage Distribution by Category');
   lines.push('');
-  lines.push('| Category | IDEA | RESEARCH | ACTIVE | DONE | Total | Done% |');
-  lines.push('|----------|------|----------|--------|------|-------|-------|');
-
-  const categories = [...new Set(tasks.map(t => t.category || 'UNKNOWN'))].sort();
-  for (const cat of categories) {
-    const catTasks = tasks.filter(t => t.category === cat);
-    const counts = {};
-    for (const t of catTasks) counts[t.stage] = (counts[t.stage] || 0) + 1;
-    const catTotal = catTasks.length;
-    const catDone  = counts['DONE'] || 0;
-    lines.push(`| ${cat} | ${counts['IDEA']||0} | ${counts['RESEARCH']||0} | ${counts['ACTIVE']||0} | ${catDone} | ${catTotal} | ${pct(catDone, catTotal)} |`);
-  }
+  lines.push(...breakdownTable(tasks, t => t.category, 'Category', columns));
   lines.push('');
 
   // ── By owner funnel ───────────────────────────────────────────────────────────
   lines.push('## Stage Distribution by Owner');
   lines.push('');
-  lines.push('| Owner | IDEA | RESEARCH | ACTIVE | DONE | Total | Done% |');
-  lines.push('|-------|------|----------|--------|------|-------|-------|');
-
-  const ownerList = [...new Set(tasks.map(t => t.owner || 'UNKNOWN'))].sort();
-  for (const owner of ownerList) {
-    const ownerTasks = tasks.filter(t => t.owner === owner);
-    const counts = {};
-    for (const t of ownerTasks) counts[t.stage] = (counts[t.stage] || 0) + 1;
-    const ownerTotal = ownerTasks.length;
-    const ownerDone  = counts['DONE'] || 0;
-    lines.push(`| ${owner} | ${counts['IDEA']||0} | ${counts['RESEARCH']||0} | ${counts['ACTIVE']||0} | ${ownerDone} | ${ownerTotal} | ${pct(ownerDone, ownerTotal)} |`);
-  }
+  lines.push(...breakdownTable(tasks, t => t.owner, 'Owner', columns));
   lines.push('');
 
   // ── Completion quality breakdown ──────────────────────────────────────────────
@@ -154,4 +175,6 @@ function run() {
   }
 }
 
-run();
+module.exports = { STAGE_ORDER, WORKING_PLUS, stageColumns, countByStage, breakdownTable, pct };
+
+if (require.main === module) run();

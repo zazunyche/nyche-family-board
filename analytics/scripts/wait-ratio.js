@@ -2,12 +2,18 @@
 /**
  * wait-ratio.js — How much of each task's life is active work vs. idle waiting?
  *
- * wait ratio = (lead time - cycle time) / lead time
- * cycle time = sum of durationMs for stages where work actually happens (ACTIVE)
- * wait time  = sum of durationMs for non-work stages (IDEA, RESEARCH)
+ * wait ratio = wait time / total tracked time
+ * cycle time = sum of durationMs for stages where work actually happens (ACTIVE, ASSIGNED)
+ * wait time  = sum of durationMs for non-work, non-terminal stages (IDEA, RESEARCH)
+ *
+ * Terminal stages (DONE, ARCHIVED) are NOT counted: time spent after a task is
+ * finished is neither cycle nor wait — the task is no longer alive. This matters
+ * because DONE is terminal and its stageHistory entry stays open (exitedAt: null),
+ * so counting it would charge every completed task months of phantom "wait" that
+ * grows with each run (end = now), pushing its ratio spuriously toward 100%.
  *
  * Only tasks with a usable stageHistory (>=1 entry, enteredAt set) are included.
- * For the current (open) stage, elapsed time is computed as now - enteredAt.
+ * For the current (open) non-terminal stage, elapsed time is computed as now - enteredAt.
  *
  * Usage:
  *   node analytics/scripts/wait-ratio.js
@@ -22,7 +28,11 @@ const fs   = require('fs');
 const BOARD_PATH  = path.join(__dirname, '../../board-data.json');
 const OUTPUTS_DIR = path.join(__dirname, '../outputs');
 
-const WORK_STAGES = new Set(['ACTIVE', 'ASSIGNED']);
+const WORK_STAGES     = new Set(['ACTIVE', 'ASSIGNED']);
+// Terminal stages are excluded from the time budget entirely — time after a task
+// finishes is not part of its lead time. DONE/ARCHIVED mirror board-health.js and
+// the other analytics scripts' terminal-stage convention.
+const TERMINAL_STAGES = new Set(['DONE', 'ARCHIVED']);
 
 function loadBoard() {
   return JSON.parse(fs.readFileSync(BOARD_PATH, 'utf8'));
@@ -55,6 +65,9 @@ function taskStageMs(task, now) {
 
   for (const entry of hist) {
     if (!entry.enteredAt) continue;
+    // Skip terminal stages: post-completion time is neither work nor wait, and
+    // the open DONE entry (exitedAt: null) would otherwise charge end=now forever.
+    if (TERMINAL_STAGES.has(entry.stage)) continue;
     const start = new Date(entry.enteredAt).getTime();
     const end   = entry.exitedAt ? new Date(entry.exitedAt).getTime() : now;
     const dur   = Math.max(0, end - start);
@@ -84,7 +97,8 @@ function run() {
   lines.push(`# Wait Ratio Report — ${reportDate}`);
   lines.push('');
   lines.push(`_${withRatio.length} of ${tasks.length} tasks have usable stageHistory. ` +
-    `Wait ratio = time in IDEA/RESEARCH ÷ total time tracked. Work stage = ACTIVE._`);
+    `Wait ratio = time in IDEA/RESEARCH ÷ total tracked time. Work stages = ACTIVE/ASSIGNED. ` +
+    `Terminal stages (DONE/ARCHIVED) are excluded — post-completion time is not counted._`);
   lines.push('');
 
   // ── Overall ──────────────────────────────────────────────────────────────────
@@ -152,4 +166,8 @@ function run() {
   }
 }
 
-run();
+module.exports = { WORK_STAGES, TERMINAL_STAGES, taskStageMs, median, avg, pct };
+
+if (require.main === module) {
+  run();
+}

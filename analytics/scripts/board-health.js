@@ -39,7 +39,7 @@ function msDays(ms) {
 // updatedAt writes (escalation flags, resistance writes) don't reset the clock.
 function stageAgeDays(task, now) {
   const entry = (task.stageHistory || [])
-    .filter(s => s.stage === task.stage && s.exitedAt === null)
+    .filter(s => s.stage === task.stage && (s.exitedAt === null || s.exitedAt === undefined))
     .slice(-1)[0];
   const enteredAt = entry ? entry.enteredAt : (task.createdAt || new Date(now).toISOString());
   return msDays(now - new Date(enteredAt).getTime());
