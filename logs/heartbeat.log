@@ -2785,3 +2785,131 @@ Done. One focused, completable task this heartbeat.
 [2026-11-11T03:32:58Z] heartbeat.sh complete
 [2026-11-11T05:00:09Z] heartbeat.sh started
 [2026-11-11T05:00:09Z] Launching claude -p work session
+[DONE] Guard board-health.js read path with a regression test — Closed the last unguarded stageHistory read path (prior heartbeats covered the 2 mutation paths + staleness-triage.js). Refactored analytics/scripts/board-health.js: extracted pure computeReport(data, now) + helpers (stageAgeDays, isSnoozed, isDormantFutureIdea, calDaysBetween), exported them, guarded CLI behind require.main===module (removed a stray bottom-level run() that made require() print the whole report). CLI/--json/--save output unchanged; only runtime caller (analytics-refresh.sh --save) verified working. Added scripts/tests/test_board_health.js (17 cases) — regression anchor non-vacuous: old ===null-only predicate reports stale ageDays 400 (createdAt) vs fixed 150 (enteredAt), so it fails under the bug. Full gate 8/8 green via run-tests.sh (auto-discovered). board-data.json untouched. No commit (midnight-commit syncs tonight). No iMessage (internal infra).
+WIP removed and logged (the `ls` error just confirms the file is gone). Done.
+
+## Summary
+
+Board health was clean (0 missing fields, analytics infra complete), so I closed the one real gap the prior two heartbeats had explicitly flagged: **`board-health.js` was the last unguarded `stageHistory` read path.**
+
+**What I did:**
+- **Refactored `analytics/scripts/board-health.js`** — extracted a pure `computeReport(data, now)` plus module-scope helpers (`stageAgeDays`, `isSnoozed`, `isDormantFutureIdea`, `calDaysBetween`, `msDays`), exported them, and guarded the CLI behind `require.main === module` — the same pattern already applied to `update.js` and `staleness-triage.js`.
+- Caught and fixed a latent bug mid-refactor: a **stray bottom-level `run();`** meant `require()`-ing the module printed the whole report. Now `require()` is side-effect-free.
+- **Added `scripts/tests/test_board_health.js`** (17 cases): 4 `stageAgeDays` shape cases, 5 predicate cases, and an 8-assertion integration test over a synthetic board (stale/overdue/snoozed/dormant-IDEA/missing-fields buckets).
+
+**Verified:**
+- Regression anchor is **non-vacuous** — proved the old `=== null`-only predicate reports stale age **400d** (createdAt fallback) vs. the fixed **150d** (enteredAt), so the test genuinely fails under the bug on exactly the oldest, most-briefed tasks.
+- CLI, `--json`, and `--save` output all unchanged; the only runtime caller (`analytics-refresh.sh --save`) confirmed working.
+- Full gate **8/8 green** via `run-tests.sh` (auto-discovered the new suite).
+- `board-data.json` untouched; regenerated output artifacts restored/removed so the diff is just the two intended files.
+
+No commit (midnight-commit syncs tonight), no iMessage (internal infra). Memory updated so future stageHistory code knows all four fixes are now test-guarded.
+[2026-11-11T05:03:53Z] heartbeat.sh complete
+[2026-11-11T09:30:10Z] heartbeat.sh started
+[2026-11-11T09:30:10Z] Launching claude -p work session
+[DONE] Guard cycle-time.js with a regression test — Closed the last untested stageHistory walker (board-health/staleness-triage/wait-ratio already covered). Refactored analytics/scripts/cycle-time.js: extracted pure computeReport(board, now), exported math helpers (msDays/median/statsRow/dateStr/loadBoard), guarded CLI behind require.main===module (fixes the same require()-prints-report footgun found in board-health; require() now side-effect-free). CLI/--save output byte-identical (diff verified vs baseline). Added scripts/tests/test_cycle_time.js (24 cases): pure-helper math + computeReport integration over a synthetic board. Anchor is non-vacuous — mutation test (switch dwell to live enteredAt/exitedAt math, reintroducing the open-entry shape bug) fails exactly the 2 ACTIVE-dwell assertions; revert restores green. Full gate 9/9 via run-tests.sh (auto-discovered). board-data.json untouched. No commit (midnight-commit syncs tonight). No iMessage (internal infra). Memory test-regression-gate updated: 4-walker thread now closed.
+Done. Clean session — one task, completed and verified.
+
+## Summary
+
+Board health was clean (9/9 tests green before, 0 missing fields, analytics infra mature) and no backlog item is ZAZU-progressable (all need Mom/Dad, which board-reminders.sh already handles). So I closed the one genuine remaining gap in the Dad-sanctioned test-regression thread: **`cycle-time.js` was the last untested stageHistory walker** (board-health, staleness-triage, wait-ratio were already covered).
+
+**What I did:**
+- **Refactored `analytics/scripts/cycle-time.js`** — extracted a pure `computeReport(board, now)` plus exported helpers (`msDays`, `median`, `statsRow`, `dateStr`, `loadBoard`), and guarded the CLI behind `require.main === module`. This also fixed the same latent **`require()`-runs-the-report footgun** the prior heartbeat found in board-health (bottom-level `run()` → now `require()` is side-effect-free). CLI/`--save` output is **byte-identical** to baseline.
+- **Added `scripts/tests/test_cycle_time.js`** (24 cases): pure-helper math + a `computeReport` integration test over a synthetic board.
+
+**Verified:**
+- Anchor is **non-vacuous** — a mutation (switching dwell to live `enteredAt`/`exitedAt` math, which reintroduces the open-entry shape bug) fails exactly the two ACTIVE-dwell assertions; revert restores green. cycle-time is robust to that bug by construction because its dwell stats key on stored `durationMs > 0`, never on `exitedAt` — the test pins that so a future "simplification" can't silently break it.
+- Full gate **9/9 green** via `run-tests.sh` (auto-discovered the new suite). `board-data.json` untouched.
+
+No commit (midnight-commit syncs tonight), no iMessage (internal infra). Memory updated — the 4-walker test thread is now closed, so future heartbeats won't re-flag it. WIP cleaned up.
+[2026-11-11T09:35:16Z] heartbeat.sh complete
+[2026-11-11T14:00:10Z] heartbeat.sh started
+[2026-11-11T14:00:11Z] Launching claude -p work session
+[DONE] Guard+test completion-rate.js — Found & fixed a real latent inconsistency: per-dimension lead times filtered days>=0 but the OVERALL leadTimeStats did not, so one completedAt<createdAt data error could drag overall min/median negative while category tables stayed clean. Refactored to pure computeReport(board,now) + single leadDays() choke point (both paths now gate negatives/missing-ts identically), guarded CLI behind require.main (require() now side-effect-free). CLI md+json byte-identical to baseline (0 negatives in live data, so output-neutral). Added scripts/tests/test_completion_rate.js (31 cases); mutation test (reintroduce the bug) fails exactly the 6 overall-path assertions, per-dimension rows stay green — pins the precise asymmetry. Full gate 10/10 green. board-data.json untouched. No commit (midnight-commit syncs tonight). No iMessage (internal infra).
+Done. Clean session — one task, completed and verified.
+
+## Summary
+
+Board was clean (61 tasks, **0 missing fields**, 9/9 tests green, 2 overdue/4 stale items all needing Mom/Dad action that board-reminders.sh already handles — nothing ZAZU can unilaterally progress). The prior 09:30 heartbeat had just closed the last **stageHistory-walker** test gap, so I extended the Dad-sanctioned test-regression thread to the untested date-math scripts — and found a genuine latent bug.
+
+**What I did — guarded + tested `completion-rate.js`, fixing a real inconsistency:**
+- **The bug:** per-dimension lead times filtered `days >= 0` (line 47), but the **overall** `leadTimeStats` did **not**. A single DONE task with `completedAt` before `createdAt` (a data error) would drag the overall min/median **negative** while every category table stayed clean — a silent, asymmetric corruption of a committed analytics output.
+- **The fix:** routed both paths through one `leadDays()` choke point that drops negative/missing-timestamp cases identically. Refactored to a pure `computeReport(board, now)` + `renderMarkdown`, and guarded the CLI behind `require.main === module` (so `require()` is now side-effect-free — the same footgun the prior heartbeat fixed in board-health/cycle-time).
+- **Added `scripts/tests/test_completion_rate.js`** (31 cases): helper math + a `computeReport` integration test over a synthetic board that deliberately includes a `completedAt < createdAt` task.
+
+**Verified:**
+- CLI markdown + JSON **byte-identical** to the committed baseline (0 negatives in live data, so the fix is output-neutral now but defends against future bad data).
+- Anchor is **non-vacuous** — a mutation reintroducing the bug fails exactly the **6 overall-path assertions** while the per-dimension rows stay green, pinning the precise asymmetry that was wrong.
+- `require()` confirmed side-effect-free. Full gate **10/10 green**. `board-data.json` untouched.
+
+Net diff: `completion-rate.js` (modified) + `test_completion_rate.js` (new). No commit (midnight-commit syncs tonight), no iMessage (internal infra). Memory `test-regression-gate` updated — noted the fix and flagged the three remaining un-tested analytics scripts as optional follow-ups *only if something's actually broken*. WIP cleaned up.
+[2026-11-11T14:04:26Z] heartbeat.sh complete
+[2026-11-11T18:30:11Z] heartbeat.sh started
+[2026-11-11T18:30:11Z] Launching claude -p work session
+[DONE 2026-11-11 13:33 ET] Guard+test dedup-detector.js, fixing a real latent bug — Month-marker regex was greedy ('\bmo[a-z]*\b'), so "Decide"->dec, "Marketing"->mar, "Junk"->jun, "Separate"->sep, "maybe"->may etc. registered as period markers. Those phantom markers feed periodsDiffer(), which SUPPRESSES duplicate clusters for recurring series — so a genuine duplicate pair where one title held a phantom month could silently drop from the report (defeats the detector's core purpose). Fix: exact-word month matching (abbrev or full name only) via MONTH_FORMS table. Refactored to pure computeClusters(tasks) + require.main CLI guard (require() now side-effect-free). Added test_dedup_detector.js (26 cases); mutation-verified the anchor fails exactly the 7 over-match assertions. Full gate 11/11 green. CLI output unchanged on live data (0 clusters either way), board-data.json untouched. Net: dedup-detector.js modified + test_dedup_detector.js new. Memory test-regression-gate updated.
+Done. Clean single-task session.
+
+## Summary
+
+Board was clean (61 tasks, 0 missing fields, overdue/stale items all needing Mom/Dad action that board-reminders.sh already handles — nothing ZAZU could unilaterally progress). The analytics roadmap's eligible tiers are complete, so I continued the Dad-sanctioned **test-regression-gate** thread into the three remaining un-tested analytics scripts — and found a genuine latent bug.
+
+**What I did — guarded + tested `dedup-detector.js`, fixing a real duplicate-suppression bug:**
+- **The bug:** `periodSignature`'s month detection used a greedy regex `\bmo[a-z]*\b`, so any ordinary word starting with a month abbreviation registered as a period marker — "**Decide**"→dec, "**Marketing**"→mar, "**Junk**"→jun, "**Separate**"→sep, "**maybe**"→may, "**apron**"→apr. Those phantom markers feed `periodsDiffer()`, which **suppresses** duplicate clusters for recurring-series tasks. So two genuine duplicates where one title carried a phantom month would look like distinct recurrences and **silently drop from the report** — defeating the detector's whole purpose (catching the "Charge Express created 3×" class of repeats).
+- **The fix:** exact-word month matching (abbreviation or fully-spelled month only) via a `MONTH_FORMS`/`MONTH_MATCHERS` table. Refactored the clustering into a pure `computeClusters(tasks)` and guarded the CLI behind `require.main === module` (so `require()` is now side-effect-free — same pattern as the board-health/cycle-time/completion-rate fixes before it).
+- **Added `scripts/tests/test_dedup_detector.js`** (26 cases): exact month-matching, the `periodsDiffer` suppression predicate, and a `computeClusters` integration test where the real TX sales-tax recurring trio correctly does *not* cluster while a genuine reworded duplicate does.
+
+**Verified:**
+- CLI output unchanged on live data (0 clusters either way) — fix is output-neutral now, defends against future bad data. `board-data.json` untouched.
+- Anchor is **non-vacuous** — reverting to the greedy regex fails exactly the **7 month-over-match assertions** and nothing else, pinning the precise bug.
+- `require()` confirmed side-effect-free. Full gate **11/11 green**.
+
+Net diff: `dedup-detector.js` (modified) + `test_dedup_detector.js` (new). No commit (midnight-commit syncs tonight), no iMessage (internal infra). Memory `test-regression-gate` updated — recorded the fix and noted `lead-time-basic.js` (inspected clean, already has its `>= 0` guard) and `snooze-pattern.js` as the only remaining scripts, with the standing "don't manufacture work" caveat. WIP cleaned up.
+[2026-11-11T18:34:20Z] heartbeat.sh complete
+[2026-11-11T23:00:12Z] heartbeat.sh started
+[2026-11-11T23:00:12Z] Launching claude -p work session
+[DONE 2026-11-11 18:00 ET] Backfill taskType/effortTag on 2 new tasks — board-health flagged t_jzezn90 ("Follow up on financial reports") and t_w3ivbev ("Resolve condo payment issue"), both created today, missing taskType/effortTag. Inferred both as ERRAND (contact/follow-up work): t_jzezn90=S (single re-establish-reports contact), t_w3ivbev=M (resolve payment discrepancy w/ Norfolk & Dedham, likely multi-step). Added "inferred backfill, confirm/override welcome" history entries. board-health Data Quality now 0 missing fields (was 4). Test gate 11/11 green. board-data.json is gitignored live state (not committed). Single-task session, WIP cleaned.
+Done. Clean single-task session.
+
+## Summary
+
+WIP was NONE. The analytics roadmap's eligible tiers are complete and all stageHistory walkers are already test-guarded (`test-regression-gate` thread closed per memory — didn't re-touch it). So I ran the fallback: **`board-health.js` to find real data-quality gaps**, and it flagged a genuine one.
+
+**What I did — backfilled `taskType`/`effortTag` on the two tasks created today:**
+- `t_jzezn90` "Follow up on financial reports" (property mgmt stopped sending reports) → **ERRAND / S** — a single re-establish-contact errand.
+- `t_w3ivbev` "Resolve condo payment issue" (contact Norfolk & Dedham re: 15 Sigourney payment amounts) → **ERRAND / M** — resolving a payment discrepancy, likely multi-step.
+
+Both got the standard `"...(inferred backfill, confirm/override welcome)"` history entries and updated `updatedAt`, matching how prior backfills were recorded.
+
+**Verified:**
+- `board-health.js` Data Quality: **0 missing fields** (was 4). All three tracked fields now ✓ none.
+- JSON re-parses clean; each task's history grew by exactly one entry.
+- Test gate: **11/11 suites green** (untouched by this change).
+
+`board-data.json` is gitignored live state, so no commit needed. No iMessage sent — this is internal board hygiene, and the inferences are flagged confirm/override for Mom/Dad to adjust via their normal flow. WIP file removed, work logged to `heartbeat.log`.
+[2026-11-11T23:01:39Z] heartbeat.sh complete
+[2026-11-12T03:30:13Z] heartbeat.sh started
+[2026-11-12T03:30:13Z] Launching claude -p work session
+[DONE 2026-11-11 22:30 ET] Friction-removal guide for t_w3ivbev (15 Sigourney condo payment issue) — WIP NONE; analytics tiers complete, tests guarded, data quality 0-missing, no dup clusters, so ran the friction-removal fallback on the actionable backlog. t_w3ivbev (created today, BOTH, concrete named counterparty Norfolk & Dedham) had no guide. Wrote docs/guides/15-sigourney-condo-payment-dad.md: phone-first scripted billing call (2-min prep, opening line, 4 things to extract: exact amount/period/due-date+lapse-risk/why-changed/written-confirmation), email fallback, and cross-links the two other 15 Sigourney threads (t_jzezn90 reports, t_15sig01 neighbor) so one call can clear overlapping context. Wired zazuNotes pointer + history entry on t_w3ivbev; deliver-guide.sh t_w3ivbev dry-run resolves clean (→ both emails, 84 lines inlined). No send (fresh task, delivery is on-demand). board-data.json is gitignored live state. Single-task session, WIP cleaned.
+Done. Clean single-task session.
+
+## Summary
+
+**WIP was NONE.** I confirmed the standing infra is exhausted before picking work:
+- Analytics roadmap eligible tiers **complete**; stageHistory walkers **test-guarded** (didn't re-touch — `test-regression-gate` thread is closed per memory)
+- `board-health.js`: **0 missing fields**, Data Quality clean (last session backfilled the two new tasks)
+- `dedup-detector.js`: **no duplicate clusters**
+
+So I ran the documented fallback — **friction-removal on the actionable backlog**, the way ZAZU can genuinely *progress* a BOTH/Dad task rather than just re-remind (which board-reminders.sh already handles).
+
+**What I did — prepared a guide for `t_w3ivbev` "Resolve condo payment issue"** (created today, concrete, named counterparty Norfolk & Dedham, no guide yet):
+- Wrote `docs/guides/15-sigourney-condo-payment-dad.md` — a **phone-first scripted billing call**: 2-min prep checklist, opening line, and the 4 things to extract before hanging up (exact amount due / period / due-date + lapse risk / why it changed / written confirmation), plus an email fallback.
+- **Cross-linked the two other 15 Sigourney St threads** (`t_jzezn90` stopped property-mgmt reports, `t_15sig01` neighbor cost-share) — so if a management transition is the root cause, one N&D call can clear overlapping context.
+- Wired a `zazuNotes` pointer + history entry onto `t_w3ivbev` so it's deliverable on demand.
+
+**Verified:** `deliver-guide.sh t_w3ivbev` dry-run resolves clean (BOTH → both emails, 84 lines inlined); board re-parses OK; data quality still 0-missing. No script code touched, so the test gate is unaffected.
+
+**No send** — the task is a day old and delivery is on-demand by design; this just sits ready. `board-data.json` is gitignored live state (midnight-commit syncs tonight). WIP removed, work logged.
+[2026-11-12T03:32:48Z] heartbeat.sh complete
+[2026-11-12T05:00:13Z] heartbeat.sh started
+[2026-11-12T05:00:13Z] Launching claude -p work session

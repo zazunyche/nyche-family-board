@@ -57,10 +57,31 @@ function similarity(a, b) {
   return union === 0 ? 0 : intersection / union;
 }
 
-const MONTHS = [
-  'jan', 'feb', 'mar', 'apr', 'may', 'jun',
-  'jul', 'aug', 'sep', 'oct', 'nov', 'dec',
+// Each month maps to its canonical marker plus every surface form we accept.
+// Matching is EXACT (full word), not prefix: a greedy '\bmo[a-z]*\b' pattern
+// mis-fires on ordinary words that merely start with a month abbreviation
+// ("Decide"->dec, "Marketing"->mar, "Junk"->jun, "maybe"->may, "Separate"->sep),
+// which would corrupt a title's period signature and silently suppress real
+// duplicate clusters via periodsDiffer(). So we only accept the abbreviation
+// or the fully spelled month as standalone words.
+const MONTH_FORMS = [
+  ['jan', ['jan', 'january']],
+  ['feb', ['feb', 'february']],
+  ['mar', ['mar', 'march']],
+  ['apr', ['apr', 'april']],
+  ['may', ['may']],
+  ['jun', ['jun', 'june']],
+  ['jul', ['jul', 'july']],
+  ['aug', ['aug', 'august']],
+  ['sep', ['sep', 'sept', 'september']],
+  ['oct', ['oct', 'october']],
+  ['nov', ['nov', 'november']],
+  ['dec', ['dec', 'december']],
 ];
+const MONTH_MATCHERS = MONTH_FORMS.map(([marker, forms]) => ({
+  marker,
+  re: new RegExp('\\b(?:' + forms.join('|') + ')\\b'),
+}));
 
 // Extract period/recurrence markers from a title: quarters (Q1–Q4), 4-digit
 // years, and month names. Recurring tasks (quarterly sales tax, monthly bills)
@@ -75,8 +96,8 @@ function periodSignature(title) {
   if (spelledQuarters) spelledQuarters.forEach(m => markers.add('q' + m.replace(/\D/g, '')));
   const years = s.match(/\b20\d{2}\b/g);
   if (years) years.forEach(m => markers.add(m));
-  for (const mo of MONTHS) {
-    if (new RegExp('\\b' + mo + '[a-z]*\\b').test(s)) markers.add(mo);
+  for (const { marker, re } of MONTH_MATCHERS) {
+    if (re.test(s)) markers.add(marker);
   }
   return markers;
 }
@@ -91,14 +112,10 @@ function periodsDiffer(a, b) {
   return false;
 }
 
-function run() {
-  const args = process.argv.slice(2);
-  const asJson = args.includes('--json');
-  const doSave = args.includes('--save');
-
-  const data = loadBoard();
-  const tasks = (data.tasks || []).filter(t => t.stage !== 'ARCHIVED');
-
+// Cluster a list of tasks into likely-duplicate groups. Pure: no I/O, no
+// argv/ARCHIVED filtering (callers pass the already-scoped task list), so it
+// can be unit-tested against synthetic boards.
+function computeClusters(tasks) {
   const tokenized = tasks.map(t => ({ task: t, tokens: tokenize(t.title || '') }));
 
   // Union-find style clustering: pairwise compare, group transitively.
@@ -170,6 +187,19 @@ function run() {
     .filter(c => c.members.length >= 2)
     .sort((a, b) => b.maxSimilarity - a.maxSimilarity);
 
+  return result;
+}
+
+function run() {
+  const args = process.argv.slice(2);
+  const asJson = args.includes('--json');
+  const doSave = args.includes('--save');
+
+  const data = loadBoard();
+  const tasks = (data.tasks || []).filter(t => t.stage !== 'ARCHIVED');
+
+  const result = computeClusters(tasks);
+
   const report = {
     generatedAt: new Date().toISOString(),
     threshold: SIMILARITY_THRESHOLD,
@@ -225,4 +255,15 @@ function run() {
   console.log(md);
 }
 
-run();
+module.exports = {
+  tokenize,
+  similarity,
+  periodSignature,
+  periodsDiffer,
+  computeClusters,
+  SIMILARITY_THRESHOLD,
+};
+
+if (require.main === module) {
+  run();
+}

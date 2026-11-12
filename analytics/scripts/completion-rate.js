@@ -34,6 +34,17 @@ function msDays(ms) {
   return +(ms / (1000 * 60 * 60 * 24)).toFixed(1);
 }
 
+// Lead time (days) for a completed task, or null if it can't be computed or is
+// negative. completedAt < createdAt is a data error (e.g. a hand-edited or
+// bulk-imported timestamp); a negative lead time is never meaningful, so it is
+// dropped here — both the overall stats and the per-dimension breakdown route
+// through this one function so they stay consistent.
+function leadDays(t) {
+  if (!t.completedAt || !t.createdAt) return null;
+  const days = msDays(new Date(t.completedAt) - new Date(t.createdAt));
+  return days >= 0 ? days : null;
+}
+
 function ratesByDimension(tasks, field) {
   const groups = {};
   tasks.forEach(t => {
@@ -42,10 +53,8 @@ function ratesByDimension(tasks, field) {
     groups[key].total++;
     if (t.stage === 'DONE') {
       groups[key].done++;
-      if (t.completedAt && t.createdAt) {
-        const days = msDays(new Date(t.completedAt) - new Date(t.createdAt));
-        if (days >= 0) groups[key].leadTimes.push(days);
-      }
+      const days = leadDays(t);
+      if (days != null) groups[key].leadTimes.push(days);
     }
   });
 
@@ -60,14 +69,11 @@ function ratesByDimension(tasks, field) {
     .sort((a, b) => b.rate - a.rate);
 }
 
-function run() {
-  const args = process.argv.slice(2);
-  const asJson = args.includes('--json');
-  const doSave = args.includes('--save');
-
-  const data = loadBoard();
+// Pure: given a board object and a timestamp, produce the full report object.
+// No I/O, no process.argv — safe to require() and unit-test.
+function computeReport(board, now) {
   // Exclude ARCHIVED tasks from rate analysis — they were removed, not completed
-  const tasks = (data.tasks || []).filter(t => t.stage !== 'ARCHIVED');
+  const tasks = (board.tasks || []).filter(t => t.stage !== 'ARCHIVED');
 
   const done = tasks.filter(t => t.stage === 'DONE');
 
@@ -78,10 +84,8 @@ function run() {
     rate: tasks.length > 0 ? Math.round((done.length / tasks.length) * 100) : 0,
   };
 
-  // Lead times for DONE tasks
-  const leadTimes = done
-    .filter(t => t.completedAt && t.createdAt)
-    .map(t => msDays(new Date(t.completedAt) - new Date(t.createdAt)));
+  // Lead times for DONE tasks (negative/invalid dropped — see leadDays)
+  const leadTimes = done.map(leadDays).filter(d => d != null);
 
   const leadTimeStats = {
     count: leadTimes.length,
@@ -90,36 +94,22 @@ function run() {
     maxDays: leadTimes.length > 0 ? Math.max(...leadTimes) : null,
   };
 
-  const byCategory = ratesByDimension(tasks, 'category');
-  const byOwner = ratesByDimension(tasks, 'owner');
-  const bySource = ratesByDimension(tasks, 'source');
-  const byTaskType = ratesByDimension(tasks, 'taskType');
-  const byPriority = ratesByDimension(tasks, 'priority');
-
-  const report = {
-    generatedAt: new Date().toISOString(),
+  return {
+    generatedAt: new Date(now).toISOString(),
     overall,
     leadTimeStats,
-    byCategory,
-    byOwner,
-    bySource,
-    byTaskType,
-    byPriority,
+    byCategory: ratesByDimension(tasks, 'category'),
+    byOwner: ratesByDimension(tasks, 'owner'),
+    bySource: ratesByDimension(tasks, 'source'),
+    byTaskType: ratesByDimension(tasks, 'taskType'),
+    byPriority: ratesByDimension(tasks, 'priority'),
   };
+}
 
-  if (asJson) {
-    const out = JSON.stringify(report, null, 2);
-    if (doSave) {
-      const p = path.join(OUTPUTS_DIR, 'completion-rate.json');
-      fs.writeFileSync(p, out);
-      console.error(`Saved to ${p}`);
-    }
-    console.log(out);
-    return;
-  }
-
+function renderMarkdown(report, now) {
+  const { overall, leadTimeStats } = report;
   const lines = [];
-  const ts = new Date().toLocaleString('en-US', { timeZone: 'America/New_York', dateStyle: 'medium', timeStyle: 'short' });
+  const ts = new Date(now).toLocaleString('en-US', { timeZone: 'America/New_York', dateStyle: 'medium', timeStyle: 'short' });
   lines.push(`# Completion Rate Report — ${ts}`);
   lines.push('');
   lines.push(`_${overall.total} total tasks (excl. archived), ${overall.done} done — overall rate: **${overall.rate}%**_`);
@@ -142,11 +132,11 @@ function run() {
     lines.push('');
   }
 
-  tableSection('Category', byCategory, 'category');
-  tableSection('Owner', byOwner, 'owner');
-  tableSection('Source', bySource, 'source');
-  tableSection('Task Type', byTaskType, 'taskType');
-  tableSection('Priority', byPriority, 'priority');
+  tableSection('Category', report.byCategory, 'category');
+  tableSection('Owner', report.byOwner, 'owner');
+  tableSection('Source', report.bySource, 'source');
+  tableSection('Task Type', report.byTaskType, 'taskType');
+  tableSection('Priority', report.byPriority, 'priority');
 
   // Interpretation notes
   lines.push('## Notes');
@@ -156,7 +146,30 @@ function run() {
   lines.push(`- Dataset is small (${overall.done} completed tasks). Rates will become meaningful at 25+ completions.`);
   lines.push('');
 
-  const md = lines.join('\n');
+  return lines.join('\n');
+}
+
+function run() {
+  const args = process.argv.slice(2);
+  const asJson = args.includes('--json');
+  const doSave = args.includes('--save');
+
+  const board = loadBoard();
+  const now = Date.now();
+  const report = computeReport(board, now);
+
+  if (asJson) {
+    const out = JSON.stringify(report, null, 2);
+    if (doSave) {
+      const p = path.join(OUTPUTS_DIR, 'completion-rate.json');
+      fs.writeFileSync(p, out);
+      console.error(`Saved to ${p}`);
+    }
+    console.log(out);
+    return;
+  }
+
+  const md = renderMarkdown(report, now);
 
   if (doSave) {
     const p = path.join(OUTPUTS_DIR, 'completion-rate.md');
@@ -167,4 +180,8 @@ function run() {
   console.log(md);
 }
 
-run();
+module.exports = { computeReport, renderMarkdown, ratesByDimension, leadDays, median, msDays, loadBoard };
+
+if (require.main === module) {
+  run();
+}

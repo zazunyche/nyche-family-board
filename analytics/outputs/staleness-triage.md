@@ -1,4 +1,4 @@
-# Staleness Triage — Nov 10, 2026, 6:45 AM
+# Staleness Triage — Nov 11, 2026, 6:45 AM
 
 **Purpose:** The daily brief and board-reminders only *nudge* stalled tasks. This pass flags tasks whose trigger/due window is far enough past that the task is probably **moot or already done in real life**, and recommends a state decision (close / confirm / keep). None of these can be advanced by Zazu — they need a one-word call from Dad or Mom.
 
@@ -8,15 +8,15 @@
 
 | ID | Title | Owner | Why | Guide |
 |----|-------|-------|-----|-------|
-| t_q5wnyq5 | Complete any open financial planning docs | MOM | Due 2026-10-05, now 36d past (briefed 39×). Window closed — confirm the real-world outcome: close if done/moot, reschedule if the need still stands. | [financial-planning-docs-mom.md](../../docs/guides/financial-planning-docs-mom.md) |
+| t_q5wnyq5 | Complete any open financial planning docs | MOM | Due 2026-10-05, now 37d past (briefed 40×). Window closed — confirm the real-world outcome: close if done/moot, reschedule if the need still stands. | [financial-planning-docs-mom.md](../../docs/guides/financial-planning-docs-mom.md) |
 
 ## Recommend CONFIRM (real, but status almost certainly changed)
 
 | ID | Title | Owner | Why | Guide |
 |----|-------|-------|-----|-------|
-| t_insure01 | Review Acrisure home insurance renewal | DAD | No due date; no movement in 156d (briefed 130×). That much unheeded nudging is itself a signal — confirm whether it's still live or should be closed. | [acrisure-insurance-renewal-dad.md](../../docs/guides/acrisure-insurance-renewal-dad.md) |
-| t_15sig01 | 15 Sigourney — follow up with neighbor on repair | DAD | No due date; no movement in 147d (briefed 130×). That much unheeded nudging is itself a signal — confirm whether it's still live or should be closed. | [15-sigourney-neighbor-dad.md](../../docs/guides/15-sigourney-neighbor-dad.md) |
-| t_r1908t7 | Renew British passport — Dad | DAD | Due 2026-10-17, 24d past (briefed 99×), but you updated it 29d ago — still wanted, just overdue. Reschedule the date or knock it out. | [passport-renewal-dad.md](../../docs/guides/passport-renewal-dad.md) |
+| t_insure01 | Review Acrisure home insurance renewal | DAD | No due date; no movement in 150d (briefed 131×). That much unheeded nudging is itself a signal — confirm whether it's still live or should be closed. | [acrisure-insurance-renewal-dad.md](../../docs/guides/acrisure-insurance-renewal-dad.md) |
+| t_15sig01 | 15 Sigourney — follow up with neighbor on repair | DAD | No due date; no movement in 148d (briefed 131×). That much unheeded nudging is itself a signal — confirm whether it's still live or should be closed. | [15-sigourney-neighbor-dad.md](../../docs/guides/15-sigourney-neighbor-dad.md) |
+| t_r1908t7 | Renew British passport — Dad | DAD | Due 2026-10-17, 25d past (briefed 100×), but you updated it 30d ago — still wanted, just overdue. Reschedule the date or knock it out. | [passport-renewal-dad.md](../../docs/guides/passport-renewal-dad.md) |
 
 ## Keep as-is (correctly waiting)
 
@@ -25,9 +25,9 @@
 | t_f7smuoh | Pay Texas Comptroller sales tax — Nyche LLC (Q4  | DAD | Snoozed until 2027-01-01 — parked by design. | — |
 | t_yxb8crl | Pay Texas Comptroller sales tax — Nyche LLC (Q1  | DAD | Snoozed until 2027-04-01 — parked by design. | — |
 | t_4i3duz1 | Pay Texas Comptroller sales tax — Nyche LLC (Q2  | DAD | Snoozed until 2027-07-01 — parked by design. | — |
-| t_stnk0sf | Safe School Evacuation | BOTH | Fresh — 6d in stage, no due date passed. On track. | — |
-| t_curric01 | Decide AI Agents curriculum: reply A / B / C | DAD | Fresh — 2d in stage, no due date passed. On track. | — |
-| t_5gccs1n | Check school conference options | BOTH | Fresh — 1d in stage, no due date passed. On track. | — |
+| t_stnk0sf | Safe School Evacuation | BOTH | Fresh — 7d in stage, no due date passed. On track. | — |
+| t_curric01 | Decide AI Agents curriculum: reply A / B / C | DAD | Fresh — 3d in stage, no due date passed. On track. | — |
+| t_5gccs1n | Check school conference options | BOTH | Fresh — 2d in stage, no due date passed. On track. | — |
 
 ## Takeaways
 

@@ -48,11 +48,12 @@ function dateStr(iso) {
   return iso ? iso.slice(0, 10) : '—';
 }
 
-function run() {
-  const board = loadBoard();
+// Pure report builder — given board data and a `now` epoch-ms, returns the
+// full markdown report string. No I/O, no clock reads, so it is deterministic
+// and unit-testable. The CLI below supplies loadBoard()/Date.now().
+function computeReport(board, now) {
   const tasks = board.tasks || [];
-  const now   = Date.now();
-  const reportDate = new Date().toLocaleString('en-US', {
+  const reportDate = new Date(now).toLocaleString('en-US', {
     timeZone: 'America/New_York',
     month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit'
   });
@@ -174,7 +175,13 @@ function run() {
     lines.push('');
   }
 
-  const report = lines.join('\n');
+  return lines.join('\n');
+}
+
+function run() {
+  const board  = loadBoard();
+  const now    = Date.now();
+  const report = computeReport(board, now);
 
   if (process.argv.includes('--save')) {
     fs.mkdirSync(OUTPUTS_DIR, { recursive: true });
@@ -186,4 +193,8 @@ function run() {
   }
 }
 
-run();
+module.exports = { computeReport, msDays, median, statsRow, dateStr, loadBoard };
+
+if (require.main === module) {
+  run();
+}

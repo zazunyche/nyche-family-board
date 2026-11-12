@@ -45,14 +45,29 @@ function stageAgeDays(task, now) {
   return msDays(now - new Date(enteredAt).getTime());
 }
 
-function run() {
-  const args = process.argv.slice(2);
-  const asJson = args.includes('--json');
-  const doSave = args.includes('--save');
+// Snoozed tasks are intentionally deferred — exclude them from problem flags.
+function isSnoozed(t, now) {
+  return t.snoozedUntil && new Date(t.snoozedUntil) > now;
+}
 
-  const data = loadBoard();
+// A future-dated IDEA task is waiting for its trigger window, not stalled.
+function isDormantFutureIdea(t, now) {
+  return t.stage === 'IDEA' &&
+    t.dueDate &&
+    msDays(new Date(t.dueDate).getTime() - now) > DORMANT_IDEA_LEAD_DAYS;
+}
+
+// Whole calendar days between two YYYY-MM-DD strings (DST-safe, no round over-count).
+function calDaysBetween(fromStr, toStr) {
+  const [fy, fm, fd] = fromStr.split('-').map(Number);
+  const [ty, tm, td] = toStr.split('-').map(Number);
+  return Math.round((Date.UTC(ty, tm - 1, td) - Date.UTC(fy, fm - 1, fd)) / 86400000);
+}
+
+// Pure: build the health report object from board data + a fixed `now`.
+// Kept free of argv/fs so it can be unit-tested with synthetic tasks.
+function computeReport(data, now) {
   const tasks = data.tasks || [];
-  const now = Date.now();
 
   const active = tasks.filter(t => t.stage !== 'DONE' && t.stage !== 'ARCHIVED');
   const done = tasks.filter(t => t.stage === 'DONE');
@@ -66,23 +81,10 @@ function run() {
   const activeByStage = {};
   active.forEach(t => { activeByStage[t.stage] = (activeByStage[t.stage] || 0) + 1; });
 
-  // Snoozed tasks are intentionally deferred — exclude them from problem flags
-  // (stale / high-brief / resistance) so the health report doesn't nag about
-  // tasks we've deliberately parked until a future date.
-  const isSnoozed = t => t.snoozedUntil && new Date(t.snoozedUntil) > now;
-
-  // A future-dated IDEA task is waiting for its trigger window to open, not stalled.
-  // Catches quarterly-tax-style tasks even when no one has manually snoozed them, so
-  // the stale list doesn't over-count dormant-by-design work. (Snooze still wins above.)
-  const isDormantFutureIdea = t =>
-    t.stage === 'IDEA' &&
-    t.dueDate &&
-    msDays(new Date(t.dueDate).getTime() - now) > DORMANT_IDEA_LEAD_DAYS;
-
   // Stale: non-snoozed active tasks whose current stage has been unchanged for > STALE_DAYS.
   // Uses stageHistory enteredAt (not updatedAt) so escalation/resistance writes don't hide staleness.
   const stale = active.filter(t => {
-    if (isSnoozed(t) || isDormantFutureIdea(t)) return false;
+    if (isSnoozed(t, now) || isDormantFutureIdea(t, now)) return false;
     return stageAgeDays(t, now) > STALE_DAYS;
   }).map(t => ({
     id: t.id,
@@ -100,11 +102,6 @@ function run() {
   // the Math.round over-count that previously reported due-today as "1 day
   // overdue" (and every overdue task one day too high).
   const todayET = new Date(now).toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
-  const calDaysBetween = (fromStr, toStr) => {
-    const [fy, fm, fd] = fromStr.split('-').map(Number);
-    const [ty, tm, td] = toStr.split('-').map(Number);
-    return Math.round((Date.UTC(ty, tm - 1, td) - Date.UTC(fy, fm - 1, fd)) / 86400000);
-  };
   const overdue = active.filter(t => t.dueDate && calDaysBetween(t.dueDate, todayET) > 0)
     .map(t => ({
       id: t.id,
@@ -116,7 +113,7 @@ function run() {
 
   // High brief count: briefed >= threshold and still open
   const highBrief = active
-    .filter(t => !isSnoozed(t) && (t.briefCount || 0) >= HIGH_BRIEF_THRESHOLD)
+    .filter(t => !isSnoozed(t, now) && (t.briefCount || 0) >= HIGH_BRIEF_THRESHOLD)
     .map(t => ({ id: t.id, title: t.title, briefCount: t.briefCount, owner: t.owner }));
 
   // Missing analytics fields on active tasks
@@ -128,7 +125,7 @@ function run() {
   // Mirrors priority-escalation.sh criteria so the two agree on what's "pending."
   const resistanceCandidates = active
     .filter(t =>
-      !isSnoozed(t) &&
+      !isSnoozed(t, now) &&
       (t.briefCount || 0) >= HIGH_BRIEF_THRESHOLD &&
       stageAgeDays(t, now) >= RESISTANCE_STALE_DAYS &&
       (t.resistanceScore || 0) === 0
@@ -137,7 +134,7 @@ function run() {
 
   // Resistance flagged: have an active resistanceScore > 0
   const resistanceFlagged = active
-    .filter(t => !isSnoozed(t) && (t.resistanceScore || 0) > 0)
+    .filter(t => !isSnoozed(t, now) && (t.resistanceScore || 0) > 0)
     .map(t => ({ id: t.id, title: t.title, score: t.resistanceScore, briefCount: t.briefCount || 0, owner: t.owner }));
 
   // Category distribution (active)
@@ -176,6 +173,18 @@ function run() {
     resistanceFlagged,
   };
 
+  return report;
+}
+
+function run() {
+  const args = process.argv.slice(2);
+  const asJson = args.includes('--json');
+  const doSave = args.includes('--save');
+
+  const data = loadBoard();
+  const now = Date.now();
+  const report = computeReport(data, now);
+
   if (asJson) {
     const out = JSON.stringify(report, null, 2);
     if (doSave) {
@@ -186,6 +195,9 @@ function run() {
     console.log(out);
     return;
   }
+
+  const { activeByStage, byCategory, byOwner, overdue, stale, highBrief, resistanceFlagged, resistanceCandidates } = report;
+  const { taskType: missingTaskType, effortTag: missingEffortTag, stageHistory: missingStageHistory } = report.missingFields;
 
   const lines = [];
   const ts = new Date().toLocaleString('en-US', { timeZone: 'America/New_York', dateStyle: 'medium', timeStyle: 'short' });
@@ -311,4 +323,15 @@ function run() {
   console.log(md);
 }
 
-run();
+module.exports = {
+  msDays,
+  stageAgeDays,
+  isSnoozed,
+  isDormantFutureIdea,
+  calDaysBetween,
+  computeReport,
+};
+
+if (require.main === module) {
+  run();
+}
