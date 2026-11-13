@@ -2913,3 +2913,117 @@ So I ran the documented fallback — **friction-removal on the actionable backlo
 [2026-11-12T03:32:48Z] heartbeat.sh complete
 [2026-11-12T05:00:13Z] heartbeat.sh started
 [2026-11-12T05:00:13Z] Launching claude -p work session
+[DONE 2026-11-12 00:00 ET] Friction-removal guide for t_jzezn90 (property mgmt stopped financial reports) — WIP NONE; confirmed standing infra exhausted first (analytics tiers complete, tests guarded, board-health data quality 0-missing, dedup 0 clusters), so ran the documented friction-removal fallback on the actionable backlog. t_jzezn90 (created Nov 11, BOTH, concrete: 15 Sigourney property manager went quiet on financial reports) had no guide. Wrote docs/guides/financial-reports-propmgmt-dad.md: email-first request (2-min prep, ready-to-send email asking to confirm-still-manage/resend-missed/re-add-to-distribution, phone fallback), reframed around the most likely root cause = a MANAGEMENT TRANSITION, which would also explain the sibling condo-insurance bill (t_w3ivbev) looking off — so guide tells Dad to ask "who handles the account now" up front and surface any handoff as a NEW task, not a close. Completes the 15 Sigourney trio (t_w3ivbev payment, t_15sig01 neighbor, t_jzezn90 reports). Wired zazuNotes pointer + history entry on t_jzezn90; deliver-guide.sh t_jzezn90 dry-run resolves clean (BOTH → both emails, 98 lines inlined). No send (fresh task, delivery on-demand by design). board-data.json re-parses, data quality still 0-missing. No script code touched (test gate unaffected). Single-task session, WIP cleaned.
+[2026-11-12T05:0X ET] heartbeat work session complete
+Done. Clean single-task session.
+
+## Summary
+
+**WIP was NONE.** I confirmed standing infra is exhausted before picking work:
+- Analytics roadmap eligible tiers **complete**; stageHistory walkers **test-guarded** (didn't re-touch — that thread is closed per memory)
+- `board-health.js`: **0 missing fields**, no new data-quality gaps
+- `dedup-detector.js`: **no duplicate clusters**
+
+So I ran the documented fallback — **friction-removal on the actionable backlog**, the way ZAZU can genuinely *progress* a task rather than re-remind (which board-reminders.sh already handles).
+
+**What I did — prepared a guide for `t_jzezn90` "Follow up on financial reports"** (created Nov 11, BOTH-owned, concrete, no guide yet — the one remaining 15 Sigourney thread without one):
+- Wrote `docs/guides/financial-reports-propmgmt-dad.md` — an **email-first outreach** (reporting is best in writing, unlike the insurance billing *call*): 2-min prep checklist, a ready-to-send email asking the manager to confirm they still manage it / resend missed reports / re-add Dad to distribution, plus a phone fallback.
+- **Key reframe:** the likeliest root cause is a **management transition**, which would also explain why the sibling condo-insurance bill (`t_w3ivbev`) looks off. The guide tells Dad to ask "who handles the account now" up front and, if there *is* a handoff, surface it as a **new** task rather than closing this one.
+- **Completes the 15 Sigourney trio** — payment (`t_w3ivbev`), neighbor cost-share (`t_15sig01`), reports (`t_jzezn90`) — all now cross-linked.
+- Wired a `zazuNotes` pointer + history entry so it's deliverable on demand.
+
+**Verified:** `deliver-guide.sh t_jzezn90` dry-run resolves clean (BOTH → both emails, 98 lines inlined); board re-parses; data quality still 0-missing. No script code touched, so the test gate is unaffected.
+
+**No send** — the task is a day old and delivery is on-demand by design; the guide just sits ready. `board-data.json` is gitignored live state (midnight-commit syncs tonight). WIP removed, work logged.
+[2026-11-12T05:02:41Z] heartbeat.sh complete
+[2026-11-12T09:30:14Z] heartbeat.sh started
+[2026-11-12T09:30:14Z] Launching claude -p work session
+[DONE 2026-11-12 04:30 ET] Scoped t_stnk0sf "Safe School Evacuation" (daycare drill, due Nov 18) — WIP NONE; confirmed infra exhausted first (analytics tiers complete, 0 data-quality gaps, 0 dedup clusters, tests guarded) and every actionable backlog item already has a decision-ready guide. The one uncovered, time-sensitive item was t_stnk0sf: HIGH, due in 6 days, empty zazuNotes. Source (gmail-scan/brief-index) confirms it's a Primrose School of Brookhaven (AJ's daycare) "Safe School Evacuation" notice. Deliberately did NOT fabricate a 10th how-to guide — right-sized for EVENT/XS. Added concise honest zazuNotes reclassifying it as a daycare safety-DRILL awareness notice: HIGH is an auto-escalation from the near due date, realistic parent action is awareness-only, one thing to confirm (does pickup/reunification location change that day?), honest close = mark done once Nov 18 passes. Flagged that specifics are the standard-case read since I lack the email body (worth a 30-sec confirm). Added history entry; updatedAt bumped. board-data.json re-parses; data quality still 0-missing. No script code touched (test gate unaffected). No send (board-reminders surfaces it on its own cadence; board-data.json is gitignored live state, midnight-commit syncs tonight). Single-task session, WIP cleaned.
+[2026-11-12T09:3X ET] heartbeat work session complete
+Done — clean single-task session.
+
+**WIP was NONE.** I confirmed standing infra is exhausted before picking work:
+- Analytics roadmap tiers **complete** (9 scripts built); stageHistory walkers **test-guarded** (closed thread, didn't touch)
+- `board-health.js`: **0 missing fields**
+- `dedup-detector.js`: **no duplicate clusters**
+
+Every genuinely actionable backlog item already has a decision-ready guide (insurance, neighbor, passport, financial planning, condo payment, financial reports). The one uncovered, time-sensitive item was **t_stnk0sf "Safe School Evacuation"** — HIGH, due Nov 18 (6 days out), empty zazuNotes.
+
+**What I did — scoped it honestly instead of fabricating a guide.** Source (gmail-scan + brief-index) confirms this is a **Primrose School of Brookhaven** (AJ's daycare) safety notice. For an EVENT/XS task, the right-sized friction-removal is *de-escalation*, not a padded how-to. I added concise zazuNotes that:
+- Reclassifies it as a daycare **safety-drill awareness notice** — the HIGH is an auto-escalation off the near due date, not work owed
+- States the realistic parent action: **awareness-only**, with one thing to confirm against the actual notice (does pickup/reunification location change that day?)
+- Gives an honest close path: mark done once Nov 18 passes
+- **Flags my assumption** — I don't have the email body, so the specifics are the standard-case read (worth a 30-sec confirm)
+
+The value: it takes a scary-sounding HIGH task and correctly tells Mom/Dad it's probably nothing to do — removing worry rather than adding a 10th nudge.
+
+**Verified:** board re-parses, data quality still 0-missing. No script code touched (test gate unaffected). No send — board-reminders surfaces it on its own cadence, and board-data.json is gitignored live state that midnight-commit syncs tonight. WIP removed, work logged.
+[2026-11-12T09:32:25Z] heartbeat.sh complete
+[2026-11-12T14:00:15Z] heartbeat.sh started
+[2026-11-12T14:00:15Z] Launching claude -p work session
+[DONE 2026-11-12 14:05 ET] Scoped t_5gccs1n "Check school conference options" — WIP NONE; re-confirmed infra exhausted first (analytics tiers complete, board-health 0 missing fields, dedup 0 clusters). Only un-scoped actionable backlog item left was t_5gccs1n (MEDIUM/BOTH, empty zazuNotes, briefCount 3). brief-index/gmail-scan carry only the title (no email body), so scoped it as the standard-case read: a parent-teacher conference sign-up notice from AJ's school app (likely Primrose, same source as t_stnk0sf). Added concise honest zazuNotes reframing vague "conference options" into a concrete 2-min in-app action (pick a conference time slot), noted mild first-come time-pressure but no hard deadline on file, honest close once a slot is picked. Right-sized for ERRAND/S — deliberately NOT a full how-to guide. Flagged the no-email-body assumption (worth a 30-sec confirm). Added history entry; updatedAt bumped. board-data.json re-parses; data quality still 0-missing. No script code touched (test gate unaffected). No send (board-reminders surfaces on its own cadence; board-data.json is gitignored live state, midnight-commit syncs tonight). Single-task session, WIP cleaned.
+[2026-11-12T14:06 ET] heartbeat work session complete
+Done — clean single-task session.
+
+**WIP was NONE.** Confirmed standing infra is exhausted before picking work:
+- Analytics roadmap tiers **complete**; stageHistory walkers **test-guarded** (didn't touch)
+- `board-health.js`: **0 missing fields**
+- `dedup-detector.js`: **no duplicate clusters**
+
+The one genuinely un-scoped actionable item left was **t_5gccs1n "Check school conference options"** (MEDIUM, BOTH, empty zazuNotes, briefCount 3) — the previous heartbeat had covered the other empty-notes item (t_stnk0sf).
+
+**What I did — scoped it honestly, right-sized for ERRAND/S.** brief-index + gmail-scan carry only the task title (no email body), so I scoped it as the standard-case read: a parent-teacher **conference sign-up** notice from AJ's school app (likely Primrose, same source as t_stnk0sf). The new zazuNotes:
+- Reframes the vague "conference options" into a concrete **2-min in-app action** — open the app, pick a conference time slot
+- Notes the only mild pressure (first-come slots fill) but **no hard deadline** on file
+- Gives an honest close: mark done once a slot is picked (or if it's informational only)
+- **Flags the assumption** — I lack the email body, so it's worth a 30-sec confirm
+
+Deliberately did *not* fabricate a full how-to guide — for an ERRAND/S the friction is just the vagueness, so naming the action is the right-sized fix.
+
+**Verified:** board re-parses, data quality still 0-missing. No script code touched (test gate unaffected). No send — board-reminders surfaces it on its own cadence, and board-data.json is gitignored live state that midnight-commit syncs tonight. WIP removed, work logged.
+[2026-11-12T14:01:40Z] heartbeat.sh complete
+[2026-11-12T18:30:16Z] heartbeat.sh started
+[2026-11-12T18:30:16Z] Launching claude -p work session
+[DONE 2026-11-12 13:30 ET] Verification-only cycle — no fabricated work. WIP NONE. Confirmed standing infra exhausted + board genuinely healthy: tests 11/11 green (run-tests.sh), board-health 0 missing fields (taskType/effortTag/stageHistory all present), dedup 0 clusters. Verified the one near-term EVENT t_stnk0sf (Safe School Evacuation, due Nov 18) is already handled — auto-close-events.js is wired into priority-escalation.sh (nightly), ran 05:30 today, correctly found nothing to close yet; it will auto-archive the notice on/after Nov 18, so no zombie risk. Prior two heartbeats already scoped the only two empty-zazuNotes items (t_stnk0sf, t_5gccs1n); every remaining backlog item needs Mom/Dad action (outreach calls, mailed passport, A/B/C curriculum decision, in-app conference sign-up) and already carries a decision-ready guide or honest scoping. None are ZAZU-executable and board-reminders surfaces them on its own cadence — so the honest call was to verify health and NOT manufacture a redundant third scoping pass. No board writes, no script changes (test gate untouched), no send. WIP never created (no long work started).
+[2026-11-12T18:32 ET] heartbeat work session complete
+Done — clean verification-only cycle. **WIP was NONE, and I deliberately did not create one or fabricate a task.**
+
+**What I verified (all genuinely healthy):**
+- **Tests:** 11/11 suites green via `run-tests.sh` — stageHistory walkers still guarded
+- **board-health.js:** 0 missing fields (taskType / effortTag / stageHistory all present)
+- **dedup-detector:** no duplicate clusters
+- **Near-term EVENT risk closed:** t_stnk0sf "Safe School Evacuation" (due Nov 18) is handled by `auto-close-events.js`, which is wired into `priority-escalation.sh` nightly — it ran at 05:30 today, correctly found nothing to close yet, and will auto-archive the notice on/after Nov 18. No zombie-brief risk.
+
+**The judgment call this cycle:** the prior two heartbeats already scoped the only two empty-notes items (t_stnk0sf, t_5gccs1n). Every remaining backlog item needs Mom/Dad action — outreach calls (Norfolk & Dedham, property manager, neighbor), a mailed passport, the A/B/C curriculum decision, an in-app conference sign-up — and each already carries a decision-ready guide or honest scoping. None are ZAZU-executable, and board-reminders surfaces them on its own cadence. Manufacturing a third redundant scoping pass would have been make-work, so I verified health and stopped.
+
+No board writes, no script changes (test gate untouched), no send. Logged honestly to `heartbeat.log`.
+[2026-11-12T18:32:02Z] heartbeat.sh complete
+[2026-11-12T23:00:16Z] heartbeat.sh started
+[2026-11-12T23:00:16Z] Launching claude -p work session
+[DONE 2026-11-12 18:00 ET] Steady-state cycle — recorded the pattern instead of re-deriving it. WIP never created. Confirmed baseline healthy once more (run-tests.sh 11/11, board-health 0 missing fields, dedup 0 clusters) and verified the over-nudge signal is ALREADY surfaced by staleness-triage.md (t_r1908t7+t_q5wnyq5 close, t_insure01+t_15sig01 confirm) — so no new analysis was owed. The genuinely additive move: this is the 4th consecutive heartbeat independently concluding "healthy, nothing ZAZU-executable, all items scoped & awaiting Mom/Dad." Wrote a persistent memory (board-steady-state-nov2026.md + MEMORY.md index line) capturing the steady state AND an explicit checklist of what actually counts as NEW ZAZU work (new task missing taskType/effortTag; new concrete task w/o guide; board-health/dedup gap; Dad's A/B/C curriculum answer; a snoozed TX-tax window reopening 2027-01-01). Future cycles can now confirm-baseline + check-for-new-inputs and stop burning a full cycle re-discovering the same conclusion. No board writes, no script changes (test gate untouched), no send. Clean honest cycle.
+Done. Clean steady-state cycle — the honest value here was recognizing and *recording* the pattern rather than re-deriving it a fourth time.
+
+**What I found:** Board is in verified healthy steady state:
+- Tests 11/11 green, board-health 0 missing fields, dedup 0 clusters
+- `staleness-triage.md` **already** surfaces the over-nudging signal (the 4 tasks with 40–133 briefs pinned at resistanceScore 5) and recommends close/confirm calls — so that insight was already captured, not a new finding
+- Every actionable backlog item is already scoped with a decision-ready guide; nothing is ZAZU-executable without Mom/Dad action
+
+**The judgment call:** This is the 4th consecutive heartbeat to independently conclude "healthy, nothing to do, everything awaiting the family." Each one re-derived that from scratch — real cycle churn. Manufacturing another scoping/verification pass would have been make-work.
+
+**What I actually did (the additive part):** Wrote a persistent memory — `board-steady-state-nov2026.md` plus its `MEMORY.md` index line — that records the steady state *and* an explicit checklist of what counts as genuinely NEW ZAZU work: a new task missing taskType/effortTag, a new concrete task without a guide, a board-health/dedup gap, Dad's A/B/C curriculum answer, or a snoozed TX-tax window reopening (first: 2027-01-01). Future heartbeats can now confirm-baseline + check-for-new-inputs and stop spending a full cycle rediscovering the same conclusion.
+
+No board writes, no script changes (test gate untouched), no messages sent. WIP never created, logged to `heartbeat.log`. (The exit-1 was just the final `ls` confirming no WIP file exists — expected.)
+[2026-11-12T23:02:38Z] heartbeat.sh complete
+[2026-11-13T03:30:17Z] heartbeat.sh started
+[2026-11-13T03:30:17Z] Launching claude -p work session
+[DONE 2026-11-12 22:30 ET] Steady-state confirmed — no new inputs. Baseline green (run-tests 11/11, board-health 0 missing fields, dedup 0 clusters). Newest tasks (t_w3ivbev, t_jzezn90, Nov 11) already scoped w/ complete fields. Ran the board-steady-state-nov2026 checklist: no new task missing taskType/effortTag, no unscoped concrete task, no health/dedup gap, no curriculum A/B/C reply from Dad, first TX-tax snooze window opens 2027-01-01. No board writes, no scripts touched, no send. Honest no-op per steady-state memory.
+Steady state confirmed — clean no-op cycle.
+
+**Baseline (all green):** tests 11/11, board-health 0 missing fields, dedup 0 clusters.
+
+**New inputs check (per `board-steady-state-nov2026` memory):** none of the five triggers fired — no new task missing fields, no unscoped concrete task, no health/dedup gap, no curriculum A/B/C reply from Dad, and the first snoozed TX-tax window doesn't open until 2027-01-01. The two newest tasks (from Nov 11) are already scoped with complete fields.
+
+The honest, additive thing this cycle is **not** re-deriving "healthy, nothing to do" into a full work pass. Logged the confirmation to `heartbeat.log`, no WIP created, no board writes, no scripts touched, no messages sent. The board remains all-scoped and awaiting Mom/Dad action — which `board-reminders.sh` already handles on its own schedule.
+[2026-11-13T03:30:55Z] heartbeat.sh complete
+[2026-11-13T05:00:17Z] heartbeat.sh started
+[2026-11-13T05:00:17Z] Launching claude -p work session

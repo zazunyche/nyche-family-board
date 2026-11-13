@@ -1,6 +1,6 @@
-# Cycle Time Report — Nov 11, 2026, 6:45 AM
+# Cycle Time Report — Nov 12, 2026, 6:45 AM
 
-_51 completed tasks analyzed. 10 active tasks (age shown)._
+_51 completed tasks analyzed. 12 active tasks (age shown)._
 
 ## Overall Lead Time (creation → done)
 
@@ -44,16 +44,18 @@ _51 completed tasks analyzed. 10 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 157.5d | M |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 148.4d | M |
-| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 107.3d | M |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 107.3d | S |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 107.3d | S |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 107.3d | S |
-| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 39.7d | M |
-| Safe School Evacuation | HOME | BOTH | ACTIVE | 6.6d | XS |
-| Decide AI Agents curriculum: reply A / B / C | GOALS | DAD | ACTIVE | 3.1d | XS |
-| Check school conference options | FAMILY | BOTH | ACTIVE | 1.8d | S |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 158.5d | M |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 149.4d | M |
+| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 108.3d | M |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 108.3d | S |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 108.3d | S |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 108.3d | S |
+| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 40.7d | M |
+| Safe School Evacuation | HOME | BOTH | ACTIVE | 7.6d | XS |
+| Decide AI Agents curriculum: reply A / B / C | GOALS | DAD | ACTIVE | 4.1d | XS |
+| Check school conference options | FAMILY | BOTH | ACTIVE | 2.8d | S |
+| Follow up on financial reports | ADMIN | BOTH | ACTIVE | 0.7d | S |
+| Resolve condo payment issue | HOME | BOTH | ACTIVE | 0.6d | M |
 
 ## Stage Dwell Time (tasks with stageHistory)
 

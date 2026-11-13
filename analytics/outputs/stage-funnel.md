@@ -1,6 +1,6 @@
-# Stage Funnel — Nov 11, 2026, 6:45 AM
+# Stage Funnel — Nov 12, 2026, 6:45 AM
 
-_61 total tasks_
+_63 total tasks_
 
 ## Stage Distribution
 
@@ -8,31 +8,31 @@ _61 total tasks_
 |-------|-------|------------|
 | IDEA | 3 | 5% |
 | RESEARCH | 0 | 0% |
-| ACTIVE | 7 | 11% |
+| ACTIVE | 9 | 14% |
 | ASSIGNED | 0 | 0% |
-| DONE | 51 | 84% |
+| DONE | 51 | 81% |
 
 ## Funnel Conversion (top-of-funnel → done)
 
-- IDEA → moved forward: **95%** (58/61)
-- Entered ACTIVE/ASSIGNED or DONE: **95%** (58/61)
-- Reached DONE: **84%** (51/61)
-- Working → DONE (of those that went ACTIVE/ASSIGNED): **88%** (51/58)
+- IDEA → moved forward: **95%** (60/63)
+- Entered ACTIVE/ASSIGNED or DONE: **95%** (60/63)
+- Reached DONE: **81%** (51/63)
+- Working → DONE (of those that went ACTIVE/ASSIGNED): **85%** (51/60)
 
 ## Stage Distribution by Category
 
 | Category | IDEA | RESEARCH | ACTIVE | ASSIGNED | DONE | Total | Done% |
 |----|----|----|----|----|----|----|----|
-| ADMIN | 3 | 0 | 3 | 0 | 14 | 20 | 70% |
+| ADMIN | 3 | 0 | 4 | 0 | 14 | 21 | 67% |
 | FAMILY | 0 | 0 | 1 | 0 | 24 | 25 | 96% |
 | GOALS | 0 | 0 | 1 | 0 | 6 | 7 | 86% |
-| HOME | 0 | 0 | 2 | 0 | 7 | 9 | 78% |
+| HOME | 0 | 0 | 3 | 0 | 7 | 10 | 70% |
 
 ## Stage Distribution by Owner
 
 | Owner | IDEA | RESEARCH | ACTIVE | ASSIGNED | DONE | Total | Done% |
 |----|----|----|----|----|----|----|----|
-| BOTH | 0 | 0 | 2 | 0 | 17 | 19 | 89% |
+| BOTH | 0 | 0 | 4 | 0 | 17 | 21 | 81% |
 | DAD | 3 | 0 | 4 | 0 | 19 | 26 | 73% |
 | MOM | 0 | 0 | 1 | 0 | 9 | 10 | 90% |
 | ZAZU | 0 | 0 | 0 | 0 | 6 | 6 | 100% |
@@ -50,10 +50,11 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **33%** of done tasks_
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Review Acrisure home insurance renewal | 5 | 131 | ACTIVE |
-| 15 Sigourney — follow up with neighbor on … | 5 | 131 | ACTIVE |
-| Renew British passport — Dad | 5 | 100 | ACTIVE |
+| Review Acrisure home insurance renewal | 5 | 132 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 5 | 132 | ACTIVE |
+| Renew British passport — Dad | 5 | 101 | ACTIVE |
 | Pay Texas Comptroller sales tax — Nyche LL… | 5 | 88 | IDEA |
 | Pay Texas Comptroller sales tax — Nyche LL… | 5 | 88 | IDEA |
 | Pay Texas Comptroller sales tax — Nyche LL… | 5 | 88 | IDEA |
-| Complete any open financial planning docs | 5 | 40 | ACTIVE |
+| Complete any open financial planning docs | 5 | 41 | ACTIVE |
+| Safe School Evacuation | 1 | 7 | ACTIVE |
