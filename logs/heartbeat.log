@@ -3027,3 +3027,85 @@ The honest, additive thing this cycle is **not** re-deriving "healthy, nothing t
 [2026-11-13T03:30:55Z] heartbeat.sh complete
 [2026-11-13T05:00:17Z] heartbeat.sh started
 [2026-11-13T05:00:17Z] Launching claude -p work session
+[DONE 2026-11-13 00:00 ET] Steady-state confirmed — clean no-op. Baseline green (run-tests 11/11, board-health 0 missing fields, dedup 0 clusters). Ran board-steady-state-nov2026 checklist: no new task missing fields, no unscoped concrete task, no health/dedup gap, no curriculum A/B/C reply from Dad, first TX-tax snooze opens 2027-01-01. No board writes, no scripts touched, no send.
+Steady state confirmed — honest no-op cycle, logged.
+
+**Baseline (all green):** tests 11/11, board-health 0 missing fields, dedup 0 clusters.
+
+**New-inputs check:** none of the five triggers from `board-steady-state-nov2026` fired. No new task missing taskType/effortTag, no unscoped concrete task, no health/dedup gap, no A/B/C curriculum reply from Dad on t_curric01, and the first snoozed TX-tax window doesn't open until 2027-01-01.
+
+The board remains all-scoped and awaiting Mom/Dad action — which `board-reminders.sh` handles on its own schedule. Per the steady-state memory, re-deriving "healthy, nothing to do" into a full work pass would be make-work, so I confirmed the baseline, logged the result, and stopped. No board writes, no script changes, no messages sent. WIP file clean.
+[2026-11-13T05:00:48Z] heartbeat.sh complete
+[2026-11-13T09:30:18Z] heartbeat.sh started
+[2026-11-13T09:30:18Z] Launching claude -p work session
+[DONE 2026-11-13 04:30 ET] Steady-state confirmed — clean no-op (5th consecutive). Baseline green (run-tests 11/11, board-health 0 missing fields, dedup 0 clusters). board-steady-state-nov2026 checklist: no new task missing fields, no unscoped concrete task, no health/dedup gap, no curriculum A/B/C reply from Dad on t_curric01, first TX-tax snooze opens 2027-01-01. Board all-scoped, awaiting Mom/Dad action (board-reminders.sh owns that). No WIP, no board writes, no scripts touched, no send.
+Done. Honest no-op cycle — the 5th consecutive steady state.
+
+**Summary:** Baseline is fully green (tests 11/11, board-health 0 missing fields, dedup 0 clusters). Ran the `board-steady-state-nov2026` new-inputs checklist — none of the five triggers fired. The board is all-scoped (including the two newest Nov-11 tasks, t_w3ivbev and t_jzezn90, which already have complete fields and outreach guides). `t_curric01` still shows no DAD reply, so the A/B/C curriculum decision remains with Dad; the curriculum delivery stays safely halted. First snoozed TX-tax window doesn't reopen until 2027-01-01.
+
+Everything else on the backlog needs Mom/Dad action, which `board-reminders.sh` handles on its own schedule — so re-deriving that into a full work pass would be make-work. Logged to `heartbeat.log`, no WIP created, no board writes, no script changes, no messages sent.
+[2026-11-13T09:31:01Z] heartbeat.sh complete
+[2026-11-13T14:00:19Z] heartbeat.sh started
+[2026-11-13T14:00:19Z] Launching claude -p work session
+[2026-11-13 09:00 ET] [STEADY-STATE] Heartbeat — baseline reconfirmed: tests 11/11, board-health 0 missing fields, dedup 0 clusters. No new/unscoped tasks (none created since 11-11, none updated today). Curriculum still halted awaiting Dad A/B/C (t_curric01); next TX snooze reopens 2027-01-01. No ZAZU-executable work — correct output per board-steady-state playbook. No action taken.
+Steady state confirmed — no action needed this cycle.
+
+**Checks run:**
+- Tests: 11/11 suites green
+- Board-health: 0 missing fields
+- Dedup: 0 clusters
+- New inputs: none (no tasks created since 11-11, none updated today)
+
+**Open items are all family-action-gated, not ZAZU-executable:**
+- Curriculum A/B/C decision still pending Dad (`.curriculum-halted` in place, resume is mechanical once he picks — t_curric01 re-surfaces via daily brief)
+- TX sales-tax tasks snoozed until 2027-01-01+
+- Max-resistance stalled tasks (insurance, neighbor, passport, financial-docs) already scoped with guides; reminders handled by `board-reminders.sh`
+
+Logged to `logs/heartbeat.log`, no WIP to clean. Did not manufacture a redundant scoping pass — that's the correct call per the steady-state playbook, which exists precisely because prior heartbeats kept re-deriving this same conclusion.
+[2026-11-13T14:01:01Z] heartbeat.sh complete
+[2026-11-13T18:30:19Z] heartbeat.sh started
+[2026-11-13T18:30:20Z] Launching claude -p work session
+[2026-11-13 13:30 ET] [STEADY-STATE] Heartbeat — baseline reconfirmed: tests 11/11, board-health 0 missing fields, dedup 0 clusters. No new inputs: 0 tasks created/updated today (none since 11-11), no unscoped concrete task, no health/dedup gap. Curriculum still halted awaiting Dad A/B/C (t_curric01, .curriculum-halted in place); next TX snooze reopens 2027-01-01. All backlog items family-action-gated (board-reminders.sh owns nudging). No ZAZU-executable work — per board-steady-state-nov2026 playbook, no action taken. No WIP, no board writes, no scripts touched, no send.
+[2026-11-13T18:30:40Z] heartbeat.sh complete (no-op)
+Steady state confirmed — honest no-op cycle, logged.
+
+**Baseline (all green):** tests 11/11, board-health 0 missing fields, dedup 0 clusters.
+
+**New-inputs check:** none of the five triggers from `board-steady-state-nov2026` fired. No tasks created or updated today (nothing new since 11-11), no unscoped concrete task, no health/dedup gap. `t_curric01` still shows no DAD A/B/C reply and `.curriculum-halted` remains in place, so curriculum delivery stays safely paused. First snoozed TX sales-tax window doesn't reopen until 2027-01-01.
+
+Every open backlog item is family-action-gated (insurance, neighbor, passport, financial-docs, condo/property threads) — all already scoped with guides, and `board-reminders.sh` owns the nudging on its own schedule. Per the steady-state playbook, re-deriving that into a full work pass would be make-work, so I confirmed the baseline, logged it, and stopped. No WIP file existed, no board writes, no script changes, no messages sent.
+[2026-11-13T18:30:50Z] heartbeat.sh complete
+[2026-11-13T23:00:20Z] heartbeat.sh started
+[2026-11-13T23:00:20Z] Launching claude -p work session
+[2026-11-13 18:00 ET] [STEADY-STATE] Heartbeat — baseline reconfirmed: board-health 0 missing fields, dedup 0 clusters. No new inputs (nothing created/updated since 11-11). 4th consecutive no-op today. All 5 flagged items family-action-gated: 4 at max resistance already scoped w/ guides (insurance, neighbor, passport t_r1908t7, financial-docs t_q5wnyq5); t_stnk0sf (school evac Nov 18) scoped awareness-only. Curriculum still halted awaiting Dad A/B/C (t_curric01, .curriculum-halted in place); next TX snooze reopens 2027-01-01. No ZAZU-executable work — per board-steady-state-nov2026 playbook, no action. No WIP, no board writes, no scripts touched, no send.
+[2026-11-13T23:01:00Z] heartbeat.sh complete (no-op)
+Steady state confirmed — honest no-op, logged.
+
+**Baseline (green):** board-health 0 missing fields, dedup 0 clusters.
+
+**New-inputs check:** none fired. Nothing created or updated since 11-11; this is the 4th consecutive no-op today. All 5 resistance-flagged items are family-action-gated, not ZAZU-executable:
+- 4 at max resistance already scoped with guides (insurance, neighbor repair-share, passport, Mom's financial-docs)
+- School evacuation (Nov 18) scoped awareness-only
+- Curriculum A/B/C still awaiting Dad (`t_curric01`, `.curriculum-halted` in place — resume is mechanical once he picks)
+- TX sales-tax tasks snoozed until 2027-01-01+
+
+`board-reminders.sh` owns the nudging on its own schedule, so a full scoping pass would be make-work. Logged to `heartbeat.log`, no WIP to clean, no board writes, no script changes, no messages sent.
+[2026-11-13T23:00:57Z] heartbeat.sh complete
+[2026-11-14T03:30:21Z] heartbeat.sh started
+[2026-11-14T03:30:21Z] Launching claude -p work session
+[2026-11-13 22:30 ET] [STEADY-STATE] Heartbeat — baseline green: board-health 0 missing fields, dedup 0 clusters, 63 total/12 active. No inputs since 11-11; 5th consecutive no-op today. All active items family-action-gated & already scoped (insurance, neighbor, passport, financial-docs, condo/propmgmt trio, school evac/conference awareness). Curriculum still halted awaiting Dad A/B/C (t_curric01, .curriculum-halted in place). Next TX snooze reopens 2027-01-01. No ZAZU-executable work per playbook — no WIP, no board writes, no scripts, no send.
+Steady-state no-op — logged, nothing to clean up.
+
+**Baseline (green):** board-health 0 missing fields, dedup 0 clusters, 63 total / 12 active.
+
+**New-inputs check:** none. Nothing created or updated since 11-11 — this is the 5th consecutive no-op today. All active items are family-action-gated, not ZAZU-executable:
+- 4 at max resistance, already scoped with guides (Acrisure insurance, 15 Sigourney neighbor, passport, Mom's financial-docs)
+- 15 Sigourney condo/property-mgmt trio (t_w3ivbev, t_jzezn90, t_15sig01) — all have outreach guides ready via `deliver-guide.sh`
+- School evac (Nov 18) + conference sign-up — scoped awareness-only
+- Curriculum A/B/C still awaiting Dad (`t_curric01`, `.curriculum-halted` in place — resume is mechanical once he picks)
+- TX sales-tax tasks snoozed until 2027-01-01+
+
+`board-reminders.sh` owns the nudging on its own schedule, so a scoping pass would be make-work. No WIP file existed, no board writes, no script changes, no messages sent.
+[2026-11-14T03:31:01Z] heartbeat.sh complete
+[2026-11-14T05:00:21Z] heartbeat.sh started
+[2026-11-14T05:00:21Z] Launching claude -p work session

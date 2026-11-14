@@ -1,4 +1,4 @@
-# Wait Ratio Report — Nov 12, 2026, 6:45 AM
+# Wait Ratio Report — Nov 13, 2026, 6:45 AM
 
 _62 of 63 tasks have usable stageHistory. Wait ratio = time in IDEA/RESEARCH ÷ total tracked time. Work stages = ACTIVE/ASSIGNED. Terminal stages (DONE/ARCHIVED) are excluded — post-completion time is not counted._
 
@@ -30,13 +30,13 @@ _62 of 63 tasks have usable stageHistory. Wait ratio = time in IDEA/RESEARCH ÷ 
 
 | Task | Category | Stage | Wait Ratio | Total Tracked |
 |------|----------|-------|------------|----------------|
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | IDEA | 100% | 108.3d |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | IDEA | 100% | 108.3d |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | IDEA | 100% | 108.3d |
-| Review Acrisure home insurance renewal | HOME | ACTIVE | 4.6% | 158.5d |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | ACTIVE | 0% | 149.4d |
-| Renew British passport — Dad | ADMIN | ACTIVE | 0% | 108.3d |
-| Complete any open financial planning docs | ADMIN | ACTIVE | 0% | 40.7d |
-| Safe School Evacuation | HOME | ACTIVE | 0% | 7.6d |
-| Decide AI Agents curriculum: reply A / B / C | GOALS | ACTIVE | 0% | 4.1d |
-| Check school conference options | FAMILY | ACTIVE | 0% | 2.8d |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | IDEA | 100% | 109.3d |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | IDEA | 100% | 109.3d |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | IDEA | 100% | 109.3d |
+| Review Acrisure home insurance renewal | HOME | ACTIVE | 4.6% | 159.5d |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | ACTIVE | 0% | 150.4d |
+| Renew British passport — Dad | ADMIN | ACTIVE | 0% | 109.3d |
+| Complete any open financial planning docs | ADMIN | ACTIVE | 0% | 41.7d |
+| Safe School Evacuation | HOME | ACTIVE | 0% | 8.6d |
+| Decide AI Agents curriculum: reply A / B / C | GOALS | ACTIVE | 0% | 5.1d |
+| Check school conference options | FAMILY | ACTIVE | 0% | 3.8d |
