@@ -3109,3 +3109,108 @@ Steady-state no-op — logged, nothing to clean up.
 [2026-11-14T03:31:01Z] heartbeat.sh complete
 [2026-11-14T05:00:21Z] heartbeat.sh started
 [2026-11-14T05:00:21Z] Launching claude -p work session
+[2026-11-14 00:00 ET] [STEADY-STATE] Heartbeat — baseline green: tests 11/11, board-health 0 missing fields, dedup 0 clusters. Newest task unchanged (t_w3ivbev, 11-11); no new inputs since 11-11. All 12 active items family-action-gated & already scoped (insurance, neighbor, passport, financial-docs, 15 Sigourney condo/propmgmt trio, school evac/conference awareness). Curriculum still halted awaiting Dad A/B/C (t_curric01, .curriculum-halted in place). Next TX snooze reopens 2027-01-01. board-reminders.sh owns nudging on its own cadence — no ZAZU-executable work. No WIP, no board writes, no scripts, no sends.
+Steady state confirmed — no action taken, as the playbook prescribes.
+
+**Baseline (green):** tests 11/11, board-health 0 missing fields, dedup 0 clusters, 12 active tasks.
+
+**New-inputs check:** none. Newest task is still t_w3ivbev from 11-11; nothing created or updated since. Every active item is family-action-gated and already scoped:
+- 4 max-resistance tasks already have decision-ready guides (Acrisure insurance, 15 Sigourney neighbor, passport, Mom's financial docs)
+- 15 Sigourney trio (condo payment, property-mgmt reports, neighbor) — outreach guides ready via `deliver-guide.sh`
+- School evac (Nov 18) + conference sign-up — scoped awareness-only
+- Curriculum A/B/C still awaiting Dad (`t_curric01`, `.curriculum-halted` in place; resume is mechanical once he picks)
+- TX sales-tax tasks snoozed until 2027-01-01+
+
+`board-reminders.sh` owns the nudging, so a fresh scoping pass would be make-work. Logged to `heartbeat.log`; no WIP to clean, no board writes, no script changes, no messages sent.
+[2026-11-14T05:00:53Z] heartbeat.sh complete
+[2026-11-14T09:30:22Z] heartbeat.sh started
+[2026-11-14T09:30:22Z] Launching claude -p work session
+[2026-11-14T09:30 ET] heartbeat (04:30 cycle) — steady state confirmed, no action taken per playbook.
+
+Baseline (all green): tests 11/11 PASS, board-health 0 missing fields, dedup 0 clusters, 12 active tasks (9 ACTIVE / 3 IDEA).
+
+New-inputs check: NONE. Newest active task still t_w3ivbev (11-11); last board touch was my own 11-12 scoping of t_5gccs1n. Nothing created/updated since last cycle.
+
+Every active item remains family-action-gated and already scoped:
+- 4 max-resistance tasks have decision-ready guides (Acrisure, 15 Sigourney neighbor, passport, Mom financial docs)
+- 15 Sigourney trio (condo payment, prop-mgmt reports, neighbor) — outreach guides ready via deliver-guide.sh
+- School evac Nov 18 (t_stnk0sf) + conference sign-up (t_5gccs1n) — scoped awareness-only; evac honest-closes once Nov 18 passes
+- Curriculum A/B/C still awaiting Dad (t_curric01, .curriculum-halted in place; resume mechanical once he picks)
+- TX sales-tax set snoozed to 2027-01-01+
+
+board-reminders.sh owns nudging. No WIP, no board writes, no scripts changed, no messages sent.
+[2026-11-14T09:30 ET] heartbeat complete
+Steady state confirmed — no action taken, as the playbook prescribes.
+
+**Baseline (all green):** tests 11/11 PASS, board-health 0 missing fields, dedup 0 clusters, 12 active tasks.
+
+**New-inputs check:** none. Newest active task is still `t_w3ivbev` (11-11); the only board change since the last cycle was my own 11-12 scoping edit. Nothing created or updated.
+
+Every active item is family-action-gated and already scoped — max-resistance tasks have decision-ready guides, the 15 Sigourney trio has outreach guides ready via `deliver-guide.sh`, the Nov-18 school evac and conference sign-up are scoped awareness-only, and the curriculum A/B/C decision is still mechanically resume-ready once Dad picks. `board-reminders.sh` owns the nudging, so a fresh scoping pass would be make-work.
+
+Logged to `heartbeat.log`. No WIP, no board writes, no script changes, no messages sent.
+[2026-11-14T09:31:11Z] heartbeat.sh complete
+[2026-11-14T14:00:23Z] heartbeat.sh started
+[2026-11-14T14:00:23Z] Launching claude -p work session
+[2026-11-14T14:00 ET] heartbeat (14:00 cycle) — steady state confirmed, no action taken per playbook.
+
+Baseline (all green): tests 11/11 PASS, board-health 0 data gaps (table shows known max-resistance tasks, not missing fields), dedup 0 clusters. No WIP.
+
+New-inputs check: NONE. Newest task still t_w3ivbev (11-11), already scoped w/ guide. Nothing created/updated since the 09:30 cycle. Curriculum A/B/C still awaiting Dad (.curriculum-halted in place; resume mechanical once he picks). TX sales-tax set snoozed to 2027-01-01+.
+
+board-reminders.sh owns nudging. No board writes, no scripts changed, no messages sent.
+[2026-11-14T14:00 ET] heartbeat complete
+Steady state confirmed — no action taken, as the playbook prescribes.
+
+**Baseline (all green):** tests 11/11 PASS, board-health 0 data gaps, dedup 0 clusters. No WIP file.
+
+**New-inputs check:** none. Newest task is still `t_w3ivbev` (11-11), already scoped with an outreach guide; nothing created or updated since the 09:30 cycle earlier today. The curriculum A/B/C decision is still awaiting Dad (`.curriculum-halted` in place, resume is mechanical once he picks), and the TX sales-tax set stays snoozed to 2027-01-01+.
+
+Every active item remains family-action-gated and already scoped. `board-reminders.sh` owns the nudging, so producing another guide or scoping pass would be write-only make-work ([[guides-write-only-gap]]). Logged to `heartbeat.log`. No board writes, no script changes, no messages sent.
+[2026-11-14T14:00:58Z] heartbeat.sh complete
+[2026-11-14T18:30:23Z] heartbeat.sh started
+[2026-11-14T18:30:23Z] Launching claude -p work session
+[2026-11-14 13:30 ET] Heartbeat — steady state confirmed, no new inputs. Tests 11/11 green, board-health 0 missing fields, dedup 0 clusters. No new tasks since 2026-11-11 (all scoped). Curriculum A/B/C (t_curric01) still awaiting Dad; first TX snooze reopens 2027-01-01. No ZAZU-executable work; board-reminders handles family-action items. No churn.
+Steady state confirmed — no action needed this cycle.
+
+**Checked:**
+- Tests: 11/11 suites green
+- board-health: 0 missing fields, no new data-quality gaps
+- dedup: 0 clusters
+- New inputs: none — newest task is from 2026-11-11, all already scoped with guides
+- Curriculum decision (t_curric01): still ACTIVE, awaiting Dad's A/B/C reply
+- Curriculum delivery: still safely halted (`.curriculum-halted` marker intact)
+
+All 12 active tasks are either scoped with a decision-ready guide or honestly right-sized, and every one needs Mom/Dad action that board-reminders.sh already handles on its own schedule. Per the documented Nov-2026 steady state, the correct move is an honest no-churn confirmation rather than manufacturing a redundant scoping pass. Logged to heartbeat.log; no WIP (none created, nothing to clean beyond the stale-file guard). No iMessage sent — nothing newly noteworthy.
+[2026-11-14T18:31:02Z] heartbeat.sh complete
+[2026-11-14T23:00:24Z] heartbeat.sh started
+[2026-11-14T23:00:24Z] Launching claude -p work session
+[2026-11-14 18:00 ET] Heartbeat — steady state confirmed, no new inputs. Baseline green: tests 11/11, board-health 0 data gaps, dedup 0 clusters. Newest task update still 2026-11-12 (all scoped). Curriculum A/B/C (t_curric01) still awaiting Dad; .curriculum-halted intact. t_stnk0sf school drill due 11-18 already scoped awareness-only. No ZAZU-executable work; board-reminders owns family-action nudging. No board writes, no scripts, no messages.
+Steady state confirmed — no action needed this cycle.
+
+**Baseline (all green):**
+- Tests: 11/11 suites pass
+- board-health: 0 missing fields, no data-quality gaps
+- dedup: 0 clusters
+
+**New-inputs check:** none. Newest task update is still 2026-11-12 (`t_5gccs1n`), already scoped — nothing created or touched since the earlier cycles today. Curriculum A/B/C decision (`t_curric01`) still awaiting Dad's reply; `.curriculum-halted` marker intact so delivery stays safely paused. The Nov-18 school-drill task (`t_stnk0sf`) is already scoped awareness-only.
+
+All 12 active tasks are either scoped with a decision-ready guide or honestly right-sized, and every one is gated on Mom/Dad action that `board-reminders.sh` already handles on its own schedule. Per the documented Nov-2026 steady state, producing another guide or scoping pass would be write-only make-work. Logged honestly to `heartbeat.log`. No WIP created, no board writes, no scripts changed, no messages sent.
+[2026-11-14T23:00:59Z] heartbeat.sh complete
+[2026-11-15T03:30:25Z] heartbeat.sh started
+[2026-11-15T03:30:25Z] Launching claude -p work session
+[2026-11-14 22:30 ET] Heartbeat — steady state confirmed, no action. Verified fresh (not trusting prior logs): tests 11/11 green, board-health 0 data gaps, dedup 0 clusters. Ingestion clean — gmail-scan no new emails, daily-learning correctly halted (no re-alert), connectivity ok. Newest task update still 2026-11-12; 12 open tasks all scoped/right-sized. Curriculum A/B/C (t_curric01) still awaiting Dad; .curriculum-halted intact. No ZAZU-executable work — all items gated on Mom/Dad action that board-reminders owns. No board writes, no scripts, no messages. No WIP created.
+Steady state confirmed — no action needed this cycle.
+
+**Verified fresh (not trusting prior logs):**
+- Tests: 11/11 suites green
+- board-health: 0 missing fields, no data-quality gaps
+- dedup: 0 clusters
+- gmail-scan: no new household emails; daily-learning correctly halted (no re-alert spam); connectivity ok
+
+**New-inputs check:** none. Newest task update is still 2026-11-12 — nothing created or touched since the three earlier cycles today. All 12 open tasks are scoped with decision-ready guides or honestly right-sized, and every one is gated on Mom/Dad action that `board-reminders.sh` already handles. Curriculum A/B/C decision (`t_curric01`) still awaiting Dad; `.curriculum-halted` marker intact.
+
+Per the documented Nov-2026 steady state, producing another guide or scoping pass would be write-only make-work. Logged honestly to `heartbeat.log`; no WIP created, no board writes, no scripts changed, no iMessage sent (nothing newly noteworthy).
+[2026-11-15T03:31:19Z] heartbeat.sh complete
+[2026-11-15T05:00:25Z] heartbeat.sh started
+[2026-11-15T05:00:25Z] Launching claude -p work session
