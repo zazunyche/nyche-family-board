@@ -1,4 +1,4 @@
-# Stage Funnel — Nov 14, 2026, 6:45 AM
+# Stage Funnel — Nov 15, 2026, 6:45 AM
 
 _63 total tasks_
 
@@ -50,11 +50,12 @@ _Genuine completion rate (FULL + DELEGATED_OUT): **33%** of done tasks_
 
 | Task | Score | Briefs | Stage |
 |------|-------|--------|-------|
-| Review Acrisure home insurance renewal | 5 | 134 | ACTIVE |
-| 15 Sigourney — follow up with neighbor on … | 5 | 134 | ACTIVE |
-| Renew British passport — Dad | 5 | 103 | ACTIVE |
+| Review Acrisure home insurance renewal | 5 | 135 | ACTIVE |
+| 15 Sigourney — follow up with neighbor on … | 5 | 135 | ACTIVE |
+| Renew British passport — Dad | 5 | 104 | ACTIVE |
 | Pay Texas Comptroller sales tax — Nyche LL… | 5 | 88 | IDEA |
 | Pay Texas Comptroller sales tax — Nyche LL… | 5 | 88 | IDEA |
 | Pay Texas Comptroller sales tax — Nyche LL… | 5 | 88 | IDEA |
-| Complete any open financial planning docs | 5 | 43 | ACTIVE |
-| Safe School Evacuation | 1 | 9 | ACTIVE |
+| Complete any open financial planning docs | 5 | 44 | ACTIVE |
+| Safe School Evacuation | 1 | 10 | ACTIVE |
+| Decide AI Agents curriculum: reply A / B / C | 1 | 7 | ACTIVE |

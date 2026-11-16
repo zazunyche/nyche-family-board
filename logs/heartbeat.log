@@ -3214,3 +3214,73 @@ Per the documented Nov-2026 steady state, producing another guide or scoping pas
 [2026-11-15T03:31:19Z] heartbeat.sh complete
 [2026-11-15T05:00:25Z] heartbeat.sh started
 [2026-11-15T05:00:25Z] Launching claude -p work session
+[2026-11-15 00:00 ET] Steady state confirmed — tests 11/11 green, board-health 0 data-quality gaps, dedup 0 clusters. 12 active tasks all scoped (taskType/effortTag/zazuNotes present). No new unscoped inputs. t_stnk0sf (school evac Nov 18) is 3 days out but already right-sized awareness-only. No ZAZU-executable work; no WIP opened. Honest no-op.
+Done. Steady state confirmed — no new ZAZU-executable work this cycle, logged and no WIP left open.
+
+- **Baseline:** tests 11/11 green · board-health 0 data gaps · dedup 0 clusters
+- **Board:** 12 active tasks, all scoped; 2 overdue + 4 stale are all DAD/MOM-action items already surfaced by board-reminders.sh
+- **Only time-sensitive item:** `t_stnk0sf` school evacuation (Nov 18, 3 days out) — already right-sized awareness-only, nothing to execute
+
+Logged an honest no-op to `heartbeat.log`. No iMessage sent (nothing noteworthy to report).
+[2026-11-15T05:00:54Z] heartbeat.sh complete
+[2026-11-15T09:30:26Z] heartbeat.sh started
+[2026-11-15T09:30:26Z] Launching claude -p work session
+[2026-11-15 04:30 ET] [STEADY-STATE] Heartbeat 04:30 ET — baseline confirmed: tests 11/11, board-health 0 missing fields, dedup 0 clusters. No new inputs: all 12 active tasks scoped, curriculum still halted awaiting Dad A/B/C (t_curric01). No ZAZU-executable work; honest no-op per board-steady-state guidance.
+Logged. No WIP file was created since there was no long work to resume, and none lingered.
+
+**Summary:** Steady state confirmed — infra healthy (tests 11/11, 0 data gaps, 0 dups), every active task already scoped, nothing ZAZU-executable without family action. The one lever that would unlock real work is Dad answering the A/B/C curriculum decision; board-reminders already re-surfaces that on its own schedule, so no duplicate nudge sent. Honest no-op this cycle.
+[2026-11-15T09:30:59Z] heartbeat.sh complete
+[2026-11-15T14:00:26Z] heartbeat.sh started
+[2026-11-15T14:00:27Z] Launching claude -p work session
+[2026-11-15 09:00 ET] [STEADY-STATE] Heartbeat — verified fresh: tests 11/11 green, board-health 0 data gaps, dedup 0 clusters. 12 active tasks all scoped; newest input still 2026-11-12. Curriculum A/B/C (t_curric01) still awaiting Dad, .curriculum-halted intact. No ZAZU-executable work — all items gated on Mom/Dad action owned by board-reminders.sh. Honest no-op; no WIP, no board writes, no messages.
+Steady state confirmed — honest no-op this cycle.
+
+- **Baseline (verified fresh, not trusting prior logs):** tests 11/11 suites green · board-health 0 data gaps · dedup 0 clusters
+- **Board:** 12 active tasks, all scoped; newest input still 2026-11-12 — nothing created or touched since
+- **Only lever for real work:** Dad's A/B/C curriculum decision (`t_curric01`), with delivery safely halted (`.curriculum-halted` intact) — `board-reminders.sh` re-surfaces it on its own schedule, so no duplicate nudge sent
+
+Logged to `heartbeat.log`. No WIP left open, no board writes, no scripts changed, no iMessage sent (nothing newly noteworthy).
+[2026-11-15T14:00:59Z] heartbeat.sh complete
+[2026-11-15T18:30:27Z] heartbeat.sh started
+[2026-11-15T18:30:27Z] Launching claude -p work session
+[2026-11-15 13:30 ET] [WORK] Reconciled Dad's batch board edits from today (16:28Z). Two real fixes, not a no-op:
+  1) t_curric01 (AI curriculum A/B/C) — Dad marked it DONE with NO A/B/C letter. Delivery doubly stopped (.curriculum-halted present + com.zazu.daily-learning NOT loaded). Did NOT guess "resume" (would be an unrequested outward-facing re-enable); interpreted conservatively as stays-stopped. Updated memory ai-curriculum-runaway-loop.md + MEMORY.md index to mark decision RESOLVED/closed so future heartbeats stop treating it as open. Halt file left intact; progress pointer left corrupt (harmless while stopped).
+  2) t_insure01 (Acrisure insurance) — zazuNotes DIRECTLY CONTRADICTED Dad's fresh note. Old guide assumed policy already renewed ~June/July (window past); Dad's note says renews Nov 30 + quotes-in-flight via agent. Rewrote zazuNotes to match reality (in-flight shop, no nudge owed, flagged old guide stale), added ZAZU history entry. JSON re-validated OK.
+No iMessage sent. No WIP opened (short work).
+[DONE] Reconcile Dad's 2026-11-15 board edits — closed out curriculum decision in memory (stays-stopped, no guess) + corrected contradictory t_insure01 zazuNotes.
+Done — this heartbeat was **not** a no-op. Dad actively touched the board today (16:28Z batch), and two of his edits left real work for me to reconcile:
+
+**1. AI curriculum decision (`t_curric01`) — closed out correctly, without guessing**
+Dad marked the long-pending A/B/C decision **DONE** but left **no letter**. The key judgment call: resuming delivery (B/C) is an outward-facing re-enable he didn't ask for, and the system is *doubly stopped* (`.curriculum-halted` present **and** the `com.zazu.daily-learning` launchd agent isn't even loaded). So I read "closed the task + left everything stopped" conservatively as **stays-stopped** — I did **not** delete the halt file, re-anchor the pointer, or start texting him daily content on a guess. Updated both the curriculum memory and MEMORY.md index to mark it RESOLVED, so future heartbeats stop re-surfacing it as open. The option-B repair recipe is preserved in memory if he ever says "resume."
+
+**2. Insurance task (`t_insure01`) — fixed a note that contradicted reality**
+Its zazuNotes claimed the policy "almost certainly already renewed ~June/July, window is past" — but Dad's fresh note says it **renews Nov 30** and he's actively shopping (quotes requested, awaiting). That stale guide would have fed him wrong advice in the next brief. Rewrote the zazuNotes to match (in-flight shop, no nudge owed, old guide flagged stale), added a ZAZU history entry, re-validated the JSON.
+
+No iMessage sent — nothing needs his attention (insurance is on track per his own note; curriculum is his closed call). No WIP opened; nothing lingering. Logged to `heartbeat.log`.
+
+One thing worth surfacing for a future session: the `board-steady-state-nov2026` memory's premise ("heartbeats keep re-deriving nothing to do") held until today — Dad's engagement is the kind of NEW input that *does* generate ZAZU work (reconciling his edits against stale zazuNotes). That pattern will likely recur whenever he does a board pass.
+[2026-11-15T18:33:59Z] heartbeat.sh complete
+[2026-11-15T23:00:28Z] heartbeat.sh started
+[2026-11-15T23:00:28Z] Launching claude -p work session
+[2026-11-15 18:00 ET] heartbeat — steady state: board-health 0 data gaps, tests 11/11 green.
+[DONE] Fix stale Acrisure insurance guide (t_insure01) — prior session corrected the task's premise today (renews Nov 30, Dad actively shopping w/ quotes in flight) but the guide file still argued the opposite ("window passed, already renewed June/July") and was flagged undeliverable. Rewrote docs/guides/acrisure-insurance-renewal-dad.md to match reality (Nov-30 renewal, equal-coverage current-vs-best comparison, escrow/no-lapse notes, honest close). Updated t_insure01 zazuNotes — guide safe to deliver again, no nudge owed, hold quiet until Nov 30.
+Done. This was a steady-state cycle with one genuinely actionable fix.
+
+**What I found:**
+- Board health clean — 0 missing fields, 0 data gaps, 0 new dedup clusters.
+- Test suite green — 11/11 suites pass.
+- Curriculum halt file present and correct (keeps delivery stopped per Dad's resolution — left untouched).
+- Everything on the backlog is already scoped with guides; all stalled items need Mom/Dad action that board-reminders.sh handles on its own schedule.
+
+**The one real fix — `t_insure01` (Acrisure insurance):**
+A prior session *today* corrected this task's premise — the policy renews **Nov 30** and Dad is actively shopping (competing quotes requested via his agent, in flight). But the guide file (`docs/guides/acrisure-insurance-renewal-dad.md`) still argued the *opposite* ("window has passed, policy already renewed June/July"), and the task note explicitly said "do not deliver it as-is." That's a live landmine: `deliver-guide.sh` could have emailed Dad factually wrong advice.
+
+I rewrote the guide to match reality — Nov-30 renewal, blocked-on-agent-quotes not on Dad, equal-coverage current-vs-best comparison for when quotes land, escrow/no-lapse notes, and an honest close on/after Nov 30. Updated the zazuNotes so it's flagged deliverable again, with no nudge owed. Logged and WIP clean.
+[2026-11-15T23:01:51Z] heartbeat.sh complete
+[2026-11-16T03:30:29Z] heartbeat.sh started
+[2026-11-16T03:30:29Z] Launching claude -p work session
+[2026-11-15 22:30 ET] heartbeat — steady state, no action owed: tests 11/11 green, board-health 0 data gaps/0 missing fields, dedup 0 clusters. Acrisure guide fix already done by 23:00 cycle. Curriculum halt file intact (delivery stays stopped). All backlog items scoped + need Mom/Dad action (board-reminders handles). No new ZAZU work; did not churn.
+Done. Steady-state cycle, logged and WIP clean. No iMessage sent — nothing noteworthy enough to interrupt Dad or Mom with. Next heartbeat picks up in ~4.5h.
+[2026-11-16T03:31:11Z] heartbeat.sh complete
+[2026-11-16T05:00:29Z] heartbeat.sh started
+[2026-11-16T05:00:29Z] Launching claude -p work session

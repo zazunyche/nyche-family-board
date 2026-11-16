@@ -1,4 +1,4 @@
-# Board Health — Nov 14, 2026, 6:45 AM
+# Board Health — Nov 15, 2026, 6:45 AM
 
 ## Summary
 
@@ -34,29 +34,31 @@
 
 | ID | Title | Due | Days Overdue | Owner |
 |----|-------|-----|-------------|-------|
-| t_r1908t7 | Renew British passport — Dad | 2026-10-17 | 28 | DAD |
-| t_q5wnyq5 | Complete any open financial planning docs | 2026-10-05 | 40 | MOM |
+| t_r1908t7 | Renew British passport — Dad | 2026-10-17 | 29 | DAD |
+| t_q5wnyq5 | Complete any open financial planning docs | 2026-10-05 | 41 | MOM |
 
 ## Stale Tasks — no update in 14+ days (4)
 
 | ID | Title | Stage | Age (days) | Owner |
 |----|-------|-------|-----------|-------|
-| t_insure01 | Review Acrisure home insurance renewal | ACTIVE | 153 | DAD |
-| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | ACTIVE | 151 | DAD |
-| t_r1908t7 | Renew British passport — Dad | ACTIVE | 110 | DAD |
-| t_q5wnyq5 | Complete any open financial planning docs | ACTIVE | 43 | MOM |
+| t_insure01 | Review Acrisure home insurance renewal | ACTIVE | 154 | DAD |
+| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | ACTIVE | 152 | DAD |
+| t_r1908t7 | Renew British passport — Dad | ACTIVE | 111 | DAD |
+| t_q5wnyq5 | Complete any open financial planning docs | ACTIVE | 44 | MOM |
 
-## High Brief Count — briefed 3+ times with no completion (7)
+## High Brief Count — briefed 3+ times with no completion (9)
 
 | ID | Title | Brief Count | Owner |
 |----|-------|-------------|-------|
-| t_insure01 | Review Acrisure home insurance renewal | 134 | DAD |
-| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | 134 | DAD |
-| t_r1908t7 | Renew British passport — Dad | 103 | DAD |
-| t_q5wnyq5 | Complete any open financial planning docs | 43 | MOM |
-| t_stnk0sf | Safe School Evacuation | 9 | BOTH |
-| t_curric01 | Decide AI Agents curriculum: reply A / B / C | 6 | DAD |
-| t_5gccs1n | Check school conference options | 4 | BOTH |
+| t_insure01 | Review Acrisure home insurance renewal | 135 | DAD |
+| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | 135 | DAD |
+| t_r1908t7 | Renew British passport — Dad | 104 | DAD |
+| t_q5wnyq5 | Complete any open financial planning docs | 44 | MOM |
+| t_stnk0sf | Safe School Evacuation | 10 | BOTH |
+| t_curric01 | Decide AI Agents curriculum: reply A / B / C | 7 | DAD |
+| t_5gccs1n | Check school conference options | 5 | BOTH |
+| t_jzezn90 | Follow up on financial reports | 3 | BOTH |
+| t_w3ivbev | Resolve condo payment issue | 3 | BOTH |
 
 ## Data Quality (0 missing fields)
 
@@ -66,12 +68,13 @@
 | effortTag | ✓ none |
 | stageHistory | ✓ none |
 
-## Resistance Flagged — stalled after 3+ briefings (5)
+## Resistance Flagged — stalled after 3+ briefings (6)
 
 | ID | Title | Score | Briefings | Owner |
 |----|-------|-------|-----------|-------|
-| t_insure01 | Review Acrisure home insurance renewal | 5/5 | 134 | DAD |
-| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | 5/5 | 134 | DAD |
-| t_r1908t7 | Renew British passport — Dad | 5/5 | 103 | DAD |
-| t_q5wnyq5 | Complete any open financial planning docs | 5/5 | 43 | MOM |
-| t_stnk0sf | Safe School Evacuation | 1/5 | 9 | BOTH |
+| t_insure01 | Review Acrisure home insurance renewal | 5/5 | 135 | DAD |
+| t_15sig01 | 15 Sigourney — follow up with neighbor on repair c | 5/5 | 135 | DAD |
+| t_r1908t7 | Renew British passport — Dad | 5/5 | 104 | DAD |
+| t_q5wnyq5 | Complete any open financial planning docs | 5/5 | 44 | MOM |
+| t_stnk0sf | Safe School Evacuation | 1/5 | 10 | BOTH |
+| t_curric01 | Decide AI Agents curriculum: reply A / B / C | 1/5 | 7 | DAD |
