@@ -3284,3 +3284,88 @@ Done. Steady-state cycle, logged and WIP clean. No iMessage sent — nothing not
 [2026-11-16T03:31:11Z] heartbeat.sh complete
 [2026-11-16T05:00:29Z] heartbeat.sh started
 [2026-11-16T05:00:29Z] Launching claude -p work session
+[2026-11-16 00:00 ET] heartbeat — steady state, no action owed: tests 11/11 green, board-health 0 data gaps/0 missing fields/0 dedup. Acrisure guide fix already done by earlier cycles today. Curriculum halt file intact. All backlog scoped + needs Mom/Dad action (board-reminders handles). t_stnk0sf school evac due Nov 18 stays awareness-only (auto-close). No new ZAZU work; did not churn.
+Done. Steady-state cycle, logged and WIP clean. No iMessage — nothing noteworthy enough to interrupt anyone. Next heartbeat picks up in ~4.5h.
+[2026-11-16T05:01:05Z] heartbeat.sh complete
+[2026-11-16T09:30:29Z] heartbeat.sh started
+[2026-11-16T09:30:30Z] Launching claude -p work session
+[2026-11-16 04:31 ET] heartbeat — steady state, no action owed: tests 11/11 green, board-health 0 data gaps/0 missing fields/0 dedup. All 11 active items scoped w/ guides + need Mom/Dad action (board-reminders handles). Overdue/stale flags (passport, fin-docs, Acrisure) all known & correctly held. Curriculum delivery doubly-stopped (halt file + launchd agent unloaded) per Dad resolution. No new ZAZU work; did not churn.
+Done — steady-state cycle, logged and WIP clean.
+
+**Summary:**
+- Tests 11/11 green, board-health clean (0 missing fields, 0 data gaps, 0 dedup clusters).
+- All 11 active items are scoped with guides and need Mom/Dad action — `board-reminders.sh` handles those on its own cadence, so nudging again would be duplication.
+- Overdue/stale/high-brief flags (British passport, financial-planning docs, Acrisure) are all known and correctly held; no new ZAZU work.
+- Curriculum delivery remains doubly-stopped (halt file present + launchd agent unloaded) per Dad's Nov-15 resolution — left untouched.
+
+No iMessage sent — nothing noteworthy enough to interrupt anyone. Next heartbeat picks up in ~4.5h.
+[2026-11-16T09:31:17Z] heartbeat.sh complete
+[2026-11-16T14:00:00Z] heartbeat.sh started
+[2026-11-16T14:00:00Z] Launching claude -p work session
+[2026-11-16 09:00 ET] heartbeat — steady state, no action owed: tests 11/11 green, dedup 0 clusters, board-health 0 data gaps/0 missing fields. 11 active items (8 ACTIVE/3 IDEA), all scoped w/ guides + need Mom/Dad action (board-reminders handles cadence). Overdue flags (passport 30d, fin-docs 42d) known & correctly held; TX sales-tax set parked future-dated. Curriculum delivery still doubly-stopped (halt file intact + launchd agent unloaded). No new ZAZU-progressable work; did not churn.
+[DONE] Heartbeat health check — all green, steady state, no action owed. Logged, WIP clean.
+Steady-state heartbeat — no action owed, no churn.
+
+**Health checks (all green):**
+- Tests: 11/11 suites passing
+- Dedup: 0 duplicate clusters
+- Board-health: 0 data gaps, 0 missing fields; 11 active items (8 ACTIVE / 3 IDEA)
+
+**Backlog state:** All 11 active items are already scoped with guides and need Mom/Dad action, not ZAZU action — `board-reminders.sh` handles those on its own cadence, so nudging would duplicate. Overdue items (British passport −30d, financial-planning docs −42d) are known and correctly held; the TX sales-tax set is intentionally parked on future-dated snoozes.
+
+**Curriculum:** delivery remains doubly-stopped (halt file intact + launchd agent unloaded) per Dad's Nov-15 resolution — left untouched.
+
+No iMessage sent — nothing noteworthy enough to interrupt anyone. Logged to heartbeat.log, WIP clean. Next heartbeat picks up in ~4.5h.
+[2026-11-16T14:00:29Z] heartbeat.sh complete
+[2026-11-16T18:30:01Z] heartbeat.sh started
+[2026-11-16T18:30:01Z] Launching claude -p work session
+[2026-11-16 13:30 ET] heartbeat — steady state confirmed via independent re-run: tests 11/11 PASS, dedup 0 clusters, board-health 0 data gaps (11 active: 8 ACTIVE/3 IDEA). All backlog items scoped w/ guides + need Mom/Dad action (board-reminders owns cadence). Nov-18 school evac (t_stnk0sf) awareness-only, nothing owed until it passes. Curriculum delivery still doubly-stopped (halt file + launchd unloaded) per Dad's Nov-15 close. No new ZAZU work; did not churn.
+[DONE] Heartbeat health check — all green, steady state. No action owed. WIP clean.
+Steady state — no action owed, no churn.
+
+**Independently verified this cycle:**
+- Tests: 11/11 suites PASS
+- Dedup: 0 duplicate clusters
+- Board-health: 0 data gaps/missing fields; 11 active (8 ACTIVE / 3 IDEA), 2 known overdue (passport −30d, fin-docs −42d, both correctly held)
+
+**Backlog:** All 11 items are scoped with guides and need Mom/Dad action, not ZAZU action — `board-reminders.sh` owns that cadence, so nudging would duplicate. The Nov-18 school evacuation (t_stnk0sf) is awareness-only; nothing owed until the date passes. TX sales-tax set stays parked on future-dated snoozes.
+
+**Curriculum:** delivery remains doubly-stopped (halt file intact + launchd agent unloaded) per Dad's Nov-15 close — untouched.
+
+No iMessage sent (nothing noteworthy enough to interrupt). Logged to heartbeat.log, WIP clean. Next heartbeat picks up in ~4.5h.
+[2026-11-16T18:30:40Z] heartbeat.sh complete
+[2026-11-16T23:00:02Z] heartbeat.sh started
+[2026-11-16T23:00:02Z] Launching claude -p work session
+[2026-11-16 18:00 ET] heartbeat — steady state (board-health re-run: 0 data gaps/missing fields, 11 active = 8 ACTIVE/3 IDEA; 2 overdue known+held: passport -30d, fin-docs -42d). All backlog items scoped w/ guides + need Mom/Dad action; board-reminders owns cadence so no nudge. Nov-18 school evac (t_stnk0sf, due in 2d) awareness-only, nothing owed. Curriculum delivery still doubly-stopped (halt file + launchd unloaded) per Dad's Nov-15 close. No new ZAZU work; did not churn. No iMessage sent.
+[DONE] Heartbeat health check — all green, steady state. No action owed. WIP clean.
+Steady state confirmed — no action owed, no churn.
+
+**Verified this cycle (board-health re-run):**
+- 0 data gaps, 0 missing fields
+- 11 active items (8 ACTIVE / 3 IDEA), 63 total
+- 2 overdue, both known and correctly held: passport −30d, fin-docs −42d
+
+**Backlog:** All 11 items are already scoped with guides and need Mom/Dad action, not ZAZU action — `board-reminders.sh` owns that cadence, so a nudge would just duplicate it. The Nov-18 school evacuation (t_stnk0sf, due in 2 days) is awareness-only; nothing owed until it passes. TX sales-tax set stays parked on future-dated snoozes.
+
+**Curriculum:** delivery remains doubly-stopped (halt file intact + launchd agent unloaded) per Dad's Nov-15 close — untouched.
+
+**Infra:** at its eligible ceiling (Tier 1/2 complete; Tier 3/4 gated on data/time that doesn't exist yet).
+
+No iMessage sent — nothing noteworthy enough to interrupt. Logged to heartbeat.log, WIP clean. Next heartbeat picks up in ~4.5h.
+[2026-11-16T23:00:34Z] heartbeat.sh complete
+[2026-11-17T03:30:02Z] heartbeat.sh started
+[2026-11-17T03:30:03Z] Launching claude -p work session
+[2026-11-16 22:30 ET] heartbeat — steady state. board-health re-run: 0 data gaps / 0 missing fields (taskType/effortTag/stageHistory all complete); 11 active. All backlog scoped w/ guides + needs Mom/Dad action; board-reminders owns cadence so no nudge (no churn). Time-sensitive but no ZAZU action owed: t_stnk0sf school-evac (due Nov 18, awareness-only); t_r1908t7 passport (Dad's plan: hair Nov 20, photo Nov 21). Curriculum still doubly-stopped per Dad's Nov-15 close — untouched. No iMessage sent.
+[DONE] Heartbeat health check — all green, steady state. No action owed. WIP clean.
+Done. Steady-state heartbeat complete.
+
+**This cycle:**
+- Ran `board-health.js`: **0 data gaps, 0 missing fields**, board healthy (11 active items).
+- All backlog items are scoped with guides and gated on Mom/Dad action — `board-reminders.sh` owns that cadence, so nudging would duplicate. Did not churn.
+- Noted two time-sensitive items with no ZAZU action owed: school evacuation (Nov 18, awareness-only) and passport (Dad has a concrete plan).
+- Curriculum delivery remains doubly-stopped per Dad's Nov-15 close — untouched.
+
+No WIP needed, no iMessage sent (nothing noteworthy enough to interrupt). Logged to heartbeat.log, WIP clean. Next heartbeat picks up in ~4.5h.
+[2026-11-17T03:30:34Z] heartbeat.sh complete
+[2026-11-17T05:00:03Z] heartbeat.sh started
+[2026-11-17T05:00:03Z] Launching claude -p work session

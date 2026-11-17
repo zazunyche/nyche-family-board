@@ -1,39 +1,38 @@
-# Staleness Triage — Nov 15, 2026, 6:45 AM
+# Staleness Triage — Nov 16, 2026, 6:45 AM
 
 **Purpose:** The daily brief and board-reminders only *nudge* stalled tasks. This pass flags tasks whose trigger/due window is far enough past that the task is probably **moot or already done in real life**, and recommends a state decision (close / confirm / keep). None of these can be advanced by Zazu — they need a one-word call from Dad or Mom.
 
-12 active tasks: **2 to close**, **2 to confirm**, 8 correctly waiting.
+11 active tasks: **1 to close**, **2 to confirm**, 8 correctly waiting.
 
 ## Recommend CLOSE (likely moot — trigger window long passed)
 
 | ID | Title | Owner | Why | Guide |
 |----|-------|-------|-----|-------|
-| t_r1908t7 | Renew British passport — Dad | DAD | Due 2026-10-17, now 29d past (briefed 104×). Window closed — confirm the real-world outcome: close if done/moot, reschedule if the need still stands. | [passport-renewal-dad.md](../../docs/guides/passport-renewal-dad.md) |
-| t_q5wnyq5 | Complete any open financial planning docs | MOM | Due 2026-10-05, now 41d past (briefed 44×). Window closed — confirm the real-world outcome: close if done/moot, reschedule if the need still stands. | [financial-planning-docs-mom.md](../../docs/guides/financial-planning-docs-mom.md) |
+| t_q5wnyq5 | Complete any open financial planning docs | MOM | Due 2026-10-05, now 42d past (briefed 45×). Window closed — confirm the real-world outcome: close if done/moot, reschedule if the need still stands. | [financial-planning-docs-mom.md](../../docs/guides/financial-planning-docs-mom.md) |
 
 ## Recommend CONFIRM (real, but status almost certainly changed)
 
 | ID | Title | Owner | Why | Guide |
 |----|-------|-------|-----|-------|
-| t_insure01 | Review Acrisure home insurance renewal | DAD | No due date; no movement in 154d (briefed 135×). That much unheeded nudging is itself a signal — confirm whether it's still live or should be closed. | [acrisure-insurance-renewal-dad.md](../../docs/guides/acrisure-insurance-renewal-dad.md) |
-| t_15sig01 | 15 Sigourney — follow up with neighbor on repair | DAD | No due date; no movement in 152d (briefed 135×). That much unheeded nudging is itself a signal — confirm whether it's still live or should be closed. | [15-sigourney-neighbor-dad.md](../../docs/guides/15-sigourney-neighbor-dad.md) |
+| t_insure01 | Review Acrisure home insurance renewal | DAD | No due date; no movement in 155d (briefed 136×). That much unheeded nudging is itself a signal — confirm whether it's still live or should be closed. | [acrisure-insurance-renewal-dad.md](../../docs/guides/acrisure-insurance-renewal-dad.md) |
+| t_r1908t7 | Renew British passport — Dad | DAD | Due 2026-10-17, 30d past (briefed 105×), but you updated it 1d ago — still wanted, just overdue. Reschedule the date or knock it out. | [passport-renewal-dad.md](../../docs/guides/passport-renewal-dad.md) |
 
 ## Keep as-is (correctly waiting)
 
 | ID | Title | Owner | Why | Guide |
 |----|-------|-------|-----|-------|
+| t_15sig01 | 15 Sigourney — follow up with neighbor on repair | DAD | Snoozed until 2026-11-22 — parked by design. | [15-sigourney-neighbor-dad.md](../../docs/guides/15-sigourney-neighbor-dad.md) |
 | t_f7smuoh | Pay Texas Comptroller sales tax — Nyche LLC (Q4  | DAD | Snoozed until 2027-01-01 — parked by design. | — |
 | t_yxb8crl | Pay Texas Comptroller sales tax — Nyche LLC (Q1  | DAD | Snoozed until 2027-04-01 — parked by design. | — |
 | t_4i3duz1 | Pay Texas Comptroller sales tax — Nyche LLC (Q2  | DAD | Snoozed until 2027-07-01 — parked by design. | — |
-| t_stnk0sf | Safe School Evacuation | BOTH | Fresh — 11d in stage, no due date passed. On track. | — |
-| t_curric01 | Decide AI Agents curriculum: reply A / B / C | DAD | Fresh — 7d in stage, no due date passed. On track. | — |
-| t_5gccs1n | Check school conference options | BOTH | Fresh — 6d in stage, no due date passed. On track. | — |
-| t_jzezn90 | Follow up on financial reports | BOTH | Fresh — 4d in stage, no due date passed. On track. | [financial-reports-propmgmt-dad.md](../../docs/guides/financial-reports-propmgmt-dad.md) |
-| t_w3ivbev | Resolve condo payment issue | BOTH | Fresh — 4d in stage, no due date passed. On track. | [15-sigourney-condo-payment-dad.md](../../docs/guides/15-sigourney-condo-payment-dad.md) |
+| t_stnk0sf | Safe School Evacuation | BOTH | Fresh — 12d in stage, no due date passed. On track. | — |
+| t_5gccs1n | Check school conference options | BOTH | Fresh — 7d in stage, no due date passed. On track. | — |
+| t_jzezn90 | Follow up on financial reports | BOTH | Fresh — 5d in stage, no due date passed. On track. | [financial-reports-propmgmt-dad.md](../../docs/guides/financial-reports-propmgmt-dad.md) |
+| t_w3ivbev | Resolve condo payment issue | BOTH | Fresh — 5d in stage, no due date passed. On track. | [15-sigourney-condo-payment-dad.md](../../docs/guides/15-sigourney-condo-payment-dad.md) |
 
 ## Takeaways
 
-1. **2 tasks probably closeable** — a short check with Dad/Mom could clear them off the active board.
+1. **1 task probably closeable** — a short check with Dad/Mom could clear it off the active board.
 2. **2 need a status confirm** — real work whose state has likely moved since last touch.
 3. 8 tasks are correctly waiting (snoozed / future-dated / fresh) — no action.
 
