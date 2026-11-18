@@ -29,6 +29,16 @@ const OUTPUTS_DIR = path.join(__dirname, '../outputs');
 // (e.g. "Book Airbnb for Kojo wedding" vs "Book rental car ... Kojo wedding").
 const SIMILARITY_THRESHOLD = 0.6;
 
+// Relaxed threshold applied ONLY to a pair that shares an identical, non-empty
+// dueDate AND the same category. A shared exact due date is strong corroboration
+// that two tasks are the same event, so we can safely lower the title bar to
+// catch same-event reworded duplicates that Jaccard alone misses — e.g.
+// "Safe School Evacuation" vs "School Evacuation Reminder" (both due 2026-11-18,
+// category HOME) score only 0.50 and slipped through at 0.6. Recurring series
+// (quarterly tax, monthly bills) are NOT at risk here: distinct instances carry
+// distinct due dates, and periodsDiffer() remains a second guard regardless.
+const DUEDATE_SIMILARITY_THRESHOLD = 0.4;
+
 const STOPWORDS = new Set([
   'a', 'an', 'the', 'for', 'to', 'of', 'on', 'in', 'and', 'or', 'with',
   'review', 'follow', 'up', 'send', 'get', 'confirm', 'check',
@@ -128,7 +138,12 @@ function computeClusters(tasks) {
       const b = tokenized[j];
       if (a.task.category !== b.task.category) continue;
       const sim = similarity(a.tokens, b.tokens);
-      if (sim < SIMILARITY_THRESHOLD) continue;
+      // Same-category pairs sharing an identical, non-empty dueDate get the
+      // relaxed threshold (same-event corroboration); everything else uses the
+      // default title-only bar.
+      const sameDueDate = a.task.dueDate && b.task.dueDate && a.task.dueDate === b.task.dueDate;
+      const threshold = sameDueDate ? DUEDATE_SIMILARITY_THRESHOLD : SIMILARITY_THRESHOLD;
+      if (sim < threshold) continue;
       // Skip recurring-series instances (e.g. quarterly tax filings) that
       // differ only by a quarter/year/month marker — these are not duplicates.
       if (periodsDiffer(periodSignature(a.task.title), periodSignature(b.task.title))) continue;
@@ -196,7 +211,11 @@ function run() {
   const doSave = args.includes('--save');
 
   const data = loadBoard();
-  const tasks = (data.tasks || []).filter(t => t.stage !== 'ARCHIVED');
+  // Only open tasks are candidates: a DONE/ARCHIVED task can no longer be
+  // merged, so surfacing it in a dedup-to-merge report is non-actionable noise
+  // (and a merged-duplicate left closed for audit would otherwise re-cluster
+  // against its canonical on every run).
+  const tasks = (data.tasks || []).filter(t => t.stage !== 'ARCHIVED' && t.stage !== 'DONE');
 
   const result = computeClusters(tasks);
 
@@ -222,7 +241,7 @@ function run() {
   const ts = new Date().toLocaleString('en-US', { timeZone: 'America/New_York', dateStyle: 'medium', timeStyle: 'short' });
   lines.push(`# Dedup Report — ${ts}`);
   lines.push('');
-  lines.push(`Title-similarity threshold: ${SIMILARITY_THRESHOLD} (Jaccard, same category required)`);
+  lines.push(`Title-similarity threshold: ${SIMILARITY_THRESHOLD} (Jaccard, same category required; ${DUEDATE_SIMILARITY_THRESHOLD} when the pair shares an identical due date). Open tasks only.`);
   lines.push('');
 
   if (result.length === 0) {
@@ -262,6 +281,7 @@ module.exports = {
   periodsDiffer,
   computeClusters,
   SIMILARITY_THRESHOLD,
+  DUEDATE_SIMILARITY_THRESHOLD,
 };
 
 if (require.main === module) {

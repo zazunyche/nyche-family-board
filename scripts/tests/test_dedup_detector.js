@@ -108,6 +108,42 @@ const phantom = dd.computeClusters([
 ]);
 check('phantom-month dup still clusters', phantom.length === 1 && phantom[0].members.length === 2);
 
+// ── dueDate-aware relaxed threshold ──────────────────────────────────────────
+// Real case this locks down: a same-event pair whose titles score BELOW the
+// default 0.6 bar (here "Safe School Evacuation" vs "School Evacuation Reminder"
+// = Jaccard 0.50) but which share an identical, non-empty dueDate + category →
+// MUST cluster under the relaxed 0.4 threshold. Without a shared due date the
+// same pair must stay UNclustered (title bar unchanged).
+const evac = [
+  { id: 'ev_a', title: 'Safe School Evacuation',      category: 'HOME', stage: 'ACTIVE', owner: 'BOTH', createdAt: '2026-11-04', dueDate: '2026-11-18' },
+  { id: 'ev_b', title: 'School Evacuation Reminder',  category: 'HOME', stage: 'ACTIVE', owner: 'BOTH', createdAt: '2026-11-17', dueDate: '2026-11-18' },
+];
+const evacClusters = dd.computeClusters(evac);
+check('same-dueDate near-dup clusters',   evacClusters.length === 1 && evacClusters[0].members.length === 2);
+
+// Identical titles but DIFFERENT due dates do not get the relaxed bar — however
+// 0.50 < 0.6 means the evac pair must NOT cluster when due dates differ.
+const evacDiffDue = [
+  { id: 'ev_a', title: 'Safe School Evacuation',     category: 'HOME', stage: 'ACTIVE', owner: 'BOTH', createdAt: '2026-11-04', dueDate: '2026-11-18' },
+  { id: 'ev_b', title: 'School Evacuation Reminder', category: 'HOME', stage: 'ACTIVE', owner: 'BOTH', createdAt: '2026-11-17', dueDate: '2026-12-01' },
+];
+check('diff-dueDate near-dup NOT clustered', dd.computeClusters(evacDiffDue).length === 0);
+
+// A shared due date must NOT override the period guard: two recurring instances
+// that happen to carry the same dueDate but differ by quarter marker stay apart.
+const sameDueRecurring = [
+  { id: 'r1', title: 'Pay sales tax (Q4 2026)', category: 'ADMIN', stage: 'IDEA', owner: 'DAD', createdAt: '2026-01-01', dueDate: '2027-01-15' },
+  { id: 'r2', title: 'Pay sales tax (Q1 2027)', category: 'ADMIN', stage: 'IDEA', owner: 'DAD', createdAt: '2026-01-01', dueDate: '2027-01-15' },
+];
+check('period guard survives shared dueDate', dd.computeClusters(sameDueRecurring).length === 0);
+
+// A shared null/undefined dueDate must NOT trip the relaxed bar (both-null guard).
+const nullDue = [
+  { id: 'n1', title: 'Safe School Evacuation',     category: 'HOME', stage: 'ACTIVE', owner: 'BOTH', createdAt: '2026-11-04', dueDate: null },
+  { id: 'n2', title: 'School Evacuation Reminder', category: 'HOME', stage: 'ACTIVE', owner: 'BOTH', createdAt: '2026-11-17', dueDate: null },
+];
+check('shared null dueDate NOT clustered', dd.computeClusters(nullDue).length === 0);
+
 console.log('');
 console.log(`test_dedup_detector: ${passed} passed, ${fail.length} failed`);
 if (fail.length) {

@@ -3369,3 +3369,79 @@ No WIP needed, no iMessage sent (nothing noteworthy enough to interrupt). Logged
 [2026-11-17T03:30:34Z] heartbeat.sh complete
 [2026-11-17T05:00:03Z] heartbeat.sh started
 [2026-11-17T05:00:03Z] Launching claude -p work session
+[2026-11-16 23:30 ET] heartbeat — steady state, no action owed. board-data unchanged since Mom/Dad edit Nov 16 07:00; board-health clean (0 missing fields, 0 gaps, 11 active). All backlog scoped + gated on Mom/Dad; board-reminders owns cadence, no nudge (no churn). Time-sensitive: t_stnk0sf school-evac due Nov 18 (awareness-only, close after it passes). Curriculum still doubly-stopped per Dad Nov-15 close — untouched. Infra at eligible ceiling. No WIP, no iMessage.
+[DONE] Heartbeat health check — all green, steady state. No action owed.
+Steady-state heartbeat complete — no action owed this cycle.
+
+- **Board unchanged** since Mom/Dad's last edit (Nov 16 07:00); `board-health.js` clean — 0 missing fields, 0 data gaps, 11 active items.
+- **All backlog scoped and gated on Mom/Dad** — `board-reminders.sh` owns that cadence, so nudging would duplicate. Did not churn.
+- **Time-sensitive:** school evacuation (t_stnk0sf) due Nov 18 is awareness-only; closeable only after it passes tomorrow. Nothing owed now.
+- **Curriculum** remains doubly-stopped (halt file intact) per Dad's Nov-15 close — untouched.
+- **Infra** at its eligible ceiling (Tier 1/2 done; Tier 3/4 gated on data that doesn't exist yet).
+
+Logged to heartbeat.log, WIP clean, no iMessage sent. Next heartbeat picks up in ~4.5h.
+[2026-11-17T05:00:37Z] heartbeat.sh complete
+[2026-11-17T09:30:03Z] heartbeat.sh started
+[2026-11-17T09:30:04Z] Launching claude -p work session
+[STEADY] Heartbeat 2026-11-17 04:30 ET — baseline green (board-health 0 gaps, dedup 0 clusters, tests 11/11). No new inputs: no unscoped tasks, curriculum stays-stopped, TX windows closed until 2027-01-01. t_stnk0sf (Safe School Evac) due Nov 18, awareness-only, honest-close after it passes. No action owed.
+Steady state confirmed — no action owed this cycle.
+
+**Baseline (all green):**
+- board-health: 63 tasks, 11 active, **0 data-quality gaps**
+- dedup-detector: **0 duplicate clusters**
+- run-tests.sh: **11/11 suites passed**
+
+**New-input scan:** nothing genuinely new. All actionable tasks are already scoped with decision-ready guides; the curriculum is resolved/stays-stopped (`.curriculum-halted` present, consistent with Dad's 2026-11-15 close); TX sales-tax snoozes stay closed until 2027-01-01.
+
+**One thing on the radar (not yet actionable):** t_stnk0sf "Safe School Evacuation" is due tomorrow (Nov 18). It's an awareness-only daycare drill notice — honest-close is *after* Nov 18 passes, so a future heartbeat (or the auto-close-events job) can retire it then.
+
+No WIP file was needed (work was a quick confirmation, not multi-session). Logged the steady-state entry to `logs/heartbeat.log`. No iMessage sent — nothing noteworthy to report to the family.
+[2026-11-17T09:30:49Z] heartbeat.sh complete
+[2026-11-17T14:00:04Z] heartbeat.sh started
+[2026-11-17T14:00:04Z] Launching claude -p work session
+[STEADY] Heartbeat 2026-11-17 09:00 ET — baseline green (board-health 0 missing fields/0 gaps, 11 active). No new inputs; all backlog scoped + gated on Mom/Dad (board-reminders owns cadence, no nudge). t_stnk0sf school-evac due Nov 18 — awareness-only, honest-close after it passes tomorrow. Curriculum stays doubly-stopped (.curriculum-halted intact) per Dad Nov-15 close. Infra at eligible ceiling (Tier 1/2 done, Tier 3/4 data-gated). No WIP, no iMessage.
+Steady-state heartbeat complete — no action owed this cycle.
+
+- **Board healthy:** `board-health.js` clean — 0 missing fields, 0 data-quality gaps, 11 active items. Resistance flags (t_insure01, t_r1908t7, t_q5wnyq5, etc.) are all scoped items gated on Mom/Dad action, which `board-reminders.sh` already handles — nudging would duplicate.
+- **Nothing new:** no unscoped tasks; curriculum stays doubly-stopped (`.curriculum-halted` intact, consistent with Dad's Nov-15 close); TX sales-tax snoozes closed until 2027.
+- **On the radar:** t_stnk0sf "Safe School Evacuation" is due tomorrow (Nov 18), awareness-only — honest-close is *after* it passes, so a later heartbeat retires it then. Nothing owed now.
+- **Infra** at its eligible ceiling (Tier 1/2 complete; Tier 3/4 gated on data that doesn't exist yet).
+
+Logged to `heartbeat.log`, no WIP needed, no iMessage sent.
+[2026-11-17T14:00:38Z] heartbeat.sh complete
+[2026-11-17T18:30:05Z] heartbeat.sh started
+[2026-11-17T18:30:05Z] Launching claude -p work session
+[STEADY] Heartbeat 2026-11-17 13:30 ET — baseline green (board-health 0 data-quality gaps, 11 active, 63 total). Third steady cycle today; nothing new. All backlog scoped + gated on Mom/Dad (board-reminders owns cadence). Overdue items (passport t_r1908t7, fin-planning t_q5wnyq5) have guides ready — no duplicate nudge. Curriculum stays doubly-stopped (.curriculum-halted intact, Dad's Nov-15 close). t_stnk0sf school-evac due tomorrow Nov 18, awareness-only, honest-close after it passes. Infra at eligible ceiling (Tier 1/2 done, Tier 3/4 data-gated). No WIP, no iMessage.
+Steady-state cycle complete. No WIP file created (quick confirmation, not multi-session work), no iMessage sent (nothing noteworthy). Logged to `heartbeat.log`. Board remains healthy and all actionable items are already scoped and owned by Mom/Dad with reminders on their own schedule.
+[2026-11-17T18:30:35Z] heartbeat.sh complete
+[2026-11-17T23:00:06Z] heartbeat.sh started
+[2026-11-17T23:00:06Z] Launching claude -p work session
+
+[DONE] Dedup school-evacuation duplicate + harden detector (2026-11-17 18:00 ET) — Merged new task t_lepw614 ("School Evacuation Reminder") into canonical t_stnk0sf ("Safe School Evacuation"); both same Nov-18 Primrose daycare evacuation event. Closed dup DONE w/ merge note + cross-ref on canonical. Root cause: dedup-detector.js missed it (Jaccard 0.50 < 0.60). Fixed: added dueDate-aware relaxed threshold (0.4 when same category + identical non-null dueDate) + excluded DONE/ARCHIVED from scope. Added 6 tests (24→30), full gate 11/11 green, regenerated dedup-report.md. Board health clean, 64 tasks.
+Work complete. Summary of this heartbeat:
+
+**Task: Dedup a school-evacuation duplicate + fix the root cause**
+
+A new task `t_lepw614` ("School Evacuation Reminder") appeared today — the school's reminder email for the same Nov-18 Primrose daycare evacuation already tracked as the fully-scoped `t_stnk0sf` ("Safe School Evacuation"). Classic notice→reminder duplicate.
+
+What I did:
+1. **Merged the duplicate** following the existing board convention — closed `t_lepw614` DONE with a merge note, added a cross-reference on the canonical `t_stnk0sf`, carried forward nothing (dup had no unique content). Backed up the board first.
+2. **Fixed why the detector missed it.** `dedup-detector.js` uses a 0.60 Jaccard bar; this pair scored exactly 0.50 ("school"+"evacuation" / 4 tokens). Added a **due-date-aware relaxed threshold** (0.40 when a same-category pair shares an identical non-null `dueDate` — strong same-event corroboration), and **excluded DONE/ARCHIVED** from scope so merged-but-kept dups don't re-cluster as noise. The `periodsDiffer` guard still protects recurring series.
+3. **Test coverage + verification:** added 6 assertions (24→30), full nightly gate **11/11 green**, board-health clean (0 missing fields, 64 tasks), regenerated `dedup-report.md`, and confirmed in-memory that the detector would now catch this exact dup class.
+
+Logged to `heartbeat.log` and recorded a memory note. No WIP left behind. Nothing emailed/texted — this was internal data hygiene, not noteworthy enough to ping Mom/Dad.
+[2026-11-17T23:04:07Z] heartbeat.sh complete
+[2026-11-18T03:30:06Z] heartbeat.sh started
+[2026-11-18T03:30:07Z] Launching claude -p work session
+[DONE] Steady-state health check (2026-11-17 22:30 ET) — board-health 0 data gaps / 0 missing fields; dedup 0 clusters; tests 11/11 green. Verified today's school-notice dup merge landed cleanly: t_lepw614 DONE (completedAt set), canonical t_stnk0sf ACTIVE due Nov 18. No new ZAZU work — Tier 3/4 analytics not eligible, backlog all Mom/Dad-action. Uncommitted dedup-detector dueDate-threshold change will be swept by midnight nightly-commit. No WIP, no nudge.
+Done. This heartbeat was a verification cycle — the board is in confirmed steady state (the condition my memory flags as the recurring "nothing to do" pattern), so the correct action was to verify health, confirm today's dedup merge landed cleanly, and avoid fabricating work.
+
+**Summary:**
+- Ran board-health, dedup-detector, and the full test suite — all clean (0 data gaps, 0 dup clusters, 11/11 tests pass)
+- Confirmed today's duplicate merge is consistent in the data: `t_lepw614` is DONE with a completedAt timestamp, `t_stnk0sf` remains the single canonical ACTIVE task (due Nov 18)
+- Logged the clean bill of health to `heartbeat.log`; no WIP file created (no long work), no iMessage sent (nothing noteworthy)
+
+The uncommitted dedup-detector improvement in the working tree is already captured in memory and will be committed by the midnight nightly sync.
+[2026-11-18T03:31:10Z] heartbeat.sh complete
+[2026-11-18T05:00:07Z] heartbeat.sh started
+[2026-11-18T05:00:07Z] Launching claude -p work session
