@@ -1,13 +1,13 @@
-# Wait Ratio Report — Nov 17, 2026, 6:45 AM
+# Wait Ratio Report — Nov 18, 2026, 6:45 AM
 
-_62 of 63 tasks have usable stageHistory. Wait ratio = time in IDEA/RESEARCH ÷ total tracked time. Work stages = ACTIVE/ASSIGNED. Terminal stages (DONE/ARCHIVED) are excluded — post-completion time is not counted._
+_63 of 64 tasks have usable stageHistory. Wait ratio = time in IDEA/RESEARCH ÷ total tracked time. Work stages = ACTIVE/ASSIGNED. Terminal stages (DONE/ARCHIVED) are excluded — post-completion time is not counted._
 
 ## Overall
 
 | Metric | Value |
 |--------|-------|
-| Tasks analyzed | 62 |
-| Average wait ratio | 22.4% |
+| Tasks analyzed | 63 |
+| Average wait ratio | 22.1% |
 | Median wait ratio | 0% |
 
 ## Wait Ratio by Category
@@ -16,27 +16,27 @@ _62 of 63 tasks have usable stageHistory. Wait ratio = time in IDEA/RESEARCH ÷ 
 |----------|---|----------------|--------------------|
 | ADMIN | 21 | 19% | 0% |
 | FAMILY | 25 | 26.6% | 0% |
-| GOALS | 7 | 45.2% | 7.9% |
-| HOME | 9 | 1% | 0% |
+| GOALS | 7 | 45.2% | 7.8% |
+| HOME | 10 | 0.9% | 0% |
 
 ## DONE vs. Still-Open Tasks
 
 | Group | n | Avg wait ratio | Median wait ratio |
 |-------|---|----------------|--------------------|
-| DONE | 51 | 21.3% | 0% |
-| Still open | 11 | 27.7% | 0% |
+| DONE | 53 | 20.5% | 0% |
+| Still open | 10 | 30.4% | 0% |
 
 ## Highest Wait Ratio — Open Tasks (idle the longest relative to effort)
 
 | Task | Category | Stage | Wait Ratio | Total Tracked |
 |------|----------|-------|------------|----------------|
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | IDEA | 100% | 113.3d |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | IDEA | 100% | 113.3d |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | IDEA | 100% | 113.3d |
-| Review Acrisure home insurance renewal | HOME | ACTIVE | 4.5% | 163.5d |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | ACTIVE | 0% | 154.4d |
-| Renew British passport — Dad | ADMIN | ACTIVE | 0% | 113.3d |
-| Complete any open financial planning docs | ADMIN | ACTIVE | 0% | 45.7d |
-| Safe School Evacuation | HOME | ACTIVE | 0% | 12.6d |
-| Check school conference options | FAMILY | ACTIVE | 0% | 7.8d |
-| Follow up on financial reports | ADMIN | ACTIVE | 0% | 5.7d |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | IDEA | 100% | 114.3d |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | IDEA | 100% | 114.3d |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | IDEA | 100% | 114.3d |
+| Review Acrisure home insurance renewal | HOME | ACTIVE | 4.5% | 164.5d |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | ACTIVE | 0% | 155.4d |
+| Renew British passport — Dad | ADMIN | ACTIVE | 0% | 114.3d |
+| Complete any open financial planning docs | ADMIN | ACTIVE | 0% | 46.7d |
+| Check school conference options | FAMILY | ACTIVE | 0% | 8.8d |
+| Follow up on financial reports | ADMIN | ACTIVE | 0% | 6.7d |
+| Resolve condo payment issue | HOME | ACTIVE | 0% | 6.6d |

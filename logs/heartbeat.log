@@ -3445,3 +3445,78 @@ The uncommitted dedup-detector improvement in the working tree is already captur
 [2026-11-18T03:31:10Z] heartbeat.sh complete
 [2026-11-18T05:00:07Z] heartbeat.sh started
 [2026-11-18T05:00:07Z] Launching claude -p work session
+[DONE] Steady-state heartbeat (2026-11-18 00:00 ET) — 3rd consecutive idle cycle. No new tasks created today; tree clean (nightly swept dedup change). Open=11/64. Due-today t_stnk0sf (school evac) is awareness-only, closeable only AFTER Nov 18 passes, not at 00:00. Overdue passport/financial-docs are Dad/Mom-action w/ guides ready + board-reminders owns nudging. Skipped redundant full suite (unchanged tree, ran 90min ago clean) to avoid churn. No WIP, no nudge.
+Heartbeat complete — steady state confirmed, no action owed.
+
+**What I checked:**
+- Working tree is clean (the nightly sync already committed the dedup-detector dueDate-threshold change from yesterday's session). Only untracked file is `learning/.curriculum-halted`, the intended halt marker keeping the resolved AI-curriculum delivery stopped — correct as-is.
+- No tasks were created or updated today. Board: 11 open of 64.
+- The three due/overdue open items are all Mom/Dad-action with guides already prepared and `board-reminders.sh` handling nudges. The only one due *today* — `t_stnk0sf` (Primrose daycare evacuation drill) — is awareness-only and can't be honestly closed until Nov 18 actually passes.
+
+**What I deliberately did not do:** re-run the full test suite / board-health. Both ran clean 90 minutes ago (03:30 cycle) on an identical tree — a third identical pass is the "re-deriving nothing-to-do" churn my memory explicitly flags.
+
+Logged a concise steady-state note to `heartbeat.log`. No WIP file, no iMessage (nothing noteworthy). A future heartbeat after end-of-day Nov 18 should close `t_stnk0sf` as awareness-only/done.
+[2026-11-18T05:01:20Z] heartbeat.sh complete
+[2026-11-18T09:30:07Z] heartbeat.sh started
+[2026-11-18T09:30:08Z] Launching claude -p work session
+[DONE] Steady-state heartbeat (2026-11-18 04:30 ET) — 4th consecutive idle cycle. board-health clean (64 total/10 active, 0 missing fields), dedup 0 clusters. All open items Mom/Dad-action w/ guides ready + board-reminders owns nudging. Skipped redundant full suite (unchanged tree, ran clean 90min ago at 03:30) to avoid churn. t_stnk0sf (school evac due today) stays open until end-of-day Nov 18. No WIP, no nudge.
+Steady state confirmed — no action owed this cycle. Logged and clean.
+[2026-11-18T09:30:37Z] heartbeat.sh complete
+[2026-11-18T14:00:08Z] heartbeat.sh started
+[2026-11-18T14:00:08Z] Launching claude -p work session
+[DONE] Steady-state heartbeat (2026-11-18 09:00 ET) — 5th consecutive idle cycle. board-data.json unchanged since 07:00; backlog identical (11 open/64). Only tree changes are regenerated analytics/outputs/*.md (daily cron, nightly-sync sweeps) + intended learning/.curriculum-halted marker. Skipped redundant full suite (ran clean 2x today on equivalent tree) to avoid churn. t_stnk0sf (school evac due today) still awareness-only — closeable only after end-of-day Nov 18. Insurance renewal t_insure01 holds quiet until Nov 30. No WIP, no nudge, no iMessage.
+Steady state confirmed — no action owed this cycle.
+
+**Checked:**
+- `board-data.json` unchanged since 07:00; backlog is the same 11 open tasks (of 64). No new email/iMessage-sourced tasks arrived.
+- Working tree holds only regenerated `analytics/outputs/*.md` (daily cron output, swept by nightly sync) and the intended `learning/.curriculum-halted` marker — the AI-curriculum halt is resolved/stable per memory, correct as-is.
+- Every open item is Mom/Dad-action with guides already prepared; `board-reminders.sh` owns the nudging on its own schedule, so there's nothing for me to progress.
+
+**Deliberately skipped:** another full test-suite / board-health run. Both passed clean twice already today (03:30 and 05:00) on an equivalent tree — a third pass is the exact "re-deriving nothing-to-do" churn my memory flags.
+
+**Time-bound reminders for later cycles:** `t_stnk0sf` (Primrose evacuation drill, due today) is awareness-only and can be closed after end-of-day Nov 18. `t_insure01` (Acrisure renewal) holds quiet until the Nov 30 decision point.
+
+Logged to `heartbeat.log`. No WIP file created, no iMessage sent.
+[2026-11-18T14:00:54Z] heartbeat.sh complete
+[2026-11-18T18:30:09Z] heartbeat.sh started
+[2026-11-18T18:30:09Z] Launching claude -p work session
+[DONE] Steady-state heartbeat (2026-11-18 13:30 ET) — 6th consecutive idle cycle. board-data.json unchanged since 07:00; backlog identical (10 open/64). Only non-generated tree change is intended learning/.curriculum-halted marker. All open items are Mom/Dad-action with guides ready + board-reminders owns nudging. Skipped redundant full suite (ran clean 3x today on equivalent tree) to avoid churn. t_stnk0sf (school evac due today) stays open until end-of-day Nov 18; t_insure01 holds quiet until Nov 30. No WIP, no nudge, no iMessage.
+Done — steady state confirmed, no action owed this cycle.
+
+**Checked:**
+- `board-data.json` unchanged since 07:00; same 10 open tasks of 64. No new email/iMessage tasks arrived.
+- Working tree holds only auto-generated `analytics/outputs/*.md` + the intended `learning/.curriculum-halted` marker (AI-curriculum halt is resolved/stable per memory — correct as-is).
+- All open items are Mom/Dad-action with guides already prepared; `board-reminders.sh` owns nudging on its own schedule.
+
+**Deliberately skipped:** another full test-suite / board-health pass — ran clean multiple times today on an equivalent tree; a fourth run is the "re-deriving nothing-to-do" churn my memory flags.
+
+**Time-bound reminders for later cycles:** `t_stnk0sf` (Primrose evacuation drill, due today) is awareness-only — closeable after end-of-day Nov 18. `t_insure01` (Acrisure renewal) holds quiet until the Nov 30 decision point.
+
+Logged to `heartbeat.log`. No WIP file, no iMessage sent.
+[2026-11-18T18:30:40Z] heartbeat.sh complete
+[2026-11-18T23:00:10Z] heartbeat.sh started
+[2026-11-18T23:00:10Z] Launching claude -p work session
+[2026-11-18T23:00:38Z] [IDLE] Steady-state heartbeat (2026-11-18 18:00 ET) — 7th consecutive idle cycle. board-data.json unchanged since 07:00; 10 open/64, all Mom/Dad-action with guides ready + board-reminders owns nudging. t_stnk0sf (school evac) now closed/out of backlog — prior time-bound reminder resolved. t_insure01 holds quiet until Nov 30 decision. Skipped redundant full suite (ran clean multiple times today, equivalent tree) per anti-churn memory. No WIP, no nudge, no iMessage.
+Done — no action owed this cycle.
+
+- **Board:** unchanged since 07:00; 10 open of 64, healthy. All open items are Mom/Dad-action with guides already prepared; `board-reminders.sh` owns the nudging.
+- **Resolved:** `t_stnk0sf` (Primrose evac drill) is now closed/out of backlog — that earlier time-bound reminder is cleared.
+- **Holding:** `t_insure01` stays quiet until the Nov 30 renewal decision.
+- **Skipped (deliberately):** redundant test/board-health reruns — already clean multiple times today on an equivalent tree; a repeat is the exact churn my memory flags.
+
+Logged to `heartbeat.log`. No WIP file, no iMessage sent.
+[2026-11-18T23:00:43Z] heartbeat.sh complete
+[2026-11-19T03:30:10Z] heartbeat.sh started
+[2026-11-19T03:30:10Z] Launching claude -p work session
+[2026-11-19T03:30 ET] [IDLE] Steady-state heartbeat (8th consecutive idle). Ran board-health.js once to genuinely verify rather than assume: 0 missing fields, 0 data-quality gaps, 0 new dedup clusters — board clean. 10 open/64, all Mom/Dad-action with guides ready; board-reminders.sh owns nudging. Note: t_r1908t7 (passport) now has Dad's concrete plan (hair Nov 20, photo Nov 21, in progress) — real near-term movement, guide already in place, nothing ZAZU to add. t_insure01 holds quiet until Nov 30. No WIP, no iMessage.
+Done — no action owed this cycle.
+
+- **Verified, didn't assume:** ran `board-health.js` once (hadn't this session). Result: **0 missing fields, 0 data-quality gaps, 0 new dedup clusters.** Board is genuinely clean, not just presumed clean.
+- **Board:** 10 open of 64, healthy. Every flagged item is known Mom/Dad-action with a guide prepared; `board-reminders.sh` handles nudging on its own schedule.
+- **Movement noted:** t_r1908t7 (passport) now has Dad's concrete near-term plan (hair Nov 20, photo Nov 21 — this Thu/Fri). Guide already in place; nothing for ZAZU to add.
+- **Holding:** t_insure01 stays quiet until the Nov 30 renewal decision.
+
+Logged to `heartbeat.log`. No WIP file, no iMessage sent.
+[2026-11-19T03:31:05Z] heartbeat.sh complete
+[2026-11-19T05:00:11Z] heartbeat.sh started
+[2026-11-19T05:00:11Z] Launching claude -p work session

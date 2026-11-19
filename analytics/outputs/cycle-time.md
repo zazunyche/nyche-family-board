@@ -1,13 +1,13 @@
-# Cycle Time Report — Nov 17, 2026, 6:45 AM
+# Cycle Time Report — Nov 18, 2026, 6:45 AM
 
-_52 completed tasks analyzed. 11 active tasks (age shown)._
+_54 completed tasks analyzed. 10 active tasks (age shown)._
 
 ## Overall Lead Time (creation → done)
 
 | Metric | Value |
 |--------|-------|
-| Completed tasks | 52 |
-| Median | 13.4d |
+| Completed tasks | 54 |
+| Median | 13.3d |
 | Min    | 0d |
 | Max    | 138.8d |
 
@@ -18,13 +18,13 @@ _52 completed tasks analyzed. 11 active tasks (age shown)._
 | ADMIN | 14 | 5.4d | 0d | 98.8d |
 | FAMILY | 24 | 13.4d | 0.1d | 68.1d |
 | GOALS | 7 | 52.5d | 3d | 74.5d |
-| HOME | 7 | 47.6d | 0d | 138.8d |
+| HOME | 9 | 13.4d | 0d | 138.8d |
 
 ## Lead Time by Owner (completed tasks)
 
 | Owner | n | Median | Min | Max |
 |-------|---|--------|-----|-----|
-| BOTH | 17 | 13.2d | 0.1d | 46.7d |
+| BOTH | 19 | 13.2d | 0d | 46.7d |
 | DAD | 20 | 17.5d | 0d | 138.8d |
 | MOM | 9 | 35.9d | 0.2d | 110.5d |
 | ZAZU | 6 | 0.2d | 0d | 0.4d |
@@ -35,7 +35,7 @@ _52 completed tasks analyzed. 11 active tasks (age shown)._
 |------|---|--------|-----|-----|
 | DECISION | 4 | 24.4d | 7.3d | 46.7d |
 | ERRAND | 19 | 10.3d | 0.2d | 138.8d |
-| EVENT | 4 | 24.9d | 0.1d | 36.6d |
+| EVENT | 5 | 13.4d | 0.1d | 36.6d |
 | MAINTENANCE | 1 | 15.5d | 15.5d | 15.5d |
 | PROJECT | 13 | 12d | 0d | 74.5d |
 | RESEARCH | 5 | 13.8d | 0.3d | 47.6d |
@@ -44,22 +44,21 @@ _52 completed tasks analyzed. 11 active tasks (age shown)._
 
 | Task | Category | Owner | Stage | Age (days) | effortTag |
 |------|----------|-------|-------|-----------|-----------|
-| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 163.5d | M |
-| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 154.4d | M |
-| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 113.3d | M |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 113.3d | S |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 113.3d | S |
-| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 113.3d | S |
-| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 45.7d | M |
-| Safe School Evacuation | HOME | BOTH | ACTIVE | 12.6d | XS |
-| Check school conference options | FAMILY | BOTH | ACTIVE | 7.8d | S |
-| Follow up on financial reports | ADMIN | BOTH | ACTIVE | 5.7d | S |
-| Resolve condo payment issue | HOME | BOTH | ACTIVE | 5.6d | M |
+| Review Acrisure home insurance renewal | HOME | DAD | ACTIVE | 164.5d | M |
+| 15 Sigourney — follow up with neighbor on … | ADMIN | DAD | ACTIVE | 155.4d | M |
+| Renew British passport — Dad | ADMIN | DAD | ACTIVE | 114.3d | M |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 114.3d | S |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 114.3d | S |
+| Pay Texas Comptroller sales tax — Nyche LL… | ADMIN | DAD | IDEA | 114.3d | S |
+| Complete any open financial planning docs | ADMIN | MOM | ACTIVE | 46.7d | M |
+| Check school conference options | FAMILY | BOTH | ACTIVE | 8.8d | S |
+| Follow up on financial reports | ADMIN | BOTH | ACTIVE | 6.7d | S |
+| Resolve condo payment issue | HOME | BOTH | ACTIVE | 6.6d | M |
 
 ## Stage Dwell Time (tasks with stageHistory)
 
 | Stage | n | Median dwell | Min | Max |
 |-------|---|-------------|-----|-----|
-| ACTIVE | 26 | 5.3d | 0d | 74.4d |
+| ACTIVE | 28 | 5.3d | 0d | 74.4d |
 | ASSIGNED | 1 | 23.2d | 23.2d | 23.2d |
 | IDEA | 18 | 4.2d | 0.2d | 15.5d |
