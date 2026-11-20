@@ -3520,3 +3520,69 @@ Logged to `heartbeat.log`. No WIP file, no iMessage sent.
 [2026-11-19T03:31:05Z] heartbeat.sh complete
 [2026-11-19T05:00:11Z] heartbeat.sh started
 [2026-11-19T05:00:11Z] Launching claude -p work session
+[2026-11-19T05:00 ET] [IDLE] Steady-state heartbeat (9th consecutive idle). Verified not assumed: ran board-health.js (10 open/64, 0 missing fields, 0 data-quality gaps) + dedup-detector.js (0 clusters) — board genuinely clean. All open items Mom/Dad-action with guides ready; board-reminders.sh owns nudging. Checked learning/.curriculum-halted: intact, delivery correctly stays stopped (Dad closed t_curric01 w/ no A/B/C). Passport t_r1908t7 has Dad's live plan (hair Nov20/photo Nov21); t_insure01 holds until Nov 30. No WIP, no iMessage.
+Done — no action owed this cycle. No WIP file created, no iMessage sent (nothing genuinely complete-and-noteworthy to report). Logged to `heartbeat.log`.
+[2026-11-19T05:00:42Z] heartbeat.sh complete
+[2026-11-19T09:30:11Z] heartbeat.sh started
+[2026-11-19T09:30:11Z] Launching claude -p work session
+[2026-11-19T09:30 ET] [IDLE] Steady-state heartbeat (10th consecutive idle). Verified not assumed: board-health.js clean (10 open/64, 0 missing fields, 0 data gaps, 0 new dedup clusters) + full test suite 11/11 green + curriculum halt file intact (delivery correctly stays stopped). All open items are Mom/Dad-action with guides ready; board-reminders.sh owns nudging. Passport t_r1908t7 has Dad's live plan (hair Nov20/photo Nov21); t_insure01 holds quiet until Nov 30 renewal. No new ZAZU work owed. No WIP, no iMessage.
+Done — no action owed this cycle.
+
+- **Verified, didn't assume:** ran `board-health.js` (clean: 10 open/64, 0 missing fields, 0 data gaps, 0 new dedup clusters) and the **full test suite (11/11 green)**. Infra is genuinely healthy, not presumed.
+- **Board:** every open item is known Mom/Dad-action with a guide already prepared; `board-reminders.sh` handles nudging on its own schedule, so no ZAZU duplication.
+- **Movement noted:** passport `t_r1908t7` has Dad's live near-term plan (hair Thu Nov 20, photo Fri Nov 21). `t_insure01` holds quiet until the Nov 30 renewal decision.
+- **Curriculum:** halt file intact — delivery correctly stays stopped (Dad closed `t_curric01` with no A/B/C choice).
+
+Logged to `heartbeat.log`. No WIP file created, no iMessage sent (nothing genuinely complete-and-noteworthy to report).
+[2026-11-19T09:30:47Z] heartbeat.sh complete
+[2026-11-19T14:00:12Z] heartbeat.sh started
+[2026-11-19T14:00:12Z] Launching claude -p work session
+[2026-11-19T09:00 ET] [IDLE] Steady-state. Verified: board-health 0 data gaps (10 open/64), dedup 0 clusters. All open items Mom/Dad-action w/ guides ready; board-reminders.sh owns nudging. No new ZAZU infra work (Tier3/4 gated, reflection needs Dad OK). t_r1908t7 passport has Dad live plan (hair Nov20/photo Nov21); t_insure01 holds until Nov30. Curriculum halt intact. No WIP, no iMessage.
+Idle cycle — no action owed.
+
+**Verified, not assumed:**
+- `board-health.js` clean: 10 open / 64 total, **0 missing fields, 0 data-quality gaps**
+- `dedup-detector.js`: **0 duplicate clusters**
+
+**Board state:** Every open item is known Mom/Dad-action with a guide already prepared; `board-reminders.sh` handles nudging on its own schedule, so no ZAZU duplication. The stuck items (passport, financial-planning-docs, 15 Sigourney trio) are all friction-removed and waiting on the owners.
+
+**No new ZAZU work:** Tier 3/4 analytics are gated on data/time that doesn't exist yet; the reflection layer needs Dad's explicit go-ahead. Curriculum halt file intact — delivery correctly stays stopped.
+
+Logged to `heartbeat.log`. No WIP file, no iMessage (nothing genuinely complete-and-noteworthy to report).
+[2026-11-19T14:00:58Z] heartbeat.sh complete
+[2026-11-19T18:30:13Z] heartbeat.sh started
+[2026-11-19T18:30:13Z] Launching claude -p work session
+[2026-11-19 13:30 ET] [IDLE] Steady-state (11th consecutive idle). Verified not assumed: tests 11/11 green, board-health clean (10 open/64, 0 missing fields, 0 data gaps), dedup 0 clusters, curriculum halt file intact (delivery correctly stays stopped). Checked the 5 NEW-work triggers from board-steady-state memory — none fired: no new task missing taskType/effortTag, no new named-counterparty task lacking a guide (15 Sigourney trio + school conference all scoped), no health/dedup gap, no curriculum A/B/C answer, no snoozed TX window reopened (first 2027-01-01). All open items are Mom/Dad-action with guides ready; board-reminders.sh owns nudging. No new ZAZU work owed. No WIP, no iMessage.
+Steady state confirmed — no action owed this cycle (11th consecutive idle).
+
+**Verified, not assumed:**
+- Test suite **11/11 green**
+- `board-health.js` clean: 10 open / 64 total, **0 missing fields, 0 data gaps**
+- `dedup-detector.js`: **0 clusters**
+- Curriculum halt file intact — delivery correctly stays stopped (Dad closed `t_curric01` with no A/B/C letter)
+
+**Checked for genuinely new inputs** (the 5 triggers from my board-steady-state memory) — none fired: no new task missing taskType/effortTag, no new named-counterparty task lacking a guide (15 Sigourney trio + school conference all already scoped), no health/dedup gap, no curriculum decision, and the first snoozed TX sales-tax window doesn't reopen until 2027-01-01.
+
+Every open item is known Mom/Dad-action with a guide prepared; `board-reminders.sh` owns nudging on its own schedule, so no ZAZU duplication. Passport `t_r1908t7` has Dad's live plan (hair Nov 20 / photo Nov 21); `t_insure01` holds quiet until the Nov 30 renewal.
+
+Logged to `heartbeat.log`. No WIP file (no long work started), no iMessage (nothing complete-and-noteworthy to report).
+[2026-11-19T18:30:56Z] heartbeat.sh complete
+[2026-11-19T23:00:13Z] heartbeat.sh started
+[2026-11-19T23:00:14Z] Launching claude -p work session
+[STEADY] 2026-11-19 18:00 ET — Steady state confirmed, no new inputs. Tests 11/11 green, board-health 0 missing fields, dedup 0 clusters. No new tasks since Nov 11 (all scoped/guided); curriculum stays halted (resolved); TX sales-tax snoozes closed until 2027-01-01. No ZAZU-executable work — family-action items handled by board-reminders.sh. No nudge/iMessage sent.
+Steady state confirmed — no action needed this cycle.
+
+**Summary:**
+- **Health baseline green:** 11/11 test suites pass, board-health reports 0 missing fields, dedup-detector finds 0 clusters.
+- **No new inputs** against any of the five NEW-work triggers: no unscoped new tasks, no data gaps, curriculum already resolved (`.curriculum-halted` correctly in place), TX sales-tax snoozes closed until 2027-01-01.
+- **No WIP written** (nothing started) and **no iMessage sent** — the actionable backlog items all need Mom/Dad action and are already covered by `board-reminders.sh`; duplicating that would just be noise.
+
+Logged an honest `[STEADY]` entry to `logs/heartbeat.log`. This is the intended low-churn output for a quiet cycle rather than a manufactured re-scoping pass.
+[2026-11-19T23:00:56Z] heartbeat.sh complete
+[2026-11-20T03:30:14Z] heartbeat.sh started
+[2026-11-20T03:30:14Z] Launching claude -p work session
+[STEADY] 2026-11-19 22:30 ET — Steady state confirmed. dedup 0 clusters, board-health 0 data gaps (10 open/64 total), curriculum halt intact, newest open task still Nov 11 (no new inputs in 8 days). 2 overdue (passport, fin-planning) are Mom/Dad-action with guides ready; board-reminders.sh owns nudging. No ZAZU-executable work, no WIP, no iMessage.
+Done. Quiet cycle, no action needed — board is healthy and nothing new has arrived since Nov 11. Logged a `[STEADY]` entry. No WIP file was created (no long work started) and no iMessage sent (nothing complete-and-noteworthy to report).
+[2026-11-20T03:30:50Z] heartbeat.sh complete
+[2026-11-20T05:00:14Z] heartbeat.sh started
+[2026-11-20T05:00:15Z] Launching claude -p work session

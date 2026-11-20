@@ -1,4 +1,4 @@
-# Board Health — Nov 18, 2026, 6:45 AM
+# Board Health — Nov 19, 2026, 6:45 AM
 
 ## Summary
 
@@ -33,27 +33,27 @@
 
 | ID | Title | Due | Days Overdue | Owner |
 |----|-------|-----|-------------|-------|
-| t_r1908t7 | Renew British passport — Dad | 2026-10-17 | 32 | DAD |
-| t_q5wnyq5 | Complete any open financial planning docs | 2026-10-05 | 44 | MOM |
+| t_r1908t7 | Renew British passport — Dad | 2026-10-17 | 33 | DAD |
+| t_q5wnyq5 | Complete any open financial planning docs | 2026-10-05 | 45 | MOM |
 
 ## Stale Tasks — no update in 14+ days (3)
 
 | ID | Title | Stage | Age (days) | Owner |
 |----|-------|-------|-----------|-------|
-| t_insure01 | Review Acrisure home insurance renewal | ACTIVE | 157 | DAD |
-| t_r1908t7 | Renew British passport — Dad | ACTIVE | 114 | DAD |
-| t_q5wnyq5 | Complete any open financial planning docs | ACTIVE | 47 | MOM |
+| t_insure01 | Review Acrisure home insurance renewal | ACTIVE | 158 | DAD |
+| t_r1908t7 | Renew British passport — Dad | ACTIVE | 115 | DAD |
+| t_q5wnyq5 | Complete any open financial planning docs | ACTIVE | 48 | MOM |
 
 ## High Brief Count — briefed 3+ times with no completion (6)
 
 | ID | Title | Brief Count | Owner |
 |----|-------|-------------|-------|
-| t_insure01 | Review Acrisure home insurance renewal | 138 | DAD |
-| t_r1908t7 | Renew British passport — Dad | 107 | DAD |
-| t_q5wnyq5 | Complete any open financial planning docs | 47 | MOM |
-| t_5gccs1n | Check school conference options | 8 | BOTH |
-| t_jzezn90 | Follow up on financial reports | 6 | BOTH |
-| t_w3ivbev | Resolve condo payment issue | 6 | BOTH |
+| t_insure01 | Review Acrisure home insurance renewal | 139 | DAD |
+| t_r1908t7 | Renew British passport — Dad | 108 | DAD |
+| t_q5wnyq5 | Complete any open financial planning docs | 48 | MOM |
+| t_5gccs1n | Check school conference options | 9 | BOTH |
+| t_jzezn90 | Follow up on financial reports | 7 | BOTH |
+| t_w3ivbev | Resolve condo payment issue | 7 | BOTH |
 
 ## Data Quality (0 missing fields)
 
@@ -63,13 +63,13 @@
 | effortTag | ✓ none |
 | stageHistory | ✓ none |
 
-## Resistance Flagged — stalled after 3+ briefings (4)
+## Resistance Flagged — stalled after 3+ briefings (6)
 
 | ID | Title | Score | Briefings | Owner |
 |----|-------|-------|-----------|-------|
-| t_insure01 | Review Acrisure home insurance renewal | 5/5 | 138 | DAD |
-| t_r1908t7 | Renew British passport — Dad | 5/5 | 107 | DAD |
-| t_q5wnyq5 | Complete any open financial planning docs | 5/5 | 47 | MOM |
-| t_5gccs1n | Check school conference options | 1/5 | 8 | BOTH |
-
-> **Resistance pending:** t_jzezn90, t_w3ivbev — briefed 3+ times, resistanceScore still 0 (will be set by nightly escalation).
+| t_insure01 | Review Acrisure home insurance renewal | 5/5 | 139 | DAD |
+| t_r1908t7 | Renew British passport — Dad | 5/5 | 108 | DAD |
+| t_q5wnyq5 | Complete any open financial planning docs | 5/5 | 48 | MOM |
+| t_5gccs1n | Check school conference options | 1/5 | 9 | BOTH |
+| t_jzezn90 | Follow up on financial reports | 1/5 | 7 | BOTH |
+| t_w3ivbev | Resolve condo payment issue | 1/5 | 7 | BOTH |
