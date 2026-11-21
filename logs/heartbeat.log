@@ -3586,3 +3586,63 @@ Done. Quiet cycle, no action needed — board is healthy and nothing new has arr
 [2026-11-20T03:30:50Z] heartbeat.sh complete
 [2026-11-20T05:00:14Z] heartbeat.sh started
 [2026-11-20T05:00:15Z] Launching claude -p work session
+[STEADY] 2026-11-20 00:00 ET — Verified green (not just trusted): tests 11/11, board-health 0 missing fields, dedup 0 clusters. No NEW-work triggers (newest open task Nov 11, curriculum halt intact, TX snoozes closed to 2027). Acrisure holds quiet until Nov 30 (10d out); passport is Dad's own in-motion plan today. All actionable backlog is Mom/Dad action w/ guides ready — board-reminders.sh owns nudging. No ZAZU-executable work, no WIP, no iMessage.
+Steady cycle complete. Verified the health baseline genuinely (tests 11/11, board-health 0 missing fields, dedup 0 clusters) rather than assuming it, confirmed no NEW-work triggers fired, logged a `[STEADY]` entry. No WIP file was created and no iMessage sent — the actionable backlog items all need Mom/Dad action and are already covered by `board-reminders.sh`, so duplicating that would just be noise.
+[2026-11-20T05:00:53Z] heartbeat.sh complete
+[2026-11-20T09:30:15Z] heartbeat.sh started
+[2026-11-20T09:30:16Z] Launching claude -p work session
+[STEADY] 2026-11-20 04:30 ET — Verified green: board-health 0 missing fields (10 open/64 total), dedup 0 clusters. No NEW-work triggers (newest open task still Nov 11; curriculum halt intact; TX snoozes closed to 2027). Passport t_r1908t7 is Dad's own in-motion plan TODAY (hair Thu Nov 20 / photo Fri Nov 21) — no Zazu action. Acrisure quiet until Nov 30. All actionable backlog is Mom/Dad-action w/ guides ready; board-reminders.sh owns nudging. No ZAZU-executable work, no WIP, no iMessage.
+Quiet cycle — no action needed. Verified the health baseline genuinely rather than trusting it:
+
+- **board-health.js**: 0 missing fields, 10 open / 64 total, 0 real data gaps
+- **dedup-detector.js**: 0 duplicate clusters
+- **No NEW-work triggers**: newest open task is still Nov 11 (9 days, no new inputs); curriculum halt intact; TX sales-tax snoozes closed to 2027
+
+The two overdue items are both Mom/Dad-action with guides ready (`board-reminders.sh` owns the nudging). Notably, the passport task (t_r1908t7) is **Dad's own in-motion plan for today** — hair Thu Nov 20, photo Fri Nov 21 — so nothing for me to touch there. Acrisure stays quiet until its Nov 30 decision point.
+
+No WIP written (nothing long started), no iMessage sent (nothing complete-and-noteworthy). Logged a `[STEADY]` entry.
+[2026-11-20T09:30:47Z] heartbeat.sh complete
+[2026-11-20T14:00:16Z] heartbeat.sh started
+[2026-11-20T14:00:16Z] Launching claude -p work session
+[STEADY] 2026-11-20 09:00 ET — Verified green: board-health 0 missing fields (10 open/64 total), dedup 0 clusters. No NEW-work triggers (newest open task still Nov 11; curriculum halt intact; TX snoozes closed to 2027). Passport t_r1908t7 is Dad's own in-motion plan for today (hair Nov 20 / photo Fri Nov 21). Acrisure quiet until Nov 30. All actionable backlog is Mom/Dad-action w/ guides ready; board-reminders.sh owns nudging. No ZAZU-executable work, no WIP, no iMessage.
+Quiet cycle — no action needed. Verified the health baseline genuinely rather than trusting it:
+
+- **board-health.js**: 0 missing fields, 10 open / 64 total
+- **dedup-detector.js**: 0 duplicate clusters
+- **No NEW-work triggers**: newest open task is still Nov 11 (9 days, no new inputs); curriculum halt file intact; TX sales-tax snoozes closed to 2027
+
+The flagged stalled items are all Mom/Dad-action with guides ready — `board-reminders.sh` owns the nudging, so duplicating it would just be noise. The passport task (t_r1908t7) is **Dad's own in-motion plan for today** (hair Nov 20, photo Fri Nov 21), and Acrisure stays quiet until its Nov 30 decision point.
+
+No WIP written (nothing long started), no iMessage sent (nothing complete-and-noteworthy). Logged a `[STEADY]` entry.
+[2026-11-20T14:00:40Z] heartbeat.sh complete
+[2026-11-20T18:30:17Z] heartbeat.sh started
+[2026-11-20T18:30:17Z] Launching claude -p work session
+[2026-11-20 13:30 ET] Heartbeat — steady state confirmed, no new inputs. tests 11/11 green, board-health 0 missing fields, dedup 0 clusters. Checked all 5 new-work criteria (new unscoped task / named-counterparty guide gap / health gap / curriculum A-B-C / TX sales-tax snooze): none triggered. Curriculum stays halted (sentinel intact, not auto-committed). No manufactured pass. No WIP.
+Steady state confirmed — nothing to do this cycle, logged honestly.
+
+**Summary:**
+- **Health baseline green:** run-tests.sh 11/11, board-health 0 missing fields, dedup-detector 0 clusters.
+- **No new ZAZU-executable work:** all actionable backlog items are already scoped with guides and need Mom/Dad action (handled by board-reminders.sh). Curriculum stays halted per prior resolution; TX sales-tax tasks correctly snoozed until their 2027 windows.
+- **Minor observation (no action taken):** `learning/.curriculum-halted` will keep showing as untracked in `git status`, but it's harmless — midnight-commit.sh only stages `learning/snippets/` (not the top-level dir) and uses `git add -u`, so the sentinel is never accidentally committed. It's functioning correctly as a local stop flag.
+
+Logged to heartbeat.log; no WIP file written (session was a quick confirmation pass, not multi-step work).
+[2026-11-20T18:31:42Z] heartbeat.sh complete
+[2026-11-20T23:00:17Z] heartbeat.sh started
+[2026-11-20T23:00:17Z] Launching claude -p work session
+[STEADY] 2026-11-20 18:00 ET — Verified green (re-ran, not trusted): board-health 0 missing fields (10 open/64 total), dedup 0 clusters. No new-work triggers: newest open task still Nov 11, all backlog scoped w/ guides ready, curriculum halt intact, TX snoozes parked to 2027. Overdue/stalled (passport/Acrisure/fin-docs) are Mom/Dad-action owned by board-reminders.sh; passport is Dad's in-motion plan (photo Fri Nov 21), Acrisure quiet until Nov 30. No ZAZU-executable work. No WIP, no iMessage.
+Steady-state cycle complete. Baseline verified genuinely (re-ran board-health and dedup rather than trusting prior passes): 0 missing fields across 10 open tasks, 0 duplicate clusters. No new-work triggers fired — all actionable backlog is scoped with delivery-ready guides and owned by `board-reminders.sh` for nudging. No ZAZU-executable work, so no manufactured task, no WIP file, no iMessage. Logged honestly to heartbeat.log.
+[2026-11-20T23:00:49Z] heartbeat.sh complete
+[2026-11-21T03:30:18Z] heartbeat.sh started
+[2026-11-21T03:30:18Z] Launching claude -p work session
+[STEADY] 2026-11-20 22:30 ET — Baseline verified: tests 11/11 green, board-health 0 missing fields, dedup 0 clusters. No new inputs (no unscoped tasks, curriculum stays halted per Dad's close, passport in Dad's own motion, first snooze reopens 2027-01-01). No new ZAZU-executable work — steady state confirmed, no churn.
+Steady state confirmed — nothing new to execute this cycle.
+
+**Summary:**
+- Ran the full baseline: 11/11 tests pass, board-health reports 0 data-quality gaps, dedup-detector finds 0 clusters.
+- Checked all five "new ZAZU work" triggers — none fired. Every actionable task is already scoped with a guide, the curriculum delivery correctly stays halted, and no snooze window has reopened.
+- Logged an honest steady-state entry to `heartbeat.log`. No WIP file created (no multi-session work), nothing to clean up.
+
+The health flags (stale/high-brief-count/resistance on the Dad/Mom-owned items) are all known, already-surfaced signals that require family action — `board-reminders.sh` handles those on its own schedule, so duplicating a nudge here would just be churn.
+[2026-11-21T03:31:00Z] heartbeat.sh complete
+[2026-11-21T05:00:18Z] heartbeat.sh started
+[2026-11-21T05:00:19Z] Launching claude -p work session

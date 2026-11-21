@@ -1,4 +1,4 @@
-# Dedup Report — Nov 19, 2026, 6:45 AM
+# Dedup Report — Nov 20, 2026, 6:45 AM
 
 Title-similarity threshold: 0.6 (Jaccard, same category required; 0.4 when the pair shares an identical due date). Open tasks only.
 
